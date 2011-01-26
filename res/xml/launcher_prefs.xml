@@ -1,0 +1,70 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory 
+    	android:key="@+id/launcher_settings" 
+        android:dialogTitle="dialogtitle"
+        android:title="@string/use_settings_title" 
+    
+    >
+	        <CheckBoxPreference
+                	android:key="use_2d_launcher"
+                android:title="Use 2D Launcher"
+                android:summaryOn="2D launcher will be used"
+                android:summaryOff="3D launcher will be used" 
+		        />
+
+		<CheckBoxPreference
+		 	android:key="using_launcher" 
+	        android:title="@string/tab_title_enable" 
+	        android:summary="@string/using_tabs_summary"
+	        android:enabled="true"
+		
+		
+			/>
+		<CheckBoxPreference
+		 	android:key="screen_changer" 
+	        android:title="@string/screen_changer_title" 
+	        android:summary="@string/screen_changer_title_summary"
+	        android:enabled="true"
+		
+		
+			/>
+	</PreferenceCategory> 
+    <PreferenceCategory 
+    	android:key="@+id/mappings" 	
+    	android:title="@string/mappings_title"
+    	android:enabled="true"
+    	android:disableDependentsState="true">
+
+	
+
+        	<ListPreference 
+                android:key="launcher_lefttab" 
+    			android:dependency="using_launcher"
+                android:dialogTitle="Right button app."
+                android:title="Left launcher button" 
+                android:entries="@array/entries_leftbutton" 
+                android:entryValues="@array/entryvalues_leftbutton" />
+        	<ListPreference 
+                android:key="launcher_righttab"     
+    			android:dependency="using_launcher"
+                android:title="Right launcher button" 
+                android:dialogTitle="dialogtitle"
+                android:entryValues="@array/entryvalues_leftbutton" /> 
+        
+	</PreferenceCategory>
+	<PreferenceCategory
+    	android:key="@+id/number_screens" 	
+    	android:title="@string/number_screens_title"
+    	android:enabled="true"
+    	android:disableDependentsState="true">
+			<ListPreference
+			 	  			android:key="num_screens"	
+    						android:dependency="screen_changer"					
+				  			android:title="@string/homescreen_elements"
+			 	  			android:summary="@string/homescreen_elements_about"		 	  		
+                			android:entries="@array/number_of_screens"
+			                android:entryValues="@array/number_of_screens_value"/>
+	</PreferenceCategory>
+</PreferenceScreen>
+

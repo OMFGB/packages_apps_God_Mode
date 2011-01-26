@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
+
+
+	<CheckBoxPreference
+		android:key="use_screenon_anim"
+		android:title="@string/title_use_screenon_anim"
+		android:summaryOn="@string/summary_on_use_screenon_anim"
+		android:summaryOff="@string/summary_off_use_screenon_anim" 
+	/>
+
+	<CheckBoxPreference
+		android:key="use_screenoff_anim"
+		android:title="@string/title_use_screenoff_anim"
+		android:summaryOn="@string/summary_on_use_screenoff_anim"
+		android:summaryOff="@string/summary_off_use_screenoff_anim" 
+	/>
+
+        <ListPreference 
+		android:key="battery_option" 
+		android:dialogTitle="@string/battery_option_dialog_title"
+            	android:title="@string/battery_option_title" 
+		android:summary="@string/battery_option_summary"
+            	android:entries="@array/entries_batterytypes" 
+		android:entryValues="@array/entryvalues_batterytypes" 
+	/>
+
+</PreferenceCategory>
+
+    <!-- Expanded View Power Widget -->
+   <PreferenceCategory android:title="@string/title_expanded_widget">
+      <CheckBoxPreference android:key="expanded_widget"
+         android:title="@string/title_expanded_widget"
+         android:summary="@string/summary_expanded_widget"
+         android:defaultValue="true" />
+      <PreferenceScreen android:key="widget_picker"
+          android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
+          <intent android:action="android.intent.action.MAIN"
+              android:targetPackage="com.android.spare_parts"
+              android:targetClass="com.android.spare_parts.WidgetActivity" />
+      </PreferenceScreen>
+   </PreferenceCategory>
+
+</PreferenceScreen>
