@@ -1,21 +1,35 @@
+
+
+
 package com.t3hh4xx0r.god_mode;
 
 import java.util.List;
 
+import com.t3hh4xx0r.god_mode.applications.ApplicationsState;
+
+
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceManager;
+import android.preference.PreferenceManager;		
 import android.preference.PreferenceScreen;
+
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,6 +48,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private ListPreference mLAB;
 	private ListPreference mRAB;	
 	private ListPreference mScreenPreference;
+
 	
 	// Preference screens
 	
@@ -49,15 +64,25 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private ActivityManager activityManager;
 	
-	// Strings	
-	private String[] mAppNames;
-        private static final String LAUNCHER_2D = "use_2d_launcher";
+    // Strings	
+    private String[] mAppNames;
+    private static final String LAUNCHER_2D = "use_2d_launcher";
     private static final String THREE = "Three";
     private static final String FIVE = "Five";
     private static final String SEVEN = "Seven";
     private static final String SCREENSETTINGS = "NUM_SCREENS";
     // Activity Names 
     private static final String LAUNCHER = "com.android.launcher";
+    
+    
+    private static final int OP_SUCCESSFUL = 1;
+    private static final int OP_FAILED = 2;
+    private static final int CLEAR_USER_DATA = 1;
+    
+  
+
+    private ApplicationsState mState;
+    private ApplicationsState.AppEntry mAppEntry;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {	
@@ -73,23 +98,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		setPreferences();
 		setInitialActionButtons();
 
-                mUse2dLaunchPref = (CheckBoxPreference)prefSet.findPreference(LAUNCHER_2D);
-                mUse2dLaunchPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_2D_LAUNCHER   , 0) != 0); 
+		getPackges();
 
-		PackageManager pm = getPackageManager();
-		List<PackageInfo> packs = getPackageManager().getInstalledPackages(PackageManager.GET_ACTIVITIES);
-		int max = packs.size();
-		mAppNames = new String[max];
-		for (int i = 0; i < max; i++) {  
 
-		  	try {
-				   if(DBG)Log.d("LauncherMode", "packageName: " + packs.get(i).packageName );
-				   mAppNames[i] = packs.get(i).packageName;
-			   }
-			catch (NullPointerException e) {
-			       Log.d("LauncherMode", "NullPointerException @: " + i);
-			   }    		   
-        	}  
 		
 		setLeftActionButton();
 		setRightActionButton();
@@ -100,19 +111,41 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 		
 	}
-	public void setPreferences(){
-		
-		mMappings = (PreferenceCategory) findPreference("mappings");
-		mUseSettings = (PreferenceCategory) findPreference("use_settings");		
-		mMappingCheckBox = (CheckBoxPreference) findPreference("using_launcher");
-		mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
+   public void getPackges(){
 
-		mLAB = (ListPreference) findPreference("launcher_lefttab");
-		mRAB = (ListPreference) findPreference("launcher_righttab");
-		mScreenPreference = (ListPreference) findPreference("num_screens");
-		//mMappings.setDependency("using_launcher");
+	PackageManager pm = getPackageManager();
+	List<PackageInfo> packs = getPackageManager().getInstalledPackages(PackageManager.GET_ACTIVITIES);
+	int max = packs.size();
+	mAppNames = new String[max];
+	for (int i = 0; i < max; i++) {  
+		  try {
+			   if(DBG)Log.d("LauncherMode", "packageName: " + packs.get(i).packageName );
+			   mAppNames[i] = packs.get(i).packageName;
+			 }
+		catch (NullPointerException e) {
+		      Log.d("LauncherMode", "NullPointerException @: " + i);
+		 }    		   
+            }  
+	}
+   public void setPreferences(){
+		
+
+	mUse2dLaunchPref = (CheckBoxPreference) findPreference(LAUNCHER_2D);
+    mUse2dLaunchPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_2D_LAUNCHER   , 0) != 0); 
+
 
 	
+	mMappingCheckBox = (CheckBoxPreference) findPreference("using_launcher");
+	mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
+
+	mMappings = (PreferenceCategory) findPreference("mappings");
+	mLAB = (ListPreference) findPreference("launcher_lefttab");
+	mRAB = (ListPreference) findPreference("launcher_righttab");
+
+	mUseSettings = (PreferenceCategory) findPreference("use_settings");	
+	mScreenPreference = (ListPreference) findPreference("num_screens");
+              	
+
 	}
 	
 	public void setInitialActionButtons(){
@@ -176,38 +209,23 @@ LEFT_AB));
 	        }
 	        if (key ==  mMappingCheckBox.getKey())
 	        {
-	        	updateMappingsDependancies();
 	        	
 	        }
 	        //This is the skeleton for the number of screen to change to
 	        if(key == mScreenPreference.getKey()){
 	          
-	        		Log.v(TAG, "on shared preference change in God Mode");
+	        if(DBG)Log.v(TAG, "on shared screen preference change in God Mode");
 	        		
 	        		
-	        		registerScreenChange(mScreenPreference.getEntry().toString());
-	        		restartLauncher2(activityManager);
+	        	registerScreenChange(mScreenPreference.getEntry().toString());
+			
+	        	restartLauncher2(activityManager);
 	        			
 	        	
 	        }
 	        
         
         
-        }
-        public void updateMappingsDependancies(){
-        	
-        	if(mMappingCheckBox.isEnabled()){
-        			//mMappings.setEnabled(true);
-              		//mLAB.setEnabled(true);
-              		//mRAB.setEnabled(true);
-        	}
-        	else{
-    			//mMappings.setEnabled(false);
-        		//mLAB.setEnabled(false);
-          		//mRAB.setEnabled(false);
-        	}
-        		
-        	
         }
 
 
@@ -280,9 +298,15 @@ LEFT_AB));
      		
      	 	activity.killBackgroundProcesses(LAUNCHER);	
          }
-         
+ 
+    
+  
+    
+    
+    
          
 }
+
 
  
 

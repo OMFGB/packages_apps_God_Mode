@@ -110,7 +110,7 @@ public class GodMode extends PreferenceActivity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.layout.god_mode);
+        addPreferencesFromResource(R.xml.god_mode);
 
         PreferenceScreen prefSet = getPreferenceScreen();
         
