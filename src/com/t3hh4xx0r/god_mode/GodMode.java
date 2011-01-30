@@ -42,6 +42,9 @@ import android.view.IWindowManager;
 
 import java.util.List;
 
+import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.god_mode.R.xml;
+
 public class GodMode extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
@@ -107,7 +110,7 @@ public class GodMode extends PreferenceActivity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.god_mode);
+        addPreferencesFromResource(R.layout.god_mode);
 
         PreferenceScreen prefSet = getPreferenceScreen();
         

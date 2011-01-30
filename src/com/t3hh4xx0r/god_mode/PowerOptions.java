@@ -1,9 +1,9 @@
 package com.t3hh4xx0r.god_mode;
 
-import com.android.spare_parts.R;
-import com.android.spare_parts.R.drawable;
-import com.android.spare_parts.R.id;
-import com.android.spare_parts.R.layout;
+import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.god_mode.R.drawable;
+import com.t3hh4xx0r.god_mode.R.id;
+import com.t3hh4xx0r.god_mode.R.layout;
 
 import android.app.Activity;
 import android.app.Dialog;

@@ -24,7 +24,7 @@ import android.widget.Toast;
 public class LauncherMode extends PreferenceActivity
 implements SharedPreferences.OnSharedPreferenceChangeListener {
 	
-    private static final String TAG = "LauncherParts";
+    private static final String TAG = "LauncherMode";
     private boolean DBG = true;
 
 	private static final String RIGHT_AB = "rightaction_button";
@@ -64,7 +64,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		super.onCreate(savedInstanceState);
 		// add the preferences and the default values
 		addPreferencesFromResource(R.xml.launcher_prefs);
-		PreferenceManager.setDefaultValues(LauncherParts.this, R.xml.launcher_prefs, false);
+		PreferenceManager.setDefaultValues(LauncherMode.this, R.xml.launcher_prefs, false);
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 		PreferenceScreen prefSet = getPreferenceScreen();
@@ -83,11 +83,11 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		for (int i = 0; i < max; i++) {  
 
 		  	try {
-				   if(DBG)Log.d("LauncherParts", "packageName: " + packs.get(i).packageName );
+				   if(DBG)Log.d("LauncherMode", "packageName: " + packs.get(i).packageName );
 				   mAppNames[i] = packs.get(i).packageName;
 			   }
 			catch (NullPointerException e) {
-			       Log.d("LauncherParts", "NullPointerException @: " + i);
+			       Log.d("LauncherMode", "NullPointerException @: " + i);
 			   }    		   
         	}  
 		

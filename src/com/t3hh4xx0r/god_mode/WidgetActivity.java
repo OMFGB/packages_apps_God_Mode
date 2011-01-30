@@ -1,6 +1,6 @@
-package com.android.spare_parts;
+package com.t3hh4xx0r.god_mode;
 
-import com.android.spare_parts.R;
+import com.t3hh4xx0r.god_mode.R;
 
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
