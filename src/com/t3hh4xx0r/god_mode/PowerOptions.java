@@ -1,4 +1,4 @@
-package com.t3hh4xx0r.god_mode
+package com.t3hh4xx0r.god_mode;
 
 import com.android.spare_parts.R;
 import com.android.spare_parts.R.drawable;
