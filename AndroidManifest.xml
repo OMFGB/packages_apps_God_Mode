@@ -13,14 +13,14 @@
     <application android:label="@string/app_label"
             android:icon="@drawable/app_icon">
 
-        <activity android:name="SpareParts">
+        <activity android:name="GodMode">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LockscreenParts" android:label="@string/settings_lockscreen">
+        <activity android:name=".LockscreenMode" android:label="@string/settings_lockscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -35,7 +35,7 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LauncherParts" android:label="@string/settings_launcher">
+        <activity android:name=".LauncherMode" android:label="@string/settings_launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>                            
             </intent-filter>
