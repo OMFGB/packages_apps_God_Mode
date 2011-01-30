@@ -24,41 +24,41 @@ import android.provider.Settings.SettingNotFoundException;
 
 public class UiOptions extends PreferenceActivity implements OnPreferenceChangeListener {
 
-	private static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
-	private static final String USE_SCREENON_ANIM = "use_screenon_anim";
-	private static final String BATTERY_OPTION = "battery_option";
+    private static final String USE_SCREENON_ANIM = "use_screenon_anim";
+    private static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
+    
+    private static final String BATTERY_OPTION = "battery_option";
 
-        private static final String UI_EXP_WIDGET = "expanded_widget";
-        private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
-        private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
+    private static final String UI_EXP_WIDGET = "expanded_widget";
+    private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
+    private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
+    private CheckBoxPreference mUseScreenOnAnim;
+    private CheckBoxPreference mUseScreenOffAnim;
+    private ListPreference mBatteryOption;
 	
-	private CheckBoxPreference mUseScreenOnAnim;
-	private CheckBoxPreference mUseScreenOffAnim;
-	private ListPreference mBatteryOption;
-	
-        private CheckBoxPreference mPowerWidget;
-        private Preference mPowerWidgetColor;
-        private PreferenceScreen mPowerPicker;
+    private CheckBoxPreference mPowerWidget;
+    private Preference mPowerWidgetColor;
+    private PreferenceScreen mPowerPicker;
 
 	
-	@Override
-    public void onCreate(Bundle savedInstanceState) {	
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.ui_options);
-		PreferenceScreen prefSet = getPreferenceScreen();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {		
+	super.onCreate(savedInstanceState);
+	addPreferencesFromResource(R.xml.ui_options);
+	PreferenceScreen prefSet = getPreferenceScreen();
 
-		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENON_ANIM);
-		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, 1) == 0);
-		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENOFF_ANIM);
-		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENOFF_ANIM, 1) == 1);		
+	mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENON_ANIM);
+	mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, 0) == 1);
+	mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENOFF_ANIM);
+	mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENOFF_ANIM, 1) == 1);		
 		
-		mBatteryOption = (ListPreference) prefSet.findPreference(BATTERY_OPTION);
-		mBatteryOption.setOnPreferenceChangeListener(this);
+	mBatteryOption = (ListPreference) prefSet.findPreference(BATTERY_OPTION);
+	mBatteryOption.setOnPreferenceChangeListener(this);
 /* Expanded View Power Widget */
-                mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
-      	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
-                mPowerPicker = (PreferenceScreen)prefSet.findPreference(UI_EXP_WIDGET_PICKER);
-		mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
+        mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
+      	mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
+        mPowerPicker = (PreferenceScreen)prefSet.findPreference(UI_EXP_WIDGET_PICKER);
+	mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
 		Settings.System.EXPANDED_VIEW_WIDGET, 1) == 1));
     }
 
