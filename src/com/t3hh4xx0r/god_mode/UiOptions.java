@@ -24,8 +24,8 @@ import android.provider.Settings.SettingNotFoundException;
 
 public class UiOptions extends PreferenceActivity implements OnPreferenceChangeListener {
 
-	private static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
 	private static final String USE_SCREENON_ANIM = "use_screenon_anim";
+	private static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
 	private static final String BATTERY_OPTION = "battery_option";
 
         private static final String UI_EXP_WIDGET = "expanded_widget";
@@ -48,7 +48,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		PreferenceScreen prefSet = getPreferenceScreen();
 
 		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENON_ANIM);
-		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, 1) == 0);
+		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, 0) == 1);
 		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENOFF_ANIM);
 		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENOFF_ANIM, 1) == 1);		
 		
