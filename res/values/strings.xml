@@ -70,16 +70,15 @@
     <string name="custom_settings">Customizable Settings</string>
 
     <!-- Launcher -->
+    <string name="homescreen_elements">Home Screens</string>
+    <string name="homescreen_elements_about">Select number of home screens</string>
+    <string name="choose_num_screens">Choose the number of home screens</string>
+    <string name="three_screens">Three screens</string>
+    <string name="five_screens">Five screens</string>
+    <string name="seven_screens">Seven screens</string>
     
-	<string name="homescreen_elements">Home Screens</string>
-	<string name="homescreen_elements_about">Select number of home screens</string>
-	<string name="choose_num_screens">Choose the number of home screens</string>
-	<string name="three_screens">Three screens</string>
-	<string name="five_screens">Five screens</string>
-	<string name="seven_screens">Seven screens</string>
     
-    
-      <string name="number_screens_title">Change the number of screens</string>
+    <string name="number_screens_title">Change the number of screens</string>
     <string name="screen_changer_title">Screen number</string>
     <string name="screen_changer_title_summary">Set the number of screens</string>
     <string name="use_settings_title">Enable/Disable Settings</string>
@@ -101,6 +100,9 @@
     <string name="title_general_use_rotary_lockscreen">Use Rotary Lockscreen?</string>
     <string name="summary_on_general_use_rotary_lockscreen">Rotary lockscreen will be used</string>
     <string name="summary_off_general_use_rotary_lockscreen">Rotary lockscreen will not be used</string>
+    <string name="title_use_stock_lockscreen_layout">Lockscreen Layout</string>
+    <string name="summary_on_use_stock_lockscreen_layout">Stock offset style lockscreen will be used</string>
+    <string name="summary_off_use_stock_lockscreen_layout">OMFGB style centered lockscreen will be used</string>
 
     <!-- UiOptions -->
     <string name="settings_uioptions">Ui Settings</string>

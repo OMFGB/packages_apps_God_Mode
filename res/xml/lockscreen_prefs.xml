@@ -14,13 +14,10 @@
 		android:summaryOn="@string/summary_on_general_use_rotary_lockscreen"
 		android:summaryOff="@string/summary_off_general_use_rotary_lockscreen" 
 	/>
-        <ListPreference 
-                android:key="lock_tab" 
-                android:dialogTitle="dialogtitle"
-                android:title="title" 
-                android:summary="summary"
-                android:entries="@array/entries_righttab" 
-                android:entryValues="@array/entryvalues_righttab" 
-        />
+	<CheckBoxPreference
+		android:key="use_stock_lockscreen_layout"
+		android:title="@string/title_use_stock_lockscreen_layout"
+		android:summaryOn="@string/summary_on_use_stock_lockscreen_layout"
+		android:summaryOff="@string/summary_off_use_stock_lockscreen_layout" />      
 
 </PreferenceScreen>

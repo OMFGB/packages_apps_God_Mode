@@ -24,9 +24,11 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	private static final String CARRIER_CAP = "carrier_caption";
 	private static final String LOCKSCREEN_ROTARY_LOCK = "use_rotary_lockscreen";
+	private static final String USE_STOCK_LOCKSCREEN_LAYOUT = "use_stock_lockscreen_layout";
 	
 	private EditTextPreference mCarrierCaption;
 	private CheckBoxPreference mUseRotaryLockPref;
+	private CheckBoxPreference mUseStockLockscreenLayoutPref;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {	
@@ -37,6 +39,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		
 		mUseRotaryLockPref = (CheckBoxPreference)prefSet.findPreference(LOCKSCREEN_ROTARY_LOCK);
 		mUseRotaryLockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_ROTARY_LOCKSCREEN, 0) != 0);		
+		mUseStockLockscreenLayoutPref = (CheckBoxPreference) prefSet.findPreference(USE_STOCK_LOCKSCREEN_LAYOUT);
+		mUseStockLockscreenLayoutPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_STOCK_LOCKSCREEN_LAYOUT, 0) != 0);	
 
 		mCarrierCaption = (EditTextPreference)prefSet.findPreference(CARRIER_CAP);
 
@@ -59,7 +63,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
             ActivityManager am = (ActivityManager)getSystemService(
                     Context.ACTIVITY_SERVICE);
             am.forceStopPackage("com.android.phone");
-        }
+        }  else if (preference == mUseStockLockscreenLayoutPref) {
+		    value = mUseStockLockscreenLayoutPref.isChecked();
+		    Settings.System.putInt(getContentResolver(), Settings.System.USE_STOCK_LOCKSCREEN_LAYOUT, value ? 1 : 0);
+	}
         return true;
     }
 	
