@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/* //device/apps/common/assets/res/any/strings.xml
+**
+** Copyright 2006, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+<resources>
+    <string name="app_label">God Mode</string>
+
+    <string name="device_info_title">Device info</string>
+
+    <string name="stark_theme_title">Use Stark Theme</string>
+    <string name="stark_summary_on">Using the Stark theme</string>
+    <string name="stark_summary_off">Using the  Gingerbread theme</string>
+    
+    <string name="title_battery_history">Battery history</string>
+    <string name="summary_battery_history">Summary of how battery has been used</string>
+    
+    <string name="title_battery_information">Battery information</string>
+    <string name="summary_battery_information">Current battery status information</string>
+    
+    <string name="title_usage_statistics">Usage statistics</string>
+    <string name="summary_usage_statistics">Summary of application usage</string>
+    
+    <string name="general_title">General</string>
+    
+    <string name="title_window_animations">Window animations</string>
+    <string name="summary_window_animations">Speed of animations in individual windows</string>
+    <string name="dialog_title_window_animations">Select window speed</string>
+    
+    <string name="title_transition_animations">Transition animations</string>
+    <string name="summary_transition_animations">Speed of animations moving between screens</string>
+    <string name="dialog_title_transition_animations">Select transition speed</string>
+    
+    <string name="title_fancy_ime_animations">Fancy input animations</string>
+    <string name="summary_on_fancy_ime_animations">Use fancier animations for input method windows</string>
+    <string name="summary_off_fancy_ime_animations">Use normal animations for input method windows</string>
+    
+    <string name="title_haptic_feedback">Haptic feedback</string>
+    <string name="summary_on_haptic_feedback">Use haptic feedback with user interaction</string>
+    <string name="summary_off_haptic_feedback">Use haptic feedback with user interaction</string>
+    
+    <string name="title_font_size">Font size</string>
+    <string name="summary_font_size">Overall size of fonts</string>
+    <string name="dialog_title_font_size">Select font size</string>
+    
+    <string name="title_end_button">End button behavior</string>
+    <string name="summary_end_button">Select End (red) button action</string>
+    <string name="dialog_title_end_button">Select End button</string>
+    
+    <string name="applications_title">Applications</string>
+    
+    <!-- Sound & display settings screen, compatibility mode check box label -->
+    <string name="compatibility_mode_title">Compatibility Mode</string>
+    <!-- Sound & display settings screen, compatibility mode option summary text when check box is selected -->
+    <string name="compatibility_mode_summary_on">Run older apps in Compatibility mode. This require rebooting. </string>
+    <!-- Sound & display settings screen, compatibility mode option summary text when check box is clear -->
+    <string name="compatibility_mode_summary_off">Run older apps in Compatibility mode. This require rebooting. </string>
+
+    <!-- New Settings strings added for OMFGB Customization -->
+    <string name="custom_settings">Customizable Settings</string>
+
+    <!-- Launcher -->
+    <string name="homescreen_elements">Home Screens</string>
+    <string name="homescreen_elements_about">Select number of home screens</string>
+    <string name="choose_num_screens">Choose the number of home screens</string>
+    <string name="three_screens">Three screens</string>
+    <string name="five_screens">Five screens</string>
+    <string name="seven_screens">Seven screens</string>
+    
+    
+    <string name="number_screens_title">Change the number of screens</string>
+    <string name="screen_changer_title">Screen number</string>
+    <string name="screen_changer_title_summary">Set the number of screens</string>
+    <string name="use_settings_title">Enable/Disable Settings</string>
+    <string name="mappings_title">Button Mappings</string>
+    <string name="tab_title_enable">Launcher mappings</string>
+    <string name="using_tabs_summary">Set left and right launcher tabs</string>
+    <string name="settings_launcher">Launcher Settings</string>
+    <string name="settings_launcher_summary">Customize your launcher</string>
+    <string name="select_farright_button">Select far right action button.</string>
+    <string name="title_general_use_stock_launcher">Use Stock Launcher</string>
+    <string name="summary_on_general_use_stock_launcher">Stock launcher will be used.</string>
+    <string name="summary_off_general_use_stock_launcher"> Custom Launcher will be used.</string>	
+
+    <string name="group_applications">Applications</string>
+
+    <!-- Lockscreen -->
+    <string name="settings_lockscreen">Lockscreen Settings</string>
+    <string name="settings_lockscreen_summary">Customize your lockscreen</string>
+    <string name="title_trackpad_wake_screen">Trackpad Wake</string>
+    <string name="summary_on_trackpad_wake_screen">Pressing the trackpad will wake the device</string>
+    <string name="summary_off_trackpad_wake_screen">Pressing the trackpad to wake the device will be disabled</string>
+    <string name="title_trackpad_unlock_screen">Trackpad unlock</string>
+    <string name="summary_on_trackpad_unlock_screen">Pressing the trackpad will unlock the device</string>
+    <string name="summary_off_trackpad_unlock_screen">Pressing the trackpad to unlock the device is disabled</string>
+    <string name="title_menu_unlock_screen">Menu unlock</string>
+    <string name="summary_on_menu_unlock_screen">Pressing the menu key will unlock the device</string>
+    <string name="summary_off_menu_unlock_screen">Pressing the menu key to unlock the device is disabled</string>
+    <string name="title_general_use_rotary_lockscreen">Use Rotary Lockscreen?</string>
+    <string name="summary_on_general_use_rotary_lockscreen">Rotary lockscreen will be used</string>
+    <string name="summary_off_general_use_rotary_lockscreen">Rotary lockscreen will not be used</string>
+    <string name="title_lockscreen_always_battery">Lockscreen Battery</string>
+    <string name="summary_on_lockscreen_always_battery">Battery percentage will always show on lockscreen</string>
+    <string name="summary_off_lockscreen_always_battery">Battery percentage will only show when charging</string>
+    <string name="title_use_stock_lockscreen_layout">Lockscreen Layout</string>
+    <string name="summary_on_use_stock_lockscreen_layout">Stock offset style lockscreen will be used</string>
+    <string name="summary_off_use_stock_lockscreen_layout">OMFGB style centered lockscreen will be used</string>
+
+    <!-- UiOptions -->
+    <string name="settings_uioptions">Ui Settings</string>
+    <string name="settings_uioptions_summary">Customize your Ui</string>
+    <string name="misc_ui_settings_category">Misc UI Settings</string>
+    <string name="music_control_settings_category">Music control settings</string>
+
+    <string name="title_use_screenon_anim">Use Screen On Animation?</string>
+    <string name="summary_on_use_screenon_anim">Screen On Animation will be used</string>
+    <string name="summary_off_use_screenon_anim">Screen On Animation will not be used</string>
+
+    <string name="title_use_screenoff_anim">Use Screen Off Animation?</string>
+    <string name="summary_on_use_screenoff_anim">Screen Off Animation will be used</string>
+    <string name="summary_off_use_screenoff_anim">Screen Off Animation will not be used</string>
+
+    <string name="battery_option_dialog_title">Battery</string>
+    <string name="battery_option_title">Battery type</string>
+    <string name="battery_option_summary">Choose the battery type to use (Requires reboot)</string>
+
+    <string name="title_volume_music_controls">Volume music controls</string>
+    <string name="summary_on_volume_music_controls">Long pressing volume buttons will change tracks with screen off</string>
+    <string name="summary_off_volume_music_controls">Long pressing to change tracks will not be used</string>
+
+<!-- Expanded View Power Widget -->
+    <string name="title_widget_buttons">Expanded View Widget</string>
+    <string name="title_expanded_widget">Notification power widget</string>
+    <string name="summary_expanded_widget">Use the expanded views power widget</string>
+    <string name="expanded_color_mask">Indicator color</string>
+    <string name="title_widget_picker">Widget buttons</string>
+    <string name="summary_widget_picker">Pick your widget buttons</string>
+    <string name="title_toggle_wifi">Toggle Wifi</string>
+    <string name="title_toggle_bluetooth">Toggle Bluetooth</string>
+    <string name="title_toggle_gps">Toggle GPS</string>
+    <string name="title_toggle_sound">Toggle Sound</string>
+    <string name="title_toggle_brightness">Toggle Brightness</string>
+    <string name="title_toggle_sync">Toggle Sync</string>
+    <string name="title_toggle_wifiap">Toggle Wifi AP</string>
+    <string name="title_toggle_screentimeout">Toggle Screentimeout</string>
+    <string name="title_toggle_mobiledata">Toggle Mobiledata</string>
+    <string name="title_toggle_lockscreen">Toggle Lockscreen</string>
+    <string name="title_toggle_networkmode">Toggle 2G/3G</string>
+    <string name="title_toggle_autorotate">Toggle Orientation</string>
+    <string name="title_toggle_airplane">Toggle Airplane mode</string>
+    <string name="title_button_modes">Button modes</string>
+    <string name="pref_brightness_mode_title">Brightness modes</string>
+    <string name="pref_brightness_mode_summary">Choose how the brightness button changes modes</string>
+    <string name="pref_network_mode_title">Network modes</string>
+    <string name="pref_network_mode_summary">Choose how the NetworkMode button changes modes</string>
+    <string name="pref_screentimeout_mode_title">Screentimeout modes</string>
+    <string name="pref_screentimeout_mode_summary">Choose how the Screentimeout button changes modes</string>
+    <string name="pref_ring_mode_title">Sound modes</string>
+    <string name="pref_ring_mode_summary">Choose how the sound button changes modes</string>
+    <string name="widget_max_buttons">6 is the max amount of buttons.</string>
+</resources>

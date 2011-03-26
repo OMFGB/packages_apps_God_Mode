@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.t3hh4xx0r.god_mode"
+	android:sharedUserId="android.uid.system">
+
+    <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.SET_ANIMATION_SCALE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+
+    <application android:label="@string/app_label"
+            android:icon="@drawable/app_icon">
+
+        <activity android:name="GodMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LockscreenMode" android:label="@string/settings_lockscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".UiOptions" android:label="@string/settings_uioptions">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+	<activity android:name=".WidgetActivity" android:label="@string/settings_uioptions">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".LauncherMode" android:label="@string/settings_launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>                            
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>

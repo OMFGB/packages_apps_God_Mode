@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<EditTextPreference
+		android:key="carrier_caption"
+		android:title="Lockscreen Carrier Caption"
+		android:summary="Change the lockscreen carrier caption."
+		android:dialogTitle="Enter lockscreen caption."
+		android:defaultValue="OMFG...B" 
+	/>
+
+	<CheckBoxPreference
+		android:key="trackpad_wake_screen"
+		android:title="@string/title_trackpad_wake_screen"
+		android:summaryOn="@string/summary_on_trackpad_wake_screen"
+		android:summaryOff="@string/summary_off_trackpad_wake_screen"
+	/>
+
+	<CheckBoxPreference
+		android:key="trackpad_unlock_screen"
+		android:title="@string/title_trackpad_unlock_screen"
+		android:summaryOn="@string/summary_on_trackpad_unlock_screen"
+		android:summaryOff="@string/summary_off_trackpad_unlock_screen"
+	/>
+
+	<CheckBoxPreference
+		android:key="menu_unlock_screen"
+		android:title="@string/title_menu_unlock_screen"
+		android:summaryOn="@string/summary_on_menu_unlock_screen"
+		android:summaryOff="@string/summary_off_menu_unlock_screen"
+	/>
+
+	<CheckBoxPreference
+		android:key="use_rotary_lockscreen"
+		android:title="@string/title_general_use_rotary_lockscreen"
+		android:summaryOn="@string/summary_on_general_use_rotary_lockscreen"
+		android:summaryOff="@string/summary_off_general_use_rotary_lockscreen" 
+	/>
+
+	<CheckBoxPreference
+		android:key="lockscreen_always_battery"
+		android:title="@string/title_lockscreen_always_battery"
+		android:summaryOn="@string/summary_on_lockscreen_always_battery"
+		android:summaryOff="@string/summary_off_lockscreen_always_battery"
+	/>
+
+<!--	<CheckBoxPreference
+		android:key="use_stock_lockscreen_layout"
+		android:title="@string/title_use_stock_lockscreen_layout"
+		android:summaryOn="@string/summary_on_use_stock_lockscreen_layout"
+		android:summaryOff="@string/summary_off_use_stock_lockscreen_layout" />      
+-->
+</PreferenceScreen>
