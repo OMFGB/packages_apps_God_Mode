@@ -22,10 +22,6 @@
 
     <string name="device_info_title">Device info</string>
 
-    <string name="stark_theme_title">Use Stark Theme</string>
-    <string name="stark_summary_on">Using the Stark theme</string>
-    <string name="stark_summary_off">Using the  Gingerbread theme</string>
-    
     <string name="title_battery_history">Battery history</string>
     <string name="summary_battery_history">Summary of how battery has been used</string>
     

@@ -3,13 +3,6 @@
     <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
 
 	<CheckBoxPreference
-		android:key="use_stark_theme"
-		android:title="@string/stark_theme_title"
-		android:summaryOn="@string/stark_summary_on"
-		android:summaryOff="@string/stark_summary_off"
-  	/>	
-
-	<CheckBoxPreference
 		android:key="use_screenon_anim"
 		android:title="@string/title_use_screenon_anim"
 		android:summaryOn="@string/summary_on_use_screenon_anim"
@@ -42,20 +35,6 @@
 		android:summaryOff="@string/summary_off_volume_music_controls"
 	/>
 
-   </PreferenceCategory>
-
-    <!-- Expanded View Power Widget -->
-   <PreferenceCategory android:title="@string/title_expanded_widget">
-      <CheckBoxPreference android:key="expanded_widget"
-         android:title="@string/title_expanded_widget"
-         android:summary="@string/summary_expanded_widget"
-         android:defaultValue="true" />
-      <PreferenceScreen android:key="widget_picker"
-          android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
-          <intent android:action="android.intent.action.MAIN"
-              android:targetPackage="com.t3hh4xx0r.god_mode"
-              android:targetClass="com.t3hh4xx0r.god_mode.WidgetActivity" />
-      </PreferenceScreen>
    </PreferenceCategory>
 
 </PreferenceScreen>

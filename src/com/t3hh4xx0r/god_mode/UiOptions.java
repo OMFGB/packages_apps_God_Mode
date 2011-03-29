@@ -24,7 +24,6 @@ import android.provider.Settings.SettingNotFoundException;
 
 public class UiOptions extends PreferenceActivity implements OnPreferenceChangeListener {
 
-	private static final String USE_STARK_THEME = "use_stark_theme";
 	private static final String USE_SCREENON_ANIM = "use_screenon_anim";
 	private static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
 	private static final String BATTERY_OPTION = "battery_option";
@@ -33,7 +32,6 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
         private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
 	
-	private CheckBoxPreference mUseStarkTheme;
 	private CheckBoxPreference mUseScreenOnAnim;
 	private CheckBoxPreference mUseScreenOffAnim;
 	private ListPreference mBatteryOption;
@@ -49,7 +47,6 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		addPreferencesFromResource(R.xml.ui_options);
 		PreferenceScreen prefSet = getPreferenceScreen();
 
-		mUseStarkTheme = (CheckBoxPreference)prefSet.findPreference(USE_STARK_THEME);
 		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENON_ANIM);
 		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, 1) == 0);
 		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENOFF_ANIM);
@@ -70,11 +67,6 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
         
-	if(preference == mUseStarkTheme) {
-		value = mUseStarkTheme.isChecked();
-	    Settings.System.putInt(getContentResolver(), Settings.System.USE_STARK_THEME, value ? 1 : 0);
-	}
-
         if (preference == mUseScreenOnAnim) {
         	value = mUseScreenOnAnim.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, value ? 1 : 0);

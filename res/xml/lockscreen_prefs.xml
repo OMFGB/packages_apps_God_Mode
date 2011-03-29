@@ -43,10 +43,4 @@
 		android:summaryOff="@string/summary_off_lockscreen_always_battery"
 	/>
 
-<!--	<CheckBoxPreference
-		android:key="use_stock_lockscreen_layout"
-		android:title="@string/title_use_stock_lockscreen_layout"
-		android:summaryOn="@string/summary_on_use_stock_lockscreen_layout"
-		android:summaryOff="@string/summary_off_use_stock_lockscreen_layout" />      
--->
 </PreferenceScreen>
