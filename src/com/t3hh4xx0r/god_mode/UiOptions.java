@@ -31,6 +31,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private static final String UI_EXP_WIDGET = "expanded_widget";
         private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
         private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
+	private static final String UI_EXP_WIDGET_ORDER = "widget_order";
 	
 	private CheckBoxPreference mUseScreenOnAnim;
 	private CheckBoxPreference mUseScreenOffAnim;
@@ -39,7 +40,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private CheckBoxPreference mPowerWidget;
         private Preference mPowerWidgetColor;
         private PreferenceScreen mPowerPicker;
-
+	private PreferenceScreen mPowerOrder;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {	
@@ -60,6 +61,8 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
                 mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
       	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
                 mPowerPicker = (PreferenceScreen)prefSet.findPreference(UI_EXP_WIDGET_PICKER);
+		mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
+		
 		mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
 		Settings.System.EXPANDED_VIEW_WIDGET, 1) == 1));
     }
@@ -84,6 +87,10 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 
         if(preference == mPowerPicker) {
             startActivity(mPowerPicker.getIntent());
+        }
+
+        if (preference == mPowerOrder) {
+            startActivity(mPowerOrder.getIntent());
         }
 
 	if(preference == mPowerWidget) {
