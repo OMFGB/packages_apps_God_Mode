@@ -20,7 +20,7 @@
     android:orientation="vertical"
     android:gravity="center_vertical" >
 
-    <com.cyanogenmod.cmparts.widgets.TouchInterceptor
+    <com.t3hh4xx0r.god_mode.widgets.TouchInterceptor
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

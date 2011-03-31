@@ -117,6 +117,7 @@
 
 <string-array name="entries_brightness_widget" translatable="false">
         <item>Auto/Dim/40%/100%</item>
+	<item>Auto/Dim/25%/50%/75%/100%</item>
         <item>Auto/25%/100%</item>
         <item>Dim/100%</item>
     </string-array>
@@ -156,6 +157,7 @@
         <item>Sound/Silent</item>
         <item>Sound+Vib/Vib/Silent</item>
         <item>Sound/Vibrate/Silent</item>
+	<item>Sound+Vibrate/Sound/Vibrate/Silent</item>
     </string-array>
 
 <string-array name="values_ring_widget" translatable="false">
@@ -164,5 +166,17 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
-    </string-array>    
+	<item>5</item>
+    </string-array>
+    
+    <string-array name="entries_flash_widget" translatable="false">
+        <item>Normal</item>
+        <item>High / Death Ray</item>
+    </string-array>
+
+    <string-array name="values_flash_widget" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 </resources>
+

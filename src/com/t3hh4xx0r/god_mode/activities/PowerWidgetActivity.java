@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.cmparts.activities;
+package com.t3hh4xx0r.god_mode.activities;
 
 import com.android.internal.telephony.Phone;
 import com.android.wimax.WimaxConstants;
-import com.cyanogenmod.cmparts.R;
-import com.cyanogenmod.cmparts.utils.PowerWidgetUtil;
+import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.god_mode.utils.PowerWidgetUtil;
 
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;

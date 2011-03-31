@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.cmparts.activities;
+package com.t3hh4xx0r.god_mode.activities;
 
-import com.cyanogenmod.cmparts.R;
-import com.cyanogenmod.cmparts.utils.PowerWidgetUtil;
-import com.cyanogenmod.cmparts.widgets.TouchInterceptor;
+import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.god_mode.utils.PowerWidgetUtil;
+import com.t3hh4xx0r.god_mode.widgets.TouchInterceptor;
 
 import android.app.ListActivity;
 import android.content.Context;

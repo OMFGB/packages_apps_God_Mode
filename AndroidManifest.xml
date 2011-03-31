@@ -33,7 +33,7 @@
             android:label="@string/title_expanded_widget">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
+                <category android:name="com.t3hh4xx0r.god_mode.SHORTCUT" />
             </intent-filter>
         </activity>
         <activity android:name=".LauncherMode" android:label="@string/settings_launcher">

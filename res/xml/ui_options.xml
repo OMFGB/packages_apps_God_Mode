@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
-
 	<CheckBoxPreference
 		android:key="use_screenon_anim"
 		android:title="@string/title_use_screenon_anim"
 		android:summaryOn="@string/summary_on_use_screenon_anim"
 		android:summaryOff="@string/summary_off_use_screenon_anim" 
 	/>
-
 	<CheckBoxPreference
 		android:key="use_screenoff_anim"
 		android:title="@string/title_use_screenoff_anim"
 		android:summaryOn="@string/summary_on_use_screenoff_anim"
 		android:summaryOff="@string/summary_off_use_screenoff_anim" 
 	/>
-
-	
         <ListPreference 
 		android:key="battery_option" 
 		android:dialogTitle="@string/battery_option_dialog_title"
@@ -27,14 +23,37 @@
 	/>
     </PreferenceCategory>
     <PreferenceCategory android:key="music_control_settings" android:title="@string/music_control_settings_category">
-	
 	<CheckBoxPreference
 		android:key="enable_vol_music_controls"
 		android:title="@string/title_volume_music_controls"
 		android:summaryOn="@string/summary_on_volume_music_controls"
 		android:summaryOff="@string/summary_off_volume_music_controls"
 	/>
-
    </PreferenceCategory>
-
+    <!-- Expanded View Power Widget -->
+    <PreferenceCategory android:title="@string/title_expanded_widget">
+        <CheckBoxPreference android:key="expanded_widget"
+            android:title="@string/title_expanded_widget"
+            android:summary="@string/summary_expanded_widget"
+            android:defaultValue="true" />
+        <CheckBoxPreference android:key="expanded_hide_onchange"
+            android:title="@string/title_expanded_hide_onchange"
+            android:summary="@string/summary_expanded_hide_onchange"
+            android:defaultValue="false" android:dependency="expanded_widget" />
+        <Preference android:key="expanded_color_mask"
+            android:title="@string/expanded_color_mask" android:summary="@string/expanded_color_mask"
+            android:defaultValue="-1" android:dependency="expanded_widget" />
+        <PreferenceScreen android:key="widget_picker"
+            android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r.god_mode"
+                android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen android:key="widget_order"
+            android:title="@string/title_widget_order" android:summary="@string/summary_widget_order">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r.god_mode"
+                android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetOrderActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
 </PreferenceScreen>
