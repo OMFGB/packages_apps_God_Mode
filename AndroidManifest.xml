@@ -29,9 +29,11 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-	<activity android:name=".WidgetActivity" android:label="@string/settings_uioptions">
+        <activity android:name=".activities.UIPowerWidgetActivity"
+            android:label="@string/title_expanded_widget">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.cyanogenmod.cmparts.SHORTCUT" />
             </intent-filter>
         </activity>
         <activity android:name=".LauncherMode" android:label="@string/settings_launcher">
