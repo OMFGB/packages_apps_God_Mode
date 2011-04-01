@@ -29,19 +29,23 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	private static final String BATTERY_OPTION = "battery_option";
 	private static final String ENABLE_VOL_MUSIC_CONTROLS = "enable_vol_music_controls";
         private static final String UI_EXP_WIDGET = "expanded_widget";
+        private static final String UI_EXP_WIDGET_HIDE_ONCHANGE = "expanded_hide_onchange";
         private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
+        private static final String UI_EXP_WIDGET_ORDER = "widget_order";
         private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
-	private static final String UI_EXP_WIDGET_ORDER = "widget_order";
 	
 	private CheckBoxPreference mUseScreenOnAnim;
 	private CheckBoxPreference mUseScreenOffAnim;
 	private ListPreference mBatteryOption;
 	private CheckBoxPreference mEnableVolMusicControls;
         private CheckBoxPreference mPowerWidget;
+        private CheckBoxPreference mPowerWidgetHideOnChange;
+
         private Preference mPowerWidgetColor;
         private PreferenceScreen mPowerPicker;
-	private PreferenceScreen mPowerOrder;
-	
+        private PreferenceScreen mPowerOrder;
+
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
@@ -57,14 +61,20 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		mBatteryOption.setOnPreferenceChangeListener(this);
 		mEnableVolMusicControls = (CheckBoxPreference) prefSet.findPreference(ENABLE_VOL_MUSIC_CONTROLS);
 		mEnableVolMusicControls.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ENABLE_VOL_MUSIC_CONTROLS, 1) == 1);
-/* Expanded View Power Widget */
-                mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
-      	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
-                mPowerPicker = (PreferenceScreen)prefSet.findPreference(UI_EXP_WIDGET_PICKER);
-		mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
-		
-		mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
-		Settings.System.EXPANDED_VIEW_WIDGET, 1) == 1));
+
+	        mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
+    	        mPowerWidgetHideOnChange = (CheckBoxPreference) prefSet
+                        .findPreference(UI_EXP_WIDGET_HIDE_ONCHANGE);
+
+	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
+	        mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
+	        mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
+
+	        mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
+        	        Settings.System.EXPANDED_VIEW_WIDGET, 1) == 1));
+	        mPowerWidgetHideOnChange.setChecked((Settings.System.getInt(getContentResolver(),
+        	        Settings.System.EXPANDED_HIDE_ONCHANGE, 0) == 1));
+
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -85,7 +95,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	    Settings.System.putInt(getContentResolver(), Settings.System.ENABLE_VOL_MUSIC_CONTROLS, value ? 1 : 0);
 	}
 
-        if(preference == mPowerPicker) {
+        if (preference == mPowerPicker) {
             startActivity(mPowerPicker.getIntent());
         }
 
@@ -93,12 +103,24 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
             startActivity(mPowerOrder.getIntent());
         }
 
-	if(preference == mPowerWidget) {
+        if (preference == mPowerWidget) {
             value = mPowerWidget.isChecked();
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.EXPANDED_VIEW_WIDGET, value ? 1 : 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET,
+                    value ? 1 : 0);
+        }
+
+        if (preference == mPowerWidgetHideOnChange) {
+            value = mPowerWidgetHideOnChange.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_HIDE_ONCHANGE,
+                    value ? 1 : 0);
+        }
+
+        if (preference == mPowerWidgetColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this, mWidgetColorListener,
+                    readWidgetColor());
+            cp.show();
 	}
- 
+
         return true;
     }
 
@@ -110,12 +132,22 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         return true;
     }
     
- private int readWidgetColor() {
+   private int readWidgetColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_COLOR);
-        }
-        catch (SettingNotFoundException e) {
+            return Settings.System.getInt(getContentResolver(),
+                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR);
+        } catch (SettingNotFoundException e) {
             return -16777216;
         }
     }
+
+    ColorPickerDialog.OnColorChangedListener mWidgetColorListener = new ColorPickerDialog.OnColorChangedListener() {
+        public void colorChanged(int color) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR, color);
+        }
+
+        public void colorUpdate(int color) {
+        }
+    };
 }

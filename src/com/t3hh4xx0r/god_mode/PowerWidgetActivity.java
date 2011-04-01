@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.t3hh4xx0r.god_mode.activities;
+package com.t3hh4xx0r.god_mode;
 
 import com.android.internal.telephony.Phone;
 import com.android.wimax.WimaxConstants;

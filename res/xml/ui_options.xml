@@ -32,28 +32,27 @@
    </PreferenceCategory>
     <!-- Expanded View Power Widget -->
     <PreferenceCategory android:title="@string/title_expanded_widget">
-        <CheckBoxPreference android:key="expanded_widget"
-            android:title="@string/title_expanded_widget"
-            android:summary="@string/summary_expanded_widget"
-            android:defaultValue="true" />
-        <CheckBoxPreference android:key="expanded_hide_onchange"
-            android:title="@string/title_expanded_hide_onchange"
-            android:summary="@string/summary_expanded_hide_onchange"
-            android:defaultValue="false" android:dependency="expanded_widget" />
-        <Preference android:key="expanded_color_mask"
-            android:title="@string/expanded_color_mask" android:summary="@string/expanded_color_mask"
-            android:defaultValue="-1" android:dependency="expanded_widget" />
-        <PreferenceScreen android:key="widget_picker"
-            android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.t3hh4xx0r.god_mode"
-                android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetActivity" />
-        </PreferenceScreen>
-        <PreferenceScreen android:key="widget_order"
-            android:title="@string/title_widget_order" android:summary="@string/summary_widget_order">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.t3hh4xx0r.god_mode"
-                android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetOrderActivity" />
-        </PreferenceScreen>
-    </PreferenceCategory>
+                <CheckBoxPreference android:key="expanded_widget"
+                        android:title="@string/title_expanded_widget" android:summary="@string/summary_expanded_widget"
+                        android:defaultValue="true" />
+                <CheckBoxPreference android:key="expanded_hide_onchange"
+                        android:title="@string/title_expanded_hide_onchange" android:summary="@string/summary_expanded_hide_onchange"
+                        android:defaultValue="false" android:dependency="expanded_widget" />
+                <Preference android:key="expanded_color_mask"
+                        android:title="@string/expanded_color_mask" android:summary="@string/expanded_color_mask"
+                        android:defaultValue="-1" android:dependency="expanded_widget" />
+                <PreferenceScreen android:key="widget_picker"
+                        android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
+                        <intent android:action="android.intent.action.MAIN"
+                                android:targetPackage="com.t3hh4xx0r.god_mode"
+                                android:targetClass="com.t3hh4xx0r.god_mode.PowerWidgetActivity" />
+                </PreferenceScreen>
+                <PreferenceScreen android:key="widget_order"
+                        android:title="@string/title_widget_order" android:summary="@string/summary_widget_order">
+                        <intent android:action="android.intent.action.MAIN"
+                                android:targetPackage="com.t3hh4xx0r.god_mode"
+                                android:targetClass="com.t3hh4xx0r.god_mode.PowerWidgetOrderActivity" />
+                </PreferenceScreen>
+        </PreferenceCategory>
 </PreferenceScreen>
+

@@ -18,6 +18,10 @@
 */
 -->
 <resources>
+    <!-- Color Picker -->
+    <string name="title_color_picker">Pick a color</string>
+    <string name="msg_color_picker">Tap on center color to confirm.\nPress back to cancel</string>
+
     <string name="app_label">God Mode</string>
 
     <string name="device_info_title">Device info</string>
@@ -179,5 +183,5 @@
     <string name="pref_ring_mode_title">Sound modes</string>
     <string name="pref_ring_mode_summary">Choose how the sound button changes modes</string>
     <string name="pref_flash_mode_title">Flash mode</string>
-    <string name="pref_flash_mode_summary">Choose High / Death Ray (Evo)</string>
+    <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
 </resources>
