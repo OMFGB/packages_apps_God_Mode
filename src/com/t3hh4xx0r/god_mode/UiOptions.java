@@ -62,18 +62,9 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		mEnableVolMusicControls = (CheckBoxPreference) prefSet.findPreference(ENABLE_VOL_MUSIC_CONTROLS);
 		mEnableVolMusicControls.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ENABLE_VOL_MUSIC_CONTROLS, 1) == 1);
 
-	        mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
-    	        mPowerWidgetHideOnChange = (CheckBoxPreference) prefSet
-                        .findPreference(UI_EXP_WIDGET_HIDE_ONCHANGE);
-
 	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
 	        mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
 	        mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
-
-	        mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
-        	        Settings.System.EXPANDED_VIEW_WIDGET, 1) == 1));
-	        mPowerWidgetHideOnChange.setChecked((Settings.System.getInt(getContentResolver(),
-        	        Settings.System.EXPANDED_HIDE_ONCHANGE, 0) == 1));
 
     }
 
