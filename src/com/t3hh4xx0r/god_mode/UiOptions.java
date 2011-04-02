@@ -94,18 +94,6 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
             startActivity(mPowerOrder.getIntent());
         }
 
-        if (preference == mPowerWidget) {
-            value = mPowerWidget.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET,
-                    value ? 1 : 0);
-        }
-
-        if (preference == mPowerWidgetHideOnChange) {
-            value = mPowerWidgetHideOnChange.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_HIDE_ONCHANGE,
-                    value ? 1 : 0);
-        }
-
         if (preference == mPowerWidgetColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this, mWidgetColorListener,
                     readWidgetColor());

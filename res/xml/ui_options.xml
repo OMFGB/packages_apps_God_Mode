@@ -32,9 +32,6 @@
    </PreferenceCategory>
     <!-- Expanded View Power Widget -->
     <PreferenceCategory android:title="@string/title_expanded_widget">
-                <CheckBoxPreference android:key="expanded_hide_onchange"
-                        android:title="@string/title_expanded_hide_onchange" android:summary="@string/summary_expanded_hide_onchange"
-                        android:defaultValue="false" android:dependency="expanded_widget" /> -->
                 <Preference android:key="expanded_color_mask"
                         android:title="@string/expanded_color_mask" android:summary="@string/expanded_color_mask"
                         android:defaultValue="-1" />
