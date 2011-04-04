@@ -1,6 +1,3 @@
-
-
-
 package com.t3hh4xx0r.god_mode;
 
 import java.util.List;
@@ -66,6 +63,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		addPreferencesFromResource(R.xml.launcher_prefs);
 		PreferenceManager.setDefaultValues(LauncherMode.this, R.xml.launcher_prefs, false);
 		
+		// All preferences are call from the fallowing function
+		// If you add preferences add the to the function below and
+		// not here, non-initializtion here leads to null pointer exception
+		setPreferences();
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 		PreferenceScreen prefSet = getPreferenceScreen();
 	}
