@@ -51,7 +51,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String SEVEN = "Seven";
     private static final String SCREENSETTINGS = "NUM_SCREENS";
 
-    private static final String LAUNCHER = "com.android.launcher";
+    private static final String LAUNCHER = "com.android.launcher2";
     
     
     private static final int OP_SUCCESSFUL = 1;
