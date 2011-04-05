@@ -74,6 +74,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
    public void setPreferences(){
 	mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
 	mScreenPreference = (ListPreference) findPreference("num_screens");
+	activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
+
 	}
 
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
