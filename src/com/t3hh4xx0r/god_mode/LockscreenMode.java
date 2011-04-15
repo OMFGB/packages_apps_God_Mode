@@ -33,7 +33,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private CheckBoxPreference mTrackpadWakeScreen;
 	private CheckBoxPreference mTrackpadUnlockScreen;
 	private CheckBoxPreference mMenuUnlockScreen;
-	private CheckBoxPreference mUseRotaryLockPref;
+	
+	//TODO Create music controls in rotary layouts.
+	//private CheckBoxPreference mUseRotaryLockPref;
 	private CheckBoxPreference mLockscreenAlwaysBattery;
 	
 	@Override
@@ -49,8 +51,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mTrackpadUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_UNLOCK_SCREEN, 0) != 0);
 		mMenuUnlockScreen = (CheckBoxPreference) prefSet.findPreference(MENU_UNLOCK_SCREEN);
 		mMenuUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, 0) != 0);
-		mUseRotaryLockPref = (CheckBoxPreference)prefSet.findPreference(LOCKSCREEN_ROTARY_LOCK);
-		mUseRotaryLockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_ROTARY_LOCKSCREEN, 0) != 0);
+	        //TODO Create music controls in rotary layouts.
+		//mUseRotaryLockPref = (CheckBoxPreference)prefSet.findPreference(LOCKSCREEN_ROTARY_LOCK);
+		//mUseRotaryLockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_ROTARY_LOCKSCREEN, 0) != 0);
 		mLockscreenAlwaysBattery = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_ALWAYS_BATTERY);
 		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 0);
 		
@@ -62,15 +65,17 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	}
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        boolean value;	
-        if (preference == mUseRotaryLockPref) {
-            value = mUseRotaryLockPref.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.USE_ROTARY_LOCKSCREEN, value ? 1 : 0);
-            //Temporary hack to fix Phone FC's when swapping styles.
-            ActivityManager am = (ActivityManager)getSystemService(
-                    Context.ACTIVITY_SERVICE);
-            am.forceStopPackage("com.android.phone");
-        } else if (preference == mLockscreenAlwaysBattery) {
+        boolean value;
+        //TODO Create music controls in rotary layouts.
+        //if (preference == mUseRotaryLockPref) {
+        //    value = mUseRotaryLockPref.isChecked();
+        //    Settings.System.putInt(getContentResolver(), Settings.System.USE_ROTARY_LOCKSCREEN, value ? 1 : 0);
+        //    //Temporary hack to fix Phone FC's when swapping styles.
+        //   ActivityManager am = (ActivityManager)getSystemService(
+        //            Context.ACTIVITY_SERVICE);
+        //   am.forceStopPackage("com.android.phone");
+        //} else 
+	if (preference == mLockscreenAlwaysBattery) {
 		    value = mLockscreenAlwaysBattery.isChecked();
 		    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, value ? 1 : 0);
 	} else if (preference == mTrackpadWakeScreen) {
