@@ -29,54 +29,14 @@
     </string-array>
 
 
-<string-array name="entries_righttab">
-        <item>Phone</item>
-        <item>Messaging</item>
-    </string-array>
-
-<string-array name="entryvalues_righttab">
-        <item>com.android.phone</item>
-        <item>com.android.browser</item>
-    </string-array>
-
-<string-array name="entries_leftbutton">
-        <item>Phone</item>
-        <item>Camera</item>
-        <item>Contacts</item>
-        <item>Browser</item>
-    </string-array>
-
-<string-array name="entryvalues_leftbutton">                                            
-        <item>com.android.phone</item>
-        <item>com.android.camera</item>
-        <item>com.android.contacts</item>
-        <item>com.android.browser</item>
-    </string-array>
-
-<string-array name="entries_rightbutton">
-        <item>Phone</item>
-        <item>Camera</item>
-        <item>Contacts</item>
-        <item>Browser</item>
-    </string-array>
-
-<string-array name="entryvalues_rightbutton">
-        <item>com.android.phone</item>
-        <item>com.android.camera</item>
-        <item>com.android.contacts</item>
-        <item>com.android.browser</item>
-    </string-array>
-
 <string-array name="entries_batterytypes">
-        <item>Display Percentage</item>
-        <item>Do Not Dispaly Percentage</item>
-	<item>Blue With Percentage</item>
+        <item>Stock w/Percentage</item>
+        <item>Stock w/o Percentage</item>
     </string-array>
 
 <string-array name="entryvalues_batterytypes">
         <item>0</item>
         <item>1</item>
-	<item>2</item>
     </string-array>
 
 <string-array name="entries_animations">
