@@ -24,8 +24,8 @@ import android.provider.Settings.SettingNotFoundException;
 
 public class UiOptions extends PreferenceActivity implements OnPreferenceChangeListener {
 
-	private static final String USE_SCREENON_ANIM = "use_screenon_anim";
-	private static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
+	private static final String ELECTRON_BEAM_ANIMATION_ON = "electron_beam_animation_on";
+	private static final String ELECTRON_BEAM_ANIMATION_OFF = "electron_beam_animation_off";
 	private static final String BATTERY_OPTION = "battery_option";
 	private static final String ENABLE_VOL_MUSIC_CONTROLS = "enable_vol_music_controls";
         private static final String UI_EXP_WIDGET = "expanded_widget";
@@ -52,10 +52,10 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		addPreferencesFromResource(R.xml.ui_options);
 		PreferenceScreen prefSet = getPreferenceScreen();
 
-		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENON_ANIM);
-		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, 1) == 1);
-		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENOFF_ANIM);
-		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENOFF_ANIM, 1) == 1);		
+		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_ON);
+		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_ON, 1) == 1);
+		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_OFF);
+		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_OFF, 1) == 1);		
 		
 		mBatteryOption = (ListPreference) prefSet.findPreference(BATTERY_OPTION);
 		mBatteryOption.setOnPreferenceChangeListener(this);
@@ -73,12 +73,12 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         
         if (preference == mUseScreenOnAnim) {
         	value = mUseScreenOnAnim.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, value ? 1 : 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_ON, value ? 1 : 0);
         }
         
         if (preference == mUseScreenOffAnim) {
         	value = mUseScreenOffAnim.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.USE_SCREENOFF_ANIM, value ? 1 : 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_OFF, value ? 1 : 0);
         }
 
 	if (preference == mEnableVolMusicControls) {

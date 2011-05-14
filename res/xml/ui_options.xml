@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
 	<CheckBoxPreference
-		android:key="use_screenon_anim"
+		android:key="electron_beam_animation_on"
 		android:title="@string/title_use_screenon_anim"
 		android:summaryOn="@string/summary_on_use_screenon_anim"
 		android:summaryOff="@string/summary_off_use_screenon_anim" 
 	/>
 	<CheckBoxPreference
-		android:key="use_screenoff_anim"
+		android:key="electron_beam_animation_off"
 		android:title="@string/title_use_screenoff_anim"
 		android:summaryOn="@string/summary_on_use_screenoff_anim"
 		android:summaryOff="@string/summary_off_use_screenoff_anim" 
