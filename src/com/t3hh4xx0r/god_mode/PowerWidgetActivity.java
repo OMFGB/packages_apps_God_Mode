@@ -17,7 +17,6 @@
 package com.t3hh4xx0r.god_mode;
 
 import com.android.internal.telephony.Phone;
-import com.android.wimax.WimaxConstants;
 import com.t3hh4xx0r.god_mode.R;
 import com.t3hh4xx0r.god_mode.utils.PowerWidgetUtil;
 
@@ -88,11 +87,6 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
         // get our list of buttons
         ArrayList<String> buttonList = PowerWidgetUtil.getButtonListFromString(PowerWidgetUtil.getCurrentButtons(this));
 
-        // Don't show WiMAX option if not supported
-        if (!WimaxConstants.isWimaxSupported(this)) {
-            PowerWidgetUtil.BUTTONS.remove(PowerWidgetUtil.BUTTON_WIMAX);
-        }
-
         // fill that checkbox map!
         for(PowerWidgetUtil.ButtonInfo button : PowerWidgetUtil.BUTTONS.values()) {
             // create a checkbox
@@ -140,10 +134,6 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
                     default:
                         cb.setEnabled(false);
                         break;
-                }
-            } else if (PowerWidgetUtil.BUTTON_WIMAX.equals(button.getId())) {
-                if (!WimaxConstants.isWimaxSupported(this)) {
-                    cb.setEnabled(false);
                 }
             }
 
