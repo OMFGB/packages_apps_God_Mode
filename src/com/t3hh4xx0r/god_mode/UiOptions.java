@@ -33,7 +33,9 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
         private static final String UI_EXP_WIDGET_ORDER = "widget_order";
         private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
-	
+        private static final String OVERSCROLL_PREF = "pref_overscroll_effect";
+        private static final String OVERSCROLL_WEIGHT_PREF = "pref_overscroll_weight";	
+
 	private CheckBoxPreference mUseScreenOnAnim;
 	private CheckBoxPreference mUseScreenOffAnim;
 	private ListPreference mBatteryOption;
@@ -41,9 +43,13 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private CheckBoxPreference mPowerWidget;
         private CheckBoxPreference mPowerWidgetHideOnChange;
 
+        private ListPreference mOverscrollPref;
+        private ListPreference mOverscrollWeightPref;
+
         private Preference mPowerWidgetColor;
         private PreferenceScreen mPowerPicker;
         private PreferenceScreen mPowerOrder;
+
 
 
 	@Override
@@ -65,6 +71,17 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
 	        mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
 	        mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
+
+	        /* Overscroll Effect */
+	        mOverscrollPref = (ListPreference) prefSet.findPreference(OVERSCROLL_PREF);
+	        int overscrollEffect = Settings.System.getInt(getContentResolver(),
+	                Settings.System.OVERSCROLL_EFFECT, 1);
+	        mOverscrollPref.setValue(String.valueOf(overscrollEffect));
+	        mOverscrollPref.setOnPreferenceChangeListener(this);
+	        mOverscrollWeightPref = (ListPreference) prefSet.findPreference(OVERSCROLL_WEIGHT_PREF);
+	        int overscrollWeight = Settings.System.getInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT, 5);
+        	mOverscrollWeightPref.setValue(String.valueOf(overscrollWeight));
+	        mOverscrollWeightPref.setOnPreferenceChangeListener(this);
 
     }
 
@@ -106,6 +123,15 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         if (preference == mBatteryOption) {;
         	Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_OPTION, Integer.valueOf((String) objValue));
+        } else if (preference == mOverscrollPref) {
+            int overscrollEffect = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.OVERSCROLL_EFFECT, overscrollEffect);
+            return true;
+        } else if (preference == mOverscrollWeightPref) {
+            int overscrollWeight = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT, overscrollWeight);
+            return true;
         }
 
         return true;

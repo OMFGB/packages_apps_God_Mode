@@ -15,6 +15,36 @@
  * limitations under the License.
  -->
 <resources>
+    <string-array name="pref_overscroll_effect_entries">
+        <item>None</item>
+        <item>Edge Glow</item>
+        <item>Bounce and Glow</item>
+        <item>Bounce</item>
+    </string-array>
+
+    <string-array name="pref_overscroll_effect_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="entries_overscroll_weight">
+        <item>Extra Heavy</item>
+        <item>Heavy</item>
+        <item>Medium</item>
+        <item>Light</item>
+        <item>Extra Light</item>
+    </string-array>
+
+    <string-array name="values_overscroll_weight">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+        <item>9</item>
+    </string-array>
+
    <!-- Values for the number of home screens. -->
    <string-array name="number_of_screens" >
         <item>Three</item>

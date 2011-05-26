@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/ui_overscroll_title">
+        <ListPreference android:key="pref_overscroll_effect"
+            android:dialogTitle="@string/pref_overscroll_title"
+            android:title="@string/pref_overscroll_title" android:summary="@string/pref_overscroll_summary"
+            android:entries="@array/pref_overscroll_effect_entries" android:entryValues="@array/pref_overscroll_effect_values" />
+        <ListPreference android:key="pref_overscroll_weight"
+            android:dialogTitle="@string/pref_overscroll_weight_title"
+            android:title="@string/pref_overscroll_weight_title" android:summary="@string/pref_overscroll_weight_summary"
+            android:entries="@array/entries_overscroll_weight" android:entryValues="@array/values_overscroll_weight" />
+	</PreferenceCategory>
+
     <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
 	<CheckBoxPreference
 		android:key="electron_beam_animation_on"
@@ -48,5 +60,6 @@
                                 android:targetClass="com.t3hh4xx0r.god_mode.PowerWidgetOrderActivity" />
                 </PreferenceScreen>
         </PreferenceCategory>
+
 </PreferenceScreen>
 
