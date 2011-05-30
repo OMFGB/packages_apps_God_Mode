@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/general_lockscreen_settings">
 	<EditTextPreference
 		android:key="carrier_caption"
 		android:title="Lockscreen Carrier Caption"
@@ -7,29 +8,7 @@
 		android:dialogTitle="Enter lockscreen caption."
 		android:defaultValue="OMFG...B" 
 	/>
-
-	<CheckBoxPreference
-		android:key="trackpad_wake_screen"
-		android:title="@string/title_trackpad_wake_screen"
-		android:summaryOn="@string/summary_on_trackpad_wake_screen"
-		android:summaryOff="@string/summary_off_trackpad_wake_screen"
-	/>
-
-	<CheckBoxPreference
-		android:key="trackpad_unlock_screen"
-		android:title="@string/title_trackpad_unlock_screen"
-		android:summaryOn="@string/summary_on_trackpad_unlock_screen"
-		android:summaryOff="@string/summary_off_trackpad_unlock_screen"
-	/>
-
-	<CheckBoxPreference
-		android:key="menu_unlock_screen"
-		android:title="@string/title_menu_unlock_screen"
-		android:summaryOn="@string/summary_on_menu_unlock_screen"
-		android:summaryOff="@string/summary_off_menu_unlock_screen"
-	/>
-
-        <!-- TODO Create music controls in rotary layouts.
+	<!-- TODO Create music controls in rotary layouts.
 	<CheckBoxPreference
 		android:key="use_rotary_lockscreen"
 		android:title="@string/title_general_use_rotary_lockscreen"
@@ -43,5 +22,35 @@
 		android:summaryOn="@string/summary_on_lockscreen_always_battery"
 		android:summaryOff="@string/summary_off_lockscreen_always_battery"
 	/>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/wake_category">
+	<CheckBoxPreference
+		android:key="trackpad_wake_screen"
+		android:title="@string/title_trackpad_wake_screen"
+		android:summaryOn="@string/summary_on_trackpad_wake_screen"
+		android:summaryOff="@string/summary_off_trackpad_wake_screen"
+	/>
 
+	<CheckBoxPreference
+		android:key="volume_wake_screen"
+		android:title="@string/title_volume_wake_screen"
+		android:summaryOn="@string/summary_on_volume_wake_screen"
+		android:summaryOff="@string/summary_off_volume_wake_screen"
+	/>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/unlock_category">
+	<CheckBoxPreference
+		android:key="trackpad_unlock_screen"
+		android:title="@string/title_trackpad_unlock_screen"
+		android:summaryOn="@string/summary_on_trackpad_unlock_screen"
+		android:summaryOff="@string/summary_off_trackpad_unlock_screen"
+	/>
+
+	<CheckBoxPreference
+		android:key="menu_unlock_screen"
+		android:title="@string/title_menu_unlock_screen"
+		android:summaryOn="@string/summary_on_menu_unlock_screen"
+		android:summaryOff="@string/summary_off_menu_unlock_screen"
+	/>
+	</PreferenceCategory>
 </PreferenceScreen>

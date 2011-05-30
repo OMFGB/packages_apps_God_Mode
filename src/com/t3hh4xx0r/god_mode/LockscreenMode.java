@@ -24,6 +24,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	private static final String CARRIER_CAP = "carrier_caption";
 	private static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
+	private static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
 	private static final String TRACKPAD_UNLOCK_SCREEN = "trackpad_unlock_screen";
 	private static final String MENU_UNLOCK_SCREEN = "menu_unlock_screen";
 	private static final String LOCKSCREEN_ROTARY_LOCK = "use_rotary_lockscreen";
@@ -31,6 +32,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	
 	private EditTextPreference mCarrierCaption;
 	private CheckBoxPreference mTrackpadWakeScreen;
+	private CheckBoxPreference mVolumeWakeScreen;
 	private CheckBoxPreference mTrackpadUnlockScreen;
 	private CheckBoxPreference mMenuUnlockScreen;
 	
@@ -47,6 +49,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mCarrierCaption = (EditTextPreference)prefSet.findPreference(CARRIER_CAP);
 		mTrackpadWakeScreen = (CheckBoxPreference) prefSet.findPreference(TRACKPAD_WAKE_SCREEN);
 		mTrackpadWakeScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_WAKE_SCREEN, 0) != 0);
+		mVolumeWakeScreen = (CheckBoxPreference) prefSet.findPreference(VOLUME_WAKE_SCREEN);
+		mVolumeWakeScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN, 0) != 0);
 		mTrackpadUnlockScreen = (CheckBoxPreference) prefSet.findPreference(TRACKPAD_UNLOCK_SCREEN);
 		mTrackpadUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_UNLOCK_SCREEN, 0) != 0);
 		mMenuUnlockScreen = (CheckBoxPreference) prefSet.findPreference(MENU_UNLOCK_SCREEN);
@@ -81,6 +85,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	} else if (preference == mTrackpadWakeScreen) {
 		    value = mTrackpadWakeScreen.isChecked();
 		    Settings.System.putInt(getContentResolver(), Settings.System.TRACKPAD_WAKE_SCREEN, value ? 1 : 0);
+	} else if (preference == mVolumeWakeScreen) {
+		    value = mVolumeWakeScreen.isChecked();
+		    Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN, value ? 1 : 0);
 	} else if (preference == mTrackpadUnlockScreen) {
 		    value = mTrackpadUnlockScreen.isChecked();
 		    Settings.System.putInt(getContentResolver(), Settings.System.TRACKPAD_UNLOCK_SCREEN, value ? 1 : 0);

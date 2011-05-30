@@ -107,11 +107,17 @@
     <string name="group_applications">Applications</string>
 
     <!-- Lockscreen -->
+    <string name="general_lockscreen_settings">General lockscreen settings</string>
+    <string name="wake_category">Screen wake settings</string>
+    <string name="unlock_category">Screen unlock settings</string>
     <string name="settings_lockscreen">Lockscreen Settings</string>
     <string name="settings_lockscreen_summary">Customize your lockscreen</string>
     <string name="title_trackpad_wake_screen">Trackpad Wake</string>
     <string name="summary_on_trackpad_wake_screen">Pressing the trackpad will wake the device</string>
     <string name="summary_off_trackpad_wake_screen">Pressing the trackpad to wake the device will be disabled</string>
+    <string name="title_volume_wake_screen">Volume Wake</string>
+    <string name="summary_on_volume_wake_screen">Pressing the volume buttons will wake the device</string>
+    <string name="summary_off_volume_wake_screen">Pressing volume to wake the device will be disabled</string> 
     <string name="title_trackpad_unlock_screen">Trackpad unlock</string>
     <string name="summary_on_trackpad_unlock_screen">Pressing the trackpad will unlock the device</string>
     <string name="summary_off_trackpad_unlock_screen">Pressing the trackpad to unlock the device is disabled</string>
