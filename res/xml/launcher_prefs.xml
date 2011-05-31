@@ -27,5 +27,13 @@
 		        android:entryValues="@array/number_of_screens_value"
 		/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/category_other_launcher_settings">
+	<CheckBoxPreference
+		android:key="launcher_endless_loop"
+		android:title="@string/title_launcher_endless_loop"
+		android:summaryOn="@string/summary_on_launcher_endless_loop"
+		android:summaryOff="@string/summary_off_launcher_endless_loop"
+	/>
+    </PreferenceCategory>
 </PreferenceScreen>
 

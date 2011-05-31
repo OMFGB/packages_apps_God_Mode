@@ -61,10 +61,10 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_ON);
 		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_ON, 1) == 1);
 		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_OFF);
-		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_OFF, 1) == 1);		
-		
+		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_OFF, 1) == 1);			
 		mBatteryOption = (ListPreference) prefSet.findPreference(BATTERY_OPTION);
 		mBatteryOption.setOnPreferenceChangeListener(this);
+		
 		mEnableVolMusicControls = (CheckBoxPreference) prefSet.findPreference(ENABLE_VOL_MUSIC_CONTROLS);
 		mEnableVolMusicControls.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ENABLE_VOL_MUSIC_CONTROLS, 0) == 1);
 

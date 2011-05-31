@@ -19,6 +19,8 @@ import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;		
@@ -38,6 +40,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private ListPreference mScreenPreference;
 
 	CheckBoxPreference mScreenCheckBox;
+	CheckBoxPreference mLauncherEndlessLoop;
 
     private ActivityManager activityManager;
 	
@@ -47,10 +50,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String FIVE = "Five";
     private static final String SEVEN = "Seven";
     private static final String SCREENSETTINGS = "NUM_SCREENS";
+    private static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
 
     private static final String LAUNCHER = "com.android.launcher";
-    
-    
     private static final int OP_SUCCESSFUL = 1;
     private static final int OP_FAILED = 2;
     private static final int CLEAR_USER_DATA = 1;
@@ -68,14 +70,29 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		// not here, non-initializtion here leads to null pointer exception
 		setPreferences();
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-		PreferenceScreen prefSet = getPreferenceScreen();
 	}
 
    public void setPreferences(){
+	PreferenceScreen prefSet = getPreferenceScreen();
 	mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
+	mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
+	mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(),
+			Settings.System.LAUNCHER_ENDLESS_LOOP, 0) == 1);
 	mScreenPreference = (ListPreference) findPreference("num_screens");
 	activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
 
+	}
+
+	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+	    boolean value;
+
+	    if (preference == mLauncherEndlessLoop) {
+		value = mLauncherEndlessLoop.isChecked();
+		Settings.System.putInt(getContentResolver(),
+			Settings.System.LAUNCHER_ENDLESS_LOOP, value ? 1 : 0);
+	        restartLauncher2(activityManager);
+	    }
+	    return true;
 	}
 
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
