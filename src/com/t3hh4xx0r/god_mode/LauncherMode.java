@@ -77,7 +77,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
 	mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
 	mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(),
-			Settings.System.LAUNCHER_ENDLESS_LOOP, 0) == 1);
+			Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
 	mScreenPreference = (ListPreference) findPreference("num_screens");
 	activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
 
