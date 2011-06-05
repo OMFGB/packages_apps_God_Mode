@@ -131,6 +131,9 @@
     <string name="title_general_use_rotary_lockscreen">Use Rotary Lockscreen?</string>
     <string name="summary_on_general_use_rotary_lockscreen">Rotary lockscreen will be used</string>
     <string name="summary_off_general_use_rotary_lockscreen">Rotary lockscreen will not be used</string>
+    <string name="title_lockscreen_shortcuts">Lockscreen Shortcuts</string>
+    <string name="summary_on_lockscreen_shortcuts">Phone and messaging shortcuts will be shown on lockscreen</string>
+    <string name="summary_off_lockscreen_shortcuts">No app shortcuts will be shown on the lockscreen</string>
     <string name="title_lockscreen_always_battery">Lockscreen Battery</string>
     <string name="summary_on_lockscreen_always_battery">Battery percentage will always show on lockscreen</string>
     <string name="summary_off_lockscreen_always_battery">Battery percentage will only show when charging</string>

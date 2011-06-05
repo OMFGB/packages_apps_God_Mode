@@ -28,6 +28,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final String TRACKPAD_UNLOCK_SCREEN = "trackpad_unlock_screen";
 	private static final String MENU_UNLOCK_SCREEN = "menu_unlock_screen";
 	private static final String LOCKSCREEN_ROTARY_LOCK = "use_rotary_lockscreen";
+	private static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
 	private static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
 	
 	private EditTextPreference mCarrierCaption;
@@ -35,7 +36,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private CheckBoxPreference mVolumeWakeScreen;
 	private CheckBoxPreference mTrackpadUnlockScreen;
 	private CheckBoxPreference mMenuUnlockScreen;
-	
+	private CheckBoxPreference mLockscreenShortcuts;
 	//TODO Create music controls in rotary layouts.
 	//private CheckBoxPreference mUseRotaryLockPref;
 	private CheckBoxPreference mLockscreenAlwaysBattery;
@@ -58,6 +59,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	        //TODO Create music controls in rotary layouts.
 		//mUseRotaryLockPref = (CheckBoxPreference)prefSet.findPreference(LOCKSCREEN_ROTARY_LOCK);
 		//mUseRotaryLockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_ROTARY_LOCKSCREEN, 0) != 0);
+		mLockscreenShortcuts = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_SHORTCUTS);
+		mLockscreenShortcuts.setChecked (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_SHORTCUTS, 0) != 0);
 		mLockscreenAlwaysBattery = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_ALWAYS_BATTERY);
 		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 0);
 		
@@ -82,6 +85,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	if (preference == mLockscreenAlwaysBattery) {
 		    value = mLockscreenAlwaysBattery.isChecked();
 		    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, value ? 1 : 0);
+	} else if (preference == mLockscreenShortcuts) {
+		    value = mLockscreenShortcuts.isChecked();
+		    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SHORTCUTS, value ? 1 : 0);
 	} else if (preference == mTrackpadWakeScreen) {
 		    value = mTrackpadWakeScreen.isChecked();
 		    Settings.System.putInt(getContentResolver(), Settings.System.TRACKPAD_WAKE_SCREEN, value ? 1 : 0);

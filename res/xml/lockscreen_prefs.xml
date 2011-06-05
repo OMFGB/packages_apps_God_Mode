@@ -17,6 +17,12 @@
 	/>
 	-->
 	<CheckBoxPreference
+		android:key="lockscreen_shortcuts"
+		android:title="@string/title_lockscreen_shortcuts"
+		android:summaryOn="@string/summary_on_lockscreen_shortcuts"
+		android:summaryOff="@string/summary_off_lockscreen_shortcuts"
+	/>
+	<CheckBoxPreference
 		android:key="lockscreen_always_battery"
 		android:title="@string/title_lockscreen_always_battery"
 		android:summaryOn="@string/summary_on_lockscreen_always_battery"
