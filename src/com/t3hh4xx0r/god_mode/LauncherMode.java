@@ -2,15 +2,21 @@ package com.t3hh4xx0r.god_mode;
 
 import java.util.List;
 
+import com.t3hh4xx0r.god_mode.utils.PackageUtils;
+
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.IPackageDataObserver;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,9 +59,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
 
     private static final String LAUNCHER = "com.android.launcher";
-    private static final int OP_SUCCESSFUL = 1;
-    private static final int OP_FAILED = 2;
-    private static final int CLEAR_USER_DATA = 1;
     
   
 
@@ -92,19 +95,49 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 			Settings.System.LAUNCHER_ENDLESS_LOOP, value ? 1 : 0);
 	        restartLauncher2(activityManager);
 	    }
+	    
+	    if (preference == mScreenPreference) {
+			// Ask the user if they are sure they whant to proceed/
+	    	// If they do let them know that the homescreen widgets/apps 
+	    	// will be reset
+	    	alertbox("Warning", "Selecting a new homescreen configuration will remove the current configuration" +
+	    			"\nSelect cancel at the next screen if you do not wich to set up your homescreen again.");
+	    	
+	    	
+		    }
+	    
 	    return true;
 	}
+	
+	//brough to you buy http://www.androidsnippets.com/display-an-alert-box
+	
+	protected void alertbox(String title, String mymessage)
+	   {
+	   new AlertDialog.Builder(this)
+	      .setMessage(mymessage)
+	      .setTitle(title)
+	      .setCancelable(true)
+	      .setNeutralButton("OK",
+	         new DialogInterface.OnClickListener() {
+	         public void onClick(DialogInterface dialog, int whichButton){}
+	         })
+	      .show();
+	   }
 
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         	if(DBG)Log.v(TAG, "shared preference changed");    	
-	        //This is the skeleton for the number of screen to change to
+        	
 	        if(key == mScreenPreference.getKey()){
 	        if(DBG)Log.v(TAG, "on shared screen preference change in God Mode");
 	        	registerScreenChange(mScreenPreference.getEntry().toString());
-	        	restartLauncher2(activityManager);
+	        	PackageUtils packageUtility = new PackageUtils(this , LAUNCHER);
+	        	packageUtility.initiateClearUserData();
+	        	//restartLauncher2(activityManager);
 	        }
         }
-     
+        
+
+        
          void registerScreenChange(String st){
          	if(compareStrings(st.compareTo(SEVEN))) {
          		st.compareTo(SEVEN);
