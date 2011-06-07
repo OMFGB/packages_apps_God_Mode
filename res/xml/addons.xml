@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:addons="http://schemas.android.com/apk/res/com.t3hh4xx0r.addons">
+
+	<PreferenceCategory android:title="@string/packages_addons">
+
+	<com.t3hh4xx0r.addons.IconPreferenceScreen
+			addons:icon="@drawable/google"
+			android:key="google_apps_addon" 
+			android:title="@string/google_apps"
+			android:summary="@string/google_apps_summary" >
+	</com.t3hh4xx0r.addons.IconPreferenceScreen>
+        </PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/apps_addons">
+
+	<!--
+        <com.t3hh4xx0r.addons.IconPreferenceScreen
+               	        android:key="stock_keyboard" 
+                       	android:title="@string/stock_kb"
+                        android:summary="@string/stock_kb_summary" >
+        </com.t3hh4xx0r.addons.IconPreferenceScreen> -->
+	</PreferenceCategory>
+
+</PreferenceScreen>

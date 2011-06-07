@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <PreferenceScreen android:key="addons"
+                android:title="@string/addons_title" 
+                android:summary="@string/addons_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r.god_mode"
+                    android:targetClass="com.t3hh4xx0r.god_mode.Addons" />
+        </PreferenceScreen>
+
+        <PreferenceScreen android:key="settings"
+                android:title="@string/settings_title" 
+                android:summary="@string/settings_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r.god_mode"
+                    android:targetClass="com.t3hh4xx0r.god_mode.GodMode" />
+        </PreferenceScreen>
+
+        <PreferenceScreen android:key="nightlys"
+                android:title="@string/nightlys_title" 
+                android:summary="@string/addons_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r.god_mode"
+                    android:targetClass="com.t3hh4xx0r.god_mode.Nightlys" />
+        </PreferenceScreen>
+</PreferenceScreen>
+

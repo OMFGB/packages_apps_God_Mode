@@ -10,17 +10,24 @@
     <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES"/>
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAG$
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application android:label="@string/app_label"
             android:icon="@drawable/app_icon">
-            <intent-filter>
+	    <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        <activity android:name="GodMode">
+	<activity android:name=".MainMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GodMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity android:name=".LockscreenMode" android:label="@string/settings_lockscreen">
@@ -48,6 +55,17 @@
                 <action android:name="android.intent.action.MAIN"/>                            
             </intent-filter>
         </activity>
+        <activity android:name=".Nightlys">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Addons">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
 
     </application>
 </manifest>

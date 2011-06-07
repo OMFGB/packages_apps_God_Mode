@@ -1,4 +1,0 @@
-TODO: 
-   *Launcher
-        --Cause launcher to clear its database when the number of screens changes
-        --Backup the launcher database so that when a user returns to a previous home screen number, the configuration is restored
