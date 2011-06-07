@@ -10,6 +10,7 @@
         	        android:title="@string/screen_changer_title" 
         		android:summary="@string/screen_changer_title_summary"
         		android:enabled="true"
+        		
 		/>
     </PreferenceCategory> 
 

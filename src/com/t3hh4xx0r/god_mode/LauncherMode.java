@@ -44,6 +44,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
     private boolean DBG = true;
 
 	private ListPreference mScreenPreference;
+	
+	private static boolean mIsScreenChangerOn = false;
 
 	CheckBoxPreference mScreenCheckBox;
 	CheckBoxPreference mLauncherEndlessLoop;
@@ -78,10 +80,13 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
    public void setPreferences(){
 	PreferenceScreen prefSet = getPreferenceScreen();
 	mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
+	mScreenCheckBox.setChecked(mIsScreenChangerOn);
+	
 	mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
 	mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(),
 			Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
 	mScreenPreference = (ListPreference) findPreference("num_screens");
+	
 	activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
 
 	}
@@ -96,15 +101,21 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	        restartLauncher2(activityManager);
 	    }
 	    
-	    if (preference == mScreenPreference) {
+	    if (preference == mScreenCheckBox && mIsScreenChangerOn == false) {
 			// Ask the user if they are sure they whant to proceed/
 	    	// If they do let them know that the homescreen widgets/apps 
 	    	// will be reset
-	    	alertbox("Warning", "Selecting a new homescreen configuration will remove the current configuration" +
-	    			"\nSelect cancel at the next screen if you do not wich to set up your homescreen again.");
+	    	alertbox("Warning", "Selecting a new homescreen configuration will remove the current configuration. " +
+	    			"If you do not wish to set up your homescreen again, don't change the configuration.");
 	    	
+	    	mIsScreenChangerOn = true;
 	    	
 		    }
+	    else if (preference == mScreenCheckBox && mIsScreenChangerOn == true){
+	    	
+	    	mIsScreenChangerOn = false;
+	    	
+	    }
 	    
 	    return true;
 	}
