@@ -185,6 +185,13 @@
     <string name="title_volume_music_controls">Volume music controls</string>
     <string name="summary_on_volume_music_controls">Long pressing volume buttons will change tracks with screen off</string>
     <string name="summary_off_volume_music_controls">Long pressing to change tracks will not be used</string>
+    
+    
+    <!-- User interface : Rotation -->
+	<string name="rotation_category_title">Accelerometer rotation</string>
+	<string name="pref_rotation_90_title">90 degrees</string>
+	<string name="pref_rotation_180_title">180 degrees</string>
+	<string name="pref_rotation_270_title">270 degrees</string>
 
     <!-- Expanded View Power Widget -->
     <string name="title_widget_buttons">Expanded View Widget</string>

@@ -11,6 +11,17 @@
             android:title="@string/pref_overscroll_weight_title" android:summary="@string/pref_overscroll_weight_summary"
             android:entries="@array/entries_overscroll_weight" android:entryValues="@array/values_overscroll_weight" />
 	</PreferenceCategory>
+	
+	<!-- Rotation -->
+	<PreferenceCategory android:title="@string/rotation_category_title">
+		<CheckBoxPreference android:key="pref_rotation_90"
+			android:title="@string/pref_rotation_90_title" />
+		<CheckBoxPreference android:key="pref_rotation_180"
+			android:title="@string/pref_rotation_180_title" />
+		<CheckBoxPreference android:key="pref_rotation_270"
+			android:title="@string/pref_rotation_270_title" />
+	 </PreferenceCategory>
+	
 
     <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
 	<CheckBoxPreference
