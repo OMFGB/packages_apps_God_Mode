@@ -22,15 +22,12 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
 
-import java.util.List;
 
 import com.t3hh4xx0r.god_mode.R;
-import com.t3hh4xx0r.god_mode.R.xml;
 
 public class GodMode extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
-    private static final String TAG = "GODMODE";
 
     @Override
     public void onCreate(Bundle icicle) {

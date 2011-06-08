@@ -36,8 +36,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.util.Slog;
-
 public class Addons extends PreferenceActivity {
 	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
 
@@ -52,7 +50,6 @@ public class Addons extends PreferenceActivity {
 	public static String PREF_LOCATION;
 	private static String OUTPUT_NAME;
 	private static String DOWNLOAD_URL;
-	private static File extStorageDirectory = Environment.getExternalStorageDirectory();
 
 	private int DOWNLOAD_PROGRESS = 0;
 	private static final int PREPARE_ADDON = 0;
@@ -76,7 +73,6 @@ public class Addons extends PreferenceActivity {
 	}
 
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-     		boolean value;
 		        if (preference == mGoogleApps) {
 				DOWNLOAD_URL = "http://r2doesinc.bitsurge.net/GAPPS.zip";
 				OUTPUT_NAME = "Gapps.zip";

@@ -2,29 +2,22 @@ package com.t3hh4xx0r.god_mode;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.ProgressDialog;
 import android.os.Looper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import android.content.SharedPreferences;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
 
-import java.util.List;
 
 import com.t3hh4xx0r.god_mode.R;
-import com.t3hh4xx0r.god_mode.R.xml;
 
 public class MainMenu extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,
@@ -42,7 +35,7 @@ public class MainMenu extends PreferenceActivity
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.main_menu);
 
-    File t3hh4xx0rDirectory = new File ("/sdcard/t3hh4xx0r"/);
+    File t3hh4xx0rDirectory = new File ("/sdcard/t3hh4xx0r");
                         if (!t3hh4xx0rDirectory.isDirectory()) {
                                 t3hh4xx0rDirectory.mkdir();
                         }
