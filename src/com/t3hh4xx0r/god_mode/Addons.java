@@ -1,6 +1,5 @@
 package com.t3hh4xx0r.god_mode;
 
-
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -36,14 +35,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.util.Slog;
+
 public class Addons extends PreferenceActivity {
 	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
+        private static final String TAG = "god_mode.Addons";
 
 	//Constants for addons, ties to android:key value in addons.xml
         private static final String GOOGLE_APPS = "google_apps_addon";
 	//private static final String STOCK_KB = "stock_keyboard";
 
-        private static final String DOWNLOAD_DIR = "/sdcard/t3hh4xx0r/download/";
+        private static File extStorageDirectory = Environment.getExternalStorageDirectory();
+
+        public static final String DOWNLOAD_DIR = extStorageDirectory + "/t3hh4xx0r/downloads";
         public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup";
         public static final String EXTENDEDCMD = "/cache/recovery/extendedcommand";
 
@@ -202,6 +206,7 @@ public class Addons extends PreferenceActivity {
 				output.close();
 				input.close();
 			} catch (Exception e) {}
+	                Slog.d(TAG, "Downloaded");
 			return null;
 
 		}
@@ -214,7 +219,13 @@ public class Addons extends PreferenceActivity {
 		@Override
 		protected void onPostExecute(String unused) {
 			removeDialog(DOWNLOAD_PROGRESS);
-			handler.sendEmptyMessage(PREPARE_ADDON);
+			File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
+                        	if (f.exists()) {
+				handler.sendEmptyMessage(PREPARE_ADDON);
+				} else {
+				//If you got this far and theres still no file, theres a bigger problem, so close the app.
+				finish();
+				}
 		}
 	}
 	

@@ -15,7 +15,9 @@ import android.content.SharedPreferences;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
+import android.os.Environment;
 
+import android.util.Slog;
 
 import com.t3hh4xx0r.god_mode.R;
 
@@ -23,22 +25,21 @@ public class MainMenu extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
 
+	private static final String TAG = "god_mode.MainMenu";
+
 	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
+        public static String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
 
-        public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup";
+        public static final String BACKUP_DIR = extStorageDirectory + "/clockworkmod/backup";
         public static final String EXTENDEDCMD = "/cache/recovery/extendedcommand";
-        private static final String DOWNLOAD_DIR = "/sdcard/t3hh4xx0r/download/";
-
+        private static final String DOWNLOAD_DIR = extStorageDirectory + "/t3hh4xx0r/downloads";
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.main_menu);
 
-    File t3hh4xx0rDirectory = new File ("/sdcard/t3hh4xx0r");
-                        if (!t3hh4xx0rDirectory.isDirectory()) {
-                                t3hh4xx0rDirectory.mkdir();
-                        }
+	setupFolders();
 
     }
 
@@ -55,21 +56,34 @@ public class MainMenu extends PreferenceActivity
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, 0, 0, "Clear Download Cache");
 		menu.add(0, 1, 0, "Create A Backup");
-
 		return true;
 	}
 
-        public static boolean deleteDir (File dir) {
-            if (dir.isDirectory()) {
-                String[] children = dir.list();
-                for (int i=0; i<children.length; i++) {
-                    boolean success = deleteDir(new File(dir, children[i]));
-                    if (!success) {
-                        return false;
-		    }
-                }
-	    }
-            return dir.delete();
+        public void deleteDir() {
+               Thread cmdThread = new Thread(){
+                        @Override
+                        public void run() {
+
+                                Looper.prepare();
+
+                                try{Thread.sleep(1000);}catch(InterruptedException e){ }
+
+                                final Runtime run = Runtime.getRuntime();
+                                DataOutputStream out = null;
+                                Process p = null;
+                                try {
+                                        p = run.exec("su");
+                                        out = new DataOutputStream(p.getOutputStream());
+                                        out.writeBytes("busybox rm " + DOWNLOAD_DIR + "/" + "*\n");
+                                        out.flush();
+                                } catch (IOException e) {
+                                        e.printStackTrace();
+                                        return;
+                                }
+
+                        }
+                };
+                cmdThread.start();
         }
 
 	public void createBackup() {
@@ -111,8 +125,7 @@ public class MainMenu extends PreferenceActivity
 		switch (item.getItemId()) {
 
 		case 0:
-                File dir = new File(DOWNLOAD_DIR);
-		deleteDir(dir);
+		deleteDir();
 		break;
 
 		case 1:		
@@ -122,4 +135,35 @@ public class MainMenu extends PreferenceActivity
 		}
 	    	return(super.onOptionsItemSelected(item));
 	}	
+
+	public void setupFolders() {
+
+		Thread cmdThread = new Thread(){
+                        @Override
+                        public void run() {
+
+                                Looper.prepare();
+
+                                try{Thread.sleep(1000);}catch(InterruptedException e){ }
+
+                                final Runtime run = Runtime.getRuntime();
+                                DataOutputStream out = null;
+                                Process p = null;
+                                try {
+                                        p = run.exec("su");
+                                        out = new DataOutputStream(p.getOutputStream());
+                                        out.writeBytes("busybox mkdir " + extStorageDirectory + "/t3hh4xx0r\n");
+                                        out.writeBytes("busybox mkdir " + extStorageDirectory + "/t3hh4xx0r/downloads/\n");
+                                        out.flush();
+                                } catch (IOException e) {
+                                        e.printStackTrace();
+                                        return;
+                                }
+
+                        }
+                };
+                cmdThread.start();
+	}
+
 }
+
