@@ -1,0 +1,61 @@
+3,15c3,6
+<         package="com.t3hh4xx0r.god_mode"
+< 	android:sharedUserId="android.uid.system">
+< 
+<     <uses-sdk android:minSdkVersion="8" />
+<     <uses-permission android:name="android.permission.SET_ANIMATION_SCALE" />
+<     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+<     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+<     <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES"/>
+<     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+<     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+<     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<     <uses-permission android:name="android.permission.INTERNET" />
+<     
+---
+>       android:versionName="1.0.0" package="com.t3hh4xx0r.addons">
+>     <uses-sdk android:minSdkVersion="4" />
+> 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+> 	<uses-permission android:name="android.permission.INTERNET" />
+18c9
+< 	    <intent-filter>
+---
+>             <intent-filter>
+22c13
+< 	<activity android:name=".MainMenu">
+---
+>         <activity android:name=".MainMenu">
+28,57d18
+<         <activity android:name=".GodMode">
+<             <intent-filter>
+<                 <action android:name="android.intent.action.MAIN" />
+<             </intent-filter>
+<         </activity>
+<         <activity android:name=".LockscreenMode" android:label="@string/settings_lockscreen">
+<             <intent-filter>
+<                 <action android:name="android.intent.action.MAIN"/>
+<             </intent-filter>
+<         </activity>
+<         <activity android:name=".UiOptions" android:label="@string/settings_uioptions">
+<             <intent-filter>
+<                 <action android:name="android.intent.action.MAIN"/>
+<             </intent-filter>
+<         </activity>
+<         <activity android:name=".PowerWidgetActivity">
+<             <intent-filter>
+<                 <action android:name="android.intent.action.MAIN" />
+<             </intent-filter>
+<         </activity>
+<         <activity android:name=".PowerWidgetOrderActivity">
+<             <intent-filter>
+<                 <action android:name="android.intent.action.MAIN" />
+<             </intent-filter>
+<         </activity>
+<         <activity android:name=".LauncherMode" android:label="@string/settings_launcher">
+<             <intent-filter>
+<                 <action android:name="android.intent.action.MAIN"/>                            
+<             </intent-filter>
+<         </activity>
+68,69d28
+< 
+< 
