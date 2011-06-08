@@ -1,0 +1,14 @@
+/ActivityManager(  143): Displayed com.noshufou.android.su/.SuRequest: +103ms
+D/SuRequest(  660): Sending result: ALLOW for UID: 1000
+D/su      (  911): 1000 com.t3hh4xx0r.god_mode executing 0 /system/bin/sh using shell /system/bin/sh : sh
+I/ActivityManager(  143): Starting: Intent { act=android.intent.action.MAIN cmp=com.t3hh4xx0r.god_mode/.Addons } from pid 901
+D/dalvikvm(  901): GC_EXTERNAL_ALLOC freed 37K, 49% free 2771K/5379K, external 501K/519K, paused 45ms
+D/god_mode.Addons(  901): Available=trueWriteable=true Statemounted
+D/su      (  915): 1000 com.t3hh4xx0r.god_mode executing 0 /system/bin/sh using shell /system/bin/sh : sh
+W/System.err(  901): java.io.FileNotFoundException: /sdcard/nightly_version.txt (Permission denied)
+W/System.err(  901): 	at org.apache.harmony.luni.platform.OSFileSystem.open(Native Method)
+W/System.err(  901): 	at dalvik.system.BlockGuard$WrappedFileSystem.open(BlockGuard.java:232)
+W/System.err(  901): 	at java.io.FileOutputStream.<init>(FileOutputStream.java:94)
+W/System.err(  901): 	at java.io.FileOutputStream.<init>(FileOutputStream.java:66)
+W/System.err(  901): 	at com.t3hh4xx0r.god_mode.Addons.onCreate(Addons.java:94)
+

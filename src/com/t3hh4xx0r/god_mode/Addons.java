@@ -1,6 +1,7 @@
 package com.t3hh4xx0r.god_mode;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.HttpURLConnection;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -74,6 +76,31 @@ public class Addons extends PreferenceActivity {
 	        mGoogleApps = prefSet.findPreference(GOOGLE_APPS);
 		//mStockKB = prefSet.findPreference(STOCK_KB);
 
+	checkStorage();
+
+           final Runtime run = Runtime.getRuntime();
+           Process p = null;
+           try {
+		p = run.exec("su");
+                String path ="http://r2doesinc.bitsurge.net/Addons/nightly_version.txt";
+                String targetFileName = "nightly_version.txt";
+                boolean eof = false;
+                URL u = new URL(path);
+                HttpURLConnection c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("GET");
+                c.setDoOutput(true);
+                c.connect();
+                FileOutputStream f = new FileOutputStream(new File(extStorageDirectory + "/t3hh4xx0r/" + targetFileName));
+                InputStream in = c.getInputStream();
+                byte[] buffer = new byte[1024];
+                int len1 = 0;
+                while ( (len1 = in.read(buffer)) > 0 ) {
+                    f.write(buffer,0, len1);
+                }
+                f.close();
+            } catch (IOException e) {
+            e.printStackTrace();
+            }
 	}
 
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -228,5 +255,26 @@ public class Addons extends PreferenceActivity {
 				}
 		}
 	}
-	
+
+
+private boolean checkStorage(){
+boolean mExternalStorageAvailable = false;
+boolean mExternalStorageWriteable = false;
+String state = Environment.getExternalStorageState();
+
+if (Environment.MEDIA_MOUNTED.equals(state)) {
+// We can read and write the media
+mExternalStorageAvailable = mExternalStorageWriteable = true;
+} else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+// We can only read the media
+mExternalStorageAvailable = true;
+mExternalStorageWriteable = false;
+} else {
+Slog.d(TAG,"State="+state+" Not good");
+mExternalStorageAvailable = mExternalStorageWriteable = false;
+}
+
+Slog.d(TAG,"Available="+mExternalStorageAvailable+"Writeable="+mExternalStorageWriteable+" State"+state);
+return (mExternalStorageAvailable && mExternalStorageWriteable);
+}
 }
