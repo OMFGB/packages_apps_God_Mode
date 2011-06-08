@@ -19,6 +19,25 @@
 -->
 <resources>
 
+    <string name="app_name">God Mode</string>
+
+    <string name="packages_addons">Flashable addon packages</string>
+    <string name="apps_addons">Additional applications</string>
+
+    <string name="google_apps">Google Apps</string>
+    <string name="google_apps_summary">Flashable package containing google apps</string>
+    <string name="stock_kb">Stock Gingerbread Keyboard</string>
+    <string name="stock_kb_summary">Install the stock keyboard alongside T3hh4xIME</string>  
+
+    <string name="settings_title">Settings Title</string>
+    <string name="settings_summary">Settings Summary</string>
+
+    <string name="addons_title">T3hh4xx0r Addons</string>
+    <string name="addons_summary">Various addons availabe for your flashing needs</string>
+
+    <string name="nightlys_summary">OMFGB nightlys, remember NO SUPPORT PROVIDED</string>
+    <string name="nightlys_title">OMFGB Nightlys</string>
+
     <!-- User interface : Overscroll -->
     <string name="ui_overscroll_title">Overscrolling</string>
     <string name="pref_overscroll_title">Overscroll effect</string>
