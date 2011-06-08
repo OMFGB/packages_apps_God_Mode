@@ -19,7 +19,7 @@
 
         <PreferenceScreen android:key="nightlys"
                 android:title="@string/nightlys_title" 
-                android:summary="@string/addons_summary">
+                android:summary="@string/nightlys_summary">
             <intent android:action="android.intent.action.MAIN"
                     android:targetPackage="com.t3hh4xx0r.god_mode"
                     android:targetClass="com.t3hh4xx0r.god_mode.Nightlys" />

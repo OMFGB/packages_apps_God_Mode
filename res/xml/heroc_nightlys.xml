@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:addons="http://schemas.android.com/apk/res/com.t3hh4xx0r.god_mode">
+
+	<PreferenceCategory android:title="@string/nightlys_title">
+
+        </PreferenceCategory>
+
+
+</PreferenceScreen>
