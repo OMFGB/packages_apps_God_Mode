@@ -17,12 +17,9 @@
                     android:targetClass="com.t3hh4xx0r.god_mode.GodMode" />
         </PreferenceScreen>
 
-        <PreferenceScreen android:key="nightlys"
-                android:title="@string/nightlys_title" 
-                android:summary="@string/nightlys_summary">
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r.addons"
-                    android:targetClass="com.t3hh4xx0r.addons.Nightlys" />
+        <PreferenceScreen android:key="nightlies"
+                android:title="@string/nightlies_title" 
+                android:summary="@string/nightlies_summary">
         </PreferenceScreen>
 </PreferenceScreen>
 

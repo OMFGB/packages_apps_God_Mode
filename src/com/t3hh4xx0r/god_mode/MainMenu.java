@@ -11,21 +11,27 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 
+import android.util.Log;
 import android.util.Slog;
 
 import com.t3hh4xx0r.god_mode.R;
 
 public class MainMenu extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,
-        SharedPreferences.OnSharedPreferenceChangeListener {
+        SharedPreferences.OnSharedPreferenceChangeListener, OnPreferenceClickListener {
 
 	private static final String TAG = "god_mode.MainMenu";
+PreferenceScreen mNightlies;
 
 	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
         public static String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
@@ -38,8 +44,11 @@ public class MainMenu extends PreferenceActivity
     public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.main_menu);
+        
+        mNightlies = (PreferenceScreen) this.findPreference("nightlies");
+        mNightlies.setOnPreferenceClickListener(this);
 
-	setupFolders();
+	//setupFolders();
 
     }
 
@@ -163,6 +172,39 @@ public class MainMenu extends PreferenceActivity
                         }
                 };
                 cmdThread.start();
+	}
+
+	@Override
+	public boolean onPreferenceClick(Preference preference) {
+		// TODO Auto-generated method stub
+		Log.d(TAG,"Preference clicked");
+		
+		if(preference == this.mNightlies){
+			
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.setClassName("com.t3hh4xx0r.addons", "com.t3hh4xx0r.addons.nightlies.Nightlies");
+			if ((Build.MODEL.equals("Incredible"))) {
+			intent.putExtra("DownloadScript", "inc.js");
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			
+			} else if ((Build.MODEL.equals("Eris"))) {
+		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        startActivity(intent);
+
+		        } else if ((Build.MODEL.equals("Evo"))) {
+		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        startActivity(intent);
+
+		        } else if ((Build.MODEL.equals("Hero"))) {
+		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        startActivity(intent);
+
+			}
+			
+		}
+		
+		return false;
 	}
 
 }

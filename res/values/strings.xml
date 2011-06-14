@@ -27,8 +27,8 @@
     <string name="addons_title">T3hh4xx0r Addons</string>
     <string name="addons_summary">Various addons availabe for your flashing needs</string>
 
-    <string name="nightlys_summary">OMFGB nightlys, remember NO SUPPORT PROVIDED</string>
-    <string name="nightlys_title">OMFGB Nightlys</string>
+    <string name="nightlies_summary">OMFGB nightlys, remember NO SUPPORT PROVIDED</string>
+    <string name="nightlies_title">OMFGB Nightlys</string>
 
     <!-- User interface : Overscroll -->
     <string name="ui_overscroll_title">Overscrolling</string>
