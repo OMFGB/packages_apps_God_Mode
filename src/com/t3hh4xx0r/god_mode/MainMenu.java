@@ -189,14 +189,17 @@ PreferenceScreen mNightlies;
 			startActivity(intent);
 			
 			} else if ((Build.MODEL.equals("Eris"))) {
+				intent.putExtra("DownloadScript", "sholes.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
 		        } else if ((Build.MODEL.equals("Evo"))) {
+					intent.putExtra("DownloadScript", "supersonic.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
 		        } else if ((Build.MODEL.equals("Hero"))) {
+					intent.putExtra("DownloadScript", "mecha.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
