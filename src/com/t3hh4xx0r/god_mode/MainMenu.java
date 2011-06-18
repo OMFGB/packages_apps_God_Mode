@@ -189,7 +189,7 @@ PreferenceScreen mNightlies;
 			startActivity(intent);
 			
 			} else if ((Build.MODEL.equals("Eris"))) {
-				intent.putExtra("DownloadScript", "sholes.js");
+				intent.putExtra("DownloadScript", "desirec.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
@@ -199,7 +199,7 @@ PreferenceScreen mNightlies;
 		        startActivity(intent);
 
 		        } else if ((Build.MODEL.equals("Hero"))) {
-					intent.putExtra("DownloadScript", "mecha.js");
+					intent.putExtra("DownloadScript", "hero.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
