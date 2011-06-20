@@ -183,28 +183,38 @@ PreferenceScreen mNightlies;
 			
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.setClassName("com.t3hh4xx0r.addons", "com.t3hh4xx0r.addons.nightlies.Nightlies");
-			if ((Build.MODEL.equals("Incredible"))) {
+			
+                        if ((Build.MODEL.equals("Incredible"))) {
 			intent.putExtra("DownloadScript", "inc.js");
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 			
 			} else if ((Build.MODEL.equals("Eris"))) {
-				intent.putExtra("DownloadScript", "desirec.js");
+	                intent.putExtra("DownloadScript", "desirec.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
 		        } else if ((Build.MODEL.equals("Evo"))) {
-					intent.putExtra("DownloadScript", "supersonic.js");
+			intent.putExtra("DownloadScript", "supersonic.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
 		        } else if ((Build.MODEL.equals("Hero"))) {
-					intent.putExtra("DownloadScript", "hero.js");
+			intent.putExtra("DownloadScript", "heroc.js");
+		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        startActivity(intent);
+
+		        } else if ((Build.MODEL.equals("Thunderbolt"))) {
+			intent.putExtra("DownloadScript", "mecha.js");
+		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        startActivity(intent);
+
+		        } else if ((Build.MODEL.equals("Droid"))) {
+			intent.putExtra("DownloadScript", "sholes.js");
 		        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		        startActivity(intent);
 
 			}
-			
 		}
 		
 		return false;
