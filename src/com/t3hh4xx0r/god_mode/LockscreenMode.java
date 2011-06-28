@@ -22,6 +22,8 @@ import android.provider.Settings;
 
 public class LockscreenMode extends PreferenceActivity
 implements SharedPreferences.OnSharedPreferenceChangeListener {
+	
+	private static String TAG = "LockscreenMode";
 
 	private static final String CARRIER_CAP = "carrier_caption";
 	private static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
@@ -75,6 +77,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		
 		
 		mLockScreenTypeList  = (ListPreference) findPreference("lockscreen_type");
+		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
 		
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -134,7 +137,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		
 		if(mLockScreenTypeList.getKey().equals(key)){
 			
-			Settings.System.putInt(getContentResolver(), LOCKSCREENTYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
+			Settings.System.putInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HC_LOCKSCREEN)Log.d(TAG, "Concept used");
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
 			
 		}
 		
