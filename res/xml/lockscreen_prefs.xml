@@ -16,6 +16,14 @@
 		android:summaryOff="@string/summary_off_general_use_rotary_lockscreen" 
 	/>
 	-->
+		<ListPreference
+   			android:key="lockscreen_type"					
+ 			android:title="@string/lockscreen_selector_elements"
+ 			android:summary="@string/lockscreen_selector_elements_about"		 	  		
+                	android:entries="@array/lockscreen_selector_types"
+		        android:entryValues="@array/lockscreen_selector_types_value"
+		/>
+		
 	<CheckBoxPreference
 		android:key="lockscreen_shortcuts"
 		android:title="@string/title_lockscreen_shortcuts"

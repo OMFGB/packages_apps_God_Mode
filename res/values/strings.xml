@@ -150,7 +150,12 @@
     <string name="summary_off_lockscreen_always_battery">Battery percentage will only show when charging</string>
     <string name="title_use_stock_lockscreen_layout">Lockscreen Layout</string>
     <string name="summary_on_use_stock_lockscreen_layout">Stock offset style lockscreen will be used</string>
-    <string name="summary_off_use_stock_lockscreen_layout">OMFGB style centered lockscreen will be used</string>
+    <string name="summary_off_use_stock_lockscreen_layout">OMFGB style centered lockscreen will be used </string>
+					
+ 				
+ 	<string name="lockscreen_selector_elements">Select lockscreen type</string>
+ 	<string name="lockscreen_selector_elements_about">Select lockscreen</string>		
+
 
     <!-- UiOptions -->
     <string name="settings_uioptions">Ui Settings</string>

@@ -57,6 +57,18 @@
         <item>Five</item>
         <item>Seven</item>
     </string-array>
+    
+       <string-array name="lockscreen_selector_types" >
+        <item>Tab</item>
+        <item>Rotary</item>
+        <item>HoneyComb concept</item>
+    </string-array>
+    
+      <string-array name="lockscreen_selector_types_value" >
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 
 
 <string-array name="entries_batterytypes">

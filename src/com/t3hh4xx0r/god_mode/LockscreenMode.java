@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.EditTextPreference;
@@ -39,6 +40,14 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private CheckBoxPreference mLockscreenShortcuts;
 	//TODO Create music controls in rotary layouts.
 	//private CheckBoxPreference mUseRotaryLockPref;
+
+	private String HONEYCOMB = "HoneyComb";
+	private String TAB = "Tab";
+	private String ROTARY = "Rotary";
+	private String LOCKSCREENTYPE = "lockscreen_type";
+	
+	private ListPreference mLockScreenTypeList;
+	
 	private CheckBoxPreference mLockscreenAlwaysBattery;
 	
 	@Override
@@ -63,6 +72,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mLockscreenShortcuts.setChecked (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_SHORTCUTS, 0) == 0);
 		mLockscreenAlwaysBattery = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_ALWAYS_BATTERY);
 		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 0);
+		
+		
+		mLockScreenTypeList  = (ListPreference) findPreference("lockscreen_type");
+		
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
@@ -100,17 +113,30 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	} else if (preference == mMenuUnlockScreen) {
 		    value = mMenuUnlockScreen.isChecked();
 		    Settings.System.putInt(getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, value ? 1 : 0);
+	}else if ( preference == mLockScreenTypeList){
+		
+		
 	}
         return true;
     }
 	
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		
 		if (CARRIER_CAP.equals(key)) {
 			Settings.System.putString(getContentResolver(),CARRIER_CAP, sharedPreferences.getString(CARRIER_CAP, ""));
             ActivityManager am = (ActivityManager)getSystemService(
                     Context.ACTIVITY_SERVICE);
             am.forceStopPackage("com.android.phone");
 		}
+		
+		
+		
+		if(mLockScreenTypeList.getKey().equals(key)){
+			
+			Settings.System.putInt(getContentResolver(), LOCKSCREENTYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
+			
+		}
+		
 	}
 }
