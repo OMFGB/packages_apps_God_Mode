@@ -49,7 +49,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	
 	@Override
-    public void onCreate(Bundle savedInstanceState) {	
+        public void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.lockscreen_prefs);
 		PreferenceScreen prefSet = getPreferenceScreen();
@@ -70,10 +70,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mMenuUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, 0) != 0);
 		// Shortcuts preference
 		mLockscreenShortcuts = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_SHORTCUTS);
-		mLockscreenShortcuts.setChecked (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_SHORTCUTS, 0) == 0);
+		mLockscreenShortcuts.setChecked (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_SHORTCUTS, 0) != 0);
 		// Battery preference
 		mLockscreenAlwaysBattery = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_ALWAYS_BATTERY);
-		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 0);
+		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) != 0);
 		// Lockscreen type preference
 		mLockScreenTypeList  = (ListPreference) findPreference(LOCKSCREEN_TYPE);
 		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
@@ -81,7 +81,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mLockscreenOrientation = (CheckBoxPreference) this.findPreference(LOCKSCREEN_ORIENTATION);
 		//default to portrait
 		mLockscreenOrientation.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, 0) == 0);
-		
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
