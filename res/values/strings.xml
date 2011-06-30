@@ -103,7 +103,9 @@
     <string name="title_launcher_endless_loop">Launcher Endless Loop</string>
     <string name="summary_on_launcher_endless_loop">Workspace will continuously loop</string>
     <string name="summary_off_launcher_endless_loop">Workspace will not continuously loop</string>
-    
+    <string name="title_wallpaper_loop">Wallpaper Scrolling</string>
+    <string name="summary_on_wallpaper_loop">Wallpaper will move as the homescreens are changed</string>
+    <string name="summary_off_wallpaper_loop">Wallpaper will not move with the screens</string>
     
     <string name="number_screens_title">Change the number of screens</string>
     <string name="screen_changer_title">Screen number</string>
