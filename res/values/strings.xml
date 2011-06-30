@@ -156,6 +156,12 @@
  	<string name="lockscreen_selector_elements">Select lockscreen type</string>
  	<string name="lockscreen_selector_elements_about">Select lockscreen</string>		
 
+   <!-- Lockscreen orientation settings -->
+   <string name="title_lockscreen_orientation">Lockscreen orientation</string>
+    <string name="summary_on_lockscreen_orientation">Locked into portrait orientation</string>
+    <string name="summary_off_lockscreen_orientation">Locked into landscape orientation</string>
+	
+
 
     <!-- UiOptions -->
     <string name="settings_uioptions">Ui Settings</string>

@@ -8,14 +8,7 @@
 		android:dialogTitle="Enter lockscreen caption."
 		android:defaultValue="OMFG...B" 
 	/>
-	<!-- TODO Create music controls in rotary layouts.
-	<CheckBoxPreference
-		android:key="use_rotary_lockscreen"
-		android:title="@string/title_general_use_rotary_lockscreen"
-		android:summaryOn="@string/summary_on_general_use_rotary_lockscreen"
-		android:summaryOff="@string/summary_off_general_use_rotary_lockscreen" 
-	/>
-	-->
+	
 		<ListPreference
    			android:key="lockscreen_type"					
  			android:title="@string/lockscreen_selector_elements"
@@ -23,13 +16,19 @@
                 	android:entries="@array/lockscreen_selector_types"
 		        android:entryValues="@array/lockscreen_selector_types_value"
 		/>
-		
+		<CheckBoxPreference
+		android:key="lockscreen_orientation"
+		android:title="@string/title_lockscreen_orientation"
+		android:summaryOn="@string/summary_on_lockscreen_orientation"
+		android:summaryOff="@string/summary_off_lockscreen_orientation"
+	/>
 	<CheckBoxPreference
 		android:key="lockscreen_shortcuts"
 		android:title="@string/title_lockscreen_shortcuts"
 		android:summaryOn="@string/summary_on_lockscreen_shortcuts"
 		android:summaryOff="@string/summary_off_lockscreen_shortcuts"
 	/>
+	
 	<CheckBoxPreference
 		android:key="lockscreen_always_battery"
 		android:title="@string/title_lockscreen_always_battery"
