@@ -48,6 +48,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	CheckBoxPreference mScreenCheckBox;
 	CheckBoxPreference mLauncherEndlessLoop;
+	CheckBoxPreference mWallpaperLoop;
 
     private ActivityManager activityManager;
 	
@@ -58,6 +59,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String SEVEN = "Seven";
     private static final String SCREENSETTINGS = "NUM_SCREENS";
     private static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
+    private static final String WALLPAPER_LOOP = "wallpaper_loop";
 
     private static final String LAUNCHER = "com.android.launcher";
     
@@ -80,7 +82,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	PreferenceScreen prefSet = getPreferenceScreen();
 	mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
 	mScreenCheckBox.setChecked(mIsScreenChangerOn);
-	
+	mWallpaperLoop = (CheckBoxPreference) prefSet.findPreference(WALLPAPER_LOOP);
+	mWallpaperLoop.setChecked(Settings.System.getInt(getContentResolver(),
+			Settings.System.WALLPAPER_LOOP, 1) == 1);
 	mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
 	mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(),
 			Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
@@ -92,6 +96,13 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
 	    boolean value;
+
+	    if (preference == mWallpaperLoop) {
+		value = mWallpaperLoop.isChecked();
+		Settings.System.putInt(getContentResolver(),
+			Settings.System.WALLPAPER_LOOP, value ? 1 : 0);
+		restartLauncher2(activityManager);
+	    }
 
 	    if (preference == mLauncherEndlessLoop) {
 		value = mLauncherEndlessLoop.isChecked();
@@ -142,11 +153,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	        	registerScreenChange(mScreenPreference.getEntry().toString());
 	        	PackageUtils packageUtility = new PackageUtils(this , LAUNCHER);
 	        	packageUtility.initiateClearUserData();
-	        	//restartLauncher2(activityManager);
 	        }
         }
-        
-
         
          void registerScreenChange(String st){
          	if(compareStrings(st.compareTo(SEVEN))) {
