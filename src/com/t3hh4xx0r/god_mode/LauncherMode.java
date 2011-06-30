@@ -88,6 +88,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
 	mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(),
 			Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
+        mWallpaperLoop = (CheckBoxPreference) prefSet.findPreference(WALLPAPER_LOOP);
+        mWallpaperLoop.setChecked(Settings.System.getInt(getContentResolver(),
+                        Settings.System.WALLPAPER_LOOP, 1) == 1);
 	mScreenPreference = (ListPreference) findPreference("num_screens");
 	
 	activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
