@@ -48,7 +48,7 @@ PreferenceScreen mNightlies;
         mNightlies = (PreferenceScreen) this.findPreference("nightlies");
         mNightlies.setOnPreferenceClickListener(this);
 
-	//setupFolders();
+	setupFolders();
 
     }
 
