@@ -8,6 +8,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -77,10 +78,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		// Lockscreen type preference
 		mLockScreenTypeList  = (ListPreference) findPreference(LOCKSCREEN_TYPE);
 		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
-		// Lockscreen oreientation preference
+		// Lockscreen oreientation preference & default to portrait
 		mLockscreenOrientation = (CheckBoxPreference) this.findPreference(LOCKSCREEN_ORIENTATION);
-		//default to portrait
-		mLockscreenOrientation.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, 0) == 0);
+		mLockscreenOrientation.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) == Configuration.ORIENTATION_PORTRAIT);
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
@@ -115,7 +115,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 			
 		}else if ( preference ==  mLockscreenOrientation){
 			    value = mLockscreenOrientation.isChecked();
-			    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, value ? 1 : 0);
+			    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, value ? Configuration.ORIENTATION_LANDSCAPE : Configuration.ORIENTATION_PORTRAIT);
 			
 		}
         return true;
