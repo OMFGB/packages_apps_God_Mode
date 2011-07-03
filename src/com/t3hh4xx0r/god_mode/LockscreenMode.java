@@ -115,8 +115,9 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 			
 		}else if ( preference ==  mLockscreenOrientation){
 			    value = mLockscreenOrientation.isChecked();
-			    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, value ? Configuration.ORIENTATION_LANDSCAPE : Configuration.ORIENTATION_PORTRAIT);
-			
+			    Log.d(TAG, "Preference is checked =  " + mLockscreenOrientation.isChecked());
+			    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, value ? Configuration.ORIENTATION_PORTRAIT : Configuration.ORIENTATION_LANDSCAPE );
+			    Log.d(TAG, "Setting lockscreen to portrait orientation  =  " + (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) == Configuration.ORIENTATION_PORTRAIT) );
 		}
         return true;
     }
