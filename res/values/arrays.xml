@@ -121,7 +121,8 @@
         <item>Auto/Dim/40%/100%</item>
 	<item>Auto/Dim/25%/50%/75%/100%</item>
         <item>Auto/25%/100%</item>
-        <item>Dim/100%</item>
+        <item>25%/100%</item>
+	<item>Dim/100%</item>
     </string-array>
 
 <string-array name="values_brightness_widget" translatable="false">
@@ -129,6 +130,7 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+	<item>4</item>
     </string-array>
 
 <string-array name="entries_network_widget" translatable="false">
