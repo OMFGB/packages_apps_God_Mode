@@ -80,7 +80,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
 		// Lockscreen oreientation preference & default to portrait
 		mLockscreenOrientation = (CheckBoxPreference) this.findPreference(LOCKSCREEN_ORIENTATION);
-		mLockscreenOrientation.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) == Configuration.ORIENTATION_PORTRAIT);
+		mLockscreenOrientation.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) != Configuration.ORIENTATION_LANDSCAPE);
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
@@ -117,7 +117,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 			    value = mLockscreenOrientation.isChecked();
 			    Log.d(TAG, "Preference is checked =  " + mLockscreenOrientation.isChecked());
 			    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, value ? Configuration.ORIENTATION_PORTRAIT : Configuration.ORIENTATION_LANDSCAPE );
-			    Log.d(TAG, "Setting lockscreen to portrait orientation  =  " + (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) == Configuration.ORIENTATION_PORTRAIT) );
+			    Log.d(TAG, "Setting lockscreen to portrait orientation  =  " + (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) != Configuration.ORIENTATION_LANDSCAPE) );
 		}
         return true;
     }
