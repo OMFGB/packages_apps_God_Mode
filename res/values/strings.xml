@@ -20,6 +20,7 @@
 <resources>
 
     <string name="app_name">God Mode</string>
+    <string name="addons_and_roms">Addons and Roms</string>
 
     <string name="settings_title">God Mode Settings</string>
     <string name="settings_summary">Custom settings designed for OMFGB</string>
