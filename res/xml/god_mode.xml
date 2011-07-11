@@ -25,7 +25,7 @@
                 android:title="@string/settings_launcher" 
                 android:summary="@string/settings_launcher_summary">
             <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r.god_mode"
+                    android:targetPackage="com.t3hh4xx0r"
                     android:targetClass="com.t3hh4xx0r.god_mode.LauncherMode" />
         </PreferenceScreen>
 
@@ -33,7 +33,7 @@
                 android:title="@string/settings_lockscreen" 
                 android:summary="@string/settings_lockscreen_summary">
             <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r.god_mode"
+                    android:targetPackage="com.t3hh4xx0r"
                     android:targetClass="com.t3hh4xx0r.god_mode.LockscreenMode" />
         </PreferenceScreen>
         
@@ -41,7 +41,7 @@
                 android:title="@string/settings_uioptions" 
                 android:summary="@string/settings_uioptions_summary">
             <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r.god_mode"
+                    android:targetPackage="com.t3hh4xx0r"
                     android:targetClass="com.t3hh4xx0r.god_mode.UiOptions" />
         </PreferenceScreen>
 

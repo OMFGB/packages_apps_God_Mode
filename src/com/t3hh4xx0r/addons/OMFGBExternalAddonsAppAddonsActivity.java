@@ -141,10 +141,10 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
   	 PreferenceCategory applicationcat =  new PreferenceCategory(this);
   	 applicationcat.setTitle("Additional applications");
    	
-   	 PreferenceRoot.addPreference(kernelcat);
+   	 
    	 PreferenceRoot.addPreference(googlecat);
    	 PreferenceRoot.addPreference(applicationcat);
-   	
+   	 PreferenceRoot.addPreference(kernelcat);
    	
        	try
            {
@@ -240,7 +240,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                // Finally add the preference to the heirachy
    	                Log.i(TAG,"Adding " + (String) inscreen.getTitle() + "to screen if compatible") ;
    	                
-   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice())){
+   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
    	                	if(DBG){
    	                	Log.i(TAG, "Adding screen now");
    	                	Log.i(TAG, "Category = " +  n.getCategory());
@@ -256,12 +256,22 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                	
    	                }
    	                
-   	             
-   	             if(applicationcat.getPreferenceCount() == 0)PreferenceRoot.removePreference(applicationcat);
-   	             if(kernelcat.getPreferenceCount() == 0)PreferenceRoot.removePreference(kernelcat);
-   	                
+   	          
    	
    	            }
+   	        	if(googlecat.getPreferenceCount() == 0){
+	            	 PreferenceRoot.removePreference(googlecat);
+	            	 Log.i(TAG, "Removing gapps category");
+	            	 }
+	             if(applicationcat.getPreferenceCount() == 0){
+	            	 PreferenceRoot.removePreference(applicationcat);
+
+	            	 Log.i(TAG, "Removing applications category");
+	             }
+	             if(kernelcat.getPreferenceCount() == 0){
+	            	 PreferenceRoot.removePreference(kernelcat);
+	            	 Log.i(TAG, "Removing kernels category");
+	             }
                Log.d(TAG, x);
                }
                else{
