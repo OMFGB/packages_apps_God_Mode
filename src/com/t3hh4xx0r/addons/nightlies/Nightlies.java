@@ -1,7 +1,5 @@
 package com.t3hh4xx0r.addons.nightlies;
 
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,7 +36,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
+import com.t3hh4xx0r.R.xml;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
 
 public class Nightlies extends PreferenceActivity {

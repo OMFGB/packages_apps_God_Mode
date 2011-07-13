@@ -17,7 +17,7 @@
 package com.t3hh4xx0r.god_mode;
 
 import com.android.internal.telephony.Phone;
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.god_mode.utils.PowerWidgetUtil;
 
 import android.os.Bundle;

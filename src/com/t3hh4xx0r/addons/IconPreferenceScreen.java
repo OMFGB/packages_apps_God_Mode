@@ -24,7 +24,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
+import com.t3hh4xx0r.R.xml;
 
 public class IconPreferenceScreen extends Preference {
 

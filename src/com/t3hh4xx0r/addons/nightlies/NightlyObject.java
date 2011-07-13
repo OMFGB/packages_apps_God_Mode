@@ -1,6 +1,5 @@
 package com.t3hh4xx0r.addons.nightlies;
 
-
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;

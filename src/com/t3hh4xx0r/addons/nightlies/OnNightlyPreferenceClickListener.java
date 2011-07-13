@@ -15,7 +15,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 
 
-
 public class OnNightlyPreferenceClickListener implements OnPreferenceClickListener {
 	
 	private final String TAG = "OnNightlyPreferenceClick";

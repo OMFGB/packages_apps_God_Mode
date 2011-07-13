@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.t3hh4xx0r.addons.utils.Downloads;
 
-
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.net.Uri;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
-
 
 
 public class OnAddonsPreferenceClickListener implements OnPreferenceClickListener {

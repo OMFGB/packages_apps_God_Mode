@@ -40,7 +40,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
 
 public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
 	

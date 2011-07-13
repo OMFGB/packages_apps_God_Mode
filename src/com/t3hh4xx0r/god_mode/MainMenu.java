@@ -26,7 +26,7 @@ import android.util.Slog;
 
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
 
 public class MainMenu extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,

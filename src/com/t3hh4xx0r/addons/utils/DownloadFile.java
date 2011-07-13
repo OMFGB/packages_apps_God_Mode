@@ -8,7 +8,8 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
+import com.t3hh4xx0r.R.xml;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -17,10 +18,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
-
-
-
-
 
 
 public class DownloadFile {

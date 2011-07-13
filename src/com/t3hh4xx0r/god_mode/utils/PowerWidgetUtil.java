@@ -16,7 +16,7 @@
 
 package com.t3hh4xx0r.god_mode.utils;
 
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
 
 import android.content.Context;
 import android.provider.Settings;

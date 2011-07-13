@@ -12,7 +12,7 @@ import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
 
 public class MainMenu extends PreferenceActivity  {
 

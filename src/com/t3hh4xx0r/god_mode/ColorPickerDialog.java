@@ -16,7 +16,8 @@
 
 package com.t3hh4xx0r.god_mode;
 
-import android.R;
+import com.t3hh4xx0r.R;
+import com.t3hh4xx0r.R.xml;
 import android.os.Bundle;
 import android.app.Dialog;
 import android.content.Context;
@@ -316,7 +317,7 @@ public class ColorPickerDialog extends Dialog {
         layoutParams.setMargins(10, 0, 10, 5);
         
         TextView tv = new TextView(mContext);
-        tv.setText(com.t3hh4xx0r.god_mode.R.string.msg_color_picker);
+        tv.setText(com.t3hh4xx0r.R.string.msg_color_picker);
         layout.addView(tv, layoutParams);
         
         mColorPickerView = new ColorPickerView(getContext(), onColorChangedListener, mInitialColor);        
@@ -335,7 +336,7 @@ public class ColorPickerDialog extends Dialog {
         layout.addView(mEditText, layoutParams);
 
         setContentView(layout);
-        setTitle(com.t3hh4xx0r.god_mode.R.string.title_color_picker);
+        setTitle(com.t3hh4xx0r.R.string.title_color_picker);
     }
     
     private OnColorChangedListener onColorChangedListener = new OnColorChangedListener() {

@@ -23,7 +23,7 @@ import android.preference.PreferenceActivity;
 import android.os.Bundle;
 
 
-import com.t3hh4xx0r.god_mode.R;
+import com.t3hh4xx0r.R;
 
 public class GodMode extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,

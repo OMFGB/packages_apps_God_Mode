@@ -3,6 +3,7 @@ package com.t3hh4xx0r.god_mode;
 import java.util.List;
 
 import com.t3hh4xx0r.god_mode.utils.PackageUtils;
+import com.t3hh4xx0r.R;
 
 import android.app.Activity;
 import android.app.ActivityManager;
