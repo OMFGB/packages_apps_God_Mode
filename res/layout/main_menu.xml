@@ -9,13 +9,16 @@
                 android:title="@string/addons_title" 
                 android:summary="@string/addons_summary">
             <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r.addons"
-                    android:targetClass="com.t3hh4xx0r.addons.Addons" />
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.addons.OMFGBExternalAddonsAppAddonsActivity" />
         </PreferenceScreen>
         
          <PreferenceScreen android:key="nightlies"
                 android:title="@string/nightlies_title" 
                 android:summary="@string/nightlies_summary">
+                 <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.addons.nightlies.OMFGBExternalAddonsAppNightlyActivity" />
         </PreferenceScreen>
         
        </PreferenceCategory> 
@@ -28,11 +31,10 @@
                 android:title="@string/settings_title" 
                 android:summary="@string/settings_summary">
             <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r.god_mode"
+                    android:targetPackage="com.t3hh4xx0r"
                     android:targetClass="com.t3hh4xx0r.god_mode.GodMode" />
         </PreferenceScreen>
  </PreferenceCategory> 
-
        
 </PreferenceScreen>
 
