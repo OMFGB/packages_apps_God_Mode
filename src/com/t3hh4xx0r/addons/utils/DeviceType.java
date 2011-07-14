@@ -18,7 +18,16 @@ static boolean deviceEquals(String s){
 		
 	}
 
+public static void setDensity(String dEVICE_DENSITY) {
+	DEVICE_DENSITY = dEVICE_DENSITY;
+}
+public static String getDensity() {
+	return DEVICE_DENSITY;
+}
+
 public static String DEVICE_TYPE;
+// Defualt to all densities
+private static String DEVICE_DENSITY = "all";
 
 
 // Device name constatnts

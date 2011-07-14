@@ -9,6 +9,7 @@ public class AddonsObject {
 	private String mInstallable;
 	private String mDescription;
 	private String mCategory;
+	private String mDensity;
 	
 	public void setURL(String mURL) {
 		this.mURL = mURL;
@@ -51,6 +52,12 @@ public class AddonsObject {
 	}
 	public String getCategory() {
 		return mCategory;
+	}
+	public void setDensity(String mDensity) {
+		this.mDensity = mDensity;
+	}
+	public String getDensity() {
+		return mDensity;
 	}
 	
 	

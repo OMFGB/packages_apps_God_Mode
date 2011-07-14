@@ -232,6 +232,15 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                n.setURL(post.getString("url"));
    	                n.setName(post.getString("name"));
    	                try{
+   	                	n.setDensity(post.getString("density"));
+   	                }catch(JSONException e)
+   	                {
+   	                	
+   	                	Log.d(TAG, "Density is not set");
+   	                	n.setDensity("all");
+   	                	
+   	                }
+   	                try{
    	                	n.setZipName(post.getString("name"));
    	                }catch(JSONException e){
    	                	e.printStackTrace();
@@ -259,7 +268,13 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                // Finally add the preference to the heirachy
    	                Log.i(TAG,"Adding " + (String) inscreen.getTitle() + "to screen if compatible") ;
    	                
-   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
+   	                /*
+   	                 * If the device type eqauls this deive or all and the density equals all or this device
+   	                 * set the category
+   	                 * 
+   	                 */
+   	                if((DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")) && ( DeviceType.getDensity().equals("all") 
+   	                		|| DeviceType.deviceEquals(n.getDensity()) )){
    	                	// Debug
    	                	if(DBG){
    	                	Log.i(TAG, "Adding screen now");
