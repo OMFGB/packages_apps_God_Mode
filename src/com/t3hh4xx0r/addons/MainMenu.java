@@ -74,6 +74,18 @@ public class MainMenu extends PreferenceActivity  {
 
 			    	DeviceType.DEVICE_TYPE = "mecha";
 			        	
+				}else  if (DeviceType.deviceEquals(DeviceType.INCREDIBLE2)) {
+
+                                Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
+
+                                DeviceType.DEVICE_TYPE = "vivow";
+
+				}else  if (DeviceType.deviceEquals(DeviceType.FASCINATEMTD)) {
+
+                                Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
+
+                                DeviceType.DEVICE_TYPE = "fascinatemtd";
+				
 				}
 		}
 		

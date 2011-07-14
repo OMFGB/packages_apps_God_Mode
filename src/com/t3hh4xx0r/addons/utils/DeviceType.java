@@ -54,5 +54,9 @@ public static final String THUNDERBOLT_SCRIPT = "mecha.js";
 public static final String DROID = "Droid";
 public static final String DROID_SCRIPT = "sholes.js";
 
+public static final String INCREDIBLE2 = "Incredible 2";
+public static final String INCREDIBLE2_SCRIPT = "vivow.js";
 
+public static final String FASCINATEMTD = "Fascinatemtd";
+public static final String FASCINATEMTD_SCRIPT = "fascinatemtd.js";
 }
