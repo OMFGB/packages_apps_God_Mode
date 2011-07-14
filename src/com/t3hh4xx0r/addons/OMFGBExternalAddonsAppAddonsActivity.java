@@ -31,7 +31,7 @@ import com.t3hh4xx0r.R;
 public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 	
 	private boolean DBG = (false || Constants.FULL_DBG);
-	private final String TAG = "OMFGB External Addons App Addons Activity";
+	private final String TAG = "OMFGB Addons App Addons Activity";
 
 	private RelativeLayout mPreferenceContainer;
 	private ListView mPreferenceListView;
@@ -39,6 +39,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 
 	private ProgressDialog mProgressDialog;
 	
+	private static final  int MANIFEST_IS_WRONG = 2;
 
 	private Runnable mJSONRunnable;
 	
@@ -53,6 +54,11 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
         		 finishUIConstruction();
         		 mProgressDialog.dismiss();
     			 break;
+        	 case MANIFEST_IS_WRONG:
+        		 finishUIConstruction();
+        		 mProgressDialog.dismiss();
+        		 // create the alert box and warn user
+        		// AlertBox("Warning","Please contact the rom developers");
         	 
         	 }
               Log.d(TAG, "handleMessage:"+ msg.toString()); 
@@ -128,6 +134,15 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
     	
     }
     
+    /**
+     * Create three categories for the addons preferncescreen then adds them.
+     * The three categories will populate the list dynamicly from
+     * a parsed JSON file.
+     * 
+     * If a category is empty it will be reomved before displaying
+     * 
+     * @return PreferenceScreen the screen preference that will be insflated
+     */
     private PreferenceScreen getAddons(){
 
      	
@@ -158,6 +173,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                
                
                File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ADDONS);
+               // Try and update the addons mainfest
               	try{
               		Log.i(TAG, updateFile.toString());
               		
@@ -176,13 +192,15 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
               		is = new FileInputStream(updateFile);
               	}
            	catch(FileNotFoundException e){
-           		
+           		// Could not update the addons manifest file
            			e.printStackTrace();
            			if(DBG)Log.d(TAG, "Could not update app from file resource, the file was not found. Reverting to nothing");
                    	is = null;
            		
            	}
                
+           	// Only continue if the app could update the manifest
+           	// This may be cahanged to use a cached version 
                if(is != null){
                	
                
@@ -202,6 +220,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                Log.d(TAG, "Starting preference resolver for");
                Log.d(TAG, "device type " + DeviceType.DEVICE_TYPE);
                }
+               // Parse the JSON entries and add the to the approrite category
    	            for (i=0;i<entries.length();i++)
    	            {
    	
@@ -241,14 +260,16 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                Log.i(TAG,"Adding " + (String) inscreen.getTitle() + "to screen if compatible") ;
    	                
    	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
+   	                	// Debug
    	                	if(DBG){
    	                	Log.i(TAG, "Adding screen now");
    	                	Log.i(TAG, "Category = " +  n.getCategory());
    	                	}
+   	                // Add the addons the appropriate category
    	                if(n.getCategory().equals("google"))googlecat.addPreference(inscreen);
-   	                if(n.getCategory().equals("application"))applicationcat.addPreference(inscreen);
+   	                if(n.getCategory().equals("applications"))applicationcat.addPreference(inscreen);
    	                if(n.getCategory().equals("kernel"))kernelcat.addPreference(inscreen);
-   	                Log.i(TAG, "Preference screen added with addon object");
+   	                Log.i(TAG, "Preference screen added with addon object category " + n.getCategory());
    	                
    	                }else{
    	                	 
@@ -259,19 +280,21 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	          
    	
    	            }
-   	        	if(googlecat.getPreferenceCount() == 0){
-	            	 PreferenceRoot.removePreference(googlecat);
-	            	 Log.i(TAG, "Removing gapps category");
-	            	 }
-	             if(applicationcat.getPreferenceCount() == 0){
-	            	 PreferenceRoot.removePreference(applicationcat);
-
-	            	 Log.i(TAG, "Removing applications category");
-	             }
-	             if(kernelcat.getPreferenceCount() == 0){
-	            	 PreferenceRoot.removePreference(kernelcat);
-	            	 Log.i(TAG, "Removing kernels category");
-	             }
+   	            
+   	            if(googlecat.getPreferenceCount() == 0){
+	           	 PreferenceRoot.removePreference(googlecat);
+	           	 Log.i(TAG, "Removing gapps category");
+	           	 }
+	            if(applicationcat.getPreferenceCount() == 0){
+	           	 PreferenceRoot.removePreference(applicationcat);
+	
+	           	 Log.i(TAG, "Removing applications category");
+	            }
+	            if(kernelcat.getPreferenceCount() == 0){
+	           	 PreferenceRoot.removePreference(kernelcat);
+	           	 Log.i(TAG, "Removing kernels category");
+	            }
+   	            
                Log.d(TAG, x);
                }
                else{
@@ -279,7 +302,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                	// Tell the user here that the
                	// manifest is messed up
                	// and to contact us
-               	//AlertBox("Warning","Please contact the rom developers");
+            	   mHandler.sendEmptyMessage(MANIFEST_IS_WRONG);
                	
                }
                
@@ -290,6 +313,10 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                Log.e(TAG, je.getMessage());
                 je.printStackTrace();
            }
+           
+           
+
+	        	
            
            
 
