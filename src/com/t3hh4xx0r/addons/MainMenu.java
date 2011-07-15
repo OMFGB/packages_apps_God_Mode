@@ -37,6 +37,10 @@ public class MainMenu extends PreferenceActivity  {
 
 	private void determineDevice(){
 		
+		if(!DeviceType.determineDeviceDensity(getResources().getDisplayMetrics().densityDpi)){
+			Log.d(TAG, "Cannot determine device density, defaultingg to Unset");
+			}
+		
 		// We dont need to set the device script every time just once
 		if(Constants.getDeviceScript() == null || !Constants.getDeviceScript().equals("")){
 		

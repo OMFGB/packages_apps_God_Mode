@@ -238,6 +238,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                	
    	                	Log.d(TAG, "Density is not set");
    	                	n.setDensity("all");
+   	                
    	                	
    	                }
    	                try{
@@ -269,23 +270,30 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                Log.i(TAG,"Adding " + (String) inscreen.getTitle() + "to screen if compatible") ;
    	                
    	                /*
-   	                 * If the device type eqauls this deive or all and the density equals all or this device
-   	                 * set the category
+   	                 * If the device type eqauls this device or all devices and the density equals all devices or this devices
+   	                 * density  set the category
    	                 * 
    	                 */
-   	                if((DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")) && ( DeviceType.getDensity().equals("all") 
-   	                		|| DeviceType.deviceEquals(n.getDensity()) )){
+   	                
+   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
    	                	// Debug
    	                	if(DBG){
    	                	Log.i(TAG, "Adding screen now");
    	                	Log.i(TAG, "Category = " +  n.getCategory());
    	                	}
    	                // Add the addons the appropriate category
-   	                if(n.getCategory().equals("google"))googlecat.addPreference(inscreen);
-   	                if(n.getCategory().equals("applications"))applicationcat.addPreference(inscreen);
-   	                if(n.getCategory().equals("kernel"))kernelcat.addPreference(inscreen);
-   	                Log.i(TAG, "Preference screen added with addon object category " + n.getCategory());
-   	                
+   	                	if( n.getDensity().equals("all") || DeviceType.getDensity().equals(n.getDensity())){
+   	                		
+   	                	
+		   	                if(n.getCategory().equals("google"))googlecat.addPreference(inscreen);
+		   	                if(n.getCategory().equals("applications"))applicationcat.addPreference(inscreen);
+		   	                if(n.getCategory().equals("kernel"))kernelcat.addPreference(inscreen);
+		   	                Log.i(TAG, "Preference screen added with addon object category " + n.getCategory());
+   	                	}
+   	                	else{
+   	                		
+   	                		Log.i(TAG, "Device density is not compatible");
+   	                	}
    	                }else{
    	                	 
    	                	Log.i(TAG, "Device not compatible with package");
