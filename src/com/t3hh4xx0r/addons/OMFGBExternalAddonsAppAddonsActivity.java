@@ -33,7 +33,7 @@ import com.t3hh4xx0r.R;
 public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 	
 	private boolean DBG = (false || Constants.FULL_DBG);
-	private boolean CREATE_ERROR = true;
+	private boolean CREATE_ERROR = false;
 	private final String TAG = "OMFGB Addons App Addons Activity";
 
 	private RelativeLayout mPreferenceContainer;
@@ -129,10 +129,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
     	
     	 
     	
-
-        //mRootPreference.bind(mPreferenceListView);
-        //if(DBG)Log.i(TAG, "mPreferenceListView: " + mPreferenceListView.getCount());
-        
+    	// Do not bind the listview to the rootPreference
         mPreferenceContainer.addView(mPreferenceListView);
         
         
