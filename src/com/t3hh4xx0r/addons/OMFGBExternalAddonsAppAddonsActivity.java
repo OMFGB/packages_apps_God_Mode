@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.t3hh4xx0r.addons.nightlies.OMFGBExternalAddonsAppNightlyActivity;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
@@ -41,6 +42,12 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 	private PreferenceScreen mRootPreference;
 
 	private ProgressDialog mProgressDialog;
+	
+
+	private static boolean mCreateUI = true;
+
+	private static boolean mCreateBlankUIWithISerror = false;
+	private static boolean mCreateBlankUIWithManifesterror = false;
 	
 
 	private Runnable mJSONRunnable;
@@ -104,6 +111,18 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 			public void run() {
 				// TODO Auto-generated method stub
 				mRootPreference = getAddons();
+				if(OMFGBExternalAddonsAppAddonsActivity.mCreateUI) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
+					 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+					}
+					if(OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror) {
+						Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+						 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+						}
+					if(OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror) {
+						Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+						 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+						}
 				
 				
 			}     	
@@ -355,7 +374,10 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                	// and to contact us
             	   Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
             	   		"developer left CREATE_ERROR set to true");
-            	   mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+
+            	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = true;
+            	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
+            	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
             	   // return a blank view to the user
             	   return getPreferenceManager().createPreferenceScreen(this);
                	
@@ -368,7 +390,10 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                Log.e(TAG, je.getMessage());
                 je.printStackTrace();
                 Log.d(TAG, "Cannot parse the JSON script correctly");
-                mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+
+         	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
+         	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
+         	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = true;
          	   return getPreferenceManager().createPreferenceScreen(this);
            }
            
@@ -377,7 +402,10 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 	        	
            Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
 
-			mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+
+    	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
+    	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = true;
+    	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
            
            return PreferenceRoot;
          }

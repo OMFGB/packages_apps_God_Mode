@@ -47,9 +47,14 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
 	RelativeLayout mPreferenceContainer;
 	private ListView mPreferenceListView;
 	
-	
-	private ProgressDialog mProgressDialog;
 
+	private boolean CREATE_ERROR = false;
+	private ProgressDialog mProgressDialog;
+	
+	private static boolean mCreateUI = true;
+
+	private static boolean mCreateBlankUIWithISerror = false;
+	private static boolean mCreateBlankUIWithManifesterror = false;
 
 
 	//private NightlyAdapter mAdapter;
@@ -85,8 +90,19 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mRootPreference = createPreferenceHierarchy();
-				mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+				mRootPreference =  getNightlies();
+				if(OMFGBExternalAddonsAppNightlyActivity.mCreateUI) {
+				Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
+				 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+				}
+				if(OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+					 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+					}
+				if(OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+					 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+					}
 				
 				
 			}     	
@@ -137,9 +153,23 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
         		 finishUIConstruction();
         		 mProgressDialog.dismiss();
     			 break;
-        	 case ALERT_USER:
-        		 AlertBox("USER", "Please contact rom devlopers");
-        		 break;
+        	 case Constants.CANNOT_RETREIVE_MANIFEST:
+        		 finishEmptyUIConstruction();
+        		 mProgressDialog.dismiss();
+        		 // create the alert box and warn user
+        		AlertBox("Warning","The addons " +
+        				"manifest cannot be retrieved because the inputstream is null.\n" +
+        				"Do you have a data connection?");
+        		
+        		break;
+        	 case Constants.MANIFEST_IS_WRONG: 
+        		 finishEmptyUIConstruction();
+        		 mProgressDialog.dismiss();
+        		 // create thel alert box and warn user
+        		AlertBox("Warning","The addons " +
+        				"manifest cannot be parsed. Please contact the rom developers " +
+        				"@r2doesinc, @xoomdev or @linuxmotion.");
+        		break;
         		 
         	 
         	 }
@@ -148,6 +178,21 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
          } 
     }; 
     
+
+    public void finishEmptyUIConstruction(){
+    	
+    	 
+    	
+    	// Do not bind the listview to the rootPreference
+        mPreferenceContainer.addView(mPreferenceListView);
+        
+        
+      setContentView(mPreferenceContainer);
+      setPreferenceScreen(mRootPreference);
+        
+  	
+    	
+    }    
     
     
     public void finishUIConstruction(){
@@ -245,20 +290,7 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
     } 
     
     
-    private PreferenceScreen createPreferenceHierarchy(){
-    	
-    	
-    	// The root preference
-    	PreferenceScreen PreferenceRoot = getNightlies();
- 	
-    	
-		return PreferenceRoot;
-    	
-    	
-    	
-    	
-    }
-    
+  
     
  private PreferenceScreen getNightlies(){
 
@@ -297,6 +329,10 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
            		DownloadFile.updateAppManifest(Constants.getDeviceScript());
            		
            		is = new FileInputStream(updateFile);
+           		if(CREATE_ERROR){
+          			is = null;
+          			Log.d(TAG, "Creating an error in the input stream");
+          		}
            	}
            	catch(FileNotFoundException e){
            		
@@ -366,25 +402,39 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
             Log.d(TAG, x);
             }
             else{
-            	
-            	// Tell the user here that the
-            	// manifest is messed up
-            	// and to contact us
-            	mHandler.sendEmptyMessage(ALERT_USER);
-            	
-            }
-            
-        }
-        catch (Exception je)
-        {
+               	
+               	// Tell the user here that the
+               	// manifest is messed up
+               	// and to contact us
+            	   Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
+            	   		"developer left CREATE_ERROR set to true");
+            	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = true;
+            	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
+            	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
+            	   // return a blank view to the user
+            	   return getPreferenceManager().createPreferenceScreen(this);
+               	
+               }
+               
+           }
+           catch (Exception je)
+           {
 
-            Log.e(TAG, je.getMessage());
-             je.printStackTrace();
-        }
-        
+               Log.e(TAG, je.getMessage());
+                je.printStackTrace();
+                Log.d(TAG, "Cannot parse the JSON script correctly");
+                OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
+         	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
+         	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = true;
+         	   return getPreferenceManager().createPreferenceScreen(this);
+           }
         
 
-        return PreferenceRoot;
+           OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
+    	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = true;
+    	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
+          
+			return PreferenceRoot;
       }
   
  
@@ -398,7 +448,8 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
     .setPositiveButton("OK",
        new DialogInterface.OnClickListener() {
        public void onClick(DialogInterface dialog, int whichButton){
-       }
+    	   finish();
+       }       
        })
        
        
