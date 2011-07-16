@@ -2,7 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory
+	android:key="addons_category"
 	android:title="@string/addons_and_roms"
+	android:id="@+id/addons_category"
 	>
 	
         <PreferenceScreen android:key="addons"

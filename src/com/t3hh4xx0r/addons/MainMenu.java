@@ -3,11 +3,15 @@ package com.t3hh4xx0r.addons;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
@@ -15,6 +19,7 @@ import android.util.Log;
 import com.t3hh4xx0r.R;
 
 public class MainMenu extends PreferenceActivity  {
+	PreferenceCategory mAddonsCat;
 
     private static String TAG = "MainMenu";
 	PreferenceScreen mNightlies;
@@ -25,15 +30,47 @@ public class MainMenu extends PreferenceActivity  {
 		
 		determineDevice();
 		
-		
-		
 		addPreferencesFromResource(R.layout.main_menu);
+		
+		mAddonsCat = (PreferenceCategory) findPreference("addons_category");
+		
+		
+		
+		if( !hasStorage(true)){
+			
+			mAddonsCat.setEnabled(false);
+			AlertBox("Warining","Sdard is not present or mounted. The addons portion requires an sdcard to use. " +
+					"Please insert or mount the sdcard to use the addons portion of the app.");
+		}
+		else{
+			mAddonsCat.setEnabled(true);
+			
+		}
   
 		
 		
 	}
 	
 	
+
+	static public boolean hasStorage(boolean requireWriteAccess) {
+		
+	    String state = Environment.getExternalStorageState();
+	    Log.v(TAG, "storage state is " + state);
+
+	    if (Environment.MEDIA_MOUNTED.equals(state)) {
+	        if (requireWriteAccess) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    } else if (!requireWriteAccess && Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+	        return true;
+	    }
+	    return false;
+	}
+
+
 
 	private void determineDevice(){
 		
@@ -94,6 +131,21 @@ public class MainMenu extends PreferenceActivity  {
 		}
 		
 	}
+	
+	   protected void AlertBox(String title, String mymessage){
+	    	
+		    
+		   new AlertDialog.Builder(this)
+		     	.setMessage(mymessage)
+		     	.setTitle(title)
+		     	.setCancelable(false)
+		     	.setPositiveButton("OK",new DialogInterface.OnClickListener()
+		     	{public void onClick(DialogInterface dialog, int whichButton){
+		     		// Do nothing, the warning is enough.
+		     	}
+		     	})
+		     	.show();
+		   }
 	
 }
 

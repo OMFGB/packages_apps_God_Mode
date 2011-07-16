@@ -13,7 +13,9 @@ import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +33,7 @@ import com.t3hh4xx0r.R;
 public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 	
 	private boolean DBG = (false || Constants.FULL_DBG);
+	private boolean CREATE_ERROR = true;
 	private final String TAG = "OMFGB Addons App Addons Activity";
 
 	private RelativeLayout mPreferenceContainer;
@@ -39,7 +42,6 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 
 	private ProgressDialog mProgressDialog;
 	
-	private static final  int MANIFEST_IS_WRONG = 2;
 
 	private Runnable mJSONRunnable;
 	
@@ -54,11 +56,23 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
         		 finishUIConstruction();
         		 mProgressDialog.dismiss();
     			 break;
-        	 case MANIFEST_IS_WRONG:
-        		 finishUIConstruction();
+        	 case Constants.CANNOT_RETREIVE_MANIFEST:
+        		 finishEmptyUIConstruction();
         		 mProgressDialog.dismiss();
         		 // create the alert box and warn user
-        		// AlertBox("Warning","Please contact the rom developers");
+        		AlertBox("Warning","The addons " +
+        				"manifest cannot be retrieved because the inputstream is null.\n" +
+        				"Do you have a data connection?");
+        		
+        		break;
+        	 case Constants.MANIFEST_IS_WRONG: 
+        		 finishEmptyUIConstruction();
+        		 mProgressDialog.dismiss();
+        		 // create the alert box and warn user
+        		AlertBox("Warning","The addons " +
+        				"manifest cannot be parsed. Please contact the rom developers " +
+        				"@r2doesinc, @xoomdev or @linuxmotion.");
+        		break;
         	 
         	 }
               Log.d(TAG, "handleMessage:"+ msg.toString()); 
@@ -90,7 +104,6 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 			public void run() {
 				// TODO Auto-generated method stub
 				mRootPreference = getAddons();
-				mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
 				
 				
 			}     	
@@ -112,7 +125,23 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 	
     
 
-    
+    public void finishEmptyUIConstruction(){
+    	
+    	 
+    	
+
+        //mRootPreference.bind(mPreferenceListView);
+        //if(DBG)Log.i(TAG, "mPreferenceListView: " + mPreferenceListView.getCount());
+        
+        mPreferenceContainer.addView(mPreferenceListView);
+        
+        
+      setContentView(mPreferenceContainer);
+      setPreferenceScreen(mRootPreference);
+        
+  	
+    	
+    }    
     public void finishUIConstruction(){
     	
     	 
@@ -127,10 +156,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
       setContentView(mPreferenceContainer);
       setPreferenceScreen(mRootPreference);
         
-        
-    	
-    	
-    	
+  	
     	
     }
     
@@ -169,7 +195,6 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                InputStream is;
                // Need to actually put our sript locatio here
                Log.i(TAG, "Begining json parsing");
-               //is = this.getResources().openRawResource(R.raw.jsonomfgb);
                
                
                File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ADDONS);
@@ -190,6 +215,10 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
               		DownloadFile.updateAppManifest(Constants.ADDONS);
               		
               		is = new FileInputStream(updateFile);
+              		if(CREATE_ERROR){
+              			is = null;
+              			Log.d(TAG, "Creating an error in the input stream");
+              		}
               	}
            	catch(FileNotFoundException e){
            		// Could not update the addons manifest file
@@ -227,34 +256,36 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
    	                if(DBG)Log.d(TAG, "Resolving addon " + (i+1));
    	            	AddonsObject n = new AddonsObject();
    	                JSONObject post = entries.getJSONObject(i);
-   	                n.setCategory(post.getString("category"));
-   	                n.setDevice(post.getString("device"));
-   	                n.setURL(post.getString("url"));
-   	                n.setName(post.getString("name"));
-   	                try{
-   	                	n.setDensity(post.getString("density"));
-   	                }catch(JSONException e)
-   	                {
-   	                	
-   	                	Log.d(TAG, "Density is not set");
-   	                	n.setDensity("all");
-   	                
-   	                	
-   	                }
-   	                try{
-   	                	n.setZipName(post.getString("name"));
-   	                }catch(JSONException e){
-   	                	e.printStackTrace();
-   	                	n.setZipName("Addon Name");
-   	                }
-   	                n.setInstallable(post.getString("installable"));
-   	                try{
-   	                	n.setDescription(post.getString("description"));
-   	                }catch(JSONException e){
-   	                	n.setDescription("Addon Description");
-   	                	
-   	                	
-   	                }
+   	               
+   	                	n.setCategory(post.getString("category"));
+	   	                n.setDevice(post.getString("device"));
+	   	                n.setURL(post.getString("url"));
+	   	                n.setName(post.getString("name"));
+	   	                try{
+	   	                	n.setDensity(post.getString("density"));
+	   	                }catch(JSONException e)
+	   	                {
+	   	                	
+	   	                	Log.d(TAG, "Density is not set");
+	   	                	n.setDensity("all"); 
+	   	                	
+	   	                }
+	   	                try{
+	   	                	n.setZipName(post.getString("name"));
+	   	                }catch(JSONException e){
+	   	                	e.printStackTrace();
+	   	                	n.setZipName("Addon Name");
+	   	                }
+	   	                n.setInstallable(post.getString("installable"));
+	   	                try{
+	   	                	n.setDescription(post.getString("description"));
+	   	                }catch(JSONException e){
+	   	                	n.setDescription("Addon Description");
+	   	                	
+	   	                	
+	   	                }
+	   	                
+	   	                
    	                if(DBG)Log.d(TAG, "Finished setting addons object");
    	                
    	                PreferenceScreen inscreen = getPreferenceManager().createPreferenceScreen(this);
@@ -325,7 +356,11 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
                	// Tell the user here that the
                	// manifest is messed up
                	// and to contact us
-            	   mHandler.sendEmptyMessage(MANIFEST_IS_WRONG);
+            	   Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
+            	   		"developer left CREATE_ERROR set to true");
+            	   mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+            	   // return a blank view to the user
+            	   return getPreferenceManager().createPreferenceScreen(this);
                	
                }
                
@@ -335,16 +370,36 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 
                Log.e(TAG, je.getMessage());
                 je.printStackTrace();
+                Log.d(TAG, "Cannot parse the JSON script correctly");
+                mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+         	   return getPreferenceManager().createPreferenceScreen(this);
            }
            
            
 
 	        	
-           
-           
+           Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
 
+			mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+           
            return PreferenceRoot;
          }
+    
+    protected void AlertBox(String title, String mymessage){
+    	
+    
+new AlertDialog.Builder(this)
+  	.setMessage(mymessage)
+  	.setTitle(title)
+  	.setCancelable(false)
+  	.setPositiveButton("OK",new DialogInterface.OnClickListener()
+  	{public void onClick(DialogInterface dialog, int whichButton){
+  		finish();
+  		
+  	}
+  	})
+  	.show();
+}
      
     
 	

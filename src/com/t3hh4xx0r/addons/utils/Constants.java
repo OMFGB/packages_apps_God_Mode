@@ -51,6 +51,21 @@ public final class Constants {
      * 
      */
 	public static final int DOWNLOAD_COMPLETE = 1;
+	
+
+	/**
+	 * The manifest cannot be parsed
+	 */
+	public static final  int MANIFEST_IS_WRONG = 2;
+	
+	
+	/**
+	 * When the manifest was pulled from the web 
+	 * there was a fatal error which resulted in
+	 * in a null input stream with the associate
+	 * manifest.
+	 */
+	public static final int CANNOT_RETREIVE_MANIFEST = 3;
     
 	
 	/**
