@@ -61,13 +61,13 @@
                 <PreferenceScreen android:key="widget_picker"
                         android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
                         <intent android:action="android.intent.action.MAIN"
-                                android:targetPackage="com.t3hh4xx0r.god_mode"
+                                android:targetPackage="com.t3hh4xx0r"
                                 android:targetClass="com.t3hh4xx0r.god_mode.PowerWidgetActivity" />
                 </PreferenceScreen>
                 <PreferenceScreen android:key="widget_order"
                         android:title="@string/title_widget_order" android:summary="@string/summary_widget_order">
                         <intent android:action="android.intent.action.MAIN"
-                                android:targetPackage="com.t3hh4xx0r.god_mode"
+                                android:targetPackage="com.t3hh4xx0r"
                                 android:targetClass="com.t3hh4xx0r.god_mode.PowerWidgetOrderActivity" />
                 </PreferenceScreen>
         </PreferenceCategory>
