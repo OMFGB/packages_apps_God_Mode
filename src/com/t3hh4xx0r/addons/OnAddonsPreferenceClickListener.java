@@ -63,7 +63,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
  		
  		DownloadManager.Request req = new DownloadManager.Request(down);
  		req.setShowRunningNotification(true);
- 		req.setVisibleInDownloadsUi(false);
+ 		req.setVisibleInDownloadsUi(true);
  		req.setDestinationUri(Uri.fromFile(f));
  		
  		dman.enqueue(req);
