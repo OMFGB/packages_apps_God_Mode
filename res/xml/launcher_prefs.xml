@@ -41,6 +41,13 @@
                 android:summaryOn="@string/summary_on_wallpaper_loop"
                 android:summaryOff="@string/summary_off_wallpaper_loop"
         />
+	<CheckBoxPreference
+		android:key="four_hotseats"
+		android:title="@string/title_four_hotseats"
+		android:summaryOn="@string/summary_on_four_hotseats"
+                android:summaryOff="@string/summary_off_four_hotseats"
+	/>
+
     </PreferenceCategory>
 </PreferenceScreen>
 
