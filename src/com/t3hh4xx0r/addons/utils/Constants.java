@@ -8,6 +8,7 @@ import android.os.Environment;
 
 public final class Constants {
 	
+        public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup";
 	
 	/**
 	 *  Variable to turn debuging on across the app

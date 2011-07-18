@@ -1,5 +1,6 @@
 package com.t3hh4xx0r.addons.utils;
 
+import com.t3hh4xx0r.addons.nightlies.OnNightlyPreferenceClickListener;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -13,24 +14,20 @@ import android.util.Log;
 
 public class Downloads {
 	
-	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
-
-
-	public static boolean DBG = (false || Constants.FULL_DBG);
-	
-private static String TAG = "Downloads";
-
-
+public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
+public static boolean DBG = (false || Constants.FULL_DBG);
 public static String PREF_LOCATION;
+
+private static String TAG = "Downloads";
 private static String DOWNLOAD_URL;
 
 private int DOWNLOAD_PROGRESS = 0;
+
 private static final int FLASH_ADDON = 0;
 private static final int FLASH_COMPLETE = 1;
 private static final int INSTALL_ADDON = 2;
 
 private ProgressDialog pbarDialog;
-
 
 private boolean mAddonIsFlashable;
 
@@ -41,10 +38,6 @@ private boolean isSdCardPresent(){
 private boolean isSdCardWriteable(){
 	return !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState());
 }
-
-
-
-
 
 public static void installPackage(String outputzip) {
 
@@ -125,8 +118,11 @@ public static void flashPackage(String outputzip) {
         		Log.i(TAG, "Executing su");
                                 p = run.exec("su");
 				out = new DataOutputStream(p.getOutputStream());
-				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' > " + Constants.CWR_EXTENDED_CMD + "\n");
-                                    out.writeBytes("reboot recovery\n");
+				if (OnNightlyPreferenceClickListener.mBackupRom) {
+				    out.writeBytes("busybox echo 'backup_rom(\"" + Constants.BACKUP_DIR + "/omfgb_" + DATE +"\");'  >> " + Constants.CWR_EXTENDED_CMD + "\n");				
+				}
+				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
+                                out.writeBytes("reboot recovery\n");
 				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();

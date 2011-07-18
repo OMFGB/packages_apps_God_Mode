@@ -1,18 +1,25 @@
 package com.t3hh4xx0r.addons.nightlies;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.t3hh4xx0r.addons.utils.Downloads;
-
+import com.t3hh4xx0r.addons.utils.Constants;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.net.Uri;
+import android.os.Looper;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
+import android.util.Slog;
 
 
 public class OnNightlyPreferenceClickListener implements OnPreferenceClickListener {
@@ -23,8 +30,10 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	Context mContext;
 	private String externalStorageDir = "/mnt/sdcard/t3hh4xx0r/downloads";
 	private String DOWNLOAD_DIR = externalStorageDir+ "/";
-	
-	
+	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
+
+	public static boolean mBackupRom = false;
+
 	public OnNightlyPreferenceClickListener(NightlyObject o, int position, Context context){
 		
 		mNightly = o;
@@ -72,7 +81,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
  		else{
  			
  			check = null;
- 	 		FlashAlertBox("Warning:", "About to flash package", Boolean.parseBoolean(mNightly.getInstallable()), mNightly.getZipName());
+ 	 		FlashAlertBox("Choose flashing options.", Boolean.parseBoolean(mNightly.getInstallable()), mNightly.getZipName());
 
  		}
  		
@@ -81,25 +90,27 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 		return false;
 	}
 	
-	
-	protected void FlashAlertBox(String title, String mymessage, final boolean Installable, final String OUTPUT_NAME)
-	   {
+	protected void FlashAlertBox(String title, final boolean Installable, final String OUTPUT_NAME) {
+	final CharSequence[] items = {"Backup before install"};
+        final boolean checked[] = new boolean[]{false};
+
 	   new AlertDialog.Builder(mContext)
-	      .setMessage(mymessage)
+	      //.setMessage(mymessage)
 	      .setTitle(title)
-	      .setCancelable(false)
+	      .setCancelable(true)
+              .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
+		public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+     		CharSequence text = "Item number " + which;
+		}
+		})
 	      .setPositiveButton("OK",
 	         new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int whichButton){
-	        	 
 	        	 Thread FlashThread = new Thread(){
-	            		
 	            		@Override
 	            	    public void	run(){
-	            			
 	            			File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
-	            			
-	            			if(f.exists() ){
+	            			if(f.exists()){
 		  				  		Log.d(TAG, "User approved flashing, begining flash. Installable = " + String.valueOf(Installable));
 		  				  		Log.i(TAG, "File location is: "+ f.toString());
 		  						if (Installable) 
@@ -107,15 +118,18 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 		  						   Downloads.installPackage(OUTPUT_NAME );
 		  						} else 
 		  						{
+								   for( int i = 0; i < items.length; i++ ){
+									//This just checks if its an option. Needs an if (setchecked) or something, idk
+								       if (items[i] == "Backup before install") {
+									  Slog.d(TAG, "Backing up first");
+									  mBackupRom = true;
+								       } 
 		  							Downloads.flashPackage(OUTPUT_NAME);
-		  							
+		  						    }
 		  						}
-	  				  
 	            			} 
-	            			
 	            	  }
 	            };
-	            
 	            FlashThread.run();
 	         }
 	         })
@@ -128,11 +142,5 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	         
 	         
 	      .show();
-	   		
-		
-	   }
-
-
-	
-   
+	}
 }  
