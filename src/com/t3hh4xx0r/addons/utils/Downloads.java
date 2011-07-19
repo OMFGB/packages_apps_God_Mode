@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
 
@@ -50,7 +51,8 @@ public static void installPackage(String outputzip) {
             Thread cmdThread = new Thread(){
                     @Override
                     public void run() {
-
+                    	// http://paulononaka.wordpress.com/2011/07/02/how-to-install-a-application-in-background-on-android/
+                    	// http://apachejava.blogspot.com/2011/04/install-and-uninstall-android.html
                 		Log.i(TAG, "Packaging installer thread started");
 
                             try{Thread.sleep(1000);}catch(InterruptedException e){ }
