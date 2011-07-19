@@ -287,7 +287,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 	   	                	
 	   	                }
 	   	                try{
-	   	                	n.setZipName(post.getString("name"));
+	   	                	n.setZipName(post.getString("zipname"));
 	   	                }catch(JSONException e){
 	   	                	e.printStackTrace();
 	   	                	n.setZipName("Addon Name");
