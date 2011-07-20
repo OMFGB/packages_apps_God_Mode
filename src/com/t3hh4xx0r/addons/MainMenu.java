@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -17,6 +18,9 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 import com.t3hh4xx0r.R;
 
