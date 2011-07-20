@@ -111,8 +111,10 @@
     <string name="summary_on_wallpaper_loop">Wallpaper will move as the homescreens are changed</string>
     <string name="summary_off_wallpaper_loop">Wallpaper will not move with the screens</string>
     <string name="title_four_hotseats">Four Launcher Hotseat Buttons</string>
-    <string name="summary_on_four_hotseats">Four launcher hotseats are set.</string>
-    <string name="summary_off_four_hotseats">Two launcher hotseats are set.</string>
+    <!-- <string name="summary_on_four_hotseats">Four launcher hotseats are set.</string>
+    <string name="summary_off_four_hotseats">Two launcher hotseats are set.</string> -->
+    <string name="summary_on_four_hotseats">Coming Soon</string>
+    <string name="summary_off_four_hotseats">Coming Soon</string>
     <string name="number_screens_title">Change the number of screens</string>
     <string name="screen_changer_title">Screen number</string>
     <string name="screen_changer_title_summary">Set the number of screens</string>
