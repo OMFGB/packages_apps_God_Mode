@@ -203,8 +203,24 @@ public class JSONUtils {
      * @return PreferenceScreen the screen preference that will be insflated
      */
 	 PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputStream is) throws JSONException;
+	 /**
+	  * Function that is executed if the JSON script
+	  * is failed to be parsed correctly
+	  * 
+	  * @return the preferencescreen to create if the script cannot be parsed
+	  */
 	 PreferenceScreen unableToParseScript();
+	 /**
+	  * 
+	  * @return the preferencescreen to create if the script cannot be downloaded
+	  */
 	 PreferenceScreen unableToDownloadScript();
+	 /**
+	  * Used to send message or do more work
+	  * after the script is correctly parsed.
+	  * 
+	  * @return an unused preferencescreen
+	  */
 	 PreferenceScreen ParsingCompletedSuccess();
     
     
