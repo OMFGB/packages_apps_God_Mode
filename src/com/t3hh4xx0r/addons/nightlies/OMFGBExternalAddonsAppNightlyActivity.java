@@ -3,6 +3,7 @@ package com.t3hh4xx0r.addons.nightlies;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.json.JSONArray;
@@ -12,6 +13,8 @@ import org.json.JSONObject;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
+import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
+import com.t3hh4xx0r.addons.web.JSON.JSONUtils.JSONParsingInterface;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -42,11 +45,12 @@ import android.widget.RelativeLayout;
 
 import com.t3hh4xx0r.R;
 
-public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
+public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity implements JSONParsingInterface {
 	
 	RelativeLayout mPreferenceContainer;
 	private ListView mPreferenceListView;
 	
+	JSONUtils mJSONUtils;
 
 	private boolean CREATE_ERROR = false;
 	private ProgressDialog mProgressDialog;
@@ -89,8 +93,13 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				mRootPreference =  getNightlies();
+			
+				mJSONUtils = new JSONUtils();
+				mJSONUtils.setJSONUtilsParsingInterface(OMFGBExternalAddonsAppNightlyActivity.this); 
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBExternalAddonsAppNightlyActivity.this, OMFGBExternalAddonsAppNightlyActivity.this);
+			
+				
+				
 				if(OMFGBExternalAddonsAppNightlyActivity.mCreateUI) {
 				Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
 				 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
@@ -291,152 +300,6 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
     
     
   
-    
- private PreferenceScreen getNightlies(){
-
- 	
-	 PreferenceScreen PreferenceRoot = getPreferenceManager().createPreferenceScreen(this);
-	 PreferenceCategory cat =  new PreferenceCategory(this);
-	 cat.setTitle("OMFGB Nightlies");
-
-	 PreferenceRoot.addPreference(cat);
-    	try
-        {
-
-    		
-            String x = "";
-            InputStream is = null;
-            // Need to actually put our sript locatio here
-            Log.d(TAG, "Begining json parsing");
-            //is = this.getResources().openRawResource(R.raw.jsonomfgb);
-            
-            
-           
-           
-            File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
-           	try{
-           		Log.i(TAG, updateFile.toString());
-           		
-           		File f = new File(Constants.DOWNLOAD_DIR );
-            		if(!f.exists()){
-            			
-            			f.mkdirs();
-            			Log.i(TAG, "File diretory does not exist, creating it");
-            		}
-            		f = null;
-           		
-           		// Needed because the manager does not handle https connections
-           		DownloadFile.updateAppManifest(Constants.getDeviceScript());
-           		
-           		is = new FileInputStream(updateFile);
-           		if(CREATE_ERROR){
-          			is = null;
-          			Log.d(TAG, "Creating an error in the input stream");
-          		}
-           	}
-           	catch(FileNotFoundException e){
-           		
-           			e.printStackTrace();
-           			if(true)Log.d(TAG, "Could not update app from file resource, the file was not found. Reverting to nothing");
-                   	is = null;
-           		
-           	}
-            
-            if(is != null){
-            	
-            
-            byte [] buffer = new byte[is.available()];
-            while (is.read(buffer) != -1);
-            
-            String jsontext = new String(buffer);
-            JSONArray entries = new JSONArray(jsontext);
-
-            Log.d(TAG, "Json parsing finished");
-
-            x = "JSON parsed.\nThere are [" + entries.length() + "] entries.\n";
-
-            int i;
-            Log.i(TAG, "The number of entries is: " + entries.length());
-            Log.d(TAG, "Starting preference resolver");
-            
-	            for (i=0;i<entries.length();i++)
-	            {
-	
-	                
-	            	NightlyObject n = new NightlyObject();
-	                JSONObject post = entries.getJSONObject(i);
-	                
-	                n.setDate(post.getString("date"));
-	                n.setBase(post.getString("base"));
-	                n.setDevice(post.getString("device"));
-	                n.setURL(post.getString("url"));
-	                n.setVersion(post.getString("version"));
-	                n.setZipName(post.getString("name"));
-	                n.setInstallable(post.getString("installable"));
-	                try{
-	                	n.setDescription(post.getString("description"));
-	                }catch(JSONException e){
-	                	n.setDescription("Older Nightly, Please select a nwer one");
-	                	
-	                	
-	                }
-	                
-	                PreferenceScreen inscreen = getPreferenceManager().createPreferenceScreen(this);
-	                inscreen.setSummary(n.getDescription());
-	                inscreen.setTitle(n.getDate());
-	                
-	                // Set the click listener for each preference
-	                OnNightlyPreferenceClickListener listner = new OnNightlyPreferenceClickListener(n, i, this);
-	                
-	                inscreen.setOnPreferenceClickListener(listner);
-	                
-	                // Finally add the preference to the heirachy
-	                Log.i(TAG, (String) inscreen.getTitle());
-	                cat.addPreference(inscreen);
-	                Log.i(TAG, "Preference screen added with nightly object");
-	                
-	                
-	                
-	
-	            }
-            Log.d(TAG, x);
-            }
-            else{
-               	
-               	// Tell the user here that the
-               	// manifest is messed up
-               	// and to contact us
-            	   Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
-            	   		"developer left CREATE_ERROR set to true");
-            	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = true;
-            	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
-            	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
-            	   // return a blank view to the user
-            	   return getPreferenceManager().createPreferenceScreen(this);
-               	
-               }
-               
-           }
-           catch (Exception je)
-           {
-
-               Log.e(TAG, je.getMessage());
-                je.printStackTrace();
-                Log.d(TAG, "Cannot parse the JSON script correctly");
-                OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
-         	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
-         	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = true;
-         	   return getPreferenceManager().createPreferenceScreen(this);
-           }
-        
-
-           OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
-    	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = true;
-    	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
-          
-			return PreferenceRoot;
-      }
-  
  
  
  protected void AlertBox(String title, String mymessage)
@@ -457,5 +320,123 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity {
  		
 	
  }
+
+@Override
+public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputStream is) {
+	
+	String x;
+	JSONArray entries = null;
+	
+	try{
+		
+	    byte [] buffer = new byte[is.available()];
+	    while (is.read(buffer) != -1);
+		String jsontext = new String(buffer);
+		entries = new JSONArray(jsontext);
+		
+	}catch(IOException e){
+		
+		e.printStackTrace();
+	}
+	catch(JSONException e){
+		
+		e.printStackTrace();
+	}
+	
+    
+    
+    
+    
+    PreferenceCategory cat =  new PreferenceCategory(this);
+	cat.setTitle("OMFGB Nightlies");
+	 
+	PreferenceRoot.addPreference(cat);
+	 
+	
+
+    Log.d(TAG, "Json parsing started");
+
+    x = "JSON parsed.\nThere are [" + entries.length() + "] entries.\n";
+
+    int i;
+    Log.i(TAG, "The number of entries is: " + entries.length());
+    Log.d(TAG, "Starting preference resolver");
+    
+        for (i=0;i<entries.length();i++)
+        {
+
+            try{
+            	
+            	NightlyObject n = new NightlyObject();
+            	JSONObject post = entries.getJSONObject(i);
+            
+	            n.setDate(post.getString("date"));
+	            n.setBase(post.getString("base"));
+	            n.setDevice(post.getString("device"));
+	            n.setURL(post.getString("url"));
+	            n.setVersion(post.getString("version"));
+	            n.setZipName(post.getString("name"));
+	            n.setInstallable(post.getString("installable"));
+	            try{
+	            	n.setDescription(post.getString("description"));
+	            }catch(JSONException e){
+	            	n.setDescription("Older Nightly, Please select a nwer one");
+	            	
+	            	
+	            }
+           
+            
+            PreferenceScreen inscreen = getPreferenceManager().createPreferenceScreen(this);
+            inscreen.setSummary(n.getDescription());
+            inscreen.setTitle(n.getDate());
+            
+            // Set the click listener for each preference
+            OnNightlyPreferenceClickListener listner = new OnNightlyPreferenceClickListener(n, i, this);
+            
+            inscreen.setOnPreferenceClickListener(listner);
+            
+            // Finally add the preference to the heirachy
+            Log.i(TAG, (String) inscreen.getTitle());
+            cat.addPreference(inscreen);
+            Log.i(TAG, "Preference screen added with nightly object");
+            
+            }
+            catch(JSONException e){
+            	
+            	e.printStackTrace();
+            	
+            }
+            
+
+        	}
+        
+        Log.d(TAG, x);
+    
+
+		return  PreferenceRoot;
+	}
+
+@Override
+public PreferenceScreen unableToDownloadScript() {
+	  Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
+ 		"developer left CREATE_ERROR set to true");
+ OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = true;
+ OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
+ OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
+ // return a blank view to the user
+ return getPreferenceManager().createPreferenceScreen(this);	
+ 
+}
+
+@Override
+public PreferenceScreen unableToParseScript() {
+	
+     Log.d(TAG, "Cannot parse the JSON script correctly");
+     OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
+	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
+	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = true;
+	   return getPreferenceManager().createPreferenceScreen(this);
+	
+}
     
 }
