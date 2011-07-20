@@ -130,47 +130,45 @@ public class MainMenu extends PreferenceActivity  {
 		
 				if (DeviceType.deviceModelEquals(DeviceType.INCREDIBLE)) {
 			    	Constants.setDeviceScript(DeviceType.INCREDIBLE_SCRIPT);
-			    	DeviceType.DEVICE_TYPE = "inc";
+			    	DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE;
 			        	
 				}else  if (DeviceType.deviceModelEquals(DeviceType.ERIS)) {
 
 			    	Constants.setDeviceScript(DeviceType.ERIS_SCRIPT);
 
-			    	DeviceType.DEVICE_TYPE = "desirec";
+			    	DeviceType.DEVICE_TYPE = DeviceType.ERIS;
 			    	
 				}else  if (DeviceType.deviceModelEquals(DeviceType.DROID)) {
 
 			    	Constants.setDeviceScript(DeviceType.DROID_SCRIPT);
 
-			    	DeviceType.DEVICE_TYPE = "sholes";
+			    	DeviceType.DEVICE_TYPE = DeviceType.DROID;
 					
-				}else  if (DeviceType.deviceEquals(DeviceType.EVO)) {
+				}else  if (DeviceType.deviceDeviceEquals(DeviceType.EVO)) {
 
 			    	Constants.setDeviceScript(DeviceType.EVO_SCRIPT);
 
-			    	DeviceType.DEVICE_TYPE = "supersonic";
+			    	DeviceType.DEVICE_TYPE = DeviceType.EVO;
 			        	
-				}else  if (DeviceType.deviceModelEquals(DeviceType.HERO)) {
+				}else  if (DeviceType.deviceDeviceEquals(DeviceType.HERO)) {
 
 			    	Constants.setDeviceScript(DeviceType.HERO_SCRIPT);
 
-			    	DeviceType.DEVICE_TYPE = "heroc";
+			    	DeviceType.DEVICE_TYPE = DeviceType.HERO;
 			        	
-				}else  if (DeviceType.deviceModelEquals(DeviceType.THUNDERBOLT)) {
+				}else  if (DeviceType.deviceDeviceEquals(DeviceType.THUNDERBOLT)) {
 
 			    	Constants.setDeviceScript(DeviceType.THUNDERBOLT_SCRIPT);
 
-			    	DeviceType.DEVICE_TYPE = "mecha";
+			    	DeviceType.DEVICE_TYPE = DeviceType.THUNDERBOLT;
 			        	
-				}else  if (DeviceType.deviceModelEquals(DeviceType.INCREDIBLE2)) {
+				}else  if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE2)) {
 
                                 Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
+                                DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
 
-                                DeviceType.DEVICE_TYPE = "vivow";
+				}else  if (DeviceType.deviceDeviceEquals(DeviceType.FASCINATEMTD)) {
 
-				}else  if (DeviceType.deviceModelEquals(DeviceType.SAMMY_MODEL)) {
-
-					DeviceType.samsungDeviceEquals(DeviceType.FASCINATEMTD);
 					Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
 					DeviceType.DEVICE_TYPE = DeviceType.FASCINATEMTD;
 				

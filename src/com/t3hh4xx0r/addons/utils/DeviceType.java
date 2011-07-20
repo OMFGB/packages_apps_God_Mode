@@ -20,22 +20,22 @@ private static String DEVICE_DENSITY = "Unset";
 /*
  * HTC phones below this point
  */
-public static final String INCREDIBLE = "Incredible";
+public static final String INCREDIBLE = "inc";
 public static final String INCREDIBLE_SCRIPT = "inc.js";
 
-public static final String ERIS = "Eris";
+public static final String ERIS = "desirec";
 public static final String ERIS_SCRIPT = "desirec.js";
 
-public static final String EVO = "Evo";
+public static final String EVO = "supersonic";
 public static final String EVO_SCRIPT = "supersonic.js";
 
-public static final String HERO = "Hero";
+public static final String HERO = "heroc";
 public static final String HERO_SCRIPT = "heroc.js";
 
-public static final String THUNDERBOLT = "Thunderbolt" ;
+public static final String THUNDERBOLT = "mecha" ;
 public static final String THUNDERBOLT_SCRIPT = "mecha.js";
 
-public static final String INCREDIBLE2 = "Incredible 2";
+public static final String INCREDIBLE2 = "vivow";
 public static final String INCREDIBLE2_SCRIPT = "vivow.js";
 
 /*
@@ -80,7 +80,7 @@ public static boolean deviceModelEquals(String s){
 }
 
 @SuppressWarnings("unused")
-public static boolean samsungDeviceEquals(String s){
+public static boolean deviceDeviceEquals(String s){
 	
 	if(Build.DEVICE.equals(s))
 		return true;
