@@ -127,12 +127,11 @@ public static void flashPackage(String outputzip, boolean backuprom, boolean wip
 				    out.writeBytes("busybox echo 'backup_rom(\"" + Constants.BACKUP_DIR +"omfgb_" + DATE +"\");'  >> " + Constants.CWR_EXTENDED_CMD + "\n");				
 				}
 				if (mWipeCache) {
-				    out.writeBytes("busybox echo 'format CACHE:' >> " + Constants.CWR_EXTENDED_CMD + "\n");
+				    out.writeBytes("busybox echo 'format(\"/cache\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
 				}
 				if (mWipeData) {
-                                    out.writeBytes("busybox echo 'format CACHE:' >> " + Constants.CWR_EXTENDED_CMD + "\n");
-                                    out.writeBytes("busybox echo 'format DATA:' >> " + Constants.CWR_EXTENDED_CMD + "\n");
-
+                                    out.writeBytes("busybox echo 'format(\"/cache\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
+                                    out.writeBytes("busybox echo 'format(\"/data\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
 				}
 				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
                                 out.writeBytes("reboot recovery\n");
