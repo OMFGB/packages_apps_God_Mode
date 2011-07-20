@@ -18,7 +18,15 @@ import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils.JSONParsingInterface;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.IntentFilter;
+import android.content.Intent;
+import android.content.Context;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +48,8 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
 	private boolean CREATE_ERROR = false;
 	private final String TAG = "OMFGB Addons App Addons Activity";
 
+	AddonsReceiver mReceiver;
+
 	JSONUtils mJSONUtils;
 	
 	private RelativeLayout mPreferenceContainer;
@@ -56,7 +66,54 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
 	
 
 	private Runnable mJSONRunnable;
-	
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.e(TAG, "OnDestroy Called");
+        unregisterReceiver(mReceiver);
+    }
+
+    public class AddonsReceiver extends BroadcastReceiver{
+    	
+    	boolean flash = false;
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			 Log.e(TAG, "I am receiver");
+
+			if(intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)){
+
+
+				 Log.e(TAG, "Reciving " + DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+
+				 String ns = Context.NOTIFICATION_SERVICE;
+				 NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
+
+
+
+				 int icon = R.drawable.icon;        // icon from resources
+				 CharSequence tickerText = "T3hh4xx0r";              // ticker-text
+				 long when = System.currentTimeMillis();         // notification time
+				 CharSequence contentTitle = "T3hh4xx0r Addons";  // expanded message title
+				 CharSequence contentText = "Download completed";      // expanded message text
+
+				 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppAddonsActivity.class);
+
+
+				 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+				 // the next two lines initialize the Notification, using the configurations above
+				 Notification notification = new Notification(icon, tickerText, when);
+				 notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+				 final int HELLO_ID = 1;
+
+				 mNotificationManager.notify(HELLO_ID, notification);
+			}
+		}
+	}
+
 	 // Define the Handler that receives messages from the thread and update the progress 
     final Handler mHandler = new Handler() 
     { 
@@ -132,72 +189,54 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
 						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
 						 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
 						}
-				
-				
 			}     	
         };
-        
-        
-        
-
         Thread Download = new Thread(mJSONRunnable);
         Download.start();
 
-      
+       mProgressDialog = ProgressDialog.show(OMFGBExternalAddonsAppAddonsActivity.this,    
+               "Please wait...", "Retrieving data ...", true);
 
-      mProgressDialog = ProgressDialog.show(OMFGBExternalAddonsAppAddonsActivity.this,    
-              "Please wait...", "Retrieving data ...", true);
-      
-     
+      IntentFilter filter = new IntentFilter();
+      filter.addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED);
+      filter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+
+      if(mReceiver == null){
+          Log.i(TAG, "Registering reciver");
+
+          mReceiver = new AddonsReceiver();
+          registerReceiver(mReceiver, filter);
+      }
+
     }
-	
-    
 
     public void finishEmptyUIConstruction(){
-    	
-    	 
-    	
     	// Do not bind the listview to the rootPreference
         mPreferenceContainer.addView(mPreferenceListView);
         
-        
-      setContentView(mPreferenceContainer);
-      setPreferenceScreen(mRootPreference);
-        
-  	
-    	
+       setContentView(mPreferenceContainer);
+       setPreferenceScreen(mRootPreference);
     }    
-    public void finishUIConstruction(){
-    	
-    	 
-    	
 
+    public void finishUIConstruction(){
         mRootPreference.bind(mPreferenceListView);
         if(DBG)Log.i(TAG, "mPreferenceListView: " + mPreferenceListView.getCount());
         
         mPreferenceContainer.addView(mPreferenceListView);
         
-        
       setContentView(mPreferenceContainer);
       setPreferenceScreen(mRootPreference);
-        
-  	
-    	
     }
     
- 
-    
     protected void AlertBox(String title, String mymessage){
-    	
     
-new AlertDialog.Builder(this)
+    new AlertDialog.Builder(this)
   	.setMessage(mymessage)
   	.setTitle(title)
   	.setCancelable(false)
   	.setPositiveButton("OK",new DialogInterface.OnClickListener()
   	{public void onClick(DialogInterface dialog, int whichButton){
   		finish();
-  		
   	}
   	})
   	.show();

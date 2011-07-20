@@ -241,28 +241,19 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity im
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			
 			 Log.e(TAG, "I am receiver");
-			
-			if(intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)){
-
-
+ 			 if(intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)){
 				 Log.e(TAG, "Reciving " + DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-				 
 				 String ns = Context.NOTIFICATION_SERVICE;
 				 NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-				
-				 
-				 
+
 				 int icon = R.drawable.icon;        // icon from resources
-				 CharSequence tickerText = "T3HHXX0R";              // ticker-text
+				 CharSequence tickerText = "T3hh4xx0r";              // ticker-text
 				 long when = System.currentTimeMillis();         // notification time
 				 CharSequence contentTitle = "OMFGB Nightlies";  // expanded message title
 				 CharSequence contentText = "Download completed";      // expanded message text
 
 				 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppNightlyActivity.class);
-				
-				 
 				 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
 				 // the next two lines initialize the Notification, using the configurations above
@@ -273,34 +264,15 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity im
 				 mNotificationManager.notify(HELLO_ID, notification);
 			}
 			if(intent.getAction().equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)){
-
-
 				 Log.e(TAG, "Reciving " + DownloadManager.ACTION_NOTIFICATION_CLICKED);
-				 
-			
 				 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppNightlyActivity.class);
-				 
 				 // Curently this does not work, use as reference as to what might
 				 // http://www.java2s.com/Open-Source/Android/android-platform-apps
 				 // /Browser/com/android/browser/OpenDownloadReceiver.java.htm
-				 
 				 startActivity(notificationIntent);
 			}
-			
-			
-			
 		}
-    	
-    	
-    	
-    	
-    	
-    	
     } 
-    
-    
-  
- 
  
  protected void AlertBox(String title, String mymessage)
  {

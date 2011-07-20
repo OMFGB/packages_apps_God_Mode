@@ -103,7 +103,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 		  				  		Log.i(TAG, "File location is: "+ f.toString());
 		  						if (Installable) 
 		  						{
-		  						   Downloads.installPackage(OUTPUT_NAME );
+		  						   Downloads.installPackage(OUTPUT_NAME);
 		  						} else 
 		  						{
 		  							Downloads.flashPackage(OUTPUT_NAME, false, false, false);
