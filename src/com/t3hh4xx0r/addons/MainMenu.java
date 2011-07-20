@@ -125,42 +125,66 @@ public class MainMenu extends PreferenceActivity  {
 			Log.d(TAG, "Cannot determine device density, defaultingg to Unset");
 			}
 		
+
+		log("Beggining to set the device");
 		// We dont need to set the device script every time just once
 		if(Constants.getDeviceScript() == null || !Constants.getDeviceScript().equals("")){
 		
 				if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE)) {
+
+					log("Setting device as " + DeviceType.INCREDIBLE);
+
 			    	Constants.setDeviceScript(DeviceType.INCREDIBLE_SCRIPT);
 			    	DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE;
 			        	
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.ERIS)) {
+
+					log("Setting device as " + DeviceType.ERIS);
 			    	Constants.setDeviceScript(DeviceType.ERIS_SCRIPT);
 			    	DeviceType.DEVICE_TYPE = DeviceType.ERIS;
 			    	
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.DROID)) {
+
+					log("Setting device as " + DeviceType.DROID);
 			    	Constants.setDeviceScript(DeviceType.DROID_SCRIPT);
 			    	DeviceType.DEVICE_TYPE = DeviceType.DROID;
 					
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.EVO)) {
+
+					log("Setting device as " + DeviceType.EVO);
+
 			    	Constants.setDeviceScript(DeviceType.EVO_SCRIPT);
 			    	DeviceType.DEVICE_TYPE = DeviceType.EVO;
 			        	
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.HERO)) {
+
+
+					log("Setting device as " + DeviceType.HERO);
 			    	Constants.setDeviceScript(DeviceType.HERO_SCRIPT);
 			    	DeviceType.DEVICE_TYPE = DeviceType.HERO;
 			        	
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.THUNDERBOLT)) {
+
+					log("Setting device as " + DeviceType.THUNDERBOLT);
 			    	Constants.setDeviceScript(DeviceType.THUNDERBOLT_SCRIPT);
 			    	DeviceType.DEVICE_TYPE = DeviceType.THUNDERBOLT;
 			        	
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE2)) {
+
+					log("Setting device as " + DeviceType.INCREDIBLE2);
                                 Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
                                 DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
 
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.FASCINATEMTD)) {
 				Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
 				DeviceType.DEVICE_TYPE = DeviceType.FASCINATEMTD;
+				
 
-                                }else  if (DeviceType.deviceDeviceEquals(DeviceType.SHOWCASEMTD)) {
+
+                                }
+			
+				 else  if (DeviceType.deviceDeviceEquals(DeviceType.SHOWCASEMTD)) {
+				 
                                 Constants.setDeviceScript(DeviceType.SHOWCASEMTD_SCRIPT);
                                 DeviceType.DEVICE_TYPE = DeviceType.SHOWCASEMTD;
 
@@ -169,6 +193,12 @@ public class MainMenu extends PreferenceActivity  {
                                 DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
 
                                 }
+				 
+
+			
+				
+				
+
 		}
 		
 	}
@@ -187,6 +217,12 @@ public class MainMenu extends PreferenceActivity  {
 		     	})
 		     	.show();
 		   }
+	   
+	   private void log(String message){
+		   
+		   Log.d(TAG, message);
+		   
+	   }
 	
 }
 

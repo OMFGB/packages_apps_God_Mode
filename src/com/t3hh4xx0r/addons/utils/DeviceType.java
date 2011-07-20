@@ -43,7 +43,7 @@ public static final String INCREDIBLE2_SCRIPT = "vivow.js";
  * 
  */
 
-public static final String DROID = "Droid";
+public static final String DROID = "sholes";
 public static final String DROID_SCRIPT = "sholes.js";
 
 
@@ -62,6 +62,12 @@ public static final String SAMMY_MODEL = "SCH-I500";
 
 public static final String FASCINATEMTD = "fascinatemtd";
 public static final String FASCINATEMTD_SCRIPT = "fascinatemtd.js";
+
+public static final String SHOWCASEMTD_SCRIPT = "showcasemtd.js";
+public static final String SHOWCASEMTD = "showcasemtd";
+
+public static final String  MESMERIZEMTD_SCRIPT = "mesmerizedmtd.js";
+public static final String  MESMERIZEMTD = "mesmerizedmtd";
 
 
 
