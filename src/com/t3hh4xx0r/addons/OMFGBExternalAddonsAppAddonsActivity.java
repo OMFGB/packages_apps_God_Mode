@@ -67,52 +67,6 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
 
 	private Runnable mJSONRunnable;
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        Log.e(TAG, "OnDestroy Called");
-        unregisterReceiver(mReceiver);
-    }
-
-    public class AddonsReceiver extends BroadcastReceiver{
-    	
-    	boolean flash = false;
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-
-			 Log.e(TAG, "I am receiver");
-
-			if(intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)){
-
-
-				 Log.e(TAG, "Reciving " + DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-
-				 String ns = Context.NOTIFICATION_SERVICE;
-				 NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-
-
-
-				 int icon = R.drawable.icon;        // icon from resources
-				 CharSequence tickerText = "T3hh4xx0r";              // ticker-text
-				 long when = System.currentTimeMillis();         // notification time
-				 CharSequence contentTitle = "T3hh4xx0r Addons";  // expanded message title
-				 CharSequence contentText = "Download completed";      // expanded message text
-
-				 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppAddonsActivity.class);
-
-
-				 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-
-				 // the next two lines initialize the Notification, using the configurations above
-				 Notification notification = new Notification(icon, tickerText, when);
-				 notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-				 final int HELLO_ID = 1;
-
-				 mNotificationManager.notify(HELLO_ID, notification);
-			}
-		}
-	}
 
 	 // Define the Handler that receives messages from the thread and update the progress 
     final Handler mHandler = new Handler() 
@@ -242,6 +196,61 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
   	.show();
 }
 
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.e(TAG, "OnDestroy Called");
+        unregisterReceiver(mReceiver);
+    }
+
+    public class AddonsReceiver extends BroadcastReceiver{
+    	
+    	boolean flash = false;
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			 Log.e(TAG, "I am receiver");
+
+			if(intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)){
+				notificationDownloadCompleteClicked(context);
+
+				
+			}
+		}
+	}
+    public void notificationDownloadCompleteClicked(Context context){
+    	
+    	 Log.e(TAG, "Reciving " + DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+
+		 String ns = Context.NOTIFICATION_SERVICE;
+		 NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
+
+
+
+		 int icon = R.drawable.icon;        // icon from resources
+		 CharSequence tickerText = "T3hh4xx0r";              // ticker-text
+		 long when = System.currentTimeMillis();         // notification time
+		 CharSequence contentTitle = "T3hh4xx0r Addons";  // expanded message title
+		 CharSequence contentText = "Download completed";      // expanded message text
+
+		 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppAddonsActivity.class);
+
+
+		 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+		 // the next two lines initialize the Notification, using the configurations above
+		 Notification notification = new Notification(icon, tickerText, when);
+		 notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		 final int HELLO_ID = 1;
+
+		 mNotificationManager.notify(HELLO_ID, notification);
+    	
+    	
+    }
+    
+    // Interface for the download and jsonparser
 
     /**
      * Create three categories for the addons preferncescreen then adds them.
@@ -450,7 +459,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
   	   mCreateBlankUIWithManifesterror = false;
 		return null;
 	}
-     
+     // end parser interface
     
 	
 
