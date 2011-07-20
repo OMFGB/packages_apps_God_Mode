@@ -96,7 +96,7 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity im
 			
 				mJSONUtils = new JSONUtils();
 				mJSONUtils.setJSONUtilsParsingInterface(OMFGBExternalAddonsAppNightlyActivity.this); 
-				mRootPreference = mJSONUtils.ParseJSON(OMFGBExternalAddonsAppNightlyActivity.this, OMFGBExternalAddonsAppNightlyActivity.this);
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBExternalAddonsAppNightlyActivity.this, OMFGBExternalAddonsAppNightlyActivity.this,false);
 			
 				
 				
@@ -416,27 +416,36 @@ public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputS
 		return  PreferenceRoot;
 	}
 
-@Override
-public PreferenceScreen unableToDownloadScript() {
-	  Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
- 		"developer left CREATE_ERROR set to true");
- OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = true;
- OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
- OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
- // return a blank view to the user
- return getPreferenceManager().createPreferenceScreen(this);	
- 
-}
-
-@Override
-public PreferenceScreen unableToParseScript() {
+	@Override
+	public PreferenceScreen unableToDownloadScript() {
+		  Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
+	 		"developer left CREATE_ERROR set to true");
+	 OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = true;
+	 OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
+	 OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
+	 // return a blank view to the user
+	 return getPreferenceManager().createPreferenceScreen(this);	
+	 
+	}
 	
-     Log.d(TAG, "Cannot parse the JSON script correctly");
-     OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
-	   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
-	   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = true;
-	   return getPreferenceManager().createPreferenceScreen(this);
+	@Override
+	public PreferenceScreen unableToParseScript() {
+		
+	     Log.d(TAG, "Cannot parse the JSON script correctly");
+	     OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
+		   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
+		   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = true;
+		   return getPreferenceManager().createPreferenceScreen(this);
+		
+	}
 	
-}
+	@Override
+	public PreferenceScreen ParsingCompletedSuccess() {
+		OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
+		OMFGBExternalAddonsAppNightlyActivity.mCreateUI = true;
+		OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
+		
+		return null;
+	}
     
 }

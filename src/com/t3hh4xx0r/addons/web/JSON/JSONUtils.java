@@ -30,11 +30,19 @@ public class JSONUtils {
 	
 	private String TAG = "JSONParsingInterface";
 	
-	public PreferenceScreen ParseJSON(PreferenceActivity activity, Context context){
+	public PreferenceScreen ParseJSON(PreferenceActivity activity, Context context, boolean isAddon){
 		
 		 mContext = context;
 		 PreferenceScreen PreferenceRoot = activity.getPreferenceManager().createPreferenceScreen(mContext);
-		 InputStream is = downloadJSONScript();
+		 InputStream is;
+		 if(isAddon){
+			 is = downloadAddonJSONScript();
+			 Log.d(TAG, "Setting addons parser");
+		 }
+		 else {
+			 is = downloadNightlyJSONScript();
+			 Log.d(TAG, "Setting nightlies parser");
+		 }
 		 
 		 if(is != null){
 			 
@@ -42,6 +50,7 @@ public class JSONUtils {
 			 try {
 				 
 				 PreferenceRoot = mJSONParsingInterface.ParseJSONScript(PreferenceRoot,is);
+				 mJSONParsingInterface.ParsingCompletedSuccess();
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -64,7 +73,7 @@ public class JSONUtils {
 	 * 
 	 * @return is the inputstream for the json script
 	 */
-	private InputStream downloadJSONScript(){
+	private InputStream downloadNightlyJSONScript(){
 		
 		
 
@@ -102,7 +111,51 @@ public class JSONUtils {
         return is;
         
         }
-	
+	/**
+	 * Downloads the JSON script.
+	 * Performs a check to make sure that the 
+	 * file directory is present
+	 * 
+	 * @return is the inputstream for the json script
+	 */
+	private InputStream downloadAddonJSONScript(){
+		
+		
+
+    		
+            InputStream is = null;
+            Log.d(TAG, "Begining json download");
+            
+            if(checkDownloadDirectory()){
+            	
+            	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ADDONS);
+	           	try{
+	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+	           		// Needed because the manager does not handle https connections
+	           		DownloadFile.updateAppManifest(Constants.ADDONS);
+	           		
+	           		is = new FileInputStream(updateFile);
+	           	
+	           	}
+	           	catch(FileNotFoundException e){
+	           		
+	           			e.printStackTrace();
+	           			if(true)Log.d(TAG, "Could not update app from file resource," +
+	           					" the file was not found. Reverting to nothing");
+	           			is = null;
+	                   	
+	           	}
+	           	
+            	
+            }// End checkdownloaddir if statement
+           
+           
+            
+
+            // If this point is reached then the input stream is null  
+        return is;
+        
+        }
 	/**
 	 * Checks to see if the download directory
 	 * for t3hh4xx0r is created. If is
@@ -152,6 +205,7 @@ public class JSONUtils {
 	 PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputStream is) throws JSONException;
 	 PreferenceScreen unableToParseScript();
 	 PreferenceScreen unableToDownloadScript();
+	 PreferenceScreen ParsingCompletedSuccess();
     
     
 	}

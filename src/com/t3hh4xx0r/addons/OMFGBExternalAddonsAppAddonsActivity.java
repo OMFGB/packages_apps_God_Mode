@@ -3,6 +3,7 @@ package com.t3hh4xx0r.addons;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.json.JSONArray;
@@ -13,6 +14,8 @@ import com.t3hh4xx0r.addons.nightlies.OMFGBExternalAddonsAppNightlyActivity;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
+import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
+import com.t3hh4xx0r.addons.web.JSON.JSONUtils.JSONParsingInterface;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -31,12 +34,14 @@ import android.widget.RelativeLayout;
 
 import com.t3hh4xx0r.R;
 
-public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
+public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity implements JSONParsingInterface {
 	
 	private boolean DBG = (false || Constants.FULL_DBG);
 	private boolean CREATE_ERROR = false;
 	private final String TAG = "OMFGB Addons App Addons Activity";
 
+	JSONUtils mJSONUtils;
+	
 	private RelativeLayout mPreferenceContainer;
 	private ListView mPreferenceListView;
 	private PreferenceScreen mRootPreference;
@@ -110,17 +115,21 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mRootPreference = getAddons();
+				
+				mJSONUtils = new JSONUtils();
+				mJSONUtils.setJSONUtilsParsingInterface(OMFGBExternalAddonsAppAddonsActivity.this); 
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBExternalAddonsAppAddonsActivity.this, OMFGBExternalAddonsAppAddonsActivity.this, true);
+			
 				if(OMFGBExternalAddonsAppAddonsActivity.mCreateUI) {
-					Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
+					Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
 					 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
 					}
 					if(OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror) {
-						Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
 						 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
 						}
 					if(OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror) {
-						Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
 						 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
 						}
 				
@@ -176,239 +185,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity {
     	
     }
     
-    /**
-     * Create three categories for the addons preferncescreen then adds them.
-     * The three categories will populate the list dynamicly from
-     * a parsed JSON file.
-     * 
-     * If a category is empty it will be reomved before displaying
-     * 
-     * @return PreferenceScreen the screen preference that will be insflated
-     */
-    private PreferenceScreen getAddons(){
-
-     	
-   	 PreferenceScreen PreferenceRoot = getPreferenceManager().createPreferenceScreen(this);
-   	 PreferenceCategory googlecat =  new PreferenceCategory(this);
-   	 googlecat.setTitle("Flashable Google Apps");
-
-   	 PreferenceCategory kernelcat =  new PreferenceCategory(this);
-   	 kernelcat.setTitle("Additional Kernels");
-
-  	 PreferenceCategory applicationcat =  new PreferenceCategory(this);
-  	 applicationcat.setTitle("Additional applications");
-   	
-   	 
-   	 PreferenceRoot.addPreference(googlecat);
-   	 PreferenceRoot.addPreference(applicationcat);
-   	 PreferenceRoot.addPreference(kernelcat);
-   	
-       	try
-           {
-
-       		
-               String x = "";
-               InputStream is;
-               // Need to actually put our sript locatio here
-               Log.i(TAG, "Begining json parsing");
-               
-               
-               File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ADDONS);
-               // Try and update the addons mainfest
-              	try{
-              		Log.i(TAG, updateFile.toString());
-              		
-              		File f = new File(Constants.DOWNLOAD_DIR );
-               		if(!f.exists()){
-               			
-               			f.mkdirs();
-               			if(true)Log.d(TAG, "File diretory does not exist, creating it");
-               		}
-               		f = null;
-               		f = new File(Constants.DOWNLOAD_DIR );
-              		
-              		// Needed because the manager does not handle https connections
-              		DownloadFile.updateAppManifest(Constants.ADDONS);
-              		
-              		is = new FileInputStream(updateFile);
-              		if(CREATE_ERROR){
-              			is = null;
-              			Log.d(TAG, "Creating an error in the input stream");
-              		}
-              	}
-           	catch(FileNotFoundException e){
-           		// Could not update the addons manifest file
-           			e.printStackTrace();
-           			if(DBG)Log.d(TAG, "Could not update app from file resource, the file was not found. Reverting to nothing");
-                   	is = null;
-           		
-           	}
-               
-           	// Only continue if the app could update the manifest
-           	// This may be cahanged to use a cached version 
-               if(is != null){
-               	
-               
-               byte [] buffer = new byte[is.available()];
-               while (is.read(buffer) != -1);
-               
-               String jsontext = new String(buffer);
-               JSONArray entries = new JSONArray(jsontext);
-
-               Log.i(TAG, "Json parsing finished");
-
-               x = "JSON parsed.\nThere are [" + entries.length() + "] entries.\n";
-
-               int i;
-               Log.i(TAG, "The number of entries is: " + entries.length());
-               if(DBG){
-               Log.d(TAG, "Starting preference resolver for");
-               Log.d(TAG, "device type " + DeviceType.DEVICE_TYPE);
-               }
-               // Parse the JSON entries and add the to the approrite category
-   	            for (i=0;i<entries.length();i++)
-   	            {
-   	
-   	                if(DBG)Log.d(TAG, "Resolving addon " + (i+1));
-   	            	AddonsObject n = new AddonsObject();
-   	                JSONObject post = entries.getJSONObject(i);
-   	               
-   	                	n.setCategory(post.getString("category"));
-	   	                n.setDevice(post.getString("device"));
-	   	                n.setURL(post.getString("url"));
-	   	                n.setName(post.getString("name"));
-	   	                try{
-	   	                	n.setDensity(post.getString("density"));
-	   	                }catch(JSONException e)
-	   	                {
-	   	                	
-	   	                	Log.d(TAG, "Density is not set");
-	   	                	n.setDensity("all"); 
-	   	                	
-	   	                }
-	   	                try{
-	   	                	n.setZipName(post.getString("zipname"));
-	   	                }catch(JSONException e){
-	   	                	e.printStackTrace();
-	   	                	n.setZipName("Addon Name");
-	   	                }
-	   	                n.setInstallable(post.getString("installable"));
-	   	                try{
-	   	                	n.setDescription(post.getString("description"));
-	   	                }catch(JSONException e){
-	   	                	n.setDescription("Addon Description");
-	   	                	
-	   	                	
-	   	                }
-	   	                
-	   	                
-   	                if(DBG)Log.d(TAG, "Finished setting addons object");
-   	                
-   	                PreferenceScreen inscreen = getPreferenceManager().createPreferenceScreen(this);
-   	                inscreen.setSummary(n.getDescription());
-   	                inscreen.setTitle(n.getName());
-   	                
-   	                // Set the click listener for each preference
-   	             OnAddonsPreferenceClickListener listner = new OnAddonsPreferenceClickListener(n, i, this);
-   	                
-   	                inscreen.setOnPreferenceClickListener(listner);
-   	                
-   	                // Finally add the preference to the heirachy
-   	                Log.i(TAG,"Adding " + (String) inscreen.getTitle() + "to screen if compatible") ;
-   	                
-   	                /*
-   	                 * If the device type eqauls this device or all devices and the density equals all devices or this devices
-   	                 * density  set the category
-   	                 * 
-   	                 */
-   	                
-   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
-   	                	// Debug
-   	                	if(DBG){
-   	                	Log.i(TAG, "Adding screen now");
-   	                	Log.i(TAG, "Category = " +  n.getCategory());
-   	                	}
-   	                // Add the addons the appropriate category
-   	                	if( n.getDensity().equals("all") || DeviceType.getDensity().equals(n.getDensity())){
-   	                		
-   	                	
-		   	                if(n.getCategory().equals("google"))googlecat.addPreference(inscreen);
-		   	                if(n.getCategory().equals("applications"))applicationcat.addPreference(inscreen);
-		   	                if(n.getCategory().equals("kernel"))kernelcat.addPreference(inscreen);
-		   	                Log.i(TAG, "Preference screen added with addon object category " + n.getCategory());
-   	                	}
-   	                	else{
-   	                		
-   	                		Log.i(TAG, "Device density is not compatible");
-   	                	}
-   	                }else{
-   	                	 
-   	                	Log.i(TAG, "Device not compatible with package");
-   	                	
-   	                }
-   	                
-   	          
-   	
-   	            }
-   	            
-   	            if(googlecat.getPreferenceCount() == 0){
-	           	 PreferenceRoot.removePreference(googlecat);
-	           	 Log.i(TAG, "Removing gapps category");
-	           	 }
-	            if(applicationcat.getPreferenceCount() == 0){
-	           	 PreferenceRoot.removePreference(applicationcat);
-	
-	           	 Log.i(TAG, "Removing applications category");
-	            }
-	            if(kernelcat.getPreferenceCount() == 0){
-	           	 PreferenceRoot.removePreference(kernelcat);
-	           	 Log.i(TAG, "Removing kernels category");
-	            }
-   	            
-               Log.d(TAG, x);
-               }
-               else{
-               	
-               	// Tell the user here that the
-               	// manifest is messed up
-               	// and to contact us
-            	   Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
-            	   		"developer left CREATE_ERROR set to true");
-
-            	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = true;
-            	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
-            	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
-            	   // return a blank view to the user
-            	   return getPreferenceManager().createPreferenceScreen(this);
-               	
-               }
-               
-           }
-           catch (Exception je)
-           {
-
-               Log.e(TAG, je.getMessage());
-                je.printStackTrace();
-                Log.d(TAG, "Cannot parse the JSON script correctly");
-
-         	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
-         	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
-         	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = true;
-         	   return getPreferenceManager().createPreferenceScreen(this);
-           }
-           
-           
-
-	        	
-           Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
-
-
-    	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
-    	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = true;
-    	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
-           
-           return PreferenceRoot;
-         }
+ 
     
     protected void AlertBox(String title, String mymessage){
     	
@@ -425,6 +202,215 @@ new AlertDialog.Builder(this)
   	})
   	.show();
 }
+
+
+    /**
+     * Create three categories for the addons preferncescreen then adds them.
+     * The three categories will populate the list dynamicly from
+     * a parsed JSON file.
+     * 
+     * If a category is empty it will be reomved before displaying
+     * 
+     * @return PreferenceScreen the screen preference that will be insflated
+     */
+    
+	@Override
+	public PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot,
+			InputStream is) throws JSONException {
+
+	   	 
+	   	 PreferenceCategory googlecat =  new PreferenceCategory(this);
+	   	 googlecat.setTitle("Flashable Google Apps");
+
+	   	 PreferenceCategory kernelcat =  new PreferenceCategory(this);
+	   	 kernelcat.setTitle("Additional Kernels");
+
+	  	 PreferenceCategory applicationcat =  new PreferenceCategory(this);
+	  	 applicationcat.setTitle("Additional applications");
+	   	
+	   	 
+	   	 PreferenceRoot.addPreference(googlecat);
+	   	 PreferenceRoot.addPreference(applicationcat);
+	   	 PreferenceRoot.addPreference(kernelcat);
+	   	
+	      
+
+	       		
+	              
+	    try{
+	              String x = "";
+	              
+	               Log.i(TAG, "Begining json parsing");
+	  
+	               byte [] buffer = new byte[is.available()];
+	             
+	               
+	               while (is.read(buffer) != -1);
+	               
+	               String jsontext = new String(buffer);
+	               JSONArray entries = new JSONArray(jsontext);
+
+	               Log.i(TAG, "Json parsing finished");
+
+	               x = "JSON parsed.\nThere are [" + entries.length() + "] entries.\n";
+
+	               int i;
+	               Log.i(TAG, "The number of entries is: " + entries.length());
+	               if(DBG){
+	               Log.d(TAG, "Starting preference resolver for");
+	               Log.d(TAG, "device type " + DeviceType.DEVICE_TYPE);
+	               }
+	               // Parse the JSON entries and add the to the approrite category
+	   	            for (i=0;i<entries.length();i++)
+	   	            {
+	   	
+	   	                if(DBG)Log.d(TAG, "Resolving addon " + (i+1));
+	   	            	AddonsObject n = new AddonsObject();
+	   	                JSONObject post = entries.getJSONObject(i);
+	   	               
+	   	                	n.setCategory(post.getString("category"));
+		   	                n.setDevice(post.getString("device"));
+		   	                n.setURL(post.getString("url"));
+		   	                n.setName(post.getString("name"));
+		   	                try{
+		   	                	n.setDensity(post.getString("density"));
+		   	                }catch(JSONException e)
+		   	                {
+		   	                	
+		   	                	Log.d(TAG, "Density is not set");
+		   	                	n.setDensity("all"); 
+		   	                	
+		   	                }
+		   	                try{
+		   	                	n.setZipName(post.getString("zipname"));
+		   	                }catch(JSONException e){
+		   	                	e.printStackTrace();
+		   	                	n.setZipName("Addon Name");
+		   	                }
+		   	                n.setInstallable(post.getString("installable"));
+		   	                try{
+		   	                	n.setDescription(post.getString("description"));
+		   	                }catch(JSONException e){
+		   	                	n.setDescription("Addon Description");
+		   	                	
+		   	                	
+		   	                }
+		   	                
+		   	                
+	   	                if(DBG)Log.d(TAG, "Finished setting addons object");
+	   	                
+	   	                PreferenceScreen inscreen = getPreferenceManager().createPreferenceScreen(this);
+	   	                inscreen.setSummary(n.getDescription());
+	   	                inscreen.setTitle(n.getName());
+	   	                
+	   	                // Set the click listener for each preference
+	   	             OnAddonsPreferenceClickListener listner = new OnAddonsPreferenceClickListener(n, i, this);
+	   	                
+	   	                inscreen.setOnPreferenceClickListener(listner);
+	   	                
+	   	                // Finally add the preference to the heirachy
+	   	                Log.i(TAG,"Adding " + (String) inscreen.getTitle() + "to screen if compatible") ;
+	   	                
+	   	                /*
+	   	                 * If the device type eqauls this device or all devices and the density equals all devices or this devices
+	   	                 * density  set the category
+	   	                 * 
+	   	                 */
+	   	                
+	   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
+	   	                	// Debug
+	   	                	if(DBG){
+	   	                	Log.i(TAG, "Adding screen now");
+	   	                	Log.i(TAG, "Category = " +  n.getCategory());
+	   	                	}
+	   	                // Add the addons the appropriate category
+	   	                	if( n.getDensity().equals("all") || DeviceType.getDensity().equals(n.getDensity())){
+	   	                		
+	   	                	
+			   	                if(n.getCategory().equals("google"))googlecat.addPreference(inscreen);
+			   	                if(n.getCategory().equals("applications"))applicationcat.addPreference(inscreen);
+			   	                if(n.getCategory().equals("kernel"))kernelcat.addPreference(inscreen);
+			   	                Log.i(TAG, "Preference screen added with addon object category " + n.getCategory());
+	   	                	}
+	   	                	else{
+	   	                		
+	   	                		Log.i(TAG, "Device density is not compatible");
+	   	                	}
+	   	                }else{
+	   	                	 
+	   	                	Log.i(TAG, "Device not compatible with package");
+	   	                	
+	   	                }
+	   	                
+	   	          
+	   	
+	   	            }
+	   	            
+	   	            if(googlecat.getPreferenceCount() == 0){
+		           	 PreferenceRoot.removePreference(googlecat);
+		           	 Log.i(TAG, "Removing gapps category");
+		           	 }
+		            if(applicationcat.getPreferenceCount() == 0){
+		           	 PreferenceRoot.removePreference(applicationcat);
+		
+		           	 Log.i(TAG, "Removing applications category");
+		            }
+		            if(kernelcat.getPreferenceCount() == 0){
+		           	 PreferenceRoot.removePreference(kernelcat);
+		           	 Log.i(TAG, "Removing kernels category");
+		            }
+	   	            
+	               Log.d(TAG, x);
+	               
+	       }catch(IOException e){
+	          	   e.printStackTrace();
+	       }
+	         
+	       	
+	       	
+		return PreferenceRoot;
+	}
+
+
+
+	@Override
+	public PreferenceScreen unableToDownloadScript() {
+	  
+		// and to contact us
+ 	   Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
+ 	   		"developer left CREATE_ERROR set to true");
+
+ 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = true;
+ 	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
+ 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
+ 	   // return a blank view to the user
+ 	   return getPreferenceManager().createPreferenceScreen(this);
+	}
+
+
+
+	@Override
+	public PreferenceScreen unableToParseScript() {
+        Log.d(TAG, "Cannot parse the JSON script correctly");
+
+ 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
+ 	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
+ 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = true;
+ 	   return getPreferenceManager().createPreferenceScreen(this);
+
+	}
+
+
+
+	@Override
+	public PreferenceScreen ParsingCompletedSuccess() {
+
+
+  	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
+  	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = true;
+  	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
+		return null;
+	}
      
     
 	
