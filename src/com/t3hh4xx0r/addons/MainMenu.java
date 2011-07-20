@@ -15,6 +15,8 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.t3hh4xx0r.R;
 
@@ -51,7 +53,48 @@ public class MainMenu extends PreferenceActivity  {
 		
 	}
 	
-	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0, 0, 0, "Clear Download Cache");
+		return true;
+	}	
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case 0:
+		deleteDir();
+		break;
+		}
+
+	    	return(super.onOptionsItemSelected(item));
+	}	
+
+        public void deleteDir() {
+               Thread cmdThread = new Thread(){
+                        @Override
+                        public void run() {
+
+                                Looper.prepare();
+
+                                try{Thread.sleep(1000);}catch(InterruptedException e){ }
+
+                                final Runtime run = Runtime.getRuntime();
+                                DataOutputStream out = null;
+                                Process p = null;
+                                try {
+                                        p = run.exec("su");
+                                        out = new DataOutputStream(p.getOutputStream());
+                                        out.writeBytes("busybox rm -r " + Constants.DOWNLOAD_DIR + "\n");
+                                        out.flush();
+                                } catch (IOException e) {
+                                        e.printStackTrace();
+                                        return;
+                                }
+
+                        }
+                };
+                cmdThread.start();
+        }
 
 	static public boolean hasStorage(boolean requireWriteAccess) {
 		
