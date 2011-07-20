@@ -42,16 +42,32 @@ public static final String DROID_SCRIPT = "sholes.js";
 public static final String INCREDIBLE2 = "Incredible 2";
 public static final String INCREDIBLE2_SCRIPT = "vivow.js";
 
-public static final String FASCINATEMTD = "SCH-I500";
+public static final String SAMMY_MODEL = "SCH-I500";
+
+public static final String FASCINATEMTD = "fascinatemtd";
 public static final String FASCINATEMTD_SCRIPT = "fascinatemtd.js";
 
 @SuppressWarnings("unused")
-public static boolean deviceEquals(String s){
+public static boolean deviceModelEquals(String s){
 		
+	
+	
 		if(Build.MODEL.equals(s))
 			return true;
 		else 
 			return false;
+	
+	
+
+}
+
+@SuppressWarnings("unused")
+public static boolean samsungDeviceEquals(String s){
+	
+	if(Build.DEVICE.equals(s))
+		return true;
+	else 
+		return false;
 
 }
 
