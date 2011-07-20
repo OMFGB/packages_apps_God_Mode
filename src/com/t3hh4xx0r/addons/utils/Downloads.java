@@ -124,7 +124,7 @@ public static void flashPackage(String outputzip, boolean backuprom, boolean wip
                                 p = run.exec("su");
 				out = new DataOutputStream(p.getOutputStream());
 				if (mBackupRom) {
-				    out.writeBytes("busybox echo 'backup_rom(\"" + Constants.BACKUP_DIR +"OMFGB-" + DATE +"\");'  >> " + Constants.CWR_EXTENDED_CMD + "\n");				
+				    out.writeBytes("busybox echo 'backup_rom(\"" + Constants.BACKUP_DIR +"omfgb_" + DATE +"\");'  >> " + Constants.CWR_EXTENDED_CMD + "\n");				
 				}
 				if (mWipeCache) {
 				    out.writeBytes("busybox echo 'format CACHE:' >> " + Constants.CWR_EXTENDED_CMD + "\n");

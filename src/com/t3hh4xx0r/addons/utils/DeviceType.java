@@ -17,15 +17,14 @@ private static String DEVICE_DENSITY = "Unset";
 
 // Device name constatnts
 
-/**
- * HTC Droid Incredible
+/*
+ * HTC phones below this point
  */
 public static final String INCREDIBLE = "Incredible";
 public static final String INCREDIBLE_SCRIPT = "inc.js";
 
 public static final String ERIS = "Eris";
 public static final String ERIS_SCRIPT = "desirec.js";
-
 
 public static final String EVO = "Evo";
 public static final String EVO_SCRIPT = "supersonic.js";
@@ -36,16 +35,35 @@ public static final String HERO_SCRIPT = "heroc.js";
 public static final String THUNDERBOLT = "Thunderbolt" ;
 public static final String THUNDERBOLT_SCRIPT = "mecha.js";
 
-public static final String DROID = "Droid";
-public static final String DROID_SCRIPT = "sholes.js";
-
 public static final String INCREDIBLE2 = "Incredible 2";
 public static final String INCREDIBLE2_SCRIPT = "vivow.js";
 
+/*
+ * Motorolla devices below this point
+ * 
+ */
+
+public static final String DROID = "Droid";
+public static final String DROID_SCRIPT = "sholes.js";
+
+
+/* 
+ * Samsung devices go below this point
+ * Some of samsungs devices use the same 
+ * build model, so instead of determining
+ * the device based upon the model we
+ * determine the device by parsing the 
+ * retreiving the device name from
+ * ro.product.device which is done
+ * with Build.DEVICE
+ * 
+ */
 public static final String SAMMY_MODEL = "SCH-I500";
 
 public static final String FASCINATEMTD = "fascinatemtd";
 public static final String FASCINATEMTD_SCRIPT = "fascinatemtd.js";
+
+
 
 @SuppressWarnings("unused")
 public static boolean deviceModelEquals(String s){
