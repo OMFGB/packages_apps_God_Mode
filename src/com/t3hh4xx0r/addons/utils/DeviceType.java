@@ -39,7 +39,7 @@ public static final String INCREDIBLE2 = "vivow";
 public static final String INCREDIBLE2_SCRIPT = "vivow.js";
 
 /*
- * Motorolla devices below this point
+ * Motorola devices below this point
  * 
  */
 
