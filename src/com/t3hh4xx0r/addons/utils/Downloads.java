@@ -126,6 +126,14 @@ public static void flashPackage(String outputzip, boolean backuprom, boolean wip
 				if (mBackupRom) {
 				    out.writeBytes("busybox echo 'backup_rom(\"" + Constants.BACKUP_DIR + "/omfgb_" + DATE +"\");'  >> " + Constants.CWR_EXTENDED_CMD + "\n");				
 				}
+				if (mWipeCache) {
+				    out.writeBytes("busybox echo 'rm -r /data/cache' " );
+				    out.writeBytes("busybox echo 'rm -r /cache' " );	
+				}
+				if (mWipeCache) {
+				    out.writeBytes("busybox echo 'rm -r /data' " );
+				    out.writeBytes("busybox echo 'rm -r /cache' " );	
+				}
 				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
                                 out.writeBytes("reboot recovery\n");
 				out.flush();
