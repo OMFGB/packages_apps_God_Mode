@@ -380,9 +380,9 @@ new AlertDialog.Builder(this)
  	   Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
  	   		"developer left CREATE_ERROR set to true");
 
- 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = true;
- 	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
- 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
+ 	   mCreateBlankUIWithISerror = true;
+ 	   mCreateUI = false;
+ 	   mCreateBlankUIWithManifesterror = false;
  	   // return a blank view to the user
  	   return getPreferenceManager().createPreferenceScreen(this);
 	}
@@ -393,9 +393,9 @@ new AlertDialog.Builder(this)
 	public PreferenceScreen unableToParseScript() {
         Log.d(TAG, "Cannot parse the JSON script correctly");
 
- 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
- 	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = false;
- 	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = true;
+ 	   mCreateBlankUIWithISerror = false;
+ 	   mCreateUI = false;
+ 	   mCreateBlankUIWithManifesterror = true;
  	   return getPreferenceManager().createPreferenceScreen(this);
 
 	}
@@ -406,9 +406,9 @@ new AlertDialog.Builder(this)
 	public PreferenceScreen ParsingCompletedSuccess() {
 
 
-  	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror = false;
-  	   OMFGBExternalAddonsAppAddonsActivity.mCreateUI = true;
-  	   OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror = false;
+  	   mCreateBlankUIWithISerror = false;
+  	   mCreateUI = true;
+  	   mCreateBlankUIWithManifesterror = false;
 		return null;
 	}
      

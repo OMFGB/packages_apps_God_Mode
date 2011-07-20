@@ -80,9 +80,12 @@ public static void installPackage(String outputzip) {
             cmdThread.start();
     }
 
-public static void flashPackage(String outputzip) {
+public static void flashPackage(String outputzip, boolean backuprom, boolean wipecache, boolean wipedata) {
 
-
+	final boolean mBackupRom = backuprom;
+	final boolean mWipeCache = wipecache;
+	final boolean mWipeData = wipedata;
+	
 	final String OUTPUT_NAME = outputzip;
 	Log.d(TAG,OUTPUT_NAME);
 	
@@ -120,7 +123,7 @@ public static void flashPackage(String outputzip) {
         		Log.i(TAG, "Executing su");
                                 p = run.exec("su");
 				out = new DataOutputStream(p.getOutputStream());
-				if (OnNightlyPreferenceClickListener.mBackupRom) {
+				if (mBackupRom) {
 				    out.writeBytes("busybox echo 'backup_rom(\"" + Constants.BACKUP_DIR + "/omfgb_" + DATE +"\");'  >> " + Constants.CWR_EXTENDED_CMD + "\n");				
 				}
 				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");

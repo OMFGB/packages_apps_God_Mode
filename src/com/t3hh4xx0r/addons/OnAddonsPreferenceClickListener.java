@@ -106,7 +106,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 		  						   Downloads.installPackage(OUTPUT_NAME );
 		  						} else 
 		  						{
-		  							Downloads.flashPackage(OUTPUT_NAME);
+		  							Downloads.flashPackage(OUTPUT_NAME, false, false, false);
 		  							
 		  						}
 	  				  

@@ -24,7 +24,7 @@ import android.util.Slog;
 
 public class OnNightlyPreferenceClickListener implements OnPreferenceClickListener {
 	
-	private final String TAG = "OnNightlyPreferenceClick";
+	private final String TAG = "OnNightlyPreferenceClickListener";
 	NightlyObject mNightly;
 	int mPosition;
 	Context mContext;
@@ -32,7 +32,6 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	private String DOWNLOAD_DIR = externalStorageDir+ "/";
 	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
 
-	public static boolean mBackupRom = false;
 
 	public OnNightlyPreferenceClickListener(NightlyObject o, int position, Context context){
 		
@@ -81,6 +80,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
  		else{
  			
  			check = null;
+ 			Log.d(TAG, "About to choose flash options");
  	 		FlashAlertBox("Choose flashing options.", Boolean.parseBoolean(mNightly.getInstallable()), mNightly.getZipName());
 
  		}
@@ -91,8 +91,8 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	}
 	
 	protected void FlashAlertBox(String title, final boolean Installable, final String OUTPUT_NAME) {
-	final CharSequence[] items = {"Backup before install"};
-        final boolean checked[] = new boolean[]{false};
+	final CharSequence[] items = {"Backup rom", "Wipe data", "Wipe cache"}; // Should turn the into calls to R.String.~~~
+        final boolean checked[] = new boolean[]{true, false, false};
 
 	   new AlertDialog.Builder(mContext)
 	      //.setMessage(mymessage)
@@ -100,7 +100,11 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	      .setCancelable(true)
               .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
 		public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+			Log.d(TAG, "Item number " + which + " and is set to: " + Boolean.toString(isChecked));
      		CharSequence text = "Item number " + which;
+     		
+     		
+     		
 		}
 		})
 	      .setPositiveButton("OK",
@@ -118,14 +122,9 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 		  						   Downloads.installPackage(OUTPUT_NAME );
 		  						} else 
 		  						{
-								   for( int i = 0; i < items.length; i++ ){
-									//This just checks if its an option. Needs an if (setchecked) or something, idk
-								       if (items[i] == "Backup before install") {
-									  Slog.d(TAG, "Backing up first");
-									  mBackupRom = true;
-								       } 
-		  							Downloads.flashPackage(OUTPUT_NAME);
-		  						    }
+		  							Log.d(TAG, "About to flash pacakge");
+		  							Downloads.flashPackage(OUTPUT_NAME, checked[0], checked[1], checked[2]);
+		  						    
 		  						}
 	            			} 
 	            	  }
@@ -137,6 +136,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	         public void onClick(DialogInterface dialog, int whichButton){
 	        	 // Do nothing
 	        	 Log.d(TAG, "User did not approve flashing.");
+					Log.d(TAG, "Backup: " + checked[0]+ " WipeData" + checked[1] + " WipeCache: "+ checked[2]);
 	         }
 	         })
 	         
