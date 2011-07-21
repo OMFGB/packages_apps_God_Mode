@@ -119,7 +119,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 		  				  		Log.i(TAG, "File location is: "+ f.toString());
 		  						if (Installable) 
 		  						{
-		  						   Downloads.installPackage(OUTPUT_NAME );
+		  						   Downloads.installPackage(OUTPUT_NAME, mContext );
 		  						} else 
 		  						{
 		  							Log.d(TAG, "About to flash pacakge");

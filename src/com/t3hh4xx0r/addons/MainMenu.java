@@ -52,7 +52,6 @@ public class MainMenu extends PreferenceActivity  {
 			mAddonsCat.setEnabled(true);
 			
 		}
-  
 		
 		
 	}

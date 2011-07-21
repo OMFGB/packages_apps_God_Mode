@@ -8,8 +8,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
@@ -40,7 +44,7 @@ private boolean isSdCardWriteable(){
 	return !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState());
 }
 
-public static void installPackage(String outputzip) {
+public static void installPackage(String outputzip, final Context context) {
 
 
 		final String OUTPUT_NAME = outputzip;
@@ -55,27 +59,10 @@ public static void installPackage(String outputzip) {
                     	// http://apachejava.blogspot.com/2011/04/install-and-uninstall-android.html
                 		Log.i(TAG, "Packaging installer thread started");
 
-                            try{Thread.sleep(1000);}catch(InterruptedException e){ }
-
-                            final Runtime run = Runtime.getRuntime();
-                            DataOutputStream out = null;
-                            Process p = null;
-
-                            try {
-
-                        		Log.i(TAG, "Executing su");
-                                    p = run.exec("su");
-                                    out = new DataOutputStream(p.getOutputStream());
-                                    out.writeBytes("busybox mount -o rw,remount /system\n");
-                                    out.writeBytes("busybox cp " + Constants.CWR_FLASH_DIR + OUTPUT_NAME + Constants.SYSTEM_APP + "\n");
-                                    out.writeBytes("busybox mount -o ro,remount /system\n");
-                                    out.flush();
-                            } catch (IOException e) {
-                                    e.printStackTrace();
-                                    return;
-                            }
-
-                    }
+                		Intent intent = new Intent(Intent.ACTION_VIEW);
+                		intent.setDataAndType(Uri.fromFile(new File(Constants.DOWNLOAD_DIR + OUTPUT_NAME)), "application/vnd.android.package-archive");
+                		context.startActivity(intent);
+                    }  		
             };
             cmdThread.start();
     }
