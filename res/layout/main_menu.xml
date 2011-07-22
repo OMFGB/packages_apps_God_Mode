@@ -12,7 +12,7 @@
                 android:summary="@string/addons_summary">
             <intent android:action="android.intent.action.MAIN"
                     android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.addons.OMFGBExternalAddonsAppAddonsActivity" />
+                    android:targetClass="com.t3hh4xx0r.addons.OMFGBAddonsActivity" />
         </PreferenceScreen>
         
          <PreferenceScreen android:key="nightlies"
@@ -20,7 +20,7 @@
                 android:summary="@string/nightlies_summary">
                  <intent android:action="android.intent.action.MAIN"
                     android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.addons.nightlies.OMFGBExternalAddonsAppNightlyActivity" />
+                    android:targetClass="com.t3hh4xx0r.addons.nightlies.OMFGBNightlyActivity" />
         </PreferenceScreen>
         
        </PreferenceCategory> 
