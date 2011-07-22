@@ -1,18 +1,14 @@
 package com.t3hh4xx0r.addons.utils;
 
-import com.t3hh4xx0r.addons.nightlies.OnNightlyPreferenceClickListener;
-
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;

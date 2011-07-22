@@ -116,7 +116,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	    if (preference == mFourHotseats) {
 		value = mFourHotseats.isChecked();
-		Settings.System.putInt(getContentResolver(),
+		 Settings.System.putInt(getContentResolver(),
 			Settings.System.FOUR_HOTSEATS, value ? 1 : 0);
 	    }
 

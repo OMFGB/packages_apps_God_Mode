@@ -1,13 +1,8 @@
 package com.t3hh4xx0r.addons.nightlies;
 
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.t3hh4xx0r.addons.utils.Downloads;
-import com.t3hh4xx0r.addons.utils.Constants;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -15,11 +10,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.net.Uri;
-import android.os.Looper;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
-import android.util.Slog;
+
+import com.t3hh4xx0r.addons.utils.Constants;
+import com.t3hh4xx0r.addons.utils.Downloads;
 
 
 public class OnNightlyPreferenceClickListener implements OnPreferenceClickListener {

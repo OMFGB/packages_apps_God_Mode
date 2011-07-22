@@ -5,20 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import com.t3hh4xx0r.addons.AddonsObject;
-import com.t3hh4xx0r.addons.OnAddonsPreferenceClickListener;
 import com.t3hh4xx0r.addons.utils.Constants;
-import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
 
 public class JSONUtils {

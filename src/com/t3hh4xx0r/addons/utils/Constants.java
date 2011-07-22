@@ -2,8 +2,6 @@ package com.t3hh4xx0r.addons.utils;
 
 import java.io.File;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Environment;
 
 public final class Constants {

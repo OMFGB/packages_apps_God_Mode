@@ -2,7 +2,6 @@ package com.t3hh4xx0r.god_mode;
 
 
 import com.t3hh4xx0r.R;
-import com.t3hh4xx0r.R.xml;
 import com.t3hh4xx0r.addons.utils.Constants;
 
 import android.app.ActivityManager;
