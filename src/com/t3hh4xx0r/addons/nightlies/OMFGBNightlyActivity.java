@@ -45,8 +45,10 @@ import android.widget.RelativeLayout;
 
 import com.t3hh4xx0r.R;
 
-public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity implements JSONParsingInterface {
+public class OMFGBNightlyActivity extends PreferenceActivity implements JSONParsingInterface {
 	
+
+	private boolean DBG = (false || Constants.FULL_DBG);
 	RelativeLayout mPreferenceContainer;
 	private ListView mPreferenceListView;
 	
@@ -95,20 +97,20 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity im
 			public void run() {
 			
 				mJSONUtils = new JSONUtils();
-				mJSONUtils.setJSONUtilsParsingInterface(OMFGBExternalAddonsAppNightlyActivity.this); 
-				mRootPreference = mJSONUtils.ParseJSON(OMFGBExternalAddonsAppNightlyActivity.this, OMFGBExternalAddonsAppNightlyActivity.this,false);
+				mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this,false);
 			
 				
 				
-				if(OMFGBExternalAddonsAppNightlyActivity.mCreateUI) {
+				if(OMFGBNightlyActivity.mCreateUI) {
 				Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
 				 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
 				}
-				if(OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror) {
+				if(OMFGBNightlyActivity.mCreateBlankUIWithISerror) {
 					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
 					 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
 					}
-				if(OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror) {
+				if(OMFGBNightlyActivity.mCreateBlankUIWithManifesterror) {
 					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
 					 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
 					}
@@ -138,7 +140,7 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity im
         
       
 
-      mProgressDialog = ProgressDialog.show(OMFGBExternalAddonsAppNightlyActivity.this,    
+      mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this,    
               "Please wait...", "Retrieving data ...", true);
       
      
@@ -253,7 +255,7 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity im
 				 CharSequence contentTitle = "OMFGB Nightlies";  // expanded message title
 				 CharSequence contentText = "Download completed";      // expanded message text
 
-				 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppNightlyActivity.class);
+				 Intent notificationIntent = new Intent(context, OMFGBNightlyActivity.class);
 				 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
 				 // the next two lines initialize the Notification, using the configurations above
@@ -265,7 +267,7 @@ public class OMFGBExternalAddonsAppNightlyActivity extends PreferenceActivity im
 			}
 			if(intent.getAction().equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)){
 				 Log.e(TAG, "Reciving " + DownloadManager.ACTION_NOTIFICATION_CLICKED);
-				 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppNightlyActivity.class);
+				 Intent notificationIntent = new Intent(context, OMFGBNightlyActivity.class);
 				 // Curently this does not work, use as reference as to what might
 				 // http://www.java2s.com/Open-Source/Android/android-platform-apps
 				 // /Browser/com/android/browser/OpenDownloadReceiver.java.htm
@@ -392,9 +394,9 @@ public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputS
 	public PreferenceScreen unableToDownloadScript() {
 		  Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
 	 		"developer left CREATE_ERROR set to true");
-	 OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = true;
-	 OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
-	 OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
+	 mCreateBlankUIWithISerror = true;
+	 mCreateUI = false;
+	 mCreateBlankUIWithManifesterror = false;
 	 // return a blank view to the user
 	 return getPreferenceManager().createPreferenceScreen(this);	
 	 
@@ -404,18 +406,18 @@ public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputS
 	public PreferenceScreen unableToParseScript() {
 		
 	     Log.d(TAG, "Cannot parse the JSON script correctly");
-	     OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
-		   OMFGBExternalAddonsAppNightlyActivity.mCreateUI = false;
-		   OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = true;
+	     mCreateBlankUIWithISerror = false;
+		 mCreateUI = false;
+		 mCreateBlankUIWithManifesterror = true;
 		   return getPreferenceManager().createPreferenceScreen(this);
 		
 	}
 	
 	@Override
 	public PreferenceScreen ParsingCompletedSuccess() {
-		OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithISerror = false;
-		OMFGBExternalAddonsAppNightlyActivity.mCreateUI = true;
-		OMFGBExternalAddonsAppNightlyActivity.mCreateBlankUIWithManifesterror = false;
+		mCreateBlankUIWithISerror = false;
+		mCreateUI = true;
+		mCreateBlankUIWithManifesterror = false;
 		
 		return null;
 	}

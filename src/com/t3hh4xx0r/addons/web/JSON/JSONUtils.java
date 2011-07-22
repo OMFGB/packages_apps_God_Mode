@@ -25,6 +25,8 @@ import com.t3hh4xx0r.addons.utils.DownloadFile;
 
 public class JSONUtils {
 	
+
+	private boolean DBG = (false || Constants.FULL_DBG);
 	JSONParsingInterface mJSONParsingInterface;
 	Context mContext;
 	
