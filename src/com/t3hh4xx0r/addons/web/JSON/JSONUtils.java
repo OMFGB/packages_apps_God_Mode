@@ -81,7 +81,7 @@ public class JSONUtils {
 	           	try{
 	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	           		// Needed because the manager does not handle https connections
-	           		DownloadFile.updateAppManifest(Constants.getDeviceScript());
+	           		if(Constants.shouldForceNightliesSync())DownloadFile.updateAppManifest(Constants.getDeviceScript());
 	           		
 	           		is = new FileInputStream(updateFile);
 	           	
@@ -126,7 +126,7 @@ public class JSONUtils {
 	           	try{
 	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	           		// Needed because the manager does not handle https connections
-	           		DownloadFile.updateAppManifest(Constants.ADDONS);
+	           		if(Constants.shouldForceAddonsSync())DownloadFile.updateAppManifest(Constants.ADDONS);
 	           		
 	           		is = new FileInputStream(updateFile);
 	           	

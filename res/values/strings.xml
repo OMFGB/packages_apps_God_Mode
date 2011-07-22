@@ -19,19 +19,28 @@
 -->
 <resources>
 	<!-- Settings Menu  -->
-	<string name="godmode_settings">GodMode Settings</string>
+	<string name="application_settings">Application Settings</string>
 	
 	<!-- Settings Menu : Sync settings -->
 	<string name="sync_settings">Sync Settings</string>
+	<string name="auto_sync">Automatically sync</string>
 	<string name="sync_settings_category">Sync Settings</string>
+	
+	<string name="auto_sync_summary">Sync automatically in background</string>
+	
+	<string name="force_sync_on_activity">Force sync the manifest</string>
 	
 	
 	<!-- Settings Menu : Addons settings -->
 	<string name="addons_settings_category">Addons Settings</string>
 	
+	<string name="force_sync_addons_summary">Sync when starting the addons activity</string>
+	
 	
 	<!-- Settings Menu : Nightlies settings -->
 	<string name="nightlies_settings_category">Nightlies Settings</string>
+	
+	<string name="force_sync_nightlies_summary">Sync when starting the nightlies activity</string>
 
 
 	<!-- GodMode: All Menus -->

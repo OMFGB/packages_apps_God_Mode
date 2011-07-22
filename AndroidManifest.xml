@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".addons.SettingsMenu"
-                  android:label="@string/godmode_settings">
+                  android:label="@string/application_settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

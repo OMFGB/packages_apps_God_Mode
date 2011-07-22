@@ -10,8 +10,5 @@
           android:icon="@drawable/icon"
           android:title="@string/refresh" />
           
-          <item android:id="@+id/settings_menu"
-          android:icon="@drawable/icon"
-          android:title="@string/godmode_settings" />
           
 </menu>

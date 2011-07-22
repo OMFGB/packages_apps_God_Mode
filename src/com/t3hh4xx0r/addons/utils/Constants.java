@@ -78,10 +78,53 @@ public final class Constants {
      * The script ised for updating the app
      */
     private static String DEVICE_SCRIPT;
+    
+    
+    public static boolean FORCE_ADDONS_ACTIVITY_SYNC = false; 
+    
+    public static boolean FORCE_NIGHTLIES_ACTIVITY_SYNC = false; 
 
+    public static boolean AUTOMATICALLY_SYNC = true; 
 
+    public static boolean SHOULD_SYNC = true; 
+    
+    public static boolean shouldAutoSync(){
+    	
+    	if(AUTOMATICALLY_SYNC){
+    		return true;
+	
+    	}
+ 
+		return false;
+    	
+    	
+    	
+    }
+  public static boolean shouldForceAddonsSync(){
+    	
+    	if(AUTOMATICALLY_SYNC && FORCE_ADDONS_ACTIVITY_SYNC){
+    		return true;
+	
+    	}
+ 
+		return false;
+    	
+    	
+    	
+    }
+  public static boolean shouldForceNightliesSync(){
+  	
+  	if(AUTOMATICALLY_SYNC && FORCE_NIGHTLIES_ACTIVITY_SYNC){
+  		return true;
+	
+  	}
 
-
+		return false;
+  	
+  	
+  	
+  }
+    
 	public static void setDeviceScript(String deviceScript) {
 		DEVICE_SCRIPT = deviceScript;
 	}

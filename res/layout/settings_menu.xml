@@ -1,34 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 
-	android:title="@string/godmode_settings">
+	android:title="@string/application_settings">
 
 	<PreferenceCategory
-		android:key="sync_settings"
+		android:key="sync_settings_cat"
 		android:title="@string/sync_settings_category"
 		android:id="@+id/sync_settings"
 		>
 		
+		 <CheckBoxPreference
+        android:key="auto_sync"
+        android:title="@string/auto_sync"
+        android:summary="@string/auto_sync_summary"
+        android:defaultValue="true"
+        
+        />
+		
+		
+		
+		
 	</PreferenceCategory> 
 	
 	
 	<PreferenceCategory
-	android:key="addons_settings"
+	android:key="addons_settings_cat"
 	android:title="@string/addons_settings_category"
 	android:id="@+id/addons_settings"
 	>
-	
+	  <CheckBoxPreference
+        android:key="force_addons_sync"
+        android:title="@string/force_sync_on_activity"
+        android:summary="@string/force_sync_addons_summary"
+        android:defaultValue="false"
+        
+        />
 	 </PreferenceCategory> 
+	
 	 
 	 
 	 <PreferenceCategory
-		android:key="nightlies_settings"
+		android:key="nightlies_settings_cat"
 		android:title="@string/nightlies_settings_category"
 		android:id="@+id/nightlies_settings"
 		>
+	
+	<CheckBoxPreference
+        android:key="force_nightlies_sync"
+        android:title="@string/force_sync_on_activity"
+        android:summary="@string/force_sync_nightlies_summary"
+        android:defaultValue="false"
+        
+        />
+	
 		
 	</PreferenceCategory> 
-
+	
 
        
 </PreferenceScreen>
