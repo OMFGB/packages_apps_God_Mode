@@ -33,6 +33,7 @@ public class MainMenu extends PreferenceActivity
         SharedPreferences.OnSharedPreferenceChangeListener, OnPreferenceClickListener {
 
 	private static final String TAG = "god_mode.MainMenu";
+	private boolean DBG = (false || Constants.FULL_DBG);
 PreferenceScreen mNightlies;
 
 	public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());

@@ -25,6 +25,8 @@ import android.util.Slog;
 public class OnNightlyPreferenceClickListener implements OnPreferenceClickListener {
 	
 	private final String TAG = "OnNightlyPreferenceClickListener";
+
+	private boolean DBG = (false || Constants.FULL_DBG);
 	NightlyObject mNightly;
 	int mPosition;
 	Context mContext;

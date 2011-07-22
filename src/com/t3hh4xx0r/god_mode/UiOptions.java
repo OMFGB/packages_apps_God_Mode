@@ -3,6 +3,7 @@ package com.t3hh4xx0r.god_mode;
 
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.R.xml;
+import com.t3hh4xx0r.addons.utils.Constants;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -23,6 +24,8 @@ import android.provider.Settings.SettingNotFoundException;
 
 
 public class UiOptions extends PreferenceActivity implements OnPreferenceChangeListener {
+
+	private boolean DBG = (false || Constants.FULL_DBG);
 
 	private static final String ELECTRON_BEAM_ANIMATION_ON = "electron_beam_animation_on";
 	private static final String ELECTRON_BEAM_ANIMATION_OFF = "electron_beam_animation_off";

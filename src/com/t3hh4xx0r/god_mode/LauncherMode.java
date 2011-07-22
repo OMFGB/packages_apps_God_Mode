@@ -2,6 +2,7 @@ package com.t3hh4xx0r.god_mode;
 
 import java.util.List;
 
+import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.god_mode.utils.PackageUtils;
 import com.t3hh4xx0r.R;
 
@@ -41,7 +42,8 @@ public class LauncherMode extends PreferenceActivity
 implements SharedPreferences.OnSharedPreferenceChangeListener {
 	
     private static final String TAG = "LauncherMode";
-    private boolean DBG = true;
+
+	private boolean DBG = (false || Constants.FULL_DBG);
 
 	private ListPreference mScreenPreference;
 	

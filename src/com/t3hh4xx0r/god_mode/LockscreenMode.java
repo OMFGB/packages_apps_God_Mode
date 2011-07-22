@@ -3,6 +3,7 @@ package com.t3hh4xx0r.god_mode;
 
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.R.xml;
+import com.t3hh4xx0r.addons.utils.Constants;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -25,6 +26,7 @@ public class LockscreenMode extends PreferenceActivity
 implements SharedPreferences.OnSharedPreferenceChangeListener {
 	
 	private static String TAG = "LockscreenMode";
+	private boolean DBG = (false || Constants.FULL_DBG);
 
 	private static final String CARRIER_CAP = "carrier_caption";
 	private static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
@@ -45,6 +47,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private CheckBoxPreference mLockscreenShortcuts;
 	private CheckBoxPreference mLockscreenOrientation;
 	private CheckBoxPreference mLockscreenAlwaysBattery;
+	
+	
 
 	
 

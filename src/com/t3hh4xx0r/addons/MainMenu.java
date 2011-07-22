@@ -27,6 +27,8 @@ import com.t3hh4xx0r.R;
 public class MainMenu extends PreferenceActivity  {
 	PreferenceCategory mAddonsCat;
 
+	private boolean DBG = (false || Constants.FULL_DBG);
+
     private static String TAG = "MainMenu";
 	PreferenceScreen mNightlies;
 	
@@ -224,7 +226,7 @@ public class MainMenu extends PreferenceActivity  {
 	   
 	   private void log(String message){
 		   
-		   Log.d(TAG, message);
+		   if(DBG)Log.d(TAG, message);
 		   
 	   }
 	

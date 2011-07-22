@@ -17,6 +17,7 @@
 package com.t3hh4xx0r.god_mode;
 
 import com.t3hh4xx0r.R;
+import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.god_mode.utils.PowerWidgetUtil;
 import com.t3hh4xx0r.god_mode.widgets.TouchInterceptor;
 
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 public class PowerWidgetOrderActivity extends ListActivity
 {
     private static final String TAG = "PowerWidgetOrderActivity";
+	private boolean DBG = (false || Constants.FULL_DBG);
 
     private ListView mButtonList;
     private ButtonAdapter mButtonAdapter;

@@ -18,6 +18,8 @@ package com.t3hh4xx0r.god_mode;
 
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.R.xml;
+import com.t3hh4xx0r.addons.utils.Constants;
+
 import android.os.Bundle;
 import android.app.Dialog;
 import android.content.Context;
@@ -46,6 +48,8 @@ import android.util.StateSet;
 
 
 public class ColorPickerDialog extends Dialog {
+
+	private boolean DBG = (false || Constants.FULL_DBG);
 
     public interface OnColorChangedListener {
         void colorChanged(int color);

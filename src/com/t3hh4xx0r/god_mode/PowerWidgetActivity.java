@@ -18,6 +18,7 @@ package com.t3hh4xx0r.god_mode;
 
 import com.android.internal.telephony.Phone;
 import com.t3hh4xx0r.R;
+import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.god_mode.utils.PowerWidgetUtil;
 
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import java.util.Map;
 public class PowerWidgetActivity extends PreferenceActivity implements OnPreferenceChangeListener {
 
     private static final String TAG = "PowerWidgetActivity";
+	private boolean DBG = (false || Constants.FULL_DBG);
 
     private static final String BUTTONS_CATEGORY = "pref_buttons";
     private static final String SELECT_BUTTON_KEY_PREFIX = "pref_button_";
