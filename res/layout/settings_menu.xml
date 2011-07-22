@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+	android:key="addons_category"
+	android:title="@string/addons_and_roms"
+	android:id="@+id/addons_category"
+	>
+	
+        <PreferenceScreen android:key="addons"
+                android:title="@string/addons_title" 
+                android:summary="@string/addons_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.addons.OMFGBExternalAddonsAppAddonsActivity" />
+        </PreferenceScreen>
+        
+         <PreferenceScreen android:key="nightlies"
+                android:title="@string/nightlies_title" 
+                android:summary="@string/nightlies_summary">
+                 <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.addons.nightlies.OMFGBExternalAddonsAppNightlyActivity" />
+        </PreferenceScreen>
+        
+       </PreferenceCategory> 
+
+
+<PreferenceCategory
+	android:title="@string/app_name"
+	>
+        <PreferenceScreen android:key="settings"
+                android:title="@string/settings_title" 
+                android:summary="@string/settings_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.god_mode.GodMode" />
+        </PreferenceScreen>
+ </PreferenceCategory> 
+       
+</PreferenceScreen>
+
