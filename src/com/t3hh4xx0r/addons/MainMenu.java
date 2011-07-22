@@ -2,6 +2,7 @@ package com.t3hh4xx0r.addons;
 
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
+import com.t3hh4xx0r.addons.utils.Downloads;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,9 +18,11 @@ import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import com.t3hh4xx0r.R;
@@ -31,6 +34,10 @@ public class MainMenu extends PreferenceActivity  {
 
     private static String TAG = "MainMenu";
 	PreferenceScreen mNightlies;
+	
+	
+	private final int CLEARCACHE = 0;
+	private final int SETTINGSMENU = CLEARCACHE + 1;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -47,8 +54,7 @@ public class MainMenu extends PreferenceActivity  {
 		if( !hasStorage(true)){
 			
 			mAddonsCat.setEnabled(false);
-			AlertBox("Warining","Sdard is not present or mounted. The addons portion requires an sdcard to use. " +
-					"Please insert or mount the sdcard to use the addons portion of the app.");
+			AlertBox(getString(R.string.warning),getString(R.string.sdcard_not_mounted));
 		}
 		else{
 			mAddonsCat.setEnabled(true);
@@ -59,47 +65,40 @@ public class MainMenu extends PreferenceActivity  {
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, 0, 0, "Clear Download Cache");
+		
+		MenuInflater menuinflate = new MenuInflater(this);
+		menuinflate.inflate(R.menu.main_menu, menu);
+		
+	
 		return true;
 	}	
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
-		case 0:
-		deleteDir();
-		break;
+		case R.id.clear_download_cache:
+			Downloads.deleteDir();
+			break;
+		case R.id.refresh:
+			Downloads.refreshAddonsAndNightlies();
+			break;
+		case R.id.settings_menu:
+			launchSettingMenu();
+			break;
 		}
 
 	    	return(super.onOptionsItemSelected(item));
 	}	
 
-        public void deleteDir() {
-               Thread cmdThread = new Thread(){
-                        @Override
-                        public void run() {
+	
+        private void launchSettingMenu() {
+        	
+        	Intent settings = new Intent(this, SettingsMenu.class);
+        	startActivity(settings);
+		
+	}
 
-                                Looper.prepare();
-
-                                try{Thread.sleep(1000);}catch(InterruptedException e){ }
-
-                                final Runtime run = Runtime.getRuntime();
-                                DataOutputStream out = null;
-                                Process p = null;
-                                try {
-                                        p = run.exec("su");
-                                        out = new DataOutputStream(p.getOutputStream());
-                                        out.writeBytes("busybox rm -r " + Constants.DOWNLOAD_DIR + "\n");
-                                        out.flush();
-                                } catch (IOException e) {
-                                        e.printStackTrace();
-                                        return;
-                                }
-
-                        }
-                };
-                cmdThread.start();
-        }
+		
 
 	static public boolean hasStorage(boolean requireWriteAccess) {
 		

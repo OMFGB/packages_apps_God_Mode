@@ -129,4 +129,51 @@ public static void flashPackage(String outputzip, boolean backuprom, boolean wip
 	cmdThread.start();
 }
 
+public static void deleteDir() {
+    Thread cmdThread = new Thread(){
+             @Override
+             public void run() {
+
+
+
+                     File deletedlcache = new File(Constants.DOWNLOAD_DIR);
+                     File cachedfiles[] = deletedlcache.listFiles();
+                     for(int i = 0; i < cachedfiles.length ; i++){
+                     	
+                     	if(!cachedfiles[i].delete()){
+                     		Log.d(TAG, "File cannot be deleted");
+                     		
+                     	}
+
+                     }
+                     deletedlcache.delete();
+                     
+                    
+
+             }
+     };
+     cmdThread.start();
+}
+
+public static void refreshAddonsAndNightlies(){
+	
+	
+	
+}
+
+
+public static void refreshAddons(){
+	
+	
+	
+}
+public static void refreshNightlies(){
+	
+	
+	
+}
+
+
+
+
 }

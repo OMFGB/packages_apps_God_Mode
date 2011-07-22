@@ -10,9 +10,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.t3hh4xx0r.addons.SettingsMenu;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
+import com.t3hh4xx0r.addons.utils.Downloads;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils.JSONParsingInterface;
 
@@ -38,6 +40,7 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -70,7 +73,10 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 	NightlyReceiver mReceiver;
 	private Runnable mJSONRunnable;
 	final int ALERT_USER = 2;
-	
+
+	private final int CLEARCACHE = 0;
+	private final int SETTINGSMENU = CLEARCACHE + 1;
+	private final int REFRESH = SETTINGSMENU + 1;
 
 	
     /** Called when the activity is first created. */
@@ -145,13 +151,40 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
       
      
     }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.refresh_nightlies, menu);
-        return true;
-    }
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		MenuInflater menuinflate = new MenuInflater(this);
+		menuinflate.inflate(R.menu.nightlies_menu, menu);
+		
+	
+		return true;
+	}	
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.clear_download_cache:
+			Downloads.deleteDir();
+			break;
+		case R.id.refresh:
+			Downloads.refreshNightlies();
+			break;
+		case R.id.settings_menu:
+			launchSettingMenu();
+			break;
+		}
+
+	    	return(super.onOptionsItemSelected(item));
+	}	
+
+	
+        private void launchSettingMenu() {
+        	
+        	Intent settings = new Intent(this, SettingsMenu.class);
+        	startActivity(settings);
+		
+	}
     
  // Define the Handler that receives messages from the thread and update the progress 
     final Handler mHandler = new Handler() 

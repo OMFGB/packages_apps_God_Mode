@@ -18,9 +18,25 @@
 */
 -->
 <resources>
+	<!-- Settings Menu  -->
+	<string name="godmode_settings">GodMode Settings</string>
+	
+	<!-- Settings Menu : Sync settings -->
+	<string name="sync_settings">Sync Settings</string>
+	<string name="sync_settings_category">Sync Settings</string>
+	
+	
+	<!-- Settings Menu : Addons settings -->
+	<string name="addons_settings_category">Addons Settings</string>
+	
+	
+	<!-- Settings Menu : Nightlies settings -->
+	<string name="nightlies_settings_category">Nightlies Settings</string>
+
 
 	<!-- GodMode: All Menus -->
 	<string name="refresh" >Refresh</string>
+	<string name="refresh_all" >Refresh all</string>
 	<string name="warning" >Warining</string>
 	<string name="sdcard_not_mounted">"Sdard is not present or mounted. The addons portion requires an sdcard to use. " +
 					"Please insert or mount the sdcard to use the addons portion of the app."</string>

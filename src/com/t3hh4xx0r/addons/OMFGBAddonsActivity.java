@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.DownloadFile;
+import com.t3hh4xx0r.addons.utils.Downloads;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils.JSONParsingInterface;
 
@@ -34,6 +35,9 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -195,6 +199,40 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
   	.show();
 }
 
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		MenuInflater menuinflate = new MenuInflater(this);
+		menuinflate.inflate(R.menu.addons_menu, menu);
+		
+	
+		return true;
+	}	
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.clear_download_cache:
+			Downloads.deleteDir();
+			break;
+		case R.id.refresh:
+			Downloads.refreshAddons();
+			break;
+		case R.id.settings_menu:
+			launchSettingMenu();
+			break;
+		}
+
+	    	return(super.onOptionsItemSelected(item));
+	}	
+
+	
+        private void launchSettingMenu() {
+        	
+        	Intent settings = new Intent(this, SettingsMenu.class);
+        	startActivity(settings);
+		
+	}
 
     @Override
     public void onDestroy(){

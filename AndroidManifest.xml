@@ -63,15 +63,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".addons.SettingsMenu"
+                  android:label="@string/godmode_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         
-         <activity android:name=".addons.nightlies.OMFGBExternalAddonsAppNightlyActivity"
+         <activity android:name=".addons.nightlies.OMFGBNightlyActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         
-           <activity android:name=".addons.OMFGBExternalAddonsAppAddonsActivity"
+           <activity android:name=".addons.OMFGBAddonsActivity"
                   android:label="@string/app_name">
                   
             <intent-filter>
