@@ -23,7 +23,7 @@ public class SettingsMenu extends PreferenceActivity {
 public boolean onCreateOptionsMenu(Menu menu) {
 		
 		MenuInflater menuinflate = new MenuInflater(this);
-		menuinflate.inflate(R.menu.seetings_menu, menu);
+		menuinflate.inflate(R.menu.settings_menu, menu);
 		
 	
 		return true;
