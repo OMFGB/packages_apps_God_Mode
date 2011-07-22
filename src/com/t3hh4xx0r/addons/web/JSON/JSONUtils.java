@@ -81,7 +81,8 @@ public class JSONUtils {
 	           	try{
 	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	           		// Needed because the manager does not handle https connections
-	           		if(Constants.shouldForceNightliesSync())DownloadFile.updateAppManifest(Constants.getDeviceScript());
+	           		if(Constants.shouldForceNightliesSync() || 
+	           				Constants.FIRST_LAUNCH)DownloadFile.updateAppManifest(Constants.getDeviceScript());
 	           		
 	           		is = new FileInputStream(updateFile);
 	           	
@@ -126,7 +127,8 @@ public class JSONUtils {
 	           	try{
 	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	           		// Needed because the manager does not handle https connections
-	           		if(Constants.shouldForceAddonsSync())DownloadFile.updateAppManifest(Constants.ADDONS);
+	           		if(Constants.shouldForceAddonsSync()|| 
+	           				Constants.FIRST_LAUNCH)DownloadFile.updateAppManifest(Constants.ADDONS);
 	           		
 	           		is = new FileInputStream(updateFile);
 	           	
@@ -150,6 +152,17 @@ public class JSONUtils {
         return is;
         
         }
+	
+	/** 
+	 * Initilze the scripts. This only needs to be run once
+	 * when the app is launched for the first time.
+	 * 
+	 */
+	public void intializeScripts() {
+		downloadAddonJSONScript();
+		downloadNightlyJSONScript();
+		
+	}
 	/**
 	 * Checks to see if the download directory
 	 * for t3hh4xx0r is created. If is

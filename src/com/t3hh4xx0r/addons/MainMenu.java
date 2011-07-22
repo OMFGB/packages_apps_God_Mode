@@ -3,6 +3,7 @@ package com.t3hh4xx0r.addons;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
 import com.t3hh4xx0r.addons.utils.Downloads;
+import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -43,7 +44,24 @@ public class MainMenu extends PreferenceActivity  {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
-		determineDevice();
+		if(Constants.FIRST_LAUNCH)determineDevice();
+		if(Constants.FIRST_LAUNCH){
+			
+			Runnable scripts = new Runnable(){
+			
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					JSONUtils u = new JSONUtils();
+					u.intializeScripts();
+					Constants.FIRST_LAUNCH = false;
+				}
+				
+			};
+			
+			Thread t = new Thread(scripts);
+			t.start();
+		}
 		
 		addPreferencesFromResource(R.layout.main_menu);
 		
@@ -61,9 +79,10 @@ public class MainMenu extends PreferenceActivity  {
 			
 		}
 		
-		
 	}
 	
+	
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		MenuInflater menuinflate = new MenuInflater(this);

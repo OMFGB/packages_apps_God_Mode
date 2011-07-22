@@ -79,6 +79,7 @@ public final class Constants {
      */
     private static String DEVICE_SCRIPT;
     
+    public static boolean FIRST_LAUNCH = true;
     
     public static boolean FORCE_ADDONS_ACTIVITY_SYNC = false; 
     
