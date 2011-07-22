@@ -4,6 +4,8 @@ package com.t3hh4xx0r.god_mode;
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.R.xml;
 
+import com.t3hh4xx0r.god_mode.ColorChangedListener;
+import com.t3hh4xx0r.god_mode.ColorPickerDialog;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +37,16 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
         private static final String OVERSCROLL_PREF = "pref_overscroll_effect";
         private static final String OVERSCROLL_WEIGHT_PREF = "pref_overscroll_weight";	
+	private static final String STATUSBAR_HIDE_BATTERY = "statusbar_hide_battery";
+	private static final String STATUSBAR_BATTERY_PERCENT = "statusbar_battery_percent";
+	private static final String HIDE_ADB_ICON = "hide_adb_icon";
+	private static final String STATUSBAR_CLOCK_OPT = "statusbar_clock_opt"; 
+	private static final String HIDE_SIGNAL_ICON = "hide_signal_icon";
+	private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
+	private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
+	private static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color"; 
+	private static final String BATTERY_TEXT_OPTIONS = "battery_text_options";
+	private static final String STATUSBAR_CARRIER_TEXT = "statusbar_carrier_text";
         
         // Rotation preferences
         private static final String ROTATION_90_PREF = "pref_rotation_90";
@@ -59,7 +71,18 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private PreferenceScreen mPowerPicker;
         private PreferenceScreen mPowerOrder;
 
+	private ListPreference mClockStyle;
+	private Preference mClockColor;
+	private CheckBoxPreference mHideSignal;
+	private CheckBoxPreference mHideBattery;
+	private CheckBoxPreference mBatteryPercent;
+	private CheckBoxPreference mHideAlarm;
+	private ListPreference mDateClock;
+	private CheckBoxPreference mHideAdb;
+	private PreferenceScreen mBatteryTextOptions;
+	private EditTextPreference mCarrierText;
 
+	private int clockStyleVal;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {	
@@ -105,7 +128,45 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 			mRotation180Pref.setChecked((mode & 2) != 0);
 			mRotation270Pref.setChecked((mode & 4) != 0);
 	        
+			
+		mClockStyle = (ListPreference) prefSet.findPreference(STATUSBAR_CLOCK_OPT);
+		clockStyleVal = Settings.System.getInt(getContentResolver(),Settings.System.STATUSBAR_CLOCK_OPT, 2);
+		mClockStyle.setValue(String.valueOf(clockStyleVal));
+		mClockStyle.setOnPreferenceChangeListener(this);
 
+		mHideSignal = (CheckBoxPreference) prefSet.findPreference(HIDE_SIGNAL_ICON);
+		mHideSignal.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_SIGNAL_ICON, 0) == 1);
+
+		mBatteryPercent = (CheckBoxPreference) prefSet.findPreference(STATUSBAR_BATTERY_PERCENT);
+		mBatteryPercent.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.STATUSBAR_BATTERY_PERCENT, 0) == 1);
+
+		mHideBattery = (CheckBoxPreference) prefSet.findPreference(STATUSBAR_HIDE_BATTERY);
+		mHideBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.STATUSBAR_HIDE_BATTERY, 0) == 1);
+				
+		mHideAlarm = (CheckBoxPreference) prefSet.findPreference(STATUSBAR_HIDE_ALARM);
+		mHideAlarm.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.STATUSBAR_HIDE_ALARM, 0) == 1);
+
+		mHideAdb = (CheckBoxPreference) prefSet.findPreference(HIDE_ADB_ICON);
+		mHideAdb.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_ADB_ICON, 0) == 1);
+
+		mClockColor = (Preference) prefSet.findPreference(STATUSBAR_CLOCK_COLOR);
+
+		mDateClock = (ListPreference) prefSet.findPreference(STATUSBAR_DATECLOCK);
+		mDateClock.setOnPreferenceChangeListener(this);
+
+		mBatteryTextOptions = (PreferenceScreen) prefSet.findPreference(BATTERY_TEXT_OPTIONS);
+
+		mCarrierText = (EditTextPreference) prefSet.findPreference(STATUSBAR_CARRIER_TEXT);
+		mCarrierText.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+		    Settings.System.putString(getContentResolver(),Settings.System.STATUSBAR_CARRIER_TEXT, (String) newValue);
+		    ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+		    am.forceStopPackage("com.android.phone");
+		    return true;
+	  }
+      });
+      updateStylePrefs(clockStyleVal);
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -135,9 +196,12 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         }
 
         if (preference == mPowerWidgetColor) {
-            ColorPickerDialog cp = new ColorPickerDialog(this, mWidgetColorListener,
-                    readWidgetColor());
-            cp.show();
+            ColorPickerDialog cp = new ColorPickerDialog(this,
+                    new ColorChangedListener(this, Settings.System.EXPANDED_VIEW_WIDGET_COLOR),
+                    Settings.System.getInt(getContentResolver(),
+                            Settings.System.EXPANDED_VIEW_WIDGET_COLOR,
+                            getResources().getColor(com.android.internal.R.color.white))); 
+		cp.show();
 	}
         if (preference == mRotation90Pref || preference == mRotation180Pref || preference == mRotation270Pref) {
         	int mode = 0;
@@ -147,12 +211,37 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 				Settings.System.putInt(getContentResolver(),
 				Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
         }
-
+	if (preference == mHideSignal) {
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_SIGNAL_ICON, mHideSignal.isChecked() ? 1 : 0);
+	}
+	if (preference == mBatteryPercent) {
+             Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_BATTERY_PERCENT, mBatteryPercent.isChecked() ? 1 : 0);
+	}
+	if (preference == mHideBattery) {
+             Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_HIDE_BATTERY, mHideBattery.isChecked() ? 1 : 0);
+	}
+	if (preference == mHideAlarm) {
+             Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_HIDE_ALARM, mHideAlarm.isChecked() ? 1 : 0);
+	}
+	if (preference == mHideAdb) {
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_ADB_ICON, mHideAdb.isChecked() ? 1 : 0);
+	}
+        if (preference == mClockColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this,
+                    new ColorChangedListener(this, Settings.System.STATUSBAR_CLOCK_COLOR),
+                    Settings.System.getInt(getContentResolver(),
+                            Settings.System.STATUSBAR_CLOCK_COLOR,
+                            getResources().getColor(com.android.internal.R.color.white))); 
+		cp.show();
+	}
+	if (preference == mBatteryTextOptions) {
+            startActivity(mBatteryTextOptions.getIntent());
+        }
         return true;
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mBatteryOption) {;
+        if (preference == mBatteryOption) {
         	Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_OPTION, Integer.valueOf((String) objValue));
         } else if (preference == mOverscrollPref) {
             int overscrollEffect = Integer.valueOf((String) objValue);
@@ -163,27 +252,23 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
             int overscrollWeight = Integer.valueOf((String) objValue);
             Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT, overscrollWeight);
             return true;
-        }
+        } else if (preference == mDateClock) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_DATECLOCK, Integer.valueOf((String) objValue));
+	    return true;
+	}else if (preference == mClockStyle) {
+	    clockStyleVal = Integer.valueOf((String) objValue);
+	    Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_CLOCK_OPT, clockStyleVal );
+	    updateStylePrefs(clockStyleVal);
+	    return true;
+	}
+	return false;
+   }
 
-        return true;
+    private void updateStylePrefs(int mClockStyle) {
+	if(mClockStyle == 3) {
+	  mClockColor.setEnabled(false);
+	} else {
+	  mClockColor.setEnabled(true);
+	}
     }
-    
-   private int readWidgetColor() {
-        try {
-            return Settings.System.getInt(getContentResolver(),
-                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR);
-        } catch (SettingNotFoundException e) {
-            return -16777216;
-        }
-    }
-
-    ColorPickerDialog.OnColorChangedListener mWidgetColorListener = new ColorPickerDialog.OnColorChangedListener() {
-        public void colorChanged(int color) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR, color);
-        }
-
-        public void colorUpdate(int color) {
-        }
-    };
 }

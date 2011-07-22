@@ -35,6 +35,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
 	private static final String LOCKSCREEN_TYPE = "lockscreen_type";
 	private static final String LOCKSCREEN_ORIENTATION = "lockscreen_orientation";
+
 	
 	private ListPreference mLockScreenTypeList;
 	private EditTextPreference mCarrierCaption;
@@ -78,7 +79,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		// Lockscreen type preference
 		mLockScreenTypeList  = (ListPreference) findPreference(LOCKSCREEN_TYPE);
 		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
-		// Lockscreen oreientation preference & default to portrait
+		// Lockscreen orientation preference & default to portrait
 		mLockscreenOrientation = (CheckBoxPreference) this.findPreference(LOCKSCREEN_ORIENTATION);
 		mLockscreenOrientation.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) != Configuration.ORIENTATION_LANDSCAPE);
 		
