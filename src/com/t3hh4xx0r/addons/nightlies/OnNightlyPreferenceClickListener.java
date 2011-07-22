@@ -101,14 +101,10 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	      .setTitle(title)
 	      .setCancelable(true)
               .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
-		public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-			Log.d(TAG, "Item number " + which + " and is set to: " + Boolean.toString(isChecked));
-     		CharSequence text = "Item number " + which;
-     		
-     		
-     		
-		}
-		})
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+				log( "Item number " + which + " and is set to: " + Boolean.toString(isChecked));
+				}
+			})
 	      .setPositiveButton("OK",
 	         new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int whichButton){
@@ -117,14 +113,14 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	            	    public void	run(){
 	            			File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
 	            			if(f.exists()){
-		  				  		Log.d(TAG, "User approved flashing, begining flash. Installable = " + String.valueOf(Installable));
+	            				log( "User approved flashing, begining flash. Installable = " + String.valueOf(Installable));
 		  				  		Log.i(TAG, "File location is: "+ f.toString());
 		  						if (Installable) 
 		  						{
 		  						   Downloads.installPackage(OUTPUT_NAME, mContext );
 		  						} else 
 		  						{
-		  							Log.d(TAG, "About to flash pacakge");
+		  							log("About to flash package");
 		  							Downloads.flashPackage(OUTPUT_NAME, checked[0], checked[1], checked[2]);
 		  						    
 		  						}
@@ -137,12 +133,18 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int whichButton){
 	        	 // Do nothing
-	        	 Log.d(TAG, "User did not approve flashing.");
-					Log.d(TAG, "Backup: " + checked[0]+ " WipeData" + checked[1] + " WipeCache: "+ checked[2]);
+	        	 log("User did not approve flashing.");
+	        	 log( "Backup: " + checked[0]+ " WipeData" + checked[1] + " WipeCache: "+ checked[2]);
 	         }
 	         })
 	         
 	         
 	      .show();
 	}
+	
+	 private void log(String message){
+		   
+		   if(DBG)Log.d(TAG, message);
+		   
+	   }
 }  

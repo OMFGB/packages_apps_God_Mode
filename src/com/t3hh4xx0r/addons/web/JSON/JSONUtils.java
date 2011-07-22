@@ -15,9 +15,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import com.android.internal.widget.CircularSelector.OnCircularSelectorTriggerListener;
 import com.t3hh4xx0r.addons.AddonsObject;
-import com.t3hh4xx0r.addons.OMFGBExternalAddonsAppAddonsActivity;
 import com.t3hh4xx0r.addons.OnAddonsPreferenceClickListener;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
