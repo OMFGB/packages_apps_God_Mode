@@ -22,6 +22,36 @@
 			android:title="@string/pref_rotation_270_title" />
 	 </PreferenceCategory>
 	
+        <PreferenceCategory android:key="battery_ui_settings" android:title="Battery UI Settings">
+	      <CheckBoxPreference android:key="statusbar_hide_battery" 
+		android:title="@string/title_hide_battery" 
+		android:summary="@string/summary_hide_battery" 
+		android:disableDependentsState="true"
+		/>
+		
+	        <ListPreference 
+		android:key="battery_option" 
+		android:dialogTitle="@string/battery_option_dialog_title"
+            	android:title="@string/battery_option_title" 
+		android:summary="@string/battery_option_summary"
+            	android:entries="@array/entries_batterytypes" 
+		android:entryValues="@array/entryvalues_batterytypes" 
+		android:dependency="statusbar_hide_battery"
+		/>
+
+	    <CheckBoxPreference android:key="statusbar_battery_percent" 
+		android:title="@string/title_battery_percent"
+		android:summary="@string/summary_battery_percent" 
+		/>
+             <PreferenceScreen android:key="battery_text_options" 
+		android:title="@string/title_battery_text_options" 
+		android:summary="@string/summary_battery_text_options">
+                        <intent android:action="android.intent.action.MAIN" 
+			    android:targetPackage="com.t3hh4xx0r" 
+			    android:targetClass="com.t3hh4xx0r.god_mode.Battery" />
+                </PreferenceScreen>
+
+    </PreferenceCategory>
 
     <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
 	<CheckBoxPreference
@@ -36,14 +66,37 @@
 		android:summaryOn="@string/summary_on_use_screenoff_anim"
 		android:summaryOff="@string/summary_off_use_screenoff_anim" 
 	/>
-        <ListPreference 
-		android:key="battery_option" 
-		android:dialogTitle="@string/battery_option_dialog_title"
-            	android:title="@string/battery_option_title" 
-		android:summary="@string/battery_option_summary"
-            	android:entries="@array/entries_batterytypes" 
-		android:entryValues="@array/entryvalues_batterytypes" 
-	/>
+	<ListPreference android:key="statusbar_clock_opt" 
+		android:summary="@string/summary_statusbar_clock" 
+		android:title="@string/title_statusbar_clock" 
+		android:entries="@array/entries_clock" 
+		android:entryValues="@array/entryvalues_clock"
+		/>
+	<Preference android:key="statusbar_clock_color" 
+		android:title="@string/title_clock_color" 
+		/>
+	<CheckBoxPreference android:key="statusbar_hide_alarm" 
+		android:title="@string/title_hide_alarm"  
+		android:summary="@string/summary_hide_alarm" 
+		/>	
+	<CheckBoxPreference android:key="hide_adb_icon" 
+		android:title="@string/title_hide_adb" 
+		/>
+	<CheckBoxPreference android:key="hide_signal_icon" 
+		android:title="@string/title_hide_signal" 
+		android:summary="@string/summary_hide_signal" 
+		/>
+	<ListPreference android:key="statusbar_dateclock" 
+	    android:title="@string/title_dateclock"  
+	    android:summary="@string/summary_dateclock" 
+	    android:entries="@array/entries_dateclock" 
+	    android:entryValues="@array/entryvalues_dateclock" 
+	    />
+    	<EditTextPreference android:key="statusbar_carrier_text" 
+		android:title="@string/title_statusbar_carrier_text" 
+		android:summary="@string/summary_statusbar_carrier_text" 
+		/>
+	
     </PreferenceCategory>
     <PreferenceCategory android:key="music_control_settings" android:title="@string/music_control_settings_category">
 	<CheckBoxPreference

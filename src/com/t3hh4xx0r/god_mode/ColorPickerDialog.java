@@ -16,10 +16,11 @@
 
 package com.t3hh4xx0r.god_mode;
 
-import com.t3hh4xx0r.R;
-import com.t3hh4xx0r.R.xml;
+
 import com.t3hh4xx0r.addons.utils.Constants;
 
+
+import android.R;
 import android.os.Bundle;
 import android.app.Dialog;
 import android.content.Context;
@@ -53,8 +54,6 @@ public class ColorPickerDialog extends Dialog {
 
     public interface OnColorChangedListener {
         void colorChanged(int color);
-	/** @hide */
-        void colorUpdate(int color);
     }
 
     private OnColorChangedListener mListener;
@@ -234,8 +233,7 @@ public class ColorPickerDialog extends Dialog {
                         int color = interpColor(mColors, unit);
                         mCenterPaint.setColor(color);
                         mEditText.setText(convertToARGB(color));
-                        mListener.colorUpdate(color);
-			invalidate();
+                        invalidate();
                     }
                     break;
                 case MotionEvent.ACTION_UP:
@@ -321,7 +319,7 @@ public class ColorPickerDialog extends Dialog {
         layoutParams.setMargins(10, 0, 10, 5);
         
         TextView tv = new TextView(mContext);
-        tv.setText(com.t3hh4xx0r.R.string.msg_color_picker);
+        tv.setText("Tap on center color to confirm.\nPress back to cancel.");
         layout.addView(tv, layoutParams);
         
         mColorPickerView = new ColorPickerView(getContext(), onColorChangedListener, mInitialColor);        
@@ -340,16 +338,13 @@ public class ColorPickerDialog extends Dialog {
         layout.addView(mEditText, layoutParams);
 
         setContentView(layout);
-        setTitle(com.t3hh4xx0r.R.string.title_color_picker);
+        setTitle("Pick a color.");
     }
     
     private OnColorChangedListener onColorChangedListener = new OnColorChangedListener() {
         public void colorChanged(int color) {
            mListener.colorChanged(color);
            dismiss();
-        }
-        public void colorUpdate(int color) {
-	  mListener.colorUpdate(color);
         }
     };
     

@@ -236,16 +236,40 @@
     <string name="summary_on_use_screenoff_anim">Screen Off Animation will be used</string>
     <string name="summary_off_use_screenoff_anim">Screen Off Animation will not be used</string>
 
+
+    
 	<!-- User interface  : BatteryOption -->
     <string name="battery_option_dialog_title">Battery</string>
     <string name="battery_option_title">Battery type</string>
     <string name="battery_option_summary">Choose the battery type to use (Requires reboot)</string>
+    <string name="settings_battery">Battery Ui Settings</string>
+    <string name="title_hide_battery">Hide Battery Icon</string>
+    <string name="summary_hide_battery">Action is DELAYED</string>
+    <string name="title_battery_percent">Battery Text %</string>
+    <string name="summary_battery_percent">Show Battery % as text</string>
+    <string name="title_battery_text_options">Battery Text Options</string>
+    <string name="summary_battery_text_options">Options for the Battery Text %</string>
+    
 
 	<!-- User interface  : MusicControls -->
     <string name="music_control_settings_category">Music control settings</string>
     <string name="title_volume_music_controls">Volume music controls</string>
     <string name="summary_on_volume_music_controls">Long pressing volume buttons will change tracks with screen off</string>
     <string name="summary_off_volume_music_controls">Long pressing to change tracks will not be used</string>
+    
+    <string name="title_statusbar_clock">Clock Options</string>
+    <string name="summary_statusbar_clock">Clock Style Options</string>
+    <string name="title_clock_color">Clock Color</string>
+    <string name="title_hide_adb">Hide USB Debugging Notification</string>
+    <string name="title_dateclock">Expanded Statusbar Date/Time Options</string>
+    <string name="summary_dateclock">Date/Time Options for when statusbar is expanded</string>
+    <string name="title_hide_alarm">Hide Alarm Icon</string>
+    <string name="summary_hide_alarm">Hide alarm icon when alarm is set</string>
+    <string name="title_hide_signal">Hide Signal Bars</string>
+    <string name="summary_hide_signal">Action is DELAYED</string>
+    <string name="title_statusbar_carrier_text">Carrier Text</string>
+    <string name="summary_statusbar_carrier_text">Phone will drop for a second</string>
+    
     
   <!-- User interface : Overscroll -->
     <string name="ui_overscroll_title">Overscrolling</string>
