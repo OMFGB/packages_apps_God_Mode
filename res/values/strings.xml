@@ -18,14 +18,20 @@
 */
 -->
 <resources>
-	
+
+	<!-- GodMode: All Menus -->
 	<string name="refresh" >Refresh</string>
+	<string name="warning" >Warining</string>
+	<string name="sdcard_not_mounted">"Sdard is not present or mounted. The addons portion requires an sdcard to use. " +
+					"Please insert or mount the sdcard to use the addons portion of the app."</string>
+	<string name="clear_download_cache" >Clear download cache</string>
+
+	<!-- GodMode : MainMenu -->
 
     <string name="app_name">God Mode</string>
-    <string name="addons_app_name">OMFGB Addons</string>
-    <string name="addons_and_roms">Addons and Roms</string>
+	<string name="addons_and_roms">Addons and Roms</string>
 
-    <string name="settings_title">God Mode Settings</string>
+	<string name="settings_title">God Mode Settings</string>
     <string name="settings_summary">Custom settings designed for OMFGB</string>
 
     <string name="addons_title">T3hh4xx0r Addons</string>
@@ -34,12 +40,12 @@
     <string name="nightlies_summary">OMFGB nightlys, remember NO SUPPORT PROVIDED</string>
     <string name="nightlies_title">OMFGB Nightlys</string>
 
-    <!-- User interface : Overscroll -->
-    <string name="ui_overscroll_title">Overscrolling</string>
-    <string name="pref_overscroll_title">Overscroll effect</string>
-    <string name="pref_overscroll_summary">Choose how scrollable objects look when they overshoot</string>
-    <string name="pref_overscroll_weight_title">Overscrolling weight</string>
-    <string name="pref_overscroll_weight_summary">Select the weight of the scrollable objects</string>
+<!-- GodMode : Addons Menu -->
+    <string name="addons_app_name">OMFGB Addons</string>
+	<string name="install_warning" >About to install package</string>
+
+	<string name="flash_warning" >About to flash package</string>
+    
 
     <!-- Color Picker -->
     <string name="title_color_picker">Pick a color</string>
@@ -131,72 +137,97 @@
 
     <string name="group_applications">Applications</string>
 
-    <!-- Lockscreen -->
+    <!-- Lockscreen : MainMenu-->
     <string name="general_lockscreen_settings">General lockscreen settings</string>
-    <string name="wake_category">Screen wake settings</string>
-    <string name="unlock_category">Screen unlock settings</string>
-    <string name="settings_lockscreen">Lockscreen Settings</string>
     <string name="settings_lockscreen_summary">Customize your lockscreen</string>
+    <string name="settings_lockscreen">Lockscreen Settings</string>
+
+    <!-- LockscreenSettings : Wake Settings -->
+	<string name="wake_category">Screen wake settings</string>
+
+    <!-- LockscreenSettings : Track Pad Wake -->
     <string name="title_trackpad_wake_screen">Trackpad Wake</string>
     <string name="summary_on_trackpad_wake_screen">Pressing the trackpad will wake the device</string>
     <string name="summary_off_trackpad_wake_screen">Pressing the trackpad to wake the device will be disabled</string>
+
+    <!-- LockscreenSettings : Volume Wake -->
     <string name="title_volume_wake_screen">Volume Wake</string>
     <string name="summary_on_volume_wake_screen">Pressing the volume buttons will wake the device</string>
     <string name="summary_off_volume_wake_screen">Pressing volume to wake the device will be disabled</string> 
+
+    <!-- LockscreenSettings : Unlock Settings -->
+    <string name="unlock_category">Screen unlock settings</string>
+
+    <!-- LockscreenSettings : Track Pad Unlock -->
     <string name="title_trackpad_unlock_screen">Trackpad unlock</string>
     <string name="summary_on_trackpad_unlock_screen">Pressing the trackpad will unlock the device</string>
     <string name="summary_off_trackpad_unlock_screen">Pressing the trackpad to unlock the device is disabled</string>
+
+    <!-- LockscreenSettings : Menu Unlock -->
     <string name="title_menu_unlock_screen">Menu unlock</string>
     <string name="summary_on_menu_unlock_screen">Pressing the menu key will unlock the device</string>
     <string name="summary_off_menu_unlock_screen">Pressing the menu key to unlock the device is disabled</string>
-    <string name="title_general_use_rotary_lockscreen">Use Rotary Lockscreen?</string>
-    <string name="summary_on_general_use_rotary_lockscreen">Rotary lockscreen will be used</string>
-    <string name="summary_off_general_use_rotary_lockscreen">Rotary lockscreen will not be used</string>
+
+    <!-- LockscreenSettings : Shortcuts -->
     <string name="title_lockscreen_shortcuts">Lockscreen Shortcuts</string>
     <string name="summary_on_lockscreen_shortcuts">Phone and messaging shortcuts will be shown on lockscreen</string>
     <string name="summary_off_lockscreen_shortcuts">No app shortcuts will be shown on the lockscreen</string>
+
+    <!-- LockscreenSettings : Battery Options -->
     <string name="title_lockscreen_always_battery">Lockscreen Battery</string>
     <string name="summary_on_lockscreen_always_battery">Battery percentage will always show on lockscreen</string>
     <string name="summary_off_lockscreen_always_battery">Battery percentage will only show when charging</string>
+
+    <!-- LockscreenSettings : Layout -->
     <string name="title_use_stock_lockscreen_layout">Lockscreen Layout</string>
     <string name="summary_on_use_stock_lockscreen_layout">Stock offset style lockscreen will be used</string>
     <string name="summary_off_use_stock_lockscreen_layout">OMFGB style centered lockscreen will be used </string>
 					
  				
+    <!-- LockscreenSettings : Lockscreen Selector -->
  	<string name="lockscreen_selector_elements">Select lockscreen type</string>
  	<string name="lockscreen_selector_elements_about">Select lockscreen</string>		
 
-   <!-- Lockscreen orientation settings -->
-   <string name="title_lockscreen_orientation">Lockscreen orientation</string>
+    <!-- LockscreenSettings : orientation -->
+    <string name="title_lockscreen_orientation">Lockscreen orientation</string>
     <string name="summary_on_lockscreen_orientation">Locked into portrait orientation</string>
     <string name="summary_off_lockscreen_orientation">Locked into landscape orientation</string>
 	
 
-
-    <!-- UiOptions -->
-    <string name="settings_uioptions">Ui Settings</string>
-    <string name="settings_uioptions_summary">Customize your Ui</string>
+	<!-- All User Interface strings below this point -->
+	
+    
+	<!-- User interface  : MainMenu -->
+    <string name="settings_uioptions">UI Settings</string>
+    <string name="settings_uioptions_summary">Customize your UI</string>
     <string name="misc_ui_settings_category">Misc UI Settings</string>
-    <string name="music_control_settings_category">Music control settings</string>
+    
 
+	<!-- User interface  : Screen On/Off animations -->
     <string name="title_use_screenon_anim">Use Screen On Animation?</string>
     <string name="summary_on_use_screenon_anim">Screen On Animation will be used</string>
     <string name="summary_off_use_screenon_anim">Screen On Animation will not be used</string>
-
     <string name="title_use_screenoff_anim">Use Screen Off Animation?</string>
     <string name="summary_on_use_screenoff_anim">Screen Off Animation will be used</string>
     <string name="summary_off_use_screenoff_anim">Screen Off Animation will not be used</string>
 
-    <string name="settings_battery">Battery Ui Settings</string>
+
+    
+	<!-- User interface  : BatteryOption -->
     <string name="battery_option_dialog_title">Battery</string>
     <string name="battery_option_title">Battery type</string>
     <string name="battery_option_summary">Choose the battery type to use (Requires reboot)</string>
+    <string name="settings_battery">Battery Ui Settings</string>
     <string name="title_hide_battery">Hide Battery Icon</string>
     <string name="summary_hide_battery">Action is DELAYED</string>
     <string name="title_battery_percent">Battery Text %</string>
     <string name="summary_battery_percent">Show Battery % as text</string>
     <string name="title_battery_text_options">Battery Text Options</string>
     <string name="summary_battery_text_options">Options for the Battery Text %</string>
+    
+
+	<!-- User interface  : MusicControls -->
+    <string name="music_control_settings_category">Music control settings</string>
     <string name="title_volume_music_controls">Volume music controls</string>
     <string name="summary_on_volume_music_controls">Long pressing volume buttons will change tracks with screen off</string>
     <string name="summary_off_volume_music_controls">Long pressing to change tracks will not be used</string>
@@ -215,6 +246,13 @@
     <string name="summary_statusbar_carrier_text">Phone will drop for a second</string>
     
     
+  <!-- User interface : Overscroll -->
+    <string name="ui_overscroll_title">Overscrolling</string>
+    <string name="pref_overscroll_title">Overscroll effect</string>
+    <string name="pref_overscroll_summary">Choose how scrollable objects look when they overshoot</string>
+    <string name="pref_overscroll_weight_title">Overscrolling weight</string>
+    <string name="pref_overscroll_weight_summary">Select the weight of the scrollable objects</string>
+
     
     <!-- User interface : Rotation -->
 	<string name="rotation_category_title">Accelerometer rotation</string>
@@ -222,7 +260,7 @@
 	<string name="pref_rotation_180_title">180 degrees</string>
 	<string name="pref_rotation_270_title">270 degrees</string>
 
-    <!-- Expanded View Power Widget -->
+    <!-- User interface : Expanded View Power Widget -->
     <string name="title_widget_buttons">Expanded View Widget</string>
     <string name="title_expanded_widget">Notification power widget</string>
     <string name="summary_expanded_widget">Use the expanded views power widget</string>
@@ -264,4 +302,10 @@
     <string name="pref_ring_mode_summary">Choose how the sound button changes modes</string>
     <string name="pref_flash_mode_title">Flash mode</string>
     <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
+
+<!-- All User Interface strings Above this point -->
+
+	<!-- Addons : MainMenu-->
+
+
 </resources>

@@ -2,6 +2,7 @@ package com.t3hh4xx0r.addons;
 
 import java.io.File;
 
+import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
 
 import android.app.AlertDialog;
@@ -13,9 +14,13 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 
+import com.t3hh4xx0r.R;
+
 
 public class OnAddonsPreferenceClickListener implements OnPreferenceClickListener {
+
 	
+	private boolean DBG = (false || Constants.FULL_DBG);
 	private final String TAG = "OnNightlyPreferenceClick";
 	AddonsObject mAddons;
 	int mPosition;
@@ -71,7 +76,10 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
  		else{
  			
  			check = null;
- 	 		FlashAlertBox("Warning:", "About to flash package", Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+ 			if(Boolean.parseBoolean(mAddons.getInstallable()))
+ 				FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.install_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+ 			else
+ 				FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.flash_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
 
  		}
  		
@@ -81,7 +89,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 	}
 	
 	
-	protected void FlashAlertBox(String title, String mymessage, final boolean Installable, final String OUTPUT_NAME)
+	protected void FlashInstallIAlertBox(String title, String mymessage, final boolean Installable, final String OUTPUT_NAME)
 	   {
 	   new AlertDialog.Builder(mContext)
 	      .setMessage(mymessage)
@@ -99,8 +107,8 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 	            			File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
 	            			
 	            			if(f.exists() ){
-		  				  		Log.d(TAG, "User approved flashing, begining flash. Installable = " + String.valueOf(Installable));
-		  				  		Log.i(TAG, "File location is: "+ f.toString());
+		  				  		log( "User approved flashing, begining flash. Installable = " + String.valueOf(Installable));
+		  				  		log( "File location is: "+ f.toString());
 		  						if (Installable) 
 		  						{
 		  						   Downloads.installPackage(OUTPUT_NAME, mContext);
@@ -131,7 +139,12 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 		
 	   }
 
-
+	  private void log(String message){
+		   
+		   if(DBG)Log.d(TAG, message);
+		   
+	   }
+	
 	
    
 }  

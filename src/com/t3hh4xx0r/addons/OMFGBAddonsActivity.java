@@ -42,7 +42,7 @@ import android.widget.RelativeLayout;
 
 import com.t3hh4xx0r.R;
 
-public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity implements JSONParsingInterface {
+public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsingInterface {
 	
 	private boolean DBG = (false || Constants.FULL_DBG);
 	private boolean CREATE_ERROR = false;
@@ -128,18 +128,18 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
 				// TODO Auto-generated method stub
 				
 				mJSONUtils = new JSONUtils();
-				mJSONUtils.setJSONUtilsParsingInterface(OMFGBExternalAddonsAppAddonsActivity.this); 
-				mRootPreference = mJSONUtils.ParseJSON(OMFGBExternalAddonsAppAddonsActivity.this, OMFGBExternalAddonsAppAddonsActivity.this, true);
+				mJSONUtils.setJSONUtilsParsingInterface(OMFGBAddonsActivity.this); 
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, true);
 			
-				if(OMFGBExternalAddonsAppAddonsActivity.mCreateUI) {
+				if(OMFGBAddonsActivity.mCreateUI) {
 					Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
 					 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
 					}
-					if(OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithISerror) {
+					if(OMFGBAddonsActivity.mCreateBlankUIWithISerror) {
 						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
 						 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
 						}
-					if(OMFGBExternalAddonsAppAddonsActivity.mCreateBlankUIWithManifesterror) {
+					if(OMFGBAddonsActivity.mCreateBlankUIWithManifesterror) {
 						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
 						 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
 						}
@@ -148,7 +148,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
         Thread Download = new Thread(mJSONRunnable);
         Download.start();
 
-       mProgressDialog = ProgressDialog.show(OMFGBExternalAddonsAppAddonsActivity.this,    
+       mProgressDialog = ProgressDialog.show(OMFGBAddonsActivity.this,    
                "Please wait...", "Retrieving data ...", true);
 
       IntentFilter filter = new IntentFilter();
@@ -235,7 +235,7 @@ public class OMFGBExternalAddonsAppAddonsActivity extends PreferenceActivity imp
 		 CharSequence contentTitle = "T3hh4xx0r Addons";  // expanded message title
 		 CharSequence contentText = "Download completed";      // expanded message text
 
-		 Intent notificationIntent = new Intent(context, OMFGBExternalAddonsAppAddonsActivity.class);
+		 Intent notificationIntent = new Intent(context, OMFGBAddonsActivity.class);
 
 
 		 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);

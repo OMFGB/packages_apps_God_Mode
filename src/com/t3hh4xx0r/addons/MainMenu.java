@@ -121,7 +121,7 @@ public class MainMenu extends PreferenceActivity  {
 	private void determineDevice(){
 		
 		if(!DeviceType.determineDeviceDensity(getResources().getDisplayMetrics().densityDpi)){
-			Log.d(TAG, "Cannot determine device density, defaultingg to Unset");
+			log("Cannot determine device density, defaultingg to Unset");
 			}
 		
 
@@ -171,34 +171,39 @@ public class MainMenu extends PreferenceActivity  {
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE2)) {
 
 					log("Setting device as " + DeviceType.INCREDIBLE2);
-                                Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
-                                DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
+                    Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
+                    DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
 
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.FASCINATEMTD)) {
-				Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
-				DeviceType.DEVICE_TYPE = DeviceType.FASCINATEMTD;
-				
 
+					log("Setting device as " + DeviceType.FASCINATEMTD);
+					Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
+					DeviceType.DEVICE_TYPE = DeviceType.FASCINATEMTD;
 
-                                }
-			
-				 else  if (DeviceType.deviceDeviceEquals(DeviceType.SHOWCASEMTD)) {
-				 
-                                Constants.setDeviceScript(DeviceType.SHOWCASEMTD_SCRIPT);
-                                DeviceType.DEVICE_TYPE = DeviceType.SHOWCASEMTD;
-
-                                }else  if (DeviceType.deviceDeviceEquals(DeviceType.MESMERIZEMTD)) {
-                                Constants.setDeviceScript(DeviceType.MESMERIZEMTD_SCRIPT);
-                                DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
-
-                                }
+				}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHOWCASEMTD)) {
 				 
 
+					log("Setting device as " + DeviceType.SHOWCASEMTD);
+                  Constants.setDeviceScript(DeviceType.SHOWCASEMTD_SCRIPT);
+                  DeviceType.DEVICE_TYPE = DeviceType.SHOWCASEMTD;
+
+
+                 }else  if (DeviceType.deviceDeviceEquals(DeviceType.MESMERIZEMTD)) {
+
+ 					log("Setting device as " + DeviceType.MESMERIZEMTD);
+                    Constants.setDeviceScript(DeviceType.MESMERIZEMTD_SCRIPT);
+                     DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
+                 }
+				 
+
 			
 				
 				
 
-		}
+           }
+				 
+
+			
 		
 	}
 	
