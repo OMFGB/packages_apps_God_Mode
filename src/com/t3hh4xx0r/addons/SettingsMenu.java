@@ -47,7 +47,6 @@ public class SettingsMenu extends PreferenceActivity {
 private void InitializeUI() {
 
 	mAutoSync = (CheckBoxPreference) findPreference("auto_sync");
-	mAutoSync.setChecked(Constants.AUTOMATICALLY_SYNC);
 
 	
 	
@@ -69,6 +68,9 @@ private void InitializeUI() {
 	}
 
 private void setPreferencesCheckValues(){
+	
+
+	mAutoSync.setChecked(Constants.AUTOMATICALLY_SYNC);
 	mForceNightliesSync.setChecked(Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC);
 	mForceAddonsSync.setChecked(Constants.FORCE_ADDONS_ACTIVITY_SYNC);
 	
