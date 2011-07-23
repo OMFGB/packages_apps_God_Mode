@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -137,18 +139,21 @@ public static void deleteDir() {
 
 
                      File deletedlcache = new File(Constants.DOWNLOAD_DIR);
-                     File cachedfiles[] = deletedlcache.listFiles();
-                     for(int i = 0; i < cachedfiles.length ; i++){
-                     	
-                     	if(!cachedfiles[i].delete()){
-                     		Log.d(TAG, "File cannot be deleted");
-                     		
-                     	}
-
-                     }
-                     deletedlcache.delete();
+                     if(deletedlcache.exists()){
+                    	 File cachedfiles[] = deletedlcache.listFiles();
                      
-                    
+	                     for(int i = 0; i < cachedfiles.length ; i++){
+	                     	
+	                     	if(!cachedfiles[i].delete()){
+	                     		Log.d(TAG, "File cannot be deleted");
+	                     		
+	                     	}
+	
+	                     }
+	                     deletedlcache.delete();
+                     }
+                    JSONUtils u = new JSONUtils();
+                    u.intializeAllScripts(true);
 
              }
      };
@@ -157,19 +162,22 @@ public static void deleteDir() {
 
 public static void refreshAddonsAndNightlies(){
 	
-	
+	refreshAddons();
+	refreshNightlies();
 	
 }
 
 
 public static void refreshAddons(){
 	
-	
+	JSONUtils u = new JSONUtils();
+	u.intializeScripts(true, true, false);
 	
 }
 public static void refreshNightlies(){
 	
-	
+	JSONUtils u = new JSONUtils();
+	u.intializeScripts(true, false, true);
 	
 }
 

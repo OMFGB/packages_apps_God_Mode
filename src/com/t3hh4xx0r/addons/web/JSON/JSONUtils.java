@@ -30,11 +30,11 @@ public class JSONUtils {
 		 PreferenceScreen PreferenceRoot = activity.getPreferenceManager().createPreferenceScreen(mContext);
 		 InputStream is;
 		 if(isAddon){
-			 is = downloadAddonJSONScript();
+			 is = downloadAddonJSONScript(false);
 			 Log.d(TAG, "Setting addons parser");
 		 }
 		 else {
-			 is = downloadNightlyJSONScript();
+			 is = downloadNightlyJSONScript(false);
 			 Log.d(TAG, "Setting nightlies parser");
 		 }
 		 
@@ -67,7 +67,7 @@ public class JSONUtils {
 	 * 
 	 * @return is the inputstream for the json script
 	 */
-	private InputStream downloadNightlyJSONScript(){
+	private InputStream downloadNightlyJSONScript(boolean refresh){
 		
 		
 
@@ -82,7 +82,7 @@ public class JSONUtils {
 	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	           		// Needed because the manager does not handle https connections
 	           		if(Constants.shouldForceNightliesSync() || 
-	           				Constants.FIRST_LAUNCH)DownloadFile.updateAppManifest(Constants.getDeviceScript());
+	           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.getDeviceScript());
 	           		
 	           		is = new FileInputStream(updateFile);
 	           	
@@ -113,7 +113,7 @@ public class JSONUtils {
 	 * 
 	 * @return is the inputstream for the json script
 	 */
-	private InputStream downloadAddonJSONScript(){
+	private InputStream downloadAddonJSONScript(boolean refresh){
 		
 		
 
@@ -128,7 +128,7 @@ public class JSONUtils {
 	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	           		// Needed because the manager does not handle https connections
 	           		if(Constants.shouldForceAddonsSync()|| 
-	           				Constants.FIRST_LAUNCH)DownloadFile.updateAppManifest(Constants.ADDONS);
+	           				Constants.FIRST_LAUNCH|| refresh)DownloadFile.updateAppManifest(Constants.ADDONS);
 	           		
 	           		is = new FileInputStream(updateFile);
 	           	
@@ -152,15 +152,26 @@ public class JSONUtils {
         return is;
         
         }
-	
-	/** 
-	 * Initilze the scripts. This only needs to be run once
-	 * when the app is launched for the first time.
+	/**
 	 * 
+	 * @param refresh should the manifest be refreshed regardless of sync settings
+	 * @param addons  should the addons manifest be refreshed
+	 * @param nightly should the nightlies manifest be refreshed
 	 */
-	public void intializeScripts() {
-		downloadAddonJSONScript();
-		downloadNightlyJSONScript();
+	public void intializeAllScripts(boolean refresh) {
+		downloadAddonJSONScript(refresh);
+		downloadNightlyJSONScript(refresh);
+		
+	}
+	/**
+	 * 
+	 * @param refresh should the manifest be refreshed regardless of sync settings
+	 * @param addons  should the addons manifest be refreshed
+	 * @param nightly should the nightlies manifest be refreshed
+	 */
+	public void intializeScripts(boolean refresh, boolean addons, boolean nightly) {
+		if(addons)downloadAddonJSONScript(refresh);
+		if(nightly)downloadNightlyJSONScript(refresh);
 		
 	}
 	/**

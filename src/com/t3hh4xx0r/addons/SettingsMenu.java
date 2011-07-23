@@ -52,7 +52,7 @@ private void InitializeUI() {
 	mForceAddonsSync.setChecked(Constants.FORCE_ADDONS_ACTIVITY_SYNC);
 	
 	mForceNightliesSync = (CheckBoxPreference) findPreference("force_nightlies_sync");
-	mForceAddonsSync.setChecked(Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC);
+	mForceNightliesSync.setChecked(Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC);
 	
 	mSync = (PreferenceCategory) findPreference("auto_sync_cat");
 	
@@ -71,12 +71,14 @@ public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preferen
 	    	value = mAutoSync.isChecked();
 	    	
 	    	if(!value){
+	    		Constants.AUTOMATICALLY_SYNC = false;
 	    		mAddons.setEnabled(false);
 	    		mNightlies.setEnabled(false);
 	    		 mForceAddonsSync.setChecked(false);
 	    		 mForceNightliesSync.setChecked(false);
 	    		
 	    	}else{
+	    		Constants.AUTOMATICALLY_SYNC = true;
 	    		mAddons.setEnabled(true);
 	    		mNightlies.setEnabled(true);
 	    		mForceAddonsSync.setChecked(Constants.shouldForceAddonsSync());

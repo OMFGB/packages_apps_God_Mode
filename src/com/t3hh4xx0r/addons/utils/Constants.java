@@ -87,7 +87,6 @@ public final class Constants {
 
     public static boolean AUTOMATICALLY_SYNC = true; 
 
-    public static boolean SHOULD_SYNC = true; 
     
     public static boolean shouldAutoSync(){
     	

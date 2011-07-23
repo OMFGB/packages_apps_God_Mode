@@ -53,7 +53,7 @@ public class MainMenu extends PreferenceActivity  {
 				public void run() {
 					// TODO Auto-generated method stub
 					JSONUtils u = new JSONUtils();
-					u.intializeScripts();
+					u.intializeAllScripts(false);
 					Constants.FIRST_LAUNCH = false;
 				}
 				
