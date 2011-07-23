@@ -24,17 +24,17 @@ public class JSONUtils {
 	
 	private String TAG = "JSONParsingInterface";
 	
-	public PreferenceScreen ParseJSON(PreferenceActivity activity, Context context, boolean isAddon){
+	public PreferenceScreen ParseJSON(PreferenceActivity activity, Context context, boolean isAddon, boolean refresh){
 		
 		 mContext = context;
 		 PreferenceScreen PreferenceRoot = activity.getPreferenceManager().createPreferenceScreen(mContext);
 		 InputStream is;
 		 if(isAddon){
-			 is = downloadAddonJSONScript(false);
+			 is = downloadAddonJSONScript(refresh);
 			 Log.d(TAG, "Setting addons parser");
 		 }
 		 else {
-			 is = downloadNightlyJSONScript(false);
+			 is = downloadNightlyJSONScript(refresh);
 			 Log.d(TAG, "Setting nightlies parser");
 		 }
 		 

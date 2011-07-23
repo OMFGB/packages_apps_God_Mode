@@ -162,8 +162,17 @@ public static void deleteDir() {
 
 public static void refreshAddonsAndNightlies(){
 	
-	refreshAddons();
-	refreshNightlies();
+	Thread refreshthread = new Thread(){
+		  @Override
+          public void run() {
+			  
+			  refreshAddons();
+			  refreshNightlies();
+		  }
+		
+		
+	};
+	refreshthread.start();
 	
 }
 

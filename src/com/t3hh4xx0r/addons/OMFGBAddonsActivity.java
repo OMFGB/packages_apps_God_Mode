@@ -132,7 +132,7 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 				
 				mJSONUtils = new JSONUtils();
 				mJSONUtils.setJSONUtilsParsingInterface(OMFGBAddonsActivity.this); 
-				mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, true);
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, true, false);
 			
 				if(OMFGBAddonsActivity.mCreateUI) {
 					Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
@@ -169,6 +169,7 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 
     public void finishEmptyUIConstruction(){
     	// Do not bind the listview to the rootPreference
+    	mPreferenceContainer.removeAllViews();
         mPreferenceContainer.addView(mPreferenceListView);
         
        setContentView(mPreferenceContainer);
@@ -179,6 +180,7 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
         mRootPreference.bind(mPreferenceListView);
         if(DBG)Log.i(TAG, "mPreferenceListView: " + mPreferenceListView.getCount());
         
+        mPreferenceContainer.removeAllViews();
         mPreferenceContainer.addView(mPreferenceListView);
         
       setContentView(mPreferenceContainer);
@@ -216,7 +218,36 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 			Downloads.deleteDir();
 			break;
 		case R.id.refresh:
-			Downloads.refreshAddons();
+
+		       mProgressDialog = ProgressDialog.show(OMFGBAddonsActivity.this,    
+		               "Please wait...", "Retrieving data ...", true);
+		    mJSONRunnable = new Runnable(){
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					
+					mJSONUtils = new JSONUtils();
+					mJSONUtils.setJSONUtilsParsingInterface(OMFGBAddonsActivity.this); 
+					mRootPreference.removeAll();
+					mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, true, true);
+				
+					if(OMFGBAddonsActivity.mCreateUI) {
+						Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
+						 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+						}
+						if(OMFGBAddonsActivity.mCreateBlankUIWithISerror) {
+							Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
+							 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+							}
+						if(OMFGBAddonsActivity.mCreateBlankUIWithManifesterror) {
+							Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
+							 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+							}
+				}     	
+	        };
+	        Thread Download = new Thread(mJSONRunnable);
+	        Download.start();
 			break;
 		case R.id.settings_menu:
 			launchSettingMenu();

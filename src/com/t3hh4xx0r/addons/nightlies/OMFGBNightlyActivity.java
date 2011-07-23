@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.t3hh4xx0r.addons.OMFGBAddonsActivity;
 import com.t3hh4xx0r.addons.SettingsMenu;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.DeviceType;
@@ -104,7 +105,7 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 			
 				mJSONUtils = new JSONUtils();
 				mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
-				mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this,false);
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this,false, false);
 			
 				
 				
@@ -162,13 +163,51 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 	}	
 
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		
+	        
 		switch (item.getItemId()) {
 
 		case R.id.clear_download_cache:
 			Downloads.deleteDir();
 			break;
 		case R.id.refresh:
-			Downloads.refreshNightlies();
+
+		       mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this,    
+		               "Please wait...", "Retrieving data ...", true);
+		       mJSONRunnable = new Runnable(){
+
+					@Override
+					public void run() {
+					
+						
+						mJSONUtils = new JSONUtils();
+						mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
+						mRootPreference.removeAll();
+						mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this,false, true);
+					
+						
+						
+						if(OMFGBNightlyActivity.mCreateUI) {
+						Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
+						 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+						}
+						if(OMFGBNightlyActivity.mCreateBlankUIWithISerror) {
+							Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+							 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+							}
+						if(OMFGBNightlyActivity.mCreateBlankUIWithManifesterror) {
+							Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+							 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+							}
+						
+						
+					}     	
+		        };
+			Thread Download = new Thread(mJSONRunnable);
+			Download.start();
+	
+			
 			break;
 		case R.id.settings_menu:
 			launchSettingMenu();
@@ -228,6 +267,7 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
     	 
     	
     	// Do not bind the listview to the rootPreference
+    	mPreferenceContainer.removeAllViews();
         mPreferenceContainer.addView(mPreferenceListView);
         
         
@@ -247,6 +287,7 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
         mRootPreference.bind(mPreferenceListView);
         Log.i(TAG, "mPreferenceListView: " + mPreferenceListView.getCount());
         
+        mPreferenceContainer.removeAllViews();
         mPreferenceContainer.addView(mPreferenceListView);
         
         

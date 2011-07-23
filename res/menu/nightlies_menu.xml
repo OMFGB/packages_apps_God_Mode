@@ -7,7 +7,7 @@
           
           <item android:id="@+id/refresh"
           android:icon="@drawable/icon"
-          android:title="@string/refresh_all" />
+          android:title="@string/refresh" />
           
           <item android:id="@+id/settings_menu"
           android:icon="@drawable/icon"
