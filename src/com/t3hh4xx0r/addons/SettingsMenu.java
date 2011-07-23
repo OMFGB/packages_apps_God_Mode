@@ -38,6 +38,7 @@ public class SettingsMenu extends PreferenceActivity {
 		
 		
 		InitializeUI();
+		setPreferencesCheckValues();
 		
 		
 		
@@ -48,11 +49,13 @@ private void InitializeUI() {
 	mAutoSync = (CheckBoxPreference) findPreference("auto_sync");
 	mAutoSync.setChecked(Constants.AUTOMATICALLY_SYNC);
 
+	
+	
+
 	mForceAddonsSync = (CheckBoxPreference) findPreference("force_addons_sync");
-	mForceAddonsSync.setChecked(Constants.FORCE_ADDONS_ACTIVITY_SYNC);
+	
 	
 	mForceNightliesSync = (CheckBoxPreference) findPreference("force_nightlies_sync");
-	mForceNightliesSync.setChecked(Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC);
 	
 	mSync = (PreferenceCategory) findPreference("auto_sync_cat");
 	
@@ -60,8 +63,24 @@ private void InitializeUI() {
 	
 	mNightlies	= (PreferenceCategory) findPreference("nightlies_settings_cat");
 	
+	
+	
+	
 	}
 
+private void setPreferencesCheckValues(){
+	mForceNightliesSync.setChecked(Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC);
+	mForceAddonsSync.setChecked(Constants.FORCE_ADDONS_ACTIVITY_SYNC);
+	
+	if(!mAutoSync.isChecked()){
+		Constants.AUTOMATICALLY_SYNC = false;
+		mAddons.setEnabled(false);
+		mNightlies.setEnabled(false);
+		 mForceAddonsSync.setChecked(false);
+		 mForceNightliesSync.setChecked(false);
+	}
+	
+}
 @Override
 public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
 	    boolean value;
