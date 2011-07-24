@@ -6,6 +6,11 @@ import android.os.Environment;
 
 public final class Constants {
 	
+	 /**
+     * The authority for Note content.
+     */
+    public static final String AUTHORITY = "com.t3hh4xx0r";
+	
         public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup/";
 	
 	/**
