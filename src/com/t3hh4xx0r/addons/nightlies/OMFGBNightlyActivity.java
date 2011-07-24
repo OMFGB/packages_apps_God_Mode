@@ -95,18 +95,14 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 	        		 finishEmptyUIConstruction();
 	        		 mProgressDialog.dismiss();
 	        		 // create the alert box and warn user
-	        		AlertBox("Warning","The addons " +
-	        				"manifest cannot be retrieved because the inputstream is null.\n" +
-	        				"Do you have a data connection?");
+	        		AlertBox(getString(R.string.warning),getString(R.string.manifest_null));
 	        		
 	        		break;
 	        	 case Constants.MANIFEST_IS_WRONG: 
 	        		 finishEmptyUIConstruction();
 	        		 mProgressDialog.dismiss();
 	        		 // create thel alert box and warn user
-	        		AlertBox("Warning","The addons " +
-	        				"manifest cannot be parsed. Please contact the rom developers " +
-	        				"@r2doesinc, @xoomdev or @linuxmotion.");
+	        		AlertBox(getString(R.string.warning),getString(R.string.cannot_parse_manifest));
 	        		break;
 	        		 
 	        	 
@@ -155,7 +151,7 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
       
 
       mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this,    
-              "Please wait...", "Retrieving data ...", true);
+    		  getString(R.string.please_wait), getString(R.string.retreiving_data), true);
       
      
     }
@@ -230,8 +226,8 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 
 	
         private void startRefresh() {
-		       mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this,    
-		               "Please wait...", "Retrieving data ...", true);
+		       mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this, 
+		     		  getString(R.string.please_wait), getString(R.string.retreiving_data), true);
 		       
 		       mJSONRunnable = new Runnable(){
 

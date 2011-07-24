@@ -44,11 +44,14 @@
 
 
 	<!-- GodMode: All Menus -->
+	<string name="please_wait">Please Wait...</string>
+	<string name="retreiving_data">Retrieving data</string>
+	<string name="manifest_null">"The addons manifest cannot be retrieved because the inputstream is null.\nDo you have a data connection?"</string>
+	<string name="cannot_parse_manifest">"The addons manifest cannot be parsed. Please contact the rom developers @r2doesinc, @xoomdev or @linuxmotion."</string>
 	<string name="refresh" >Refresh</string>
 	<string name="refresh_all" >Refresh all</string>
-	<string name="warning" >Warining</string>
-	<string name="sdcard_not_mounted">"Sdard is not present or mounted. The addons portion requires an sdcard to use. " +
-					"Please insert or mount the sdcard to use the addons portion of the app."</string>
+	<string name="warning" >Warning</string>
+	<string name="sdcard_not_mounted">"Sdard is not present or mounted. The addons portion requires an sdcard to use. Please insert or mount the sdcard to use the addons portion of the app."</string>
 	<string name="clear_download_cache" >Clear download cache</string>
 
 	<!-- GodMode : MainMenu -->
