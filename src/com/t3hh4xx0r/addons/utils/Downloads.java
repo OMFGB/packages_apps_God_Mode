@@ -2,17 +2,24 @@ package com.t3hh4xx0r.addons.utils;
 
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.json.JSONException;
+
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
+import com.t3hh4xx0r.addons.web.JSON.JSONUtils.JSONParsingInterface;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceScreen;
 import android.util.Log;
 
 public class Downloads {
@@ -22,25 +29,7 @@ public static boolean DBG = (false || Constants.FULL_DBG);
 public static String PREF_LOCATION;
 
 private static String TAG = "Downloads";
-private static String DOWNLOAD_URL;
 
-private int DOWNLOAD_PROGRESS = 0;
-
-private static final int FLASH_ADDON = 0;
-private static final int FLASH_COMPLETE = 1;
-private static final int INSTALL_ADDON = 2;
-
-private ProgressDialog pbarDialog;
-
-private boolean mAddonIsFlashable;
-
-private boolean isSdCardPresent(){
-	return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
-}
-
-private boolean isSdCardWriteable(){
-	return !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState());
-}
 
 public static void installPackage(String outputzip, final Context context) {
 
@@ -152,13 +141,16 @@ public static void deleteDir() {
 	                     }
 	                     deletedlcache.delete();
                      }
-                    JSONUtils u = new JSONUtils();
-                    u.intializeAllScripts(true);
+                     
+                     refreshAddonsAndNightlies();
+                     
 
              }
      };
      cmdThread.start();
 }
+
+
 
 public static void refreshAddonsAndNightlies(){
 	
@@ -178,19 +170,175 @@ public static void refreshAddonsAndNightlies(){
 
 
 public static void refreshAddons(){
-	
-	JSONUtils u = new JSONUtils();
-	u.intializeScripts(true, true, false);
+
+    JSONUtils addons = new JSONUtils();
+    addons.setJSONUtilsParsingInterface(new JSONParsingInterface(){
+
+		@Override
+		public InputStream DownloadJSONScript(boolean refresh) {
+			 InputStream is = null;
+		        Log.d(TAG, "Begining json download");
+		        
+			      if(Downloads.checkDownloadDirectory()){
+			        	
+			        	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ADDONS);
+			           	try{
+			           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+			           		// Needed because the manager does not handle https connections
+			           		if(Constants.shouldForceAddonsSync() || 
+			           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.ADDONS);
+			           		
+			           		is = new FileInputStream(updateFile);
+			           	
+			           	}
+			           	catch(FileNotFoundException e){
+			           		
+			           			e.printStackTrace();
+			           			if(true)Log.d(TAG, "Could not update app from file resource," +
+			           					" the file was not found. Reverting to nothing");
+			           			is = null;
+			                   	
+			           	}
+			           	
+					
+				}
+		        return is;
+		}
+
+		@Override
+		public PreferenceScreen ParseJSONScript(
+				PreferenceScreen PreferenceRoot, InputStream is)
+				throws JSONException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen ParsingCompletedSuccess() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen unableToDownloadScript() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen unableToParseScript() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+    	
+    	
+    });
+    addons.downloadJSONFile(true);
 	
 }
 public static void refreshNightlies(){
 	
-	JSONUtils u = new JSONUtils();
-	u.intializeScripts(true, false, true);
+
+    JSONUtils nightlies = new JSONUtils();
+    nightlies.setJSONUtilsParsingInterface(new JSONParsingInterface(){
+
+		@Override
+		public InputStream DownloadJSONScript(boolean refresh) {
+
+	        InputStream is = null;
+	        Log.d(TAG, "Begining json download");
+	        
+		      if(Downloads.checkDownloadDirectory()){
+		        	
+		        	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
+		           	try{
+		           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+		           		// Needed because the manager does not handle https connections
+		           		if(Constants.shouldForceNightliesSync() || 
+		           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.getDeviceScript());
+		           		
+		           		is = new FileInputStream(updateFile);
+		           	
+		           	}
+		           	catch(FileNotFoundException e){
+		           		
+		           			e.printStackTrace();
+		           			if(true)Log.d(TAG, "Could not update app from file resource," +
+		           					" the file was not found. Reverting to nothing");
+		           			is = null;
+		                   	
+		           	}
+		           	
+				
+			}
+	        return is;
+			
+		}
+
+		@Override
+		public PreferenceScreen ParseJSONScript(
+				PreferenceScreen PreferenceRoot, InputStream is)
+				throws JSONException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen ParsingCompletedSuccess() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen unableToDownloadScript() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen unableToParseScript() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+    	
+    	
+    });
+
+    nightlies.downloadJSONFile(true);
 	
 }
 
 
+	/**
+	* Checks to see if the download directory
+	* for t3hh4xx0r is created. If is
+	* not created, it will create it.
+	*
+	*
+	* @return true if the directory exists or if the directory was created if needed, false otherwise.
+	*/
+	public static Boolean checkDownloadDirectory(){
 
+		File f = new File(Constants.DOWNLOAD_DIR );
+		boolean success;
+			if(!f.exists()){
+			
+				Log.i(TAG, "File diretory does not exist, creating it");
+				success = f.mkdirs();
+				
+				if(!success)Log.d(TAG, "Directory creation failed");
+					
+				
+				}
+				else {
+				f = null;
+				success = true;
+				
+				Log.i(TAG, "File directory exist.");
+				
+			}
+	return success;
+	
+	}
 
 }

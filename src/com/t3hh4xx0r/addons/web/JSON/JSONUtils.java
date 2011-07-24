@@ -24,187 +24,51 @@ public class JSONUtils {
 	
 	private String TAG = "JSONParsingInterface";
 	
-	public PreferenceScreen ParseJSON(PreferenceActivity activity, Context context, boolean isAddon, boolean refresh){
+	public PreferenceScreen ParseJSON(PreferenceActivity activity, Context context, boolean refresh){
 		
 		 mContext = context;
 		 PreferenceScreen PreferenceRoot = activity.getPreferenceManager().createPreferenceScreen(mContext);
 		 InputStream is;
-		 if(isAddon){
-			 is = downloadAddonJSONScript(refresh);
-			 Log.d(TAG, "Setting addons parser");
-		 }
-		 else {
-			 is = downloadNightlyJSONScript(refresh);
-			 Log.d(TAG, "Setting nightlies parser");
-		 }
 		 
-		 if(is != null){
+		if(mJSONParsingInterface != null){
+			
+			 is = mJSONParsingInterface.DownloadJSONScript(refresh);
 			 
-		
-			 try {
+			 if(is != null){
 				 
-				 PreferenceRoot = mJSONParsingInterface.ParseJSONScript(PreferenceRoot,is);
-				 mJSONParsingInterface.ParsingCompletedSuccess();
-				
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				PreferenceRoot = mJSONParsingInterface.unableToParseScript();
-			}
-		 
-		 }
-		 else{
-			 PreferenceRoot = mJSONParsingInterface.unableToDownloadScript();
+			
+				 try {
+					 
+					 PreferenceRoot = mJSONParsingInterface.ParseJSONScript(PreferenceRoot,is);
+					 mJSONParsingInterface.ParsingCompletedSuccess();
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					PreferenceRoot = mJSONParsingInterface.unableToParseScript();
+				}
 			 
-		 }
+			 }
+			 else{
+				 PreferenceRoot = mJSONParsingInterface.unableToDownloadScript();
+				 
+			 }
+			 
+		}
 		return PreferenceRoot;
 	}
 	
-	/**
-	 * Downloads the JSON script.
-	 * Performs a check to make sure that the 
-	 * file directory is present
-	 * 
-	 * @return is the inputstream for the json script
-	 */
-	private InputStream downloadNightlyJSONScript(boolean refresh){
+	public void downloadJSONFile(boolean refresh){
 		
-		
-
-    		
-            InputStream is = null;
-            Log.d(TAG, "Begining json download");
-            
-            if(checkDownloadDirectory()){
-            	
-            	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
-	           	try{
-	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
-	           		// Needed because the manager does not handle https connections
-	           		if(Constants.shouldForceNightliesSync() || 
-	           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.getDeviceScript());
-	           		
-	           		is = new FileInputStream(updateFile);
-	           	
-	           	}
-	           	catch(FileNotFoundException e){
-	           		
-	           			e.printStackTrace();
-	           			if(true)Log.d(TAG, "Could not update app from file resource," +
-	           					" the file was not found. Reverting to nothing");
-	           			is = null;
-	                   	
-	           	}
-	           	
-            	
-            }// End checkdownloaddir if statement
-           
-           
-            
-
-            // If this point is reached then the input stream is null  
-        return is;
-        
-        }
-	/**
-	 * Downloads the JSON script.
-	 * Performs a check to make sure that the 
-	 * file directory is present
-	 * 
-	 * @return is the inputstream for the json script
-	 */
-	private InputStream downloadAddonJSONScript(boolean refresh){
-		
-		
-
-    		
-            InputStream is = null;
-            Log.d(TAG, "Begining json download");
-            
-            if(checkDownloadDirectory()){
-            	
-            	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ADDONS);
-	           	try{
-	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
-	           		// Needed because the manager does not handle https connections
-	           		if(Constants.shouldForceAddonsSync()|| 
-	           				Constants.FIRST_LAUNCH|| refresh)DownloadFile.updateAppManifest(Constants.ADDONS);
-	           		
-	           		is = new FileInputStream(updateFile);
-	           	
-	           	}
-	           	catch(FileNotFoundException e){
-	           		
-	           			e.printStackTrace();
-	           			if(true)Log.d(TAG, "Could not update app from file resource," +
-	           					" the file was not found. Reverting to nothing");
-	           			is = null;
-	                   	
-	           	}
-	           	
-            	
-            }// End checkdownloaddir if statement
-           
-           
-            
-
-            // If this point is reached then the input stream is null  
-        return is;
-        
-        }
-	/**
-	 * 
-	 * @param refresh should the manifest be refreshed regardless of sync settings
-	 * @param addons  should the addons manifest be refreshed
-	 * @param nightly should the nightlies manifest be refreshed
-	 */
-	public void intializeAllScripts(boolean refresh) {
-		downloadAddonJSONScript(refresh);
-		downloadNightlyJSONScript(refresh);
-		
-	}
-	/**
-	 * 
-	 * @param refresh should the manifest be refreshed regardless of sync settings
-	 * @param addons  should the addons manifest be refreshed
-	 * @param nightly should the nightlies manifest be refreshed
-	 */
-	public void intializeScripts(boolean refresh, boolean addons, boolean nightly) {
-		if(addons)downloadAddonJSONScript(refresh);
-		if(nightly)downloadNightlyJSONScript(refresh);
-		
-	}
-	/**
-	 * Checks to see if the download directory
-	 * for t3hh4xx0r is created. If is
-	 * not created, it will create it.
-	 * 
-	 * 
-	 * @return true if the directory exists or if the directory was created if needed, false otherwise.
-	 */
-	private Boolean checkDownloadDirectory(){
-		
-		File f = new File(Constants.DOWNLOAD_DIR );
-		boolean success;
-		if(!f.exists()){
+		if(mJSONParsingInterface != null){
 			
-			Log.i(TAG, "File diretory does not exist, creating it");
-			success = f.mkdirs();
-			if(!success)Log.d(TAG, "Directory creation failed");
-			
+			mJSONParsingInterface.DownloadJSONScript(refresh);
 			
 		}
-		else {
-			f = null;
-			success = true;
-
-			Log.i(TAG, "File directory  exist.");
-			
-		}
-		return success;
+		
 		
 	}
-		
+	
 	
 	
 	
@@ -237,9 +101,19 @@ public class JSONUtils {
 	  * Used to send message or do more work
 	  * after the script is correctly parsed.
 	  * 
-	  * @return an unused preferencescreen
+	  * @return an || refreshunused preferencescreen
 	  */
 	 PreferenceScreen ParsingCompletedSuccess();
+	 
+	 
+	 /**
+	  * Downloads the json script from its server.
+	  * 
+	  * 
+	  * @param refresh Manually refresh the manifest.
+	  * @return The input stream of the manifest to download.
+	  */
+	 InputStream DownloadJSONScript(boolean refresh);
     
     
 	}

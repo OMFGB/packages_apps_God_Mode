@@ -79,7 +79,44 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 	private final int SETTINGSMENU = CLEARCACHE + 1;
 	private final int REFRESH = SETTINGSMENU + 1;
 
-	
+
+	 // Define the Handler that receives messages from the thread and update the progress 
+	    final Handler mHandler = new Handler() 
+	    { 
+	         public void handleMessage(Message msg) 
+	         { 
+
+	        	 switch(msg.what){
+	        	 case Constants.DOWNLOAD_COMPLETE:
+	        		 finishUIConstruction();
+	        		 mProgressDialog.dismiss();
+	    			 break;
+	        	 case Constants.CANNOT_RETREIVE_MANIFEST:
+	        		 finishEmptyUIConstruction();
+	        		 mProgressDialog.dismiss();
+	        		 // create the alert box and warn user
+	        		AlertBox("Warning","The addons " +
+	        				"manifest cannot be retrieved because the inputstream is null.\n" +
+	        				"Do you have a data connection?");
+	        		
+	        		break;
+	        	 case Constants.MANIFEST_IS_WRONG: 
+	        		 finishEmptyUIConstruction();
+	        		 mProgressDialog.dismiss();
+	        		 // create thel alert box and warn user
+	        		AlertBox("Warning","The addons " +
+	        				"manifest cannot be parsed. Please contact the rom developers " +
+	        				"@r2doesinc, @xoomdev or @linuxmotion.");
+	        		break;
+	        		 
+	        	 
+	        	 }
+	              Log.d(TAG, "handleMessage:"+ msg.toString()); 
+	              
+	         } 
+	    }; 
+	    
+	    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,39 +135,9 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
         mPreferenceListView.setId(android.R.id.list);
         
         
-        mJSONRunnable = new Runnable(){
-
-			@Override
-			public void run() {
-			
-				mJSONUtils = new JSONUtils();
-				mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
-				mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this,false, false);
-			
-				
-				
-				if(OMFGBNightlyActivity.mCreateUI) {
-				Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
-				 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
-				}
-				if(OMFGBNightlyActivity.mCreateBlankUIWithISerror) {
-					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
-					 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
-					}
-				if(OMFGBNightlyActivity.mCreateBlankUIWithManifesterror) {
-					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
-					 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
-					}
-				
-				
-			}     	
-        };
+        startUIConstruction();
         
         
-        
-
-        Thread Download = new Thread(mJSONRunnable);
-        Download.start();
 
       
      
@@ -153,6 +160,45 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
      
     }
 
+	private void startUIConstruction() {
+		
+	
+        mJSONRunnable = new Runnable(){
+
+			@Override
+			public void run() {
+			
+				mJSONUtils = new JSONUtils();
+				mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this, false);
+			
+				
+				
+				if(OMFGBNightlyActivity.mCreateUI) {
+				Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
+				 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+				}
+				if(OMFGBNightlyActivity.mCreateBlankUIWithISerror) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+					 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+					}
+				if(OMFGBNightlyActivity.mCreateBlankUIWithManifesterror) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+					 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+					}
+				
+				
+			}     	
+        };
+        
+
+        Thread Download = new Thread(mJSONRunnable);
+        Download.start();
+
+        
+		
+	}
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		MenuInflater menuinflate = new MenuInflater(this);
@@ -172,9 +218,21 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 			Downloads.deleteDir();
 			break;
 		case R.id.refresh:
+				startRefresh();			
+			break;
+		case R.id.settings_menu:
+			launchSettingMenu();
+			break;
+		}
 
+	    	return(super.onOptionsItemSelected(item));
+	}	
+
+	
+        private void startRefresh() {
 		       mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this,    
 		               "Please wait...", "Retrieving data ...", true);
+		       
 		       mJSONRunnable = new Runnable(){
 
 					@Override
@@ -184,7 +242,7 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 						mJSONUtils = new JSONUtils();
 						mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
 						mRootPreference.removeAll();
-						mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this,false, true);
+						mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this, true);
 					
 						
 						
@@ -207,59 +265,15 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 			Thread Download = new Thread(mJSONRunnable);
 			Download.start();
 	
-			
-			break;
-		case R.id.settings_menu:
-			launchSettingMenu();
-			break;
-		}
+		
+	}
 
-	    	return(super.onOptionsItemSelected(item));
-	}	
-
-	
-        private void launchSettingMenu() {
+		private void launchSettingMenu() {
         	
         	Intent settings = new Intent(this, SettingsMenu.class);
         	startActivity(settings);
 		
 	}
-    
- // Define the Handler that receives messages from the thread and update the progress 
-    final Handler mHandler = new Handler() 
-    { 
-         public void handleMessage(Message msg) 
-         { 
-
-        	 switch(msg.what){
-        	 case Constants.DOWNLOAD_COMPLETE:
-        		 finishUIConstruction();
-        		 mProgressDialog.dismiss();
-    			 break;
-        	 case Constants.CANNOT_RETREIVE_MANIFEST:
-        		 finishEmptyUIConstruction();
-        		 mProgressDialog.dismiss();
-        		 // create the alert box and warn user
-        		AlertBox("Warning","The addons " +
-        				"manifest cannot be retrieved because the inputstream is null.\n" +
-        				"Do you have a data connection?");
-        		
-        		break;
-        	 case Constants.MANIFEST_IS_WRONG: 
-        		 finishEmptyUIConstruction();
-        		 mProgressDialog.dismiss();
-        		 // create thel alert box and warn user
-        		AlertBox("Warning","The addons " +
-        				"manifest cannot be parsed. Please contact the rom developers " +
-        				"@r2doesinc, @xoomdev or @linuxmotion.");
-        		break;
-        		 
-        	 
-        	 }
-              Log.d(TAG, "handleMessage:"+ msg.toString()); 
-              
-         } 
-    }; 
     
 
     public void finishEmptyUIConstruction(){
@@ -495,5 +509,37 @@ public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputS
 		
 		return null;
 	}
-    
+
+	@Override
+	public InputStream DownloadJSONScript(boolean refresh) {
+
+		
+        InputStream is = null;
+        Log.d(TAG, "Begining json download");
+        
+	      if(Downloads.checkDownloadDirectory()){
+	        	
+	        	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
+	           	try{
+	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+	           		// Needed because the manager does not handle https connections
+	           		if(Constants.shouldForceNightliesSync() || 
+	           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.getDeviceScript());
+	           		
+	           		is = new FileInputStream(updateFile);
+	           	
+	           	}
+	           	catch(FileNotFoundException e){
+	           		
+	           			e.printStackTrace();
+	           			if(true)Log.d(TAG, "Could not update app from file resource," +
+	           					" the file was not found. Reverting to nothing");
+	           			is = null;
+	                   	
+	           	}
+	           	
+			
+		}
+        return is;
+   }
 }

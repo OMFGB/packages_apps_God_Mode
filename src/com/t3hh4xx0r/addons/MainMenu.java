@@ -53,7 +53,7 @@ public class MainMenu extends PreferenceActivity  {
 				public void run() {
 					// TODO Auto-generated method stub
 					JSONUtils u = new JSONUtils();
-					u.intializeAllScripts(false);
+					Downloads.refreshAddonsAndNightlies();
 					Constants.FIRST_LAUNCH = false;
 				}
 				
@@ -61,6 +61,7 @@ public class MainMenu extends PreferenceActivity  {
 			
 			Thread t = new Thread(scripts);
 			t.start();
+			
 		}
 		
 		addPreferencesFromResource(R.layout.main_menu);

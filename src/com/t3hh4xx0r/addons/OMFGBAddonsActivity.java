@@ -124,32 +124,8 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
         mPreferenceListView.setId(android.R.id.list);
         
         
-        mJSONRunnable = new Runnable(){
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-				mJSONUtils = new JSONUtils();
-				mJSONUtils.setJSONUtilsParsingInterface(OMFGBAddonsActivity.this); 
-				mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, true, false);
-			
-				if(OMFGBAddonsActivity.mCreateUI) {
-					Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
-					 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
-					}
-					if(OMFGBAddonsActivity.mCreateBlankUIWithISerror) {
-						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
-						 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
-						}
-					if(OMFGBAddonsActivity.mCreateBlankUIWithManifesterror) {
-						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
-						 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
-						}
-			}     	
-        };
-        Thread Download = new Thread(mJSONRunnable);
-        Download.start();
+        startUIConstruction();
+        
 
        mProgressDialog = ProgressDialog.show(OMFGBAddonsActivity.this,    
                "Please wait...", "Retrieving data ...", true);
@@ -167,7 +143,39 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 
     }
 
-    public void finishEmptyUIConstruction(){
+    private void startUIConstruction() {
+
+
+        mJSONRunnable = new Runnable(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				mJSONUtils = new JSONUtils();
+				mJSONUtils.setJSONUtilsParsingInterface(OMFGBAddonsActivity.this); 
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, false);
+			
+				if(OMFGBAddonsActivity.mCreateUI) {
+					Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
+					 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+					}
+					if(OMFGBAddonsActivity.mCreateBlankUIWithISerror) {
+						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
+						 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+						}
+					if(OMFGBAddonsActivity.mCreateBlankUIWithManifesterror) {
+						Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
+						 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+						}
+			}     	
+        };
+        Thread Download = new Thread(mJSONRunnable);
+        Download.start();
+    	
+	}
+
+	public void finishEmptyUIConstruction(){
     	// Do not bind the listview to the rootPreference
     	mPreferenceContainer.removeAllViews();
         mPreferenceContainer.addView(mPreferenceListView);
@@ -218,6 +226,19 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 			Downloads.deleteDir();
 			break;
 		case R.id.refresh:
+			startRefresh();
+			break;
+		case R.id.settings_menu:
+			launchSettingMenu();
+			break;
+		}
+
+	    	return(super.onOptionsItemSelected(item));
+	}	
+
+	
+        private void startRefresh() {
+
 
 		       mProgressDialog = ProgressDialog.show(OMFGBAddonsActivity.this,    
 		               "Please wait...", "Retrieving data ...", true);
@@ -230,7 +251,7 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 					mJSONUtils = new JSONUtils();
 					mJSONUtils.setJSONUtilsParsingInterface(OMFGBAddonsActivity.this); 
 					mRootPreference.removeAll();
-					mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, true, true);
+					mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, true);
 				
 					if(OMFGBAddonsActivity.mCreateUI) {
 						Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
@@ -248,17 +269,10 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 	        };
 	        Thread Download = new Thread(mJSONRunnable);
 	        Download.start();
-			break;
-		case R.id.settings_menu:
-			launchSettingMenu();
-			break;
-		}
+		
+	}
 
-	    	return(super.onOptionsItemSelected(item));
-	}	
-
-	
-        private void launchSettingMenu() {
+		private void launchSettingMenu() {
         	
         	Intent settings = new Intent(this, SettingsMenu.class);
         	startActivity(settings);
@@ -528,7 +542,39 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 		return null;
 	}
      // end parser interface
-    
+
+	@Override
+	public InputStream DownloadJSONScript(boolean refresh) {
+
+		
+        InputStream is = null;
+        Log.d(TAG, "Begining json download");
+        
+	      if(Downloads.checkDownloadDirectory()){
+	        	
+	        	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ADDONS);
+	           	try{
+	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+	           		// Needed because the manager does not handle https connections
+	           		if(Constants.shouldForceAddonsSync() || 
+	           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.ADDONS);
+	           		
+	           		is = new FileInputStream(updateFile);
+	           	
+	           	}
+	           	catch(FileNotFoundException e){
+	           		
+	           			e.printStackTrace();
+	           			if(true)Log.d(TAG, "Could not update app from file resource," +
+	           					" the file was not found. Reverting to nothing");
+	           			is = null;
+	                   	
+	           	}
+	           	
+			
+		}
+        return is;
+   }
 	
 
 }
