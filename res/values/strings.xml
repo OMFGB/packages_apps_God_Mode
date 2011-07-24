@@ -144,6 +144,9 @@
     <string name="title_wallpaper_loop">Wallpaper Scrolling</string>
     <string name="summary_on_wallpaper_loop">Wallpaper will move as the homescreens are changed</string>
     <string name="summary_off_wallpaper_loop">Wallpaper will not move with the screens</string>
+    <string name="title_launcher_orientation">Launcher Orientation</string>
+    <string name="summary_on_launcher_orientation">Disable Launcher rotation"</string>
+    <string name="summary_off_launcher_orientation">Enable Launcher rotation"</string>
     <string name="title_four_hotseats">Four Launcher Hotseat Buttons</string>
     <!-- <string name="summary_on_four_hotseats">Four launcher hotseats are set.</string>
     <string name="summary_off_four_hotseats">Two launcher hotseats are set.</string> -->
