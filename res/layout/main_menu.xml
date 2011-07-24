@@ -29,12 +29,28 @@
 <PreferenceCategory
 	android:title="@string/app_name"
 	>
-        <PreferenceScreen android:key="settings"
-                android:title="@string/settings_title" 
-                android:summary="@string/settings_summary">
+         <PreferenceScreen android:key="settings_launcher"
+                android:title="@string/settings_launcher" 
+                android:summary="@string/settings_launcher_summary">
             <intent android:action="android.intent.action.MAIN"
                     android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.god_mode.GodMode" />
+                    android:targetClass="com.t3hh4xx0r.god_mode.LauncherMode" />
+        </PreferenceScreen>
+
+        <PreferenceScreen android:key="settings_lockscreen"
+                android:title="@string/settings_lockscreen" 
+                android:summary="@string/settings_lockscreen_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.god_mode.LockscreenMode" />
+        </PreferenceScreen>
+        
+        <PreferenceScreen android:key="settings_uioptions"
+                android:title="@string/settings_uioptions" 
+                android:summary="@string/settings_uioptions_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.god_mode.UiOptions" />
         </PreferenceScreen>
  </PreferenceCategory> 
        
