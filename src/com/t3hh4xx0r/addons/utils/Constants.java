@@ -6,6 +6,10 @@ import android.os.Environment;
 
 public final class Constants {
 	
+
+	private static boolean DEVICEDETERMINED = false;
+	
+	
         public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup/";
 	
 	/**
@@ -127,6 +131,7 @@ public final class Constants {
     
 	public static void setDeviceScript(String deviceScript) {
 		DEVICE_SCRIPT = deviceScript;
+		setDeviceDetermined(true);
 	}
 
 
@@ -134,6 +139,13 @@ public final class Constants {
 
 	public static String getDeviceScript() {
 		return DEVICE_SCRIPT;
+	}
+	
+	private static void setDeviceDetermined(boolean dEVICEDETERMINED) {
+		DEVICEDETERMINED = dEVICEDETERMINED;
+	}
+	public static boolean isDeviceDetermined() {
+		return DEVICEDETERMINED;
 	} 
     
 	

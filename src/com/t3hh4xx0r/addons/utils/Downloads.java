@@ -54,7 +54,7 @@ public static void installPackage(String outputzip, final Context context) {
             cmdThread.start();
     }
 
-public static void flashPackage(String outputzip, boolean backuprom, boolean wipecache, boolean wipedata) {
+public static void flashPackage(String outputzip, boolean backuprom,  boolean wipedata, boolean wipecache) {
 
 	final boolean mBackupRom = backuprom;
 	final boolean mWipeCache = wipecache;

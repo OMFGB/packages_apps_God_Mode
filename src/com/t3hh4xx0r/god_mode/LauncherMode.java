@@ -52,6 +52,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	CheckBoxPreference mScreenCheckBox;
 	CheckBoxPreference mLauncherEndlessLoop;
 	CheckBoxPreference mWallpaperLoop;
+        CheckBoxPreference mLauncherOrientationPref;
         CheckBoxPreference mFourHotseats;
 
     private ActivityManager activityManager;
@@ -64,6 +65,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String SCREENSETTINGS = "NUM_SCREENS";
     private static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
     private static final String WALLPAPER_LOOP = "wallpaper_loop";
+    private static final String LAUNCHER_ORIENTATION_PREF = "launcher_orientation";
     private static final String FOUR_HOTSEATS = "four_hotseats"; 
 
     private static final String LAUNCHER = "com.android.launcher";
@@ -93,6 +95,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
 	mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(),
 			Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
+        
+        mLauncherOrientationPref = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ORIENTATION_PREF);
+        mLauncherOrientationPref.setChecked(Settings.System.getInt(getContentResolver(),
+			Settings.System.LAUNCHER_ORIENTATION, 0) != 0);
 
 	mFourHotseats = (CheckBoxPreference) prefSet.findPreference(FOUR_HOTSEATS);
         mFourHotseats.setChecked(Settings.System.getInt(getContentResolver(),
@@ -113,6 +119,12 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 			Settings.System.WALLPAPER_LOOP, value ? 1 : 0);
 		restartLauncher2(activityManager);
 	    }
+
+            if (preference == mLauncherOrientationPref) {
+                value = mLauncherOrientationPref.isChecked ();
+                 Settings.System.putInt(getContentResolver(),
+                    Settings.System.LAUNCHER_ORIENTATION, value ? 1 : 0);
+            }
 
 	    if (preference == mFourHotseats) {
 		value = mFourHotseats.isChecked();
