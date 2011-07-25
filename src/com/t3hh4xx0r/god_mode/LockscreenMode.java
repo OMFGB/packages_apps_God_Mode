@@ -27,7 +27,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static String TAG = "LockscreenMode";
 	private boolean DBG = (false || Constants.FULL_DBG);
 
-	private static final String CARRIER_CAP = "carrier_caption";
 	private static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
 	private static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
 	private static final String TRACKPAD_UNLOCK_SCREEN = "trackpad_unlock_screen";
@@ -39,7 +38,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	
 	private ListPreference mLockScreenTypeList;
-	private EditTextPreference mCarrierCaption;
 	private CheckBoxPreference mTrackpadWakeScreen;
 	private CheckBoxPreference mVolumeWakeScreen;
 	private CheckBoxPreference mTrackpadUnlockScreen;
@@ -59,8 +57,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		addPreferencesFromResource(R.xml.lockscreen_prefs);
 		PreferenceScreen prefSet = getPreferenceScreen();
 		
-		// Carrier caption preference
-		mCarrierCaption = (EditTextPreference)prefSet.findPreference(CARRIER_CAP);
 		// Track pad wake preference
 		mTrackpadWakeScreen = (CheckBoxPreference) prefSet.findPreference(TRACKPAD_WAKE_SCREEN);
 		mTrackpadWakeScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_WAKE_SCREEN, 0) != 0);
@@ -128,15 +124,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		
-		if (CARRIER_CAP.equals(key)) {
-			Settings.System.putString(getContentResolver(),CARRIER_CAP, sharedPreferences.getString(CARRIER_CAP, ""));
-            ActivityManager am = (ActivityManager)getSystemService(
-                    Context.ACTIVITY_SERVICE);
-            am.forceStopPackage("com.android.phone");
-		}
-		
-		
 		
 		if(mLockScreenTypeList.getKey().equals(key)){
 			

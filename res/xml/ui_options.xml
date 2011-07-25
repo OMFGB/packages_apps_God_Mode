@@ -92,11 +92,14 @@
 	    android:entries="@array/entries_dateclock" 
 	    android:entryValues="@array/entryvalues_dateclock" 
 	    />
-    	<EditTextPreference android:key="statusbar_carrier_text" 
-		android:title="@string/title_statusbar_carrier_text" 
-		android:summary="@string/summary_statusbar_carrier_text" 
-		/>
-	
+        <EditTextPreference
+                android:key="carrier_caption"
+                android:title="Lockscreen Carrier Caption"
+                android:summary="Change the lockscreen carrier caption."
+                android:dialogTitle="Enter lockscreen caption."
+                android:defaultValue="OMFG...B" 
+        />	
+
     </PreferenceCategory>
     <PreferenceCategory android:key="music_control_settings" android:title="@string/music_control_settings_category">
 	<CheckBoxPreference

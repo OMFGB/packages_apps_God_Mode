@@ -28,6 +28,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 
 	private boolean DBG = (false || Constants.FULL_DBG);
 
+	private static final String CARRIER_CAP = "carrier_caption";
 	private static final String ELECTRON_BEAM_ANIMATION_ON = "electron_beam_animation_on";
 	private static final String ELECTRON_BEAM_ANIMATION_OFF = "electron_beam_animation_off";
 	private static final String BATTERY_OPTION = "battery_option";
@@ -48,7 +49,6 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
 	private static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color"; 
 	private static final String BATTERY_TEXT_OPTIONS = "battery_text_options";
-	private static final String STATUSBAR_CARRIER_TEXT = "statusbar_carrier_text";
         
         // Rotation preferences
         private static final String ROTATION_90_PREF = "pref_rotation_90";
@@ -62,6 +62,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	private CheckBoxPreference mUseScreenOnAnim;
 	private CheckBoxPreference mUseScreenOffAnim;
 	private ListPreference mBatteryOption;
+	private EditTextPreference mCarrierCaption;
 	private CheckBoxPreference mEnableVolMusicControls;
         private CheckBoxPreference mPowerWidget;
         private CheckBoxPreference mPowerWidgetHideOnChange;
@@ -82,7 +83,6 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	private ListPreference mDateClock;
 	private CheckBoxPreference mHideAdb;
 	private PreferenceScreen mBatteryTextOptions;
-	private EditTextPreference mCarrierText;
 
 	private int clockStyleVal;
 
@@ -158,11 +158,11 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 
 		mBatteryTextOptions = (PreferenceScreen) prefSet.findPreference(BATTERY_TEXT_OPTIONS);
 
-		mCarrierText = (EditTextPreference) prefSet.findPreference(STATUSBAR_CARRIER_TEXT);
-		mCarrierText.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+		mCarrierCaption = (EditTextPreference) prefSet.findPreference(CARRIER_CAP);
+		mCarrierCaption.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 		public boolean onPreferenceChange(Preference preference, Object newValue) {
-		    Settings.System.putString(getContentResolver(),Settings.System.STATUSBAR_CARRIER_TEXT, (String) newValue);
+		    Settings.System.putString(getContentResolver(),Settings.System.CARRIER_CAP, (String) newValue);
 		    ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
 		    am.forceStopPackage("com.android.phone");
 		    return true;
