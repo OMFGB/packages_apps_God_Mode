@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+ * Copyright 2008, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+         
+    
+    <PreferenceCategory android:title="Battery Text Options">
+	      <CheckBoxPreference android:title="Battery Level Colors" android:key="battery_text_color" />
+	      <Preference android:key="battery_color" android:title="Battery Color" android:summary="Only Used with Single Battery Color" />
+	      <Preference android:key="battery_color_auto_charging" android:title="Charging" android:dependency="battery_text_color" />
+	      <Preference android:key="battery_color_auto_regular" android:title="High Level" android:summary="Battery Level: 60-100%" android:disableDependentsState="true" android:dependency="battery_text_color" />
+	      <Preference android:key="battery_color_auto_medium" android:title="Medium Level"  android:summary="Battery Level: 16-59%" android:dependency="battery_text_color" />
+	      <Preference android:key="battery_color_auto_low" android:title="Low Level" android:summary="Battery Level: 0-15%" android:dependency="battery_text_color" />
+	      
+    </PreferenceCategory> 
+	
+</PreferenceScreen>
