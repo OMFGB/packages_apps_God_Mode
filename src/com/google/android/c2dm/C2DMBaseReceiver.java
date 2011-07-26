@@ -99,6 +99,7 @@ public abstract class C2DMBaseReceiver extends IntentService {
     
     @Override
     public final void onHandleIntent(Intent intent) {
+    	Log.d(TAG, "Hanling C2DM massage");
         try {
             Context context = getApplicationContext();
             if (intent.getAction().equals(REGISTRATION_CALLBACK_INTENT)) {
@@ -136,6 +137,8 @@ public abstract class C2DMBaseReceiver extends IntentService {
         }
         mWakeLock.acquire();
        
+
+    	Log.d(TAG, "Running c2dm intent service");
         // Use a naming convention, similar with how permissions and intents are 
         // used. Alternatives are introspection or an ugly use of statics. 
         String receiver = context.getPackageName() + ".C2DMReceiver";
@@ -151,10 +154,12 @@ public abstract class C2DMBaseReceiver extends IntentService {
         String error = intent.getStringExtra(EXTRA_ERROR);
         String removed = intent.getStringExtra(EXTRA_UNREGISTERED);
 
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
+    	Log.d(TAG, "Handling registration");
+        
+ 
             Log.d(TAG, "dmControl: registrationId = " + registrationId +
                 ", error = " + error + ", removed = " + removed);
-        }
+        
 
         if (removed != null) {
             // Remember we are unregistered

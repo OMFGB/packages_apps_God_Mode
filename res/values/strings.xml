@@ -20,6 +20,7 @@
 <resources>
 	<!-- Settings Menu  -->
 	<string name="application_settings">Application Settings</string>
+<string name="register_for_notifications">Register for push notifications</string>
 	
 	<!-- Settings Menu : Sync settings -->
 	<string name="sync_settings">Sync Settings</string>

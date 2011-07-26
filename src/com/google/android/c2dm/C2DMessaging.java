@@ -16,11 +16,14 @@
 
 package com.google.android.c2dm;
 
+import com.t3hh4xx0r.addons.utils.Constants;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 /**
  * Utilities for device registration.
@@ -28,6 +31,9 @@ import android.content.SharedPreferences.Editor;
  * Will keep track of the registration token in a private preference.
  */
 public class C2DMessaging {
+
+	private static boolean DBG = (false || Constants.FULL_DBG);
+	private static String TAG = "C2DMessaging";
     public static final String EXTRA_SENDER = "sender";
     public static final String EXTRA_APPLICATION_PENDING_INTENT = "app";
     public static final String REQUEST_UNREGISTRATION_INTENT = "com.google.android.c2dm.intent.UNREGISTER";
@@ -47,11 +53,15 @@ public class C2DMessaging {
      */
     public static void register(Context context,
             String senderId) {
+    	Log.d(TAG, "Registering device for c2dm");
         Intent registrationIntent = new Intent(REQUEST_REGISTRATION_INTENT);
         registrationIntent.setPackage(GSF_PACKAGE);
         registrationIntent.putExtra(EXTRA_APPLICATION_PENDING_INTENT,
                 PendingIntent.getBroadcast(context, 0, new Intent(), 0));
         registrationIntent.putExtra(EXTRA_SENDER, senderId);
+        
+
+    	if(DBG)Log.d(TAG, "Starting registration service");
         context.startService(registrationIntent);
         // TODO: if intent not found, notification on need to have GSF
     }
