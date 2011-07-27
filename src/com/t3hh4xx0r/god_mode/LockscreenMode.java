@@ -34,7 +34,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
 	private static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
 	private static final String LOCKSCREEN_TYPE = "lockscreen_type";
-	private static final String LOCKSCREEN_ORIENTATION = "lockscreen_orientation";
+	//private static final String LOCKSCREEN_ORIENTATION = "lockscreen_orientation";
 
 	
 	private ListPreference mLockScreenTypeList;
@@ -43,7 +43,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private CheckBoxPreference mTrackpadUnlockScreen;
 	private CheckBoxPreference mMenuUnlockScreen;
 	private CheckBoxPreference mLockscreenShortcuts;
-	private CheckBoxPreference mLockscreenOrientation;
+	//private CheckBoxPreference mLockscreenOrientation;
 	private CheckBoxPreference mLockscreenAlwaysBattery;
 	
 	
@@ -79,9 +79,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mLockScreenTypeList  = (ListPreference) findPreference(LOCKSCREEN_TYPE);
 		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
 		// Lockscreen orientation preference & default to portrait
-		mLockscreenOrientation = (CheckBoxPreference) this.findPreference(LOCKSCREEN_ORIENTATION);
-		mLockscreenOrientation.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) != Configuration.ORIENTATION_LANDSCAPE);
-		
+	
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
 	
@@ -113,11 +111,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		}else if ( preference == mLockScreenTypeList){
 			// Do Nothing
 			
-		}else if ( preference ==  mLockscreenOrientation){
-			    value = mLockscreenOrientation.isChecked();
-			    Log.d(TAG, "Preference is checked =  " + mLockscreenOrientation.isChecked());
-			    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, value ? Configuration.ORIENTATION_PORTRAIT : Configuration.ORIENTATION_LANDSCAPE );
-			    Log.d(TAG, "Setting lockscreen to portrait orientation  =  " + (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ORIENTATION, Configuration.ORIENTATION_PORTRAIT) != Configuration.ORIENTATION_LANDSCAPE) );
 		}
         return true;
     }
