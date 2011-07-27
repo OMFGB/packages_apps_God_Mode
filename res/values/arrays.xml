@@ -59,12 +59,14 @@
     </string-array>
     
        <string-array name="lockscreen_selector_types" >
+	 <item>None</item>
         <item>Tab</item>
         <item>Rotary</item>
         <item>HoneyComb concept</item>
     </string-array>
     
       <string-array name="lockscreen_selector_types_value" >
+	<item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

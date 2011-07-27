@@ -16,6 +16,11 @@
                 	android:entries="@array/lockscreen_selector_types"
 		        android:entryValues="@array/lockscreen_selector_types_value"
 		/>
+		<Preference 
+		android:key="custom_lockscreen_timeout" 
+		android:title="@string/title_lockscreen_timeout" 
+		android:summary="@string/summary_lockscreen_timeout"
+		/>
 	<CheckBoxPreference
 		android:key="lockscreen_shortcuts"
 		android:title="@string/title_lockscreen_shortcuts"
