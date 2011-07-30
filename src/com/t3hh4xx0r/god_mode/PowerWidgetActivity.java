@@ -128,10 +128,10 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
 
                 switch(network_state) {
                     // list of supported network modes
-                    case Phone.NT_MODE_WCDMA_PREF:
-                    case Phone.NT_MODE_WCDMA_ONLY:
-                    case Phone.NT_MODE_GSM_UMTS:
-                    case Phone.NT_MODE_GSM_ONLY:
+                    case Phone.NT_MODE_CDMA:
+                    case Phone.NT_MODE_CDMA_AND_LTE_EVDO:
+                    case Phone.NT_MODE_CDMA_NO_EVDO:
+                    case Phone.NT_MODE_LTE_ONLY:
                         break;
                     default:
                         cb.setEnabled(false);

@@ -311,7 +311,7 @@
     <string name="title_toggle_screentimeout">Toggle Screentimeout</string>
     <string name="title_toggle_mobiledata">Toggle Mobiledata</string>
     <string name="title_toggle_lockscreen">Toggle Lockscreen</string>
-    <string name="title_toggle_networkmode">Toggle 2G/3G</string>
+    <string name="title_toggle_networkmode">Toggle 3G/4G</string>
     <string name="title_toggle_autorotate">Toggle Orientation</string>
     <string name="title_toggle_airplane">Toggle Airplane mode</string>
     <string name="title_toggle_flashlight">Toggle LED flashlight</string>
