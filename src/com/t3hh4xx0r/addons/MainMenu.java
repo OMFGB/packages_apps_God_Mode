@@ -169,6 +169,12 @@ public class MainMenu extends PreferenceActivity  {
 			    	Constants.setDeviceScript(DeviceType.ERIS_SCRIPT);
 			    	DeviceType.DEVICE_TYPE = DeviceType.ERIS;
 			    	
+				}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHADOW)) {
+
+					log("Setting device as " + DeviceType.SHADOW);
+                                Constants.setDeviceScript(DeviceType.SHADOW_SCRIPT);
+                                DeviceType.DEVICE_TYPE = DeviceType.SHADOW;
+
 				}else  if (DeviceType.deviceDeviceEquals(DeviceType.DROID)) {
 
 					log("Setting device as " + DeviceType.DROID);

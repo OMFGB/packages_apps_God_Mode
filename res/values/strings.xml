@@ -223,6 +223,10 @@
     <string name="title_lockscreen_orientation">Lockscreen orientation</string>
     <string name="summary_on_lockscreen_orientation">Locked into portrait orientation</string>
     <string name="summary_off_lockscreen_orientation">Locked into landscape orientation</string>
+    
+    <!-- LockscreenSettings : Timeout -->
+    <string name="title_lockscreen_timeout">Lockscreen Timeout</string>
+    <string name="summary_lockscreen_timeout">Length of time lockscreen stays up before screen turns off</string>
 	
 
 	<!-- All User Interface strings below this point -->
@@ -336,5 +340,10 @@
 
 	<!-- Addons : MainMenu-->
 
-
+    <!-- Number Picker -->
+    <string name="menu_preferences_label">Preferences</string>
+    <string name="menu_dialog_label">Dialog Picker</string>
+    <string name="dialog_set_number">Set</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_picker_title">Choose a number</string>
 </resources>

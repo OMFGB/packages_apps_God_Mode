@@ -59,12 +59,14 @@
     </string-array>
     
        <string-array name="lockscreen_selector_types" >
+	 <item>None</item>
         <item>Tab</item>
         <item>Rotary</item>
         <item>HoneyComb concept</item>
     </string-array>
     
       <string-array name="lockscreen_selector_types_value" >
+	<item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -74,11 +76,13 @@
 <string-array name="entries_batterytypes">
         <item>Stock w/Percentage</item>
         <item>Stock w/o Percentage</item>
+	<item>MIUI Bar Style (NO Reboot)</item>
     </string-array>
 
 <string-array name="entryvalues_batterytypes">
         <item>0</item>
         <item>1</item>
+	<item>2</item>
     </string-array>
 
 <string-array name="entries_animations">

@@ -19,6 +19,13 @@ import android.preference.PreferenceScreen;
 import android.widget.Toast;
 import android.util.Log;
 import android.provider.Settings;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.view.LayoutInflater;
+import android.widget.EditText;
+import android.view.View;
 
 
 public class LockscreenMode extends PreferenceActivity
@@ -34,6 +41,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
 	private static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
 	private static final String LOCKSCREEN_TYPE = "lockscreen_type";
+	private static final String CUSTOM_LOCKSCREEN_TIMEOUT = "custom_lockscreen_timeout";
 	//private static final String LOCKSCREEN_ORIENTATION = "lockscreen_orientation";
 
 	
@@ -45,8 +53,11 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private CheckBoxPreference mLockscreenShortcuts;
 	//private CheckBoxPreference mLockscreenOrientation;
 	private CheckBoxPreference mLockscreenAlwaysBattery;
+	private Preference mLockscreenTimeout;
 	
-	
+	Context context;
+	Dialog d;
+	AlertDialog.Builder builder;
 
 	
 
@@ -56,6 +67,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.lockscreen_prefs);
 		PreferenceScreen prefSet = getPreferenceScreen();
+
+		d = new Dialog(this);
+		builder = new AlertDialog.Builder(this);
+		context = this.getApplicationContext();
 		
 		// Track pad wake preference
 		mTrackpadWakeScreen = (CheckBoxPreference) prefSet.findPreference(TRACKPAD_WAKE_SCREEN);
@@ -78,7 +93,40 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		// Lockscreen type preference
 		mLockScreenTypeList  = (ListPreference) findPreference(LOCKSCREEN_TYPE);
 		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
-		// Lockscreen orientation preference & default to portrait
+		
+		// Custom Lockscreen timeout
+		mLockscreenTimeout = (Preference) prefSet.findPreference(CUSTOM_LOCKSCREEN_TIMEOUT);
+		mLockscreenTimeout.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+	      public boolean onPreferenceClick(Preference preference) {
+
+	      LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+	      View layout = inflater.inflate(R.layout.number_picker_layout, null);
+	      final EditText edit = (EditText) layout.findViewById(R.id.timepicker_input);
+	      int seconds = Settings.System.getInt(getContentResolver(), CUSTOM_LOCKSCREEN_TIMEOUT, 5) / 1000;
+
+	      edit.setText(Integer.toString(seconds));
+
+	      builder.setView(layout);
+	      builder.setMessage("Lockscreen Timeout").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	      
+		    public void onClick(DialogInterface dialog,int id) {
+			int result = Integer.parseInt(edit.getText().toString());
+			Settings.System.putInt(getContentResolver(), CUSTOM_LOCKSCREEN_TIMEOUT,result * 1000);
+		    }
+	      }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog,int id) {
+		    dialog.cancel();
+		    }
+	      });
+	      AlertDialog alert = builder.create();
+	      alert.show();
+	      return true;
+	      }
+
+	});
+
 	
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
