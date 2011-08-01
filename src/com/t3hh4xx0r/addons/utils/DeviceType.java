@@ -46,7 +46,7 @@ public static final String INCREDIBLE2_SCRIPT = "vivow.js";
 public static final String DROID = "sholes";
 public static final String DROID_SCRIPT = "sholes.js";
 
-public static final String SHADOW = "shadow";
+public static final String SHADOW = "cdma_shadow";
 public static final String SHADOW_SCRIPT = "shadow.js";
 
 /* 
