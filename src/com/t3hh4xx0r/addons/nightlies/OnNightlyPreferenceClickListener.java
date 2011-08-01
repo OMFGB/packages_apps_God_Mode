@@ -84,8 +84,6 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 
  		}
  		
-		// mNightly.get
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -100,7 +98,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
               .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-	                File gapps =  new File(externalStorageDir+ "/GAPPS.zip");
+	                File gapps =  new File(externalStorageDir + Constants.GOOGLE_APPS);
 				if (checked[3] == true && !gapps.exists()) {
 					
 					Toast.makeText(mContext, mContext.getString(R.string.gapps_not_downloaded), Toast.LENGTH_SHORT).show();
