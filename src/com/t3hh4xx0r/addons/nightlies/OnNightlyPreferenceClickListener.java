@@ -80,7 +80,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
  			
  			check = null;
  			Log.d(TAG, "About to choose flash options");
- 	 		FlashAlertBox("Choose flashing options.", Boolean.parseBoolean(mNightly.getInstallable()), mNightly.getZipName());
+ 	 		FlashAlertBox(mContext.getString(R.string.choose_flash_options), Boolean.parseBoolean(mNightly.getInstallable()), mNightly.getZipName());
 
  		}
  		
@@ -95,7 +95,6 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
         final boolean checked[] = new boolean[]{false, false, true, false};
 
 	   new AlertDialog.Builder(mContext)
-	      //.setMessage(mymessage)
 	      .setTitle(title)
 	      .setCancelable(true)
               .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
