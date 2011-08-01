@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
 
+import com.t3hh4xx0r.R;
 
 public class OnNightlyPreferenceClickListener implements OnPreferenceClickListener {
 	
@@ -89,8 +90,8 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	}
 	
 	protected void FlashAlertBox(String title, final boolean Installable, final String OUTPUT_NAME) {
-	final CharSequence[] items = {mContext.getString(R.id.backup_rom), mContext.getString(R.id.wipe_data),
-			mContext.getString(R.id.wipe_cache), mContext.getString(R.id.google_app_installation)}; // Should turn the into calls to R.String.~~~
+	final CharSequence[] items = {mContext.getString(R.string.backup_rom), mContext.getString(R.string.wipe_data),
+			mContext.getString(R.string.wipe_cache), mContext.getString(R.string.google_app_installation)}; // Should turn the into calls to R.String.~~~
         final boolean checked[] = new boolean[]{false, false, true, false};
 
 	   new AlertDialog.Builder(mContext)
