@@ -54,7 +54,7 @@ public static void installPackage(String outputzip, final Context context) {
             cmdThread.start();
     }
 
-public static void flashPackage(String outputzip, boolean backuprom,  boolean wipedata, boolean wipecache, boolean installgoogle) {
+public static void flashPackage(String outputzip, final boolean backuprom, final  boolean wipedata, final boolean wipecache, final boolean installgoogle) {
 
 	final boolean mBackupRom = backuprom;
 	final boolean mWipeCache = wipecache;
@@ -108,7 +108,9 @@ public static void flashPackage(String outputzip, boolean backuprom,  boolean wi
                                     out.writeBytes("busybox echo 'format(\"/cache\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
                                     out.writeBytes("busybox echo 'format(\"/data\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
 				}
+				// Install the rom
 				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
+				// Install google apps
 				if (mInstallGoogle) {
 				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + "GAPPS.zip" +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
 				}
