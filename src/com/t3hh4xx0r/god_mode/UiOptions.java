@@ -42,14 +42,13 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         private static final String OVERSCROLL_WEIGHT_PREF = "pref_overscroll_weight";	
 	private static final String STATUSBAR_HIDE_BATTERY = "statusbar_hide_battery";
 	private static final String STATUSBAR_BATTERY_PERCENT = "statusbar_battery_percent";
-	private static final String HIDE_ADB_ICON = "hide_adb_icon";
 	private static final String STATUSBAR_CLOCK_OPT = "statusbar_clock_opt"; 
 	private static final String HIDE_SIGNAL_ICON = "hide_signal_icon";
 	private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
 	private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
 	private static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color"; 
 	private static final String BATTERY_TEXT_OPTIONS = "battery_text_options";
-        
+        private static final String MIUI_BATTERY_COLOR = "miui_battery_color";
         // Rotation preferences
         private static final String ROTATION_90_PREF = "pref_rotation_90";
 		private static final String ROTATION_180_PREF = "pref_rotation_180";
@@ -76,12 +75,13 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 
 	private ListPreference mClockStyle;
 	private Preference mClockColor;
+	private Preference mMiuiBatteryColor;
+
 	private CheckBoxPreference mHideSignal;
 	private CheckBoxPreference mHideBattery;
 	private CheckBoxPreference mBatteryPercent;
 	private CheckBoxPreference mHideAlarm;
 	private ListPreference mDateClock;
-	private CheckBoxPreference mHideAdb;
 	private PreferenceScreen mBatteryTextOptions;
 
 	private int clockStyleVal;
@@ -148,10 +148,8 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		mHideAlarm = (CheckBoxPreference) prefSet.findPreference(STATUSBAR_HIDE_ALARM);
 		mHideAlarm.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.STATUSBAR_HIDE_ALARM, 0) == 1);
 
-		mHideAdb = (CheckBoxPreference) prefSet.findPreference(HIDE_ADB_ICON);
-		mHideAdb.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_ADB_ICON, 0) == 1);
-
 		mClockColor = (Preference) prefSet.findPreference(STATUSBAR_CLOCK_COLOR);
+                mMiuiBatteryColor = (Preference) prefSet.findPreference(MIUI_BATTERY_COLOR);
 
 		mDateClock = (ListPreference) prefSet.findPreference(STATUSBAR_DATECLOCK);
 		mDateClock.setOnPreferenceChangeListener(this);
@@ -225,9 +223,14 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	if (preference == mHideAlarm) {
              Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_HIDE_ALARM, mHideAlarm.isChecked() ? 1 : 0);
 	}
-	if (preference == mHideAdb) {
-             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_ADB_ICON, mHideAdb.isChecked() ? 1 : 0);
-	}
+        if (preference == mMiuiBatteryColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this,
+                    new ColorChangedListener(this, Settings.System.MIUI_BATTERY_COLOR),
+                    Settings.System.getInt(getContentResolver(),
+                            Settings.System.MIUI_BATTERY_COLOR,
+                            getResources().getColor(com.android.internal.R.color.android_green))); 
+                cp.show();
+        }
         if (preference == mClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this,
                     new ColorChangedListener(this, Settings.System.STATUSBAR_CLOCK_COLOR),

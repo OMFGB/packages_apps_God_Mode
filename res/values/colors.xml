@@ -20,4 +20,5 @@
 <resources>
     <color name="dragndrop_background">#e0103010</color>
     <color name="transparent">#00000000</color>
+    <color name="android_green">#99AC06</color>
 </resources>
