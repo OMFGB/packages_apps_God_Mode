@@ -89,7 +89,8 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	}
 	
 	protected void FlashAlertBox(String title, final boolean Installable, final String OUTPUT_NAME) {
-	final CharSequence[] items = {"Backup rom", "Wipe data", "Wipe cache", "Install Google Apps"}; // Should turn the into calls to R.String.~~~
+	final CharSequence[] items = {mContext.getString(R.id.backup_rom), mContext.getString(R.id.wipe_data),
+			mContext.getString(R.id.wipe_cache), mContext.getString(R.id.google_app_installation)}; // Should turn the into calls to R.String.~~~
         final boolean checked[] = new boolean[]{false, false, true, false};
 
 	   new AlertDialog.Builder(mContext)
@@ -99,12 +100,13 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
               .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-	                File check =  new File(externalStorageDir+ "/GAPPS.zip");
-				if (checked[3] == true && !check.exists()) {
-					CharSequence text = "Google Apps not downloaded. You fail.";
+	                File gapps =  new File(externalStorageDir+ "/GAPPS.zip");
+				if (checked[3] == true && !gapps.exists()) {
+					CharSequence text = "Google Apps not downloaded. Not flashing Google Apps with update.";
 					int duration = Toast.LENGTH_SHORT;
 					Toast toast = Toast.makeText(mContext, text, duration);
 					toast.show();
+					checked[3] = false;
 				}
 
 				log( "Item number " + which + " and is set to: " + Boolean.toString(isChecked));

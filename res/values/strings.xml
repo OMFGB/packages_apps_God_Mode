@@ -39,7 +39,10 @@
 	
 	<!-- Settings Menu : Nightlies settings -->
 	<string name="nightlies_settings_category">Nightlies Settings</string>
-	
+	<string name="backup_rom">Backup Rom</string>
+	<string name="wipe_cache">Wipe Cache</string>
+	<string name="wipe_data">Wipe Data</string>
+	<string name="google_app_installation">Install Google apps</string>
 	<string name="force_sync_nightlies_summary">Sync when starting the nightlies activity</string>
 
 
