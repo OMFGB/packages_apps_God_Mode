@@ -54,12 +54,13 @@ public static void installPackage(String outputzip, final Context context) {
             cmdThread.start();
     }
 
-public static void flashPackage(String outputzip, boolean backuprom,  boolean wipedata, boolean wipecache) {
+public static void flashPackage(String outputzip, boolean backuprom,  boolean wipedata, boolean wipecache, boolean installgoogle) {
 
 	final boolean mBackupRom = backuprom;
 	final boolean mWipeCache = wipecache;
 	final boolean mWipeData = wipedata;
-	
+	final boolean mInstallGoogle = installgoogle;
+
 	final String OUTPUT_NAME = outputzip;
 	Log.d(TAG,OUTPUT_NAME);
 	
@@ -108,6 +109,9 @@ public static void flashPackage(String outputzip, boolean backuprom,  boolean wi
                                     out.writeBytes("busybox echo 'format(\"/data\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
 				}
 				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
+				if (mInstallGoogle) {
+				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + "GAPPS.zip" +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
+				}
                                 out.writeBytes("reboot recovery\n");
 				out.flush();
 			} catch (IOException e) {

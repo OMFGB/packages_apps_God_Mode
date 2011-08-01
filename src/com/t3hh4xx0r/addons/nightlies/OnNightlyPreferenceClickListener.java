@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
@@ -45,7 +46,6 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	@Override
 	public boolean onPreferenceClick(Preference v) {
 		
-
  		Log.d(TAG, v.getSummary().toString()  );
  		Log.d(TAG, v.getTitle().toString()  );
 
@@ -89,8 +89,8 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	}
 	
 	protected void FlashAlertBox(String title, final boolean Installable, final String OUTPUT_NAME) {
-	final CharSequence[] items = {"Backup rom", "Wipe data", "Wipe cache"}; // Should turn the into calls to R.String.~~~
-        final boolean checked[] = new boolean[]{true, false, false};
+	final CharSequence[] items = {"Backup rom", "Wipe data", "Wipe cache", "Install Google Apps"}; // Should turn the into calls to R.String.~~~
+        final boolean checked[] = new boolean[]{false, false, true, false};
 
 	   new AlertDialog.Builder(mContext)
 	      //.setMessage(mymessage)
@@ -98,6 +98,15 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	      .setCancelable(true)
               .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+	                File check =  new File(externalStorageDir+ "/GAPPS.zip");
+				if (checked[3] == true && !check.exists()) {
+					CharSequence text = "Google Apps not downloaded. You fail.";
+					int duration = Toast.LENGTH_SHORT;
+					Toast toast = Toast.makeText(mContext, text, duration);
+					toast.show();
+				}
+
 				log( "Item number " + which + " and is set to: " + Boolean.toString(isChecked));
 				}
 			})
@@ -117,7 +126,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 		  						} else 
 		  						{
 		  							log("About to flash package");
-		  							Downloads.flashPackage(OUTPUT_NAME, checked[0], checked[1], checked[2]);
+		  							Downloads.flashPackage(OUTPUT_NAME, checked[0], checked[1], checked[2], checked[3]);
 		  						    
 		  						}
 	            			} 
@@ -130,7 +139,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	         public void onClick(DialogInterface dialog, int whichButton){
 	        	 // Do nothing
 	        	 log("User did not approve flashing.");
-	        	 log( "Backup: " + checked[0]+ " WipeData" + checked[1] + " WipeCache: "+ checked[2]);
+	        	 log( "Backup: "+ checked[0]+ " WipeData: "+ checked[1] + " WipeCache: "+ checked[2] +" InstallGoogle: "+ checked[3]);
 	         }
 	         })
 	         
