@@ -43,6 +43,7 @@
 	<string name="wipe_cache">Wipe Cache</string>
 	<string name="wipe_data">Wipe Data</string>
 	<string name="google_app_installation">Install Google apps</string>
+	<string name="gapps_not_downloaded">Google Apps not downloaded. Not flashing Google Apps with update.</string>
 	<string name="force_sync_nightlies_summary">Sync when starting the nightlies activity</string>
 
 
