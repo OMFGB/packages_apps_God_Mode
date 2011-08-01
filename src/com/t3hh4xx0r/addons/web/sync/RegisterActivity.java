@@ -26,6 +26,6 @@ public class RegisterActivity extends Activity {
 		Toast.makeText(this, "Starting", Toast.LENGTH_LONG).show();
 		EditText text = (EditText) findViewById(R.id.editText1);
 		text.setText("r2doesinc@gmail.com");
-		C2DMessaging.register(this.getApplicationContext(), text.getText().toString());
+		C2DMessaging.register(this, text.getText().toString());
 	}
 }

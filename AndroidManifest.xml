@@ -30,22 +30,23 @@
     
 		<!--  Recivers  -->
 	<!-- Only C2DM servers can send messages for the app. If permission is not set - any other app can generate it --> 
-      <receiver android:name=".addons.web.sync.C2DMReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+      <receiver android:name="com.t3hh4xx0r.addons.web.sync.C2DMReceiver" 
+                android:permission="com.google.android.c2dm.permission.SEND">
           <!-- Receive the actual message -->
           <intent-filter>
               <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-              <category android:name="com.t3hh4xx0r.addons.web.sync." />
+              <category android:name="com.t3hh4xx0r.addons.web.sync" />
           </intent-filter>
           <!-- Receive the registration id -->
           <intent-filter>
               <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-              <category android:name="com.t3hh4xx0r.addons.web.sync." />
+              <category android:name="com.t3hh4xx0r.addons.web.sync" />
           </intent-filter>
       </receiver>
       
       <!-- Services -->
 	
-	<service android:name=".addons.web.sync.C2DMReceiver" />
+	<service android:name="com.t3hh4xx0r.addons.web.sync.C2DMReceiver" />
 	
 	<!--  Activities -->
 	
@@ -60,27 +61,27 @@
 	
         <activity android:name=".god_mode.GodMode">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity android:name=".god_mode.LockscreenMode" android:label="@string/settings_lockscreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
         <activity android:name=".god_mode.UiOptions" android:label="@string/settings_uioptions">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
         <activity android:name=".god_mode.PowerWidgetActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
         <activity android:name=".god_mode.PowerWidgetOrderActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
         <activity android:name=".god_mode.LauncherMode" android:label="@string/settings_launcher">

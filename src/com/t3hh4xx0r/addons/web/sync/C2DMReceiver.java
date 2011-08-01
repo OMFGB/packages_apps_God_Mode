@@ -24,10 +24,14 @@ import com.google.android.c2dm.C2DMBaseReceiver;
 
 public class C2DMReceiver extends C2DMBaseReceiver {
 	public C2DMReceiver() {
-		// Email address currently not used by the C2DM Messaging framework
+		
 		super("linuxmotion@google.com");
 	}
 
+	public void onReceive(Context context, Intent intent) {
+		Log.e("C2DM", "Received");
+	
+	}
 	@Override
 	public void onRegistered(Context context, String registrationId)
 			throws java.io.IOException {
