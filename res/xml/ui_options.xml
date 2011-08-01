@@ -50,6 +50,9 @@
 			    android:targetPackage="com.t3hh4xx0r" 
 			    android:targetClass="com.t3hh4xx0r.god_mode.Battery" />
                 </PreferenceScreen>
+             <Preference android:key="miui_battery_color" 
+                android:title="@string/title_miui_battery_color" 
+               />
 
     </PreferenceCategory>
 

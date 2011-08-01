@@ -270,6 +270,7 @@
     <string name="title_statusbar_clock">Clock Options</string>
     <string name="summary_statusbar_clock">Clock Style Options</string>
     <string name="title_clock_color">Clock Color</string>
+    <string name="title_miui_battery_color">MIUI Style Battery Color</string>
     <string name="title_hide_adb">Hide USB Debugging Notification</string>
     <string name="title_dateclock">Expanded Statusbar Date/Time Options</string>
     <string name="summary_dateclock">Date/Time Options for when statusbar is expanded</string>
