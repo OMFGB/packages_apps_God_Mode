@@ -103,10 +103,8 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 
 	                File gapps =  new File(externalStorageDir+ "/GAPPS.zip");
 				if (checked[3] == true && !gapps.exists()) {
-					CharSequence text = "Google Apps not downloaded. Not flashing Google Apps with update.";
-					int duration = Toast.LENGTH_SHORT;
-					Toast toast = Toast.makeText(mContext, text, duration);
-					toast.show();
+					
+					Toast.makeText(mContext, mContext.getString(R.string.gapps_not_downloaded), Toast.LENGTH_SHORT).show();
 					checked[3] = false;
 				}
 
