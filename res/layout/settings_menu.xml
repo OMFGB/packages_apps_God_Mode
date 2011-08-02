@@ -32,7 +32,7 @@
         android:key="force_addons_sync"
         android:title="@string/force_sync_on_activity"
         android:summary="@string/force_sync_addons_summary"
-        android:defaultValue="true"
+        android:defaultValue="false"
         
         />
 	 </PreferenceCategory> 
@@ -49,7 +49,7 @@
         android:key="force_nightlies_sync"
         android:title="@string/force_sync_on_activity"
         android:summary="@string/force_sync_nightlies_summary"
-        android:defaultValue="true"
+        android:defaultValue="false"
         
         />
 	
