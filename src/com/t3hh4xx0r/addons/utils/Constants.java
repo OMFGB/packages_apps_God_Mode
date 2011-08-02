@@ -6,7 +6,7 @@ import android.os.Environment;
 
 public final class Constants {
 	
-	public static final String GOOGLE_APPS = "GAPPS.zip"
+	public static final String GOOGLE_APPS = "GAPPS.zip";
 
 	private static boolean DEVICEDETERMINED = false;
 	
