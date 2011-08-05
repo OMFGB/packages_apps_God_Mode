@@ -162,20 +162,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     /**
      * Set the range of numbers allowed for the number picker. The current
-     * value will be automatically set to the start.
-     *
-     * @param start the start of the range (inclusive)
-     * @param end the end of the range (inclusive)
-     */
-    public void setRange(int start, int end) {
-        mStart = start;
-        mEnd = end;
-        mCurrent = start;
-        updateView();
-    }
-
-    /**
-     * Set the range of numbers allowed for the number picker. The current
      * value will be automatically set to the start. Also provide a mapping
      * for values used to display to the user.
      *
@@ -322,7 +308,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     private static final char[] DIGIT_CHARACTERS = new char[] {
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+	'1', '2', '3', '4', '5', '6', '7', '8', '9'
     };
 
     private NumberPickerButton mIncrementButton;
