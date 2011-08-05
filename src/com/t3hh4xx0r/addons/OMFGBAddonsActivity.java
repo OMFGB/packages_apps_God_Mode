@@ -353,12 +353,14 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 
 	  	 PreferenceCategory applicationcat =  new PreferenceCategory(this);
 	  	 applicationcat.setTitle("Additional applications");
-	   	
+
+                 PreferenceCategory themecat =  new PreferenceCategory(this);
+                 themecat.setTitle("Additional themes");	   	
 	   	 
 	   	 PreferenceRoot.addPreference(googlecat);
 	   	 PreferenceRoot.addPreference(applicationcat);
 	   	 PreferenceRoot.addPreference(kernelcat);
-	   	
+	   	 PreferenceRoot.addPreference(themecat);
 	      
 
 	       		
@@ -456,6 +458,7 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 			   	                if(n.getCategory().equals("google"))googlecat.addPreference(inscreen);
 			   	                if(n.getCategory().equals("applications"))applicationcat.addPreference(inscreen);
 			   	                if(n.getCategory().equals("kernel"))kernelcat.addPreference(inscreen);
+                                                if(n.getCategory().equals("themes"))themecat.addPreference(inscreen);
 			   	                Log.i(TAG, "Preference screen added with addon object category " + n.getCategory());
 	   	                	}
 	   	                	else{
@@ -471,7 +474,11 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 	   	          
 	   	
 	   	            }
-	   	            
+	   	            if(themecat.getPreferenceCount() == 0){
+                                 PreferenceRoot.removePreference(themecat);
+                                 Log.i(TAG, "Removing themes category");
+                                 }
+
 	   	            if(googlecat.getPreferenceCount() == 0){
 		           	 PreferenceRoot.removePreference(googlecat);
 		           	 Log.i(TAG, "Removing gapps category");

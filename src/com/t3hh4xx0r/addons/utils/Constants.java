@@ -24,6 +24,11 @@ public final class Constants {
 	 */
 	private static File extStorageDirectory = Environment.getExternalStorageDirectory();
 	
+        /**
+         * OMGB downloads directory
+         */
+    public static final String OMGB_DOWNLOAD_DIR = extStorageDirectory + "/t3hh4xx0r/downloads/omgb/";
+
 	/**
 	 * Basic OMFGB downloads directory
 	 */
@@ -45,11 +50,15 @@ public final class Constants {
     public static final String CWR_EXTENDED_CMD = "/cache/recovery/extendedcommand";
     
     /**
+     *  Base URL for the manifest files for the omgb releases.
+     */
+    public static final String OMGB_SCRIPT_URL = "https://raw.github.com/OMFGB/OMFGBManifests/master/omgb/";
+
+    /**
      *  Base URL for the manifest files for the addons, nightlies, and eventually the release roms.
      */
-    public static final String BASE_SCRIPT_URL = "https://raw.github.com/OMFGB/OMFGBManifests/master/"; 
-    
-
+    public static final String BASE_SCRIPT_URL = "https://raw.github.com/OMFGB/OMFGBManifests/master/";
+ 
     /*
      *  The associated download has been completed
      * 

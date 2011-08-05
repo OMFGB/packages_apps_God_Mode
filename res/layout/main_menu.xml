@@ -23,6 +23,13 @@
                     android:targetClass="com.t3hh4xx0r.addons.nightlies.OMFGBNightlyActivity" />
         </PreferenceScreen>
         
+        <PreferenceScreen android:key="omgb"
+                android:title="@string/omgb_title" 
+                android:summary="@string/omgb_summary">
+                 <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.t3hh4xx0r"
+                    android:targetClass="com.t3hh4xx0r.addons.omgb.OMGBActivity" />
+        </PreferenceScreen>
        </PreferenceCategory> 
 
 

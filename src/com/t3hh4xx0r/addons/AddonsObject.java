@@ -59,7 +59,5 @@ public class AddonsObject {
 	public String getDensity() {
 		return mDensity;
 	}
-	
-	
 
 }
