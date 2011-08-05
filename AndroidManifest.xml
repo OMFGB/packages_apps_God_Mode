@@ -60,7 +60,13 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        
+ 
+        <activity android:name="com.t3hh4xx0r.addons.omgb.OMGB">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
         
          <activity android:name=".addons.MainMenu"
                   android:label="@string/app_name">
@@ -83,6 +89,13 @@
             </intent-filter>
         </activity>
         
+         <activity android:name=".addons.omgb.OMGBActivity"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
            <activity android:name=".addons.OMFGBAddonsActivity"
                   android:label="@string/app_name">
                   

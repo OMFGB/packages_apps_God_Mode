@@ -70,6 +70,9 @@
     <string name="addons_title">T3hh4xx0r Addons</string>
     <string name="addons_summary">Various addons availabe for your flashing needs</string>
 
+    <string name="omgb_summary">Stable and stock</string>
+    <string name="omgb_title">OMGB Builds</string>
+
     <string name="nightlies_summary">OMFGB nightlys, remember NO SUPPORT PROVIDED</string>
     <string name="nightlies_title">OMFGB Nightlys</string>
 

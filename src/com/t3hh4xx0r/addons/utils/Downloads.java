@@ -166,6 +166,7 @@ public static void refreshAddonsAndNightlies(){
 			  
 			  refreshAddons();
 			  refreshNightlies();
+			  refreshOMGB();
 		  }
 		
 		
@@ -314,6 +315,78 @@ public static void refreshNightlies(){
 	
 }
 
+public static void refreshOMGB(){
+
+
+    JSONUtils omgb = new JSONUtils();
+    omgb.setJSONUtilsParsingInterface(new JSONParsingInterface(){
+
+		@Override
+		public InputStream DownloadJSONScript(boolean refresh) {
+
+	        InputStream is = null;
+	        Log.d(TAG, "Begining json download");
+
+		      if(Downloads.checkOMGBDownloadDirectory()){
+
+		        	File updateFile = new File(Constants.OMGB_DOWNLOAD_DIR + Constants.getDeviceScript());
+		           	try{
+		           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+		           		// Needed because the manager does not handle https connections
+		           		if(Constants.shouldForceNightliesSync() || 
+		           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest("omgb/" + Constants.getDeviceScript());
+
+		           		is = new FileInputStream(updateFile);
+
+		           	}
+		           	catch(FileNotFoundException e){
+
+		           			e.printStackTrace();
+		           			if(true)Log.d(TAG, "Could not update app from file resource," +
+		           					" the file was not found. Reverting to nothing");
+		           			is = null;
+
+		           	}
+
+
+			}
+	        return is;
+
+		}
+
+		@Override
+		public PreferenceScreen ParseJSONScript(
+				PreferenceScreen PreferenceRoot, InputStream is)
+				throws JSONException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen ParsingCompletedSuccess() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen unableToDownloadScript() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PreferenceScreen unableToParseScript() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+    	
+    	
+    });
+
+    omgb.downloadJSONFile(true);
+
+}
+
 
 	/**
 	* Checks to see if the download directory
@@ -328,23 +401,30 @@ public static void refreshNightlies(){
 		File f = new File(Constants.DOWNLOAD_DIR );
 		boolean success;
 			if(!f.exists()){
-			
 				Log.i(TAG, "File diretory does not exist, creating it");
 				success = f.mkdirs();
-				
 				if(!success)Log.d(TAG, "Directory creation failed");
-					
-				
-				}
-				else {
+				} else {
 				f = null;
 				success = true;
-				
 				Log.i(TAG, "File directory exist.");
-				
 			}
 	return success;
-	
 	}
 
+        public static Boolean checkOMGBDownloadDirectory(){
+
+               File  f = new File(Constants.OMGB_DOWNLOAD_DIR );
+                boolean success;
+                        if(!f.exists()){
+                                Log.i(TAG, "File diretory does not exist, creating it");
+                                success = f.mkdirs();
+                                if(!success)Log.d(TAG, "Directory creation failed");
+                                } else {
+                                f = null;
+                                success = true;
+                                Log.i(TAG, "File directory exist.");
+                        }
+        return success;
+        }
 }
