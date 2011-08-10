@@ -55,7 +55,6 @@ public class Battery extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
     private static final String TAG = "Battery";
 
-
 	private static final String BATTERY_TEXT_COLOR = "battery_text_color";
 	private static final String BATTERY_COLOR_AUTO_CHARGING = "battery_color_auto_charging"; 
 	private static final String BATTERY_COLOR_AUTO_REGULAR = "battery_color_auto_regular";
@@ -63,10 +62,8 @@ public class Battery extends PreferenceActivity
 	private static final String BATTERY_COLOR_AUTO_LOW = "battery_color_auto_low";
 	private static final String BATTERY_COLOR = "battery_color"; 
 
-
     private final Configuration mCurConfig = new Configuration();
     
-
 	private CheckBoxPreference mTextColor;
 	private Preference mAutoCharging;
 	private Preference mAutoRegular;
@@ -74,7 +71,6 @@ public class Battery extends PreferenceActivity
 	private Preference mAutoLow;
 	private Preference mColor;
 
-	
 	private IWindowManager mWindowManager;
 	
 	private int mKeyNumber = 1;
@@ -82,32 +78,22 @@ public class Battery extends PreferenceActivity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-	
-	addPreferencesFromResource(R.xml.batterytext);
-
-	PreferenceScreen prefSet = getPreferenceScreen();
-
-
+	    addPreferencesFromResource(R.xml.batterytext);
+        PreferenceScreen prefSet = getPreferenceScreen();
 
 		mTextColor = (CheckBoxPreference) prefSet.findPreference(BATTERY_TEXT_COLOR);
         mTextColor.setChecked(Settings.System.getInt(getContentResolver(), 
                 Settings.System.BATTERY_TEXT_COLOR, 0) == 1);
-        		
-		
 		mAutoCharging = (Preference) prefSet.findPreference(BATTERY_COLOR_AUTO_CHARGING);
 		mAutoRegular = (Preference) prefSet.findPreference(BATTERY_COLOR_AUTO_REGULAR);
 		mAutoMedium = (Preference) prefSet.findPreference(BATTERY_COLOR_AUTO_MEDIUM);
 		mAutoLow = (Preference) prefSet.findPreference(BATTERY_COLOR_AUTO_LOW);
 		mColor = (Preference) prefSet.findPreference(BATTERY_COLOR);
 
-
         mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
-        
-
     }
 
     private void updateToggles() {
-
     }
     
     public boolean onPreferenceChange(Preference preference, Object objValue) {
@@ -122,55 +108,52 @@ public class Battery extends PreferenceActivity
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-	if (preference == mAutoCharging) {
+	    if (preference == mAutoCharging) {
             ColorPickerDialog cp = new ColorPickerDialog(this,
                     new ColorChangedListener(this, Settings.System.BATTERY_COLOR_AUTO_CHARGING),
                     Settings.System.getInt(getContentResolver(),
                             Settings.System.BATTERY_COLOR_AUTO_CHARGING,
                             getResources().getColor(com.android.internal.R.color.white))); 
-		cp.show();
-		return true;
-	}else if (preference == mAutoMedium) {
+		    cp.show();
+		    return true;
+	    }else if (preference == mAutoMedium) {
             ColorPickerDialog cp = new ColorPickerDialog(this,
                     new ColorChangedListener(this, Settings.System.BATTERY_COLOR_AUTO_MEDIUM),
                     Settings.System.getInt(getContentResolver(),
                             Settings.System.BATTERY_COLOR_AUTO_MEDIUM,
                             getResources().getColor(com.android.internal.R.color.white))); 
-		cp.show();
-		return true;
-	}else if (preference == mAutoRegular) {
+		    cp.show();
+		    return true;
+	    }else if (preference == mAutoRegular) {
             ColorPickerDialog cp = new ColorPickerDialog(this,
                     new ColorChangedListener(this, Settings.System.BATTERY_COLOR_AUTO_REGULAR),
                     Settings.System.getInt(getContentResolver(),
                             Settings.System.BATTERY_COLOR_AUTO_REGULAR,
                             getResources().getColor(com.android.internal.R.color.white))); 
-		cp.show();
-		return true;
-	}else if (preference == mAutoLow) {
+		    cp.show();
+		    return true;
+	    }else if (preference == mAutoLow) {
             ColorPickerDialog cp = new ColorPickerDialog(this,
                     new ColorChangedListener(this, Settings.System.BATTERY_COLOR_AUTO_LOW),
                     Settings.System.getInt(getContentResolver(),
                             Settings.System.BATTERY_COLOR_AUTO_LOW,
                             getResources().getColor(com.android.internal.R.color.white))); 
-		cp.show();
-		return true;
-	}else if (preference == mColor) {
+		    cp.show();
+		    return true;
+	    }else if (preference == mColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this,
                     new ColorChangedListener(this, Settings.System.BATTERY_COLOR),
                     Settings.System.getInt(getContentResolver(),
                             Settings.System.BATTERY_COLOR,
                             getResources().getColor(com.android.internal.R.color.white))); 
-		cp.show();
-		return true;
-	} else if (preference == mTextColor) {
+		    cp.show();
+		    return true;
+	    } else if (preference == mTextColor) {
              Settings.System.putInt(getContentResolver(),
                     Settings.System.BATTERY_TEXT_COLOR,
 					mTextColor.isChecked() ? 1 : 0);
             return true;
-	}
+	    }
         return false;
     }
-
 }   
-
-

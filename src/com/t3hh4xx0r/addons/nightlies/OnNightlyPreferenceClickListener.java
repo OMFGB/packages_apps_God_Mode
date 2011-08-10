@@ -34,120 +34,97 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 
 
 	public OnNightlyPreferenceClickListener(NightlyObject o, int position, Context context){
-		
 		mNightly = o;
 		mPosition = position;
-		mContext = context;
-		
-		
-		
+		mContext = context;	
 	}
 	
 
 	@Override
-	public boolean onPreferenceClick(Preference v) {
-		
+	public boolean onPreferenceClick(Preference v) {	
  		Log.d(TAG, v.getSummary().toString()  );
  		Log.d(TAG, v.getTitle().toString()  );
 
  		File check =  new File(externalStorageDir+ "/" + mNightly.getZipName());
- 		
- 		
+
  		if(!check.exists()){
- 		
  			DownloadManager dman = (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
+ 		    File f = new File(externalStorageDir);
+ 		    if(!f.exists()){
+ 			    f.mkdirs();
+ 			    Log.i(TAG, "File diretory does not exist, creating it");
+ 		    }
+ 		    f = null;
+ 		    f = new File(externalStorageDir+ "/" + mNightly.getZipName());
  		
- 		File f = new File(externalStorageDir);
- 		if(!f.exists()){
- 			
- 			f.mkdirs();
- 			Log.i(TAG, "File diretory does not exist, creating it");
- 		}
- 		f = null;
- 		f = new File(externalStorageDir+ "/" + mNightly.getZipName());
+ 		    Uri down = Uri.parse(mNightly.getURL());
+ 		    DownloadManager.Request req = new DownloadManager.Request(down);
+ 		    req.setShowRunningNotification(true);
+ 		    req.setVisibleInDownloadsUi(false);
+ 		    req.setDestinationUri(Uri.fromFile(f));
  		
- 		Uri down = Uri.parse(mNightly.getURL());
- 		
- 		
- 		DownloadManager.Request req = new DownloadManager.Request(down);
- 		req.setShowRunningNotification(true);
- 		req.setVisibleInDownloadsUi(false);
- 		req.setDestinationUri(Uri.fromFile(f));
- 		
- 		dman.enqueue(req);
- 		}
- 		else{
- 			
- 			check = null;
+ 		    dman.enqueue(req);
+        }
+ 		else{ 			
+ 		    check = null;
  			Log.d(TAG, "About to choose flash options");
  	 		FlashAlertBox(mContext.getString(R.string.choose_flash_options), Boolean.parseBoolean(mNightly.getInstallable()), mNightly.getZipName());
-
  		}
- 		
 		return false;
 	}
 	
 	protected void FlashAlertBox(String title, final boolean Installable, final String OUTPUT_NAME) {
-	final CharSequence[] items = {mContext.getString(R.string.backup_rom), mContext.getString(R.string.wipe_data),
-			mContext.getString(R.string.wipe_cache), mContext.getString(R.string.google_app_installation)}; // Should turn the into calls to R.String.~~~
+	    final CharSequence[] items = {mContext.getString(R.string.backup_rom), mContext.getString(R.string.wipe_data),
+		mContext.getString(R.string.wipe_cache), mContext.getString(R.string.google_app_installation)}; // Should turn the into calls to R.String.~~~
         final boolean checked[] = new boolean[]{false, false, true, false};
 
-	   new AlertDialog.Builder(mContext)
-	      .setTitle(title)
-	      .setCancelable(true)
-              .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
+	    new AlertDialog.Builder(mContext)
+	    .setTitle(title)
+	    .setCancelable(true)
+        .setMultiChoiceItems(items, checked, new OnMultiChoiceClickListener() {
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
-	             File gapps =  new File(Constants.DOWNLOAD_DIR + Constants.GOOGLE_APPS);
+	            File gapps =  new File(Constants.DOWNLOAD_DIR + Constants.GOOGLE_APPS);
 				if (checked[3] == true && !gapps.exists()) {
 					
-					Toast.makeText(mContext, mContext.getString(R.string.gapps_not_downloaded), Toast.LENGTH_SHORT).show();
+				    Toast.makeText(mContext, mContext.getString(R.string.gapps_not_downloaded), Toast.LENGTH_SHORT).show();
 					checked[3] = false;
 				}
-
 				log( "Item number " + which + " and is set to: " + Boolean.toString(isChecked));
-				}
-			})
-	      .setPositiveButton("OK",
-	         new DialogInterface.OnClickListener() {
+			}
+		})
+	    .setPositiveButton("OK",
+	    new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int whichButton){
 	        	 Thread FlashThread = new Thread(){
-	            		@Override
-	            	    public void	run(){
-	            			File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
-	            			if(f.exists()){
+	                 @Override
+	            	 public void run() {
+	            	    File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
+	            		    if(f.exists()){
 	            				log( "User approved flashing, begining flash. Installable = " + String.valueOf(Installable));
 		  				  		Log.i(TAG, "File location is: "+ f.toString());
-		  						if (Installable) 
-		  						{
+		  						if (Installable) {
 		  						   Downloads.installPackage(OUTPUT_NAME, mContext );
-		  						} else 
-		  						{
+		  						} else {
 		  							log("About to flash package");
 		  							Downloads.flashPackage(OUTPUT_NAME, checked[0], checked[1], checked[2], checked[3]);
-		  						    
 		  						}
 	            			} 
-	            	  }
+	            	   }
 	            };
 	            FlashThread.run();
 	         }
-	         })
-	         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	     })
+	     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int whichButton){
 	        	 // Do nothing
 	        	 log("User did not approve flashing.");
 	        	 log( "Backup: "+ checked[0]+ " WipeData: "+ checked[1] + " WipeCache: "+ checked[2] +" InstallGoogle: "+ checked[3]);
 	         }
-	         })
-	         
-	         
-	      .show();
-	}
+	     })    
+	     .show();
+	 }
 	
-	 private void log(String message){
-		   
+	 private void log(String message){	   
 		   if(DBG)Log.d(TAG, message);
-		   
-	   }
+	 }
 }  

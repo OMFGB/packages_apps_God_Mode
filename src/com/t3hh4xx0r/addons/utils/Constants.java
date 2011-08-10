@@ -7,11 +7,9 @@ import android.os.Environment;
 public final class Constants {
 	
 	public static final String GOOGLE_APPS = "GAPPS.zip";
-
 	private static boolean DEVICEDETERMINED = false;
-	
-	
-        public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup/";
+
+    public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup/";
 	
 	/**
 	 *  Variable to turn debuging on across the app
@@ -24,9 +22,9 @@ public final class Constants {
 	 */
 	private static File extStorageDirectory = Environment.getExternalStorageDirectory();
 	
-        /**
-         * OMGB downloads directory
-         */
+    /**
+     * OMGB downloads directory
+     */
     public static final String OMGB_DOWNLOAD_DIR = extStorageDirectory + "/t3hh4xx0r/downloads/omgb/";
 
 	/**
@@ -85,7 +83,6 @@ public final class Constants {
 	 * 
 	 * 
 	 */
-	
 	public static String ADDONS = "addons.js"; 
     
     /**
@@ -106,46 +103,28 @@ public final class Constants {
     	
     	if(AUTOMATICALLY_SYNC){
     		return true;
-	
     	}
- 
 		return false;
-    	
-    	
-    	
     }
-  public static boolean shouldForceAddonsSync(){
-    	
+
+    public static boolean shouldForceAddonsSync(){
     	if(AUTOMATICALLY_SYNC && FORCE_ADDONS_ACTIVITY_SYNC){
     		return true;
-	
     	}
- 
-		return false;
-    	
-    	
-    	
+		return false;	
     }
-  public static boolean shouldForceNightliesSync(){
-  	
-  	if(AUTOMATICALLY_SYNC && FORCE_NIGHTLIES_ACTIVITY_SYNC){
-  		return true;
-	
-  	}
 
+    public static boolean shouldForceNightliesSync(){
+  	    if(AUTOMATICALLY_SYNC && FORCE_NIGHTLIES_ACTIVITY_SYNC){
+  		    return true;
+  	    }
 		return false;
-  	
-  	
-  	
-  }
+    }
     
 	public static void setDeviceScript(String deviceScript) {
 		DEVICE_SCRIPT = deviceScript;
 		setDeviceDetermined(true);
 	}
-
-
-
 
 	public static String getDeviceScript() {
 		return DEVICE_SCRIPT;
@@ -157,7 +136,4 @@ public final class Constants {
 	public static boolean isDeviceDetermined() {
 		return DEVICEDETERMINED;
 	} 
-    
-	
-
 }

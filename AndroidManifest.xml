@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.CLEAR_APP_USER_DATA" />
     
     <application android:icon="@drawable/app_icon" android:label="@string/app_name">
-	<activity android:name=".god_mode.MainMenu">
+	    <activity android:name=".god_mode.MainMenu">
             <intent-filter>
                 <action android:name=".god_modeandroid.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -46,29 +46,30 @@
         </activity>
         <activity android:name=".god_mode.LauncherMode" android:label="@string/settings_launcher">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>                            
+                <action android:name="android.intent.action.MAIN" />                            
             </intent-filter>
         </activity>
-	<activity android:name="com.t3hh4xx0r.god_mode.Battery" android:label="@string/settings_battery">
+        <activity android:name=".god_mode.StatusBar" android:label="@string/settings_statusbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
- 
-         <activity android:name="com.t3hh4xx0r.addons.nightlies.Nightlies">
+	    <activity android:name="com.t3hh4xx0r.god_mode.Battery" android:label="@string/settings_battery">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.t3hh4xx0r.addons.nightlies.Nightlies">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
- 
         <activity android:name="com.t3hh4xx0r.addons.omgb.OMGB">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
-        </activity>
-
-        
-         <activity android:name=".addons.MainMenu"
+        </activity>     
+        <activity android:name=".addons.MainMenu"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,29 +81,24 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-        </activity>
-        
-         <activity android:name=".addons.nightlies.OMFGBNightlyActivity"
+        </activity>      
+        <activity android:name=".addons.nightlies.OMFGBNightlyActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        
-         <activity android:name=".addons.omgb.OMGBActivity"
+        <activity android:name=".addons.omgb.OMGBActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
-           <activity android:name=".addons.OMFGBAddonsActivity"
-                  android:label="@string/app_name">
-                  
+        <activity android:name=".addons.OMFGBAddonsActivity"
+                  android:label="@string/app_name">        
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-        </activity>
-    
+        </activity> 
     </application>
 </manifest>

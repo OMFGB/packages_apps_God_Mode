@@ -1,65 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory
-	android:key="addons_category"
-	android:title="@string/addons_and_roms"
-	android:id="@+id/addons_category"
-	>
+	        android:key="addons_category"
+	        android:title="@string/addons_and_roms"
+	        android:id="@+id/addons_category">
 	
-        <PreferenceScreen android:key="addons"
-                android:title="@string/addons_title" 
-                android:summary="@string/addons_summary">
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.addons.OMFGBAddonsActivity" />
+        <PreferenceScreen 
+            android:key="addons"
+            android:title="@string/addons_title" 
+            android:summary="@string/addons_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.addons.OMFGBAddonsActivity" />
         </PreferenceScreen>
-        
-         <PreferenceScreen android:key="nightlies"
-                android:title="@string/nightlies_title" 
-                android:summary="@string/nightlies_summary">
-                 <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.addons.nightlies.OMFGBNightlyActivity" />
+        <PreferenceScreen
+            android:key="nightlies"
+            android:title="@string/nightlies_title" 
+            android:summary="@string/nightlies_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.addons.nightlies.OMFGBNightlyActivity" />
         </PreferenceScreen>
-        
-        <PreferenceScreen android:key="omgb"
-                android:title="@string/omgb_title" 
-                android:summary="@string/omgb_summary">
-                 <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.addons.omgb.OMGBActivity" />
+        <PreferenceScreen
+            android:key="omgb"
+            android:title="@string/omgb_title" 
+            android:summary="@string/omgb_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.addons.omgb.OMGBActivity" />
         </PreferenceScreen>
-       </PreferenceCategory> 
+    </PreferenceCategory> 
 
+    <PreferenceCategory
+            android:title="@string/app_name">
 
-<PreferenceCategory
-	android:title="@string/app_name"
-	>
-         <PreferenceScreen android:key="settings_launcher"
-                android:title="@string/settings_launcher" 
-                android:summary="@string/settings_launcher_summary">
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.god_mode.LauncherMode" />
+        <PreferenceScreen
+            android:key="settings_launcher"
+            android:title="@string/settings_launcher" 
+            android:summary="@string/settings_launcher_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.god_mode.LauncherMode" />
         </PreferenceScreen>
-
-        <PreferenceScreen android:key="settings_lockscreen"
-                android:title="@string/settings_lockscreen" 
-                android:summary="@string/settings_lockscreen_summary">
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.god_mode.LockscreenMode" />
+        <PreferenceScreen 
+            android:key="settings_lockscreen"
+            android:title="@string/settings_lockscreen" 
+            android:summary="@string/settings_lockscreen_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.god_mode.LockscreenMode" />
         </PreferenceScreen>
-        
-        <PreferenceScreen android:key="settings_uioptions"
-                android:title="@string/settings_uioptions" 
-                android:summary="@string/settings_uioptions_summary">
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.t3hh4xx0r"
-                    android:targetClass="com.t3hh4xx0r.god_mode.UiOptions" />
+        <PreferenceScreen
+            android:key="statusbar"
+            android:title="@string/settings_statusbar"
+            android:summary="@string/settings_statusbar_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.god_mode.StatusBar" />
         </PreferenceScreen>
- </PreferenceCategory> 
-       
+        <PreferenceScreen
+            android:key="settings_uioptions"
+            android:title="@string/settings_uioptions" 
+            android:summary="@string/settings_uioptions_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.god_mode.UiOptions" />
+        </PreferenceScreen>
+    </PreferenceCategory> 
 </PreferenceScreen>
 

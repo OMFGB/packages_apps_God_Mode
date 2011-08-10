@@ -133,8 +133,4 @@ public class PackageUtils {
             //mForceStopButton.setOnClickListener(InstalledAppDetails.this);
         }
     };
-	
-	
-	
-
 }

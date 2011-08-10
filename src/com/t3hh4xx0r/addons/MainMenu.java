@@ -36,7 +36,6 @@ public class MainMenu extends PreferenceActivity  {
     private static String TAG = "MainMenu";
 	PreferenceScreen mNightlies;
 	
-	
 	private final int CLEARCACHE = 0;
 	private final int SETTINGSMENU = CLEARCACHE + 1;
 	
@@ -45,10 +44,8 @@ public class MainMenu extends PreferenceActivity  {
 		super.onCreate(savedInstanceState);
 		
 		if(Constants.FIRST_LAUNCH)determineDevice();
-		if(Constants.FIRST_LAUNCH){
-			
-			Runnable scripts = new Runnable(){
-			
+		if(Constants.FIRST_LAUNCH){	
+			Runnable scripts = new Runnable(){	
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
@@ -60,48 +57,32 @@ public class MainMenu extends PreferenceActivity  {
 			};
 			
 			Thread t = new Thread(scripts);
-			t.start();
-			
+			t.start();		
 		}
-		
 		addPreferencesFromResource(R.layout.main_menu);
-		
 		mAddonsCat = (PreferenceCategory) findPreference("addons_category");
 		
-		
-		
 		if( !hasStorage(true)){
-			
 			mAddonsCat.setEnabled(false);
 			AlertBox(getString(R.string.warning),getString(R.string.sdcard_not_mounted));
-			
 		}
 		else if(!Constants.isDeviceDetermined()){
-			
 			mAddonsCat.setEnabled(false);
 			AlertBox(getString(R.string.warning),"Device not determined. Disabling nightlies and addons.");
 		}
 		else{
 			mAddonsCat.setEnabled(true);
-			
 		}
-		
 	}
 	
-	
-
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
 		MenuInflater menuinflate = new MenuInflater(this);
 		menuinflate.inflate(R.menu.main_menu, menu);
-		
-	
 		return true;
 	}	
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-
 		case R.id.clear_download_cache:
 			Downloads.deleteDir();
 			break;
@@ -112,22 +93,15 @@ public class MainMenu extends PreferenceActivity  {
 			launchSettingMenu();
 			break;
 		}
-
-	    	return(super.onOptionsItemSelected(item));
+	    return(super.onOptionsItemSelected(item));
 	}	
 
-	
-        private void launchSettingMenu() {
-        	
-        	Intent settings = new Intent(this, SettingsMenu.class);
-        	startActivity(settings);
-		
+    private void launchSettingMenu() {    	
+        Intent settings = new Intent(this, SettingsMenu.class);
+        startActivity(settings);
 	}
 
-		
-
-	static public boolean hasStorage(boolean requireWriteAccess) {
-		
+	static public boolean hasStorage(boolean requireWriteAccess) {		
 	    String state = Environment.getExternalStorageState();
 	    Log.v(TAG, "storage state is " + state);
 
@@ -143,124 +117,75 @@ public class MainMenu extends PreferenceActivity  {
 	    return false;
 	}
 
-
-
 	private void determineDevice(){
-		
 		if(!DeviceType.determineDeviceDensity(getResources().getDisplayMetrics().densityDpi)){
 			log("Cannot determine device density, defaultingg to Unset");
-			}
-		
-
+	    }
 		log("Beggining to set the device");
 		// We dont need to set the device script every time just once
 		if(Constants.getDeviceScript() == null || !Constants.getDeviceScript().equals("")){
-		
-				if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE)) {
-
-					log("Setting device as " + DeviceType.INCREDIBLE);
-
-			    	Constants.setDeviceScript(DeviceType.INCREDIBLE_SCRIPT);
-			    	DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE;
-			        	
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.ERIS)) {
-
-					log("Setting device as " + DeviceType.ERIS);
-			    	Constants.setDeviceScript(DeviceType.ERIS_SCRIPT);
-			    	DeviceType.DEVICE_TYPE = DeviceType.ERIS;
-			    	
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHADOW)) {
-
-					log("Setting device as " + DeviceType.SHADOW);
-                                Constants.setDeviceScript(DeviceType.SHADOW_SCRIPT);
-                                DeviceType.DEVICE_TYPE = DeviceType.SHADOW;
-
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.DROID)) {
-
-					log("Setting device as " + DeviceType.DROID);
-			    	Constants.setDeviceScript(DeviceType.DROID_SCRIPT);
-			    	DeviceType.DEVICE_TYPE = DeviceType.DROID;
-					
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.EVO)) {
-
-					log("Setting device as " + DeviceType.EVO);
-
-			    	Constants.setDeviceScript(DeviceType.EVO_SCRIPT);
-			    	DeviceType.DEVICE_TYPE = DeviceType.EVO;
-			        	
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.HERO)) {
-
-
-					log("Setting device as " + DeviceType.HERO);
-			    	Constants.setDeviceScript(DeviceType.HERO_SCRIPT);
-			    	DeviceType.DEVICE_TYPE = DeviceType.HERO;
-			        	
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.THUNDERBOLT)) {
-
-					log("Setting device as " + DeviceType.THUNDERBOLT);
-			    	Constants.setDeviceScript(DeviceType.THUNDERBOLT_SCRIPT);
-			    	DeviceType.DEVICE_TYPE = DeviceType.THUNDERBOLT;
-			        	
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE2)) {
-
-					log("Setting device as " + DeviceType.INCREDIBLE2);
-                    Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
-                    DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
-
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.FASCINATEMTD)) {
-
-					log("Setting device as " + DeviceType.FASCINATEMTD);
-					Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
-					DeviceType.DEVICE_TYPE = DeviceType.FASCINATEMTD;
-
-				}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHOWCASEMTD)) {
-				 
-
-					log("Setting device as " + DeviceType.SHOWCASEMTD);
-                  Constants.setDeviceScript(DeviceType.SHOWCASEMTD_SCRIPT);
-                  DeviceType.DEVICE_TYPE = DeviceType.SHOWCASEMTD;
-
-
-                 }else  if (DeviceType.deviceDeviceEquals(DeviceType.MESMERIZEMTD)) {
-
- 					log("Setting device as " + DeviceType.MESMERIZEMTD);
-                    Constants.setDeviceScript(DeviceType.MESMERIZEMTD_SCRIPT);
-                     DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
-                 }
-				 
-
-			
-				
-				
-
-           }
-				 
-
-			
-		
+		    if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE)) {
+				log("Setting device as " + DeviceType.INCREDIBLE);
+			    Constants.setDeviceScript(DeviceType.INCREDIBLE_SCRIPT);
+			   	DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE;     	
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.ERIS)) {
+				log("Setting device as " + DeviceType.ERIS);
+			   	Constants.setDeviceScript(DeviceType.ERIS_SCRIPT);
+			   	DeviceType.DEVICE_TYPE = DeviceType.ERIS;  	
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHADOW)) {
+				log("Setting device as " + DeviceType.SHADOW);
+                Constants.setDeviceScript(DeviceType.SHADOW_SCRIPT);
+                DeviceType.DEVICE_TYPE = DeviceType.SHADOW;
+		    }else  if (DeviceType.deviceDeviceEquals(DeviceType.DROID)) {
+				log("Setting device as " + DeviceType.DROID);
+			   	Constants.setDeviceScript(DeviceType.DROID_SCRIPT);
+			   	DeviceType.DEVICE_TYPE = DeviceType.DROID;	
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.EVO)) {
+				log("Setting device as " + DeviceType.EVO);
+			    Constants.setDeviceScript(DeviceType.EVO_SCRIPT);
+			   	DeviceType.DEVICE_TYPE = DeviceType.EVO;     	
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.HERO)) {
+				log("Setting device as " + DeviceType.HERO);
+			   	Constants.setDeviceScript(DeviceType.HERO_SCRIPT);
+			   	DeviceType.DEVICE_TYPE = DeviceType.HERO;      	
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.THUNDERBOLT)) {
+				log("Setting device as " + DeviceType.THUNDERBOLT);
+			   	Constants.setDeviceScript(DeviceType.THUNDERBOLT_SCRIPT);
+			   	DeviceType.DEVICE_TYPE = DeviceType.THUNDERBOLT;      	
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE2)) {
+				log("Setting device as " + DeviceType.INCREDIBLE2);
+                Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
+                DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.FASCINATEMTD)) {
+				log("Setting device as " + DeviceType.FASCINATEMTD);
+				Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
+				DeviceType.DEVICE_TYPE = DeviceType.FASCINATEMTD;
+			}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHOWCASEMTD)) {	 
+				log("Setting device as " + DeviceType.SHOWCASEMTD);
+                Constants.setDeviceScript(DeviceType.SHOWCASEMTD_SCRIPT);
+                DeviceType.DEVICE_TYPE = DeviceType.SHOWCASEMTD;
+            }else  if (DeviceType.deviceDeviceEquals(DeviceType.MESMERIZEMTD)) {
+ 				log("Setting device as " + DeviceType.MESMERIZEMTD);
+                Constants.setDeviceScript(DeviceType.MESMERIZEMTD_SCRIPT);
+                DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
+            }
+        }		
 	}
 	
-	   protected void AlertBox(String title, String mymessage){
-	    	
-		    
-		   new AlertDialog.Builder(this)
-		     	.setMessage(mymessage)
-		     	.setTitle(title)
-		     	.setCancelable(false)
-		     	.setPositiveButton("OK",new DialogInterface.OnClickListener()
-		     	{public void onClick(DialogInterface dialog, int whichButton){
+	protected void AlertBox(String title, String mymessage) {	    
+        new AlertDialog.Builder(this)
+		    .setMessage(mymessage)
+	     	.setTitle(title)
+	     	.setCancelable(false)
+	     	.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int whichButton){
 		     		// Do nothing, the warning is enough.
 		     	}
-		     	})
-		     	.show();
-		   }
+		     })
+		     .show();
+    }
 	   
-	   private void log(String message){
-		   
-		   if(DBG)Log.d(TAG, message);
-		   
-	   }
-	
+    private void log(String message){  
+        if(DBG)Log.d(TAG, message);	   
+	}
 }
-
-

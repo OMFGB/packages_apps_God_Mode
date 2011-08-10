@@ -15,15 +15,14 @@
  * limitations under the License.
  */
  -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dip">
-    
+<LinearLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="10dip">
     <com.t3hh4xx0r.god_mode.utils.NumberPicker
         android:id="@+id/pref_num_picker"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
-    
 </LinearLayout>

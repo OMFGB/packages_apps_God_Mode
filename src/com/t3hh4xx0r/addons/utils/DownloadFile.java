@@ -48,18 +48,10 @@ public class DownloadFile {
 		public DownloadFile(String url, String zipName, boolean flashable){
 			OUTPUT_NAME = zipName;
 			mAddonIsFlashable = flashable;
-			
 
-			
-			doInBackground(url);
-			
-			
-			
-		    	
-			
-			
-			
+			doInBackground(url);	
 		}
+
 		/**
 		 * Downloads a file from the specified URL, upon finishing download it will be
 		 * called {@link zipName}. Notifications can be passed from this constructor
@@ -71,43 +63,35 @@ public class DownloadFile {
 		 * @param flashable To determine if the pacakage should be flashed through recovery or if installation is OK
 		 */
 		public DownloadFile(String url, String zipName, Context context, boolean flashable){
-			OUTPUT_NAME = zipName;
+	        OUTPUT_NAME = zipName;
 			mAddonIsFlashable = flashable;
 			
-
 	    	String ns = Context.NOTIFICATION_SERVICE;
 
-	 	   mNotificationManager = (NotificationManager) context.getSystemService(ns);
+	 	    mNotificationManager = (NotificationManager) context.getSystemService(ns);
 	 	   
-	 	   int icon  = R.drawable.icon;        // icon from resources
-    	  CharSequence tickerText = "T3hh4xx0r";              // ticker-text
-    	  long when = System.currentTimeMillis();         // notification time
-    	  Context tcontext = context.getApplicationContext();      // application Context
-    	  CharSequence contentTitle = "God Mode";  // expanded message title
-    	  CharSequence contentText = "Downloading";      // expanded message text
+	 	    int icon  = R.drawable.icon;        // icon from resources
+    	    CharSequence tickerText = "T3hh4xx0r";              // ticker-text
+    	    long when = System.currentTimeMillis();         // notification time
+    	    Context tcontext = context.getApplicationContext();      // application Context
+    	    CharSequence contentTitle = "God Mode";  // expanded message title
+    	    CharSequence contentText = "Downloading";      // expanded message text
 
-    	  //Intent notificationIntent = new Intent(context, Nightlies.class);
-    	  Intent notificationIntent = new Intent();
-    	  PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+    	    //Intent notificationIntent = new Intent(context, Nightlies.class);
+    	    Intent notificationIntent = new Intent();
+    	    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-    	  // the next two lines initialize the Notification, using the configurations above
-    	  Notification notification = new Notification(icon, tickerText, when);
-    	  notification.setLatestEventInfo(tcontext, contentTitle, contentText, contentIntent);
+    	    // the next two lines initialize the Notification, using the configurations above
+    	    Notification notification = new Notification(icon, tickerText, when);
+    	    notification.setLatestEventInfo(tcontext, contentTitle, contentText, contentIntent);
 
-    	  File f = new File (Constants.DOWNLOAD_DIR + OUTPUT_NAME);
+    	    File f = new File (Constants.DOWNLOAD_DIR + OUTPUT_NAME);
 
-		  
-			
-    	 
 	    	IsBeingNotified = true;
 	    	mNotificationManager.notify(1, notification);
 			doInBackground(url);
-			onPostExecute(context);
-	    
-			
-			
-			
-		}
+			onPostExecute(context);			
+        }
 		
 
 		/**
@@ -125,29 +109,26 @@ public class DownloadFile {
 			File downloadDir = new File (Constants.DOWNLOAD_DIR);
 			if (!downloadDir.isDirectory()) {
 				if(DBG )log("Creating download dir" + Constants.DOWNLOAD_DIR);
-				downloadDir.mkdirs();
-				
+				downloadDir.mkdirs();				
 			}
-			
-			
-			
+
 			try {
 				if(DBG )log("Creating connection");
-				URL url = new URL(aurl[0]);
-				URLConnection conexion = url.openConnection();
-				conexion.connect();
-				if(DBG )log("Connection complete");
+				    URL url = new URL(aurl[0]);
+				    URLConnection conexion = url.openConnection();
+				    conexion.connect();
+				    if(DBG )log("Connection complete");
 
-				int lenghtOfFile = conexion.getContentLength();
+				    int lenghtOfFile = conexion.getContentLength();
 
-				InputStream input = new BufferedInputStream(url.openStream());
-				OutputStream output = new FileOutputStream(Constants.DOWNLOAD_DIR + "/" + OUTPUT_NAME);
+				    InputStream input = new BufferedInputStream(url.openStream());
+				    OutputStream output = new FileOutputStream(Constants.DOWNLOAD_DIR + "/" + OUTPUT_NAME);
 
-				byte data[] = new byte[1024];
+				    byte data[] = new byte[1024];
 
-				long total = 0;
+				    long total = 0;
 
-				while ((count = input.read(data)) != -1) {
+				    while ((count = input.read(data)) != -1) {
 					total += count;
 					///log("" + (int)((total*100)/lenghtOfFile));
 					output.write(data, 0, count);
@@ -163,15 +144,12 @@ public class DownloadFile {
 				output.close();
 				input.close();
 			} catch (Exception e) {
-				
 				e.printStackTrace();
 			}
 			return null;
-
 		}
-		public static boolean checkFileIsCompleted(String url, String outputname){
-	
-			
+
+		public static boolean checkFileIsCompleted(String url, String outputname) {
 			/*
 			 * What needs to be done here is to check that the downloaded file is the same bit stream as the 
 			 * URL that is was downloaded from.
@@ -181,85 +159,65 @@ public class DownloadFile {
 			int lengthOfFile;
 			File f = new File(Constants.DOWNLOAD_DIR + outputname);
 			
-			try{
-			if(DBG )log("Creating connection");
-			URL aurl = new URL(url);
-			URLConnection conexion = aurl.openConnection();
-			conexion.connect();
-			if(DBG )log("Connection complete");
+			try {
+			    if(DBG )log("Creating connection");
+			        URL aurl = new URL(url);
+			        URLConnection conexion = aurl.openConnection();
+			        conexion.connect();
+			        if(DBG )log("Connection complete");
 			
-			lengthOfFile = conexion.getContentLength();
-			
+			        lengthOfFile = conexion.getContentLength();
 			}
 			catch(Exception e){
 				lengthOfFile = -1;
 				e.printStackTrace();
 			}
-			
-			
 
 			if(DBG )log("Determining if files are the same");
             if((int)f.length() != lengthOfFile){
-            	if(DBG )log("Files are not the same");
-            	return false;
-            	
+                if(DBG )log("Files are not the same");
+            	return false;	
             }
-            
-
         	if(DBG )log("Files are the same");
 			return true;
-			
-			
 		}
 
 		protected void onPostExecute(Context context) {
-
 			if(DBG )log("Post executing download"); 
 			//removeDialog(DOWNLOAD_PROGRESS);
 			 int icon = R.drawable.icon;        // icon from resources
-	    	  CharSequence tickerText = "Starting download";              // ticker-text
-	    	  long when = System.currentTimeMillis();         // notification time
-	    	  Context tcontext = context.getApplicationContext();      // application Context
-	    	  CharSequence contentTitle = "God Mode";  // expanded message title
-	    	  CharSequence contentText = "Download finished";      // expanded message text
+	    	 CharSequence tickerText = "Starting download";              // ticker-text
+	    	 long when = System.currentTimeMillis();         // notification time
+	    	 Context tcontext = context.getApplicationContext();      // application Context
+	         CharSequence contentTitle = "God Mode";  // expanded message title
+	    	 CharSequence contentText = "Download finished";      // expanded message text
 
-	    	  Intent notificationIntent = new Intent();
-	    	  PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+	    	 Intent notificationIntent = new Intent();
+	    	 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-	    	  // the next two lines initialize the Notification, using the configurations above
-	    	  Notification notification = new Notification(icon, tickerText, when);
-	    	  notification.setLatestEventInfo(tcontext, contentTitle, contentText, contentIntent);
-	    	  mNotificationManager.notify(2, notification);
-		
-			} 
+	    	 // the next two lines initialize the Notification, using the configurations above
+	    	 Notification notification = new Notification(icon, tickerText, when);
+	    	 notification.setLatestEventInfo(tcontext, contentTitle, contentText, contentIntent);
+	    	 mNotificationManager.notify(2, notification);		
+		} 
 
-	      
-
-		
-	
-	/**
-	 * 
-	 * 
-	 * @param device The device script to pass
-	 * @return The string to the full path to the update script
-	 */
-	public static String updateAppManifest(String device) {
-			
-		  String targetFileName = device;
-		  String path = Constants.BASE_SCRIPT_URL + targetFileName;
+    	/**
+    	 * 
+    	 * 
+    	 * @param device The device script to pass
+    	 * @return The string to the full path to the update script
+    	 */
+    	public static String updateAppManifest(String device) {
+			String targetFileName = device;
+		    String path = Constants.BASE_SCRIPT_URL + targetFileName;
     
-	      File downloadDir = new File (Constants.DOWNLOAD_DIR);
+	        File downloadDir = new File (Constants.DOWNLOAD_DIR);
 			if (!downloadDir.isDirectory()) {
 				if(DBG )Log.d(TAG,"Creating download dir" + Constants.DOWNLOAD_DIR);
-				downloadDir.mkdirs();
-				
+				downloadDir.mkdirs();	
 			}
-			
-			
-			
 			try {
-
-				int count;
+		        int count;
 				URL url = new URL(path);
 				URLConnection conexion = url.openConnection();
 				conexion.connect();
@@ -278,22 +236,17 @@ public class DownloadFile {
 					total += count;
 					Log.d(TAG,"" + (int)((total*100)/lenghtOfFile));
 					output.write(data, 0, count);
-				}
-				
-				output.flush();
-				output.close();
-				input.close();
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-			}
-
-	        return (Constants.DOWNLOAD_DIR + targetFileName);
+		    }
+		    output.flush();
+			output.close();
+			input.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return (Constants.DOWNLOAD_DIR + targetFileName);
 	}
 
 	private static void log(String msg) {
 	    Log.d(TAG , msg);
-		}
-	
-	
 	}
+}

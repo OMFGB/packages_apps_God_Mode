@@ -16,26 +16,27 @@
 ** limitations under the License.
 */
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="64dip"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:baselineAligned="false">
-
+<LinearLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="64dip"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:baselineAligned="false">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/divider_horizontal_dark" />
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="64dip"
         android:gravity="center_vertical"
         android:ignoreGravity="@+id/icon">
 
         <!-- left icon, used for the grabber -->
-        <ImageView android:id="@+id/grabber"
+        <ImageView 
+            android:id="@+id/grabber"
             android:src="@drawable/ic_grabber"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -44,7 +45,8 @@
             android:layout_height="wrap_content"/>
 
         <!-- icon representing the galaxy s widget button -->
-        <ImageView android:id="@+id/icon"
+        <ImageView 
+            android:id="@+id/icon"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop = "true"
             android:layout_alignParentBottom = "true"
@@ -53,7 +55,8 @@
             android:layout_marginRight="10dip" />
 
         <!-- The height is set to half the height of the parent, which is 64 dip -->
-        <TextView android:id="@+id/name"
+        <TextView 
+            android:id="@+id/name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:paddingLeft="9dip"
@@ -66,7 +69,5 @@
             android:ellipsize="marquee"
             android:gravity="center_vertical"
             android:singleLine="true" />
-
     </RelativeLayout>
-
 </LinearLayout>
