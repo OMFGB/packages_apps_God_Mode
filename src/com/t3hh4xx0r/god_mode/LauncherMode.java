@@ -46,14 +46,13 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private boolean DBG = (false || Constants.FULL_DBG);
 
 	private ListPreference mScreenPreference;
-	
 	private static boolean mIsScreenChangerOn = false;
 
 	CheckBoxPreference mScreenCheckBox;
 	CheckBoxPreference mLauncherEndlessLoop;
 	CheckBoxPreference mWallpaperLoop;
-        CheckBoxPreference mLauncherOrientationPref;
-        CheckBoxPreference mFourHotseats;
+    CheckBoxPreference mLauncherOrientationPref;
+    CheckBoxPreference mFourHotseats;
 
     private ActivityManager activityManager;
 	
@@ -83,85 +82,65 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 	}
 
-   public void setPreferences(){
-	PreferenceScreen prefSet = getPreferenceScreen();
-	mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
-	mScreenCheckBox.setChecked(mIsScreenChangerOn);
-
-	mWallpaperLoop = (CheckBoxPreference) prefSet.findPreference(WALLPAPER_LOOP);
-	mWallpaperLoop.setChecked(Settings.System.getInt(getContentResolver(),
-			Settings.System.WALLPAPER_LOOP, 1) == 1);
-
-	mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
-	mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(),
-			Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
-        
+    public void setPreferences(){
+        PreferenceScreen prefSet = getPreferenceScreen();
+        mScreenCheckBox = (CheckBoxPreference) findPreference("screen_changer");
+        mScreenCheckBox.setChecked(mIsScreenChangerOn);
+        mWallpaperLoop = (CheckBoxPreference) prefSet.findPreference(WALLPAPER_LOOP);
+        mWallpaperLoop.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.WALLPAPER_LOOP, 1) == 1);
+	    mLauncherEndlessLoop = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ENDLESS_LOOP);
+	    mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
         mLauncherOrientationPref = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ORIENTATION_PREF);
-        mLauncherOrientationPref.setChecked(Settings.System.getInt(getContentResolver(),
-			Settings.System.LAUNCHER_ORIENTATION, 0) != 0);
-
-	mFourHotseats = (CheckBoxPreference) prefSet.findPreference(FOUR_HOTSEATS);
+        mLauncherOrientationPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LAUNCHER_ORIENTATION, 0) == 1);
+	    mFourHotseats = (CheckBoxPreference) prefSet.findPreference(FOUR_HOTSEATS);
         mFourHotseats.setChecked(Settings.System.getInt(getContentResolver(),
 			Settings.System.FOUR_HOTSEATS, 1) == 1);
-
-	mScreenPreference = (ListPreference) findPreference("num_screens");
-	
-	activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
-
+	    mScreenPreference = (ListPreference) findPreference("num_screens");	
+	    activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
 	}
 
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
 	    boolean value;
 
 	    if (preference == mWallpaperLoop) {
-		value = mWallpaperLoop.isChecked();
-		Settings.System.putInt(getContentResolver(),
+		    value = mWallpaperLoop.isChecked();
+		    Settings.System.putInt(getContentResolver(),
 			Settings.System.WALLPAPER_LOOP, value ? 1 : 0);
-		restartLauncher2(activityManager);
+		    restartLauncher2(activityManager);
 	    }
-
-            if (preference == mLauncherOrientationPref) {
-                value = mLauncherOrientationPref.isChecked ();
-                 Settings.System.putInt(getContentResolver(),
-                    Settings.System.LAUNCHER_ORIENTATION, value ? 1 : 0);
-            }
-
+        if (preference == mLauncherOrientationPref) {
+            value = mLauncherOrientationPref.isChecked ();
+            Settings.System.putInt(getContentResolver(),
+            Settings.System.LAUNCHER_ORIENTATION, value ? 1 : 0);
+        }
 	    if (preference == mFourHotseats) {
-		value = mFourHotseats.isChecked();
-		 Settings.System.putInt(getContentResolver(),
+		    value = mFourHotseats.isChecked();
+		    Settings.System.putInt(getContentResolver(),
 			Settings.System.FOUR_HOTSEATS, value ? 1 : 0);
 	    }
-
 	    if (preference == mLauncherEndlessLoop) {
-		value = mLauncherEndlessLoop.isChecked();
-		Settings.System.putInt(getContentResolver(),
+		    value = mLauncherEndlessLoop.isChecked();
+		    Settings.System.putInt(getContentResolver(),
 			Settings.System.LAUNCHER_ENDLESS_LOOP, value ? 1 : 0);
 	        restartLauncher2(activityManager);
-	    }
-	    
+	    }	    
 	    if (preference == mScreenCheckBox && mIsScreenChangerOn == false) {
 		// Ask the user if they are sure they whant to proceed/
 	    	// If they do let them know that the homescreen widgets/apps 
 	    	// will be reset
 	    	alertbox("Warning", "Selecting a new homescreen configuration will remove the current configuration. " +
-	    			"If you do not wish to set up your homescreen again, don't change the configuration.");
-	    	
-	    	mIsScreenChangerOn = true;
-	    	
+	    			"If you do not wish to set up your homescreen again, don't change the configuration.");    	
+	    	mIsScreenChangerOn = true;    	
 		    }
-	    else if (preference == mScreenCheckBox && mIsScreenChangerOn == true){
-	    	
-	    	mIsScreenChangerOn = false;
-	    	
-	    }
-	    
+	    else if (preference == mScreenCheckBox && mIsScreenChangerOn == true){    	
+	    	mIsScreenChangerOn = false;   	
+	    }	    
 	    return true;
 	}
 	
-	//brough to you buy http://www.androidsnippets.com/display-an-alert-box
+	//brought to you buy http://www.androidsnippets.com/display-an-alert-box
 	
-	protected void alertbox(String title, String mymessage)
-	   {
+	protected void alertbox(String title, String mymessage) {
 	   new AlertDialog.Builder(this)
 	      .setMessage(mymessage)
 	      .setTitle(title)
@@ -171,72 +150,67 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	         public void onClick(DialogInterface dialog, int whichButton){}
 	         })
 	      .show();
-	   }
+	}
 
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        	if(DBG)Log.v(TAG, "shared preference changed");    	
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(DBG)Log.v(TAG, "shared preference changed");    	
         	
-	        if(key == mScreenPreference.getKey()){
+	    if(key == mScreenPreference.getKey()){
 	        if(DBG)Log.v(TAG, "on shared screen preference change in God Mode");
-	        	registerScreenChange(mScreenPreference.getEntry().toString());
-	        	PackageUtils packageUtility = new PackageUtils(this , LAUNCHER);
-	        	packageUtility.initiateClearUserData();
-	        }
-        }
+	            registerScreenChange(mScreenPreference.getEntry().toString());
+	            PackageUtils packageUtility = new PackageUtils(this , LAUNCHER);
+	            packageUtility.initiateClearUserData();
+	    }
+    }
         
-         void registerScreenChange(String st){
-         	if(compareStrings(st.compareTo(SEVEN))) {
-         		st.compareTo(SEVEN);
-         	  Settings.System.putInt(getContentResolver(), SCREENSETTINGS, 7);
-         	  Log.i(TAG, "The number of screens to register is " + st);
-         	}
-         	if (compareStrings(st.compareTo(FIVE))) {
-         	  Settings.System.putInt(getContentResolver(), SCREENSETTINGS, 5);
-           	  Log.i(TAG, "The number of screens to register is " + st);
-         	}
-         	if (compareStrings(st.compareTo(THREE))) {
-               Settings.System.putInt(getContentResolver(), SCREENSETTINGS, 3);
-           	  Log.i(TAG, "The number of screens to register is " + st);
-         	}
-         }
+    void registerScreenChange(String st){
+        if(compareStrings(st.compareTo(SEVEN))) {
+            st.compareTo(SEVEN);
+         	Settings.System.putInt(getContentResolver(), SCREENSETTINGS, 7);
+         	Log.i(TAG, "The number of screens to register is " + st);
+        }
+        if (compareStrings(st.compareTo(FIVE))) {
+         	Settings.System.putInt(getContentResolver(), SCREENSETTINGS, 5);
+           	Log.i(TAG, "The number of screens to register is " + st);
+        }
+        if (compareStrings(st.compareTo(THREE))) {
+            Settings.System.putInt(getContentResolver(), SCREENSETTINGS, 3);
+           	Log.i(TAG, "The number of screens to register is " + st);
+        }
+    }
 
-         @Override
-         protected void onResume() {
-             super.onResume();
-             // Set up a listener whenever a key changes
-             getPreferenceScreen().getSharedPreferences()
-                     .registerOnSharedPreferenceChangeListener(this);
-         }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Set up a listener whenever a key changes
+        getPreferenceScreen().getSharedPreferences()
+            .registerOnSharedPreferenceChangeListener(this);
+    }
 
-         @Override
-         protected void onPause() {
-             super.onPause();
-             // Unregister the listener whenever a key changes
-             getPreferenceScreen().getSharedPreferences()
-                     .unregisterOnSharedPreferenceChangeListener(this);
-         }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister the listener whenever a key changes
+        getPreferenceScreen().getSharedPreferences()
+            .unregisterOnSharedPreferenceChangeListener(this);
+    }
          
-         boolean compareStrings(int i){
-        		if (i == 0)
-        			return true;
-        		else return false;
-        	}
+    boolean compareStrings(int i) {
+        if (i == 0)
+        return true;
+        else return false;
+    }
 
-         void toastMsg(String msg){
-         	Context context = getApplicationContext();
-          	int duration = Toast.LENGTH_SHORT;
-         	Toast toast = Toast.makeText(context, msg, duration);
-         	toast.show();
-         }
+    void toastMsg(String msg) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, msg, duration);
+        toast.show();
+    }
          
-         public void restartLauncher2(ActivityManager activity) {
-     		if(DBG)
-     			Log.d(TAG, "About to kill the launcher application");
+    public void restartLauncher2(ActivityManager activity) {
+        if(DBG)
+     	    Log.d(TAG, "About to kill the launcher application");
      	 	activity.killBackgroundProcesses(LAUNCHER);	
-         }
+    }
 }
-
-
- 
-
-

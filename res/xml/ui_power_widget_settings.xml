@@ -1,29 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+ * Copyright 2008, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<!-- Expanded View Power Widget -->
-	<PreferenceCategory android:title="@string/general_title">
-		<CheckBoxPreference android:key="expanded_widget"
-			android:title="@string/title_expanded_widget" android:summary="@string/summary_expanded_widget"
+	<PreferenceCategory
+            android:title="@string/general_title">
+		<CheckBoxPreference 
+            android:key="expanded_widget"
+			android:title="@string/title_expanded_widget"
+            android:summary="@string/summary_expanded_widget"
 			android:defaultValue="true" />
-		<CheckBoxPreference android:key="expanded_hide_onchange"
-			android:title="@string/title_expanded_hide_onchange" android:summary="@string/summary_expanded_hide_onchange"
-			android:defaultValue="false" android:dependency="expanded_widget" />
-		<Preference android:key="expanded_color_mask"
-			android:title="@string/expanded_color_mask" android:summary="@string/expanded_color_mask"
-			android:defaultValue="-1" android:dependency="expanded_widget" />
-		<PreferenceScreen android:key="widget_picker"
-			android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
-			<intent android:action="android.intent.action.MAIN"
+		<CheckBoxPreference
+            android:key="expanded_hide_onchange"
+			android:title="@string/title_expanded_hide_onchange"
+            android:summary="@string/summary_expanded_hide_onchange"
+			android:defaultValue="false"
+            android:dependency="expanded_widget" />
+		<Preference 
+            android:key="expanded_color_mask"
+			android:title="@string/expanded_color_mask"
+            android:summary="@string/expanded_color_mask"
+			android:defaultValue="-1"
+            android:dependency="expanded_widget" />
+		<PreferenceScreen
+            android:key="widget_picker"
+			android:title="@string/title_widget_picker"
+            android:summary="@string/summary_widget_picker">
+			<intent
+                android:action="android.intent.action.MAIN"
 				android:targetPackage="com.t3hh4xx0r.god_mode"
-				android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetActivity" />
-		</PreferenceScreen>
-		<PreferenceScreen android:key="widget_order"
-			android:title="@string/title_widget_order" android:summary="@string/summary_widget_order">
-			<intent android:action="android.intent.action.MAIN"
+                android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetActivity" />
+        </PreferenceScreen>
+		<PreferenceScreen 
+            android:key="widget_order"
+			android:title="@string/title_widget_order"
+            android:summary="@string/summary_widget_order">
+			<intent
+                android:action="android.intent.action.MAIN"
 				android:targetPackage="com.t3hh4xx0r.god_mode"
-				android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetOrderActivity" />
+                android:targetClass="com.t3hh4xx0r.god_mode.activities.PowerWidgetOrderActivity" />
 		</PreferenceScreen>
 	</PreferenceCategory>
-
 </PreferenceScreen>

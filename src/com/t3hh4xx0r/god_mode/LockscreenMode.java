@@ -1,6 +1,5 @@
 package com.t3hh4xx0r.god_mode;
 
-
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.addons.utils.Constants;
 
@@ -59,11 +58,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	Dialog d;
 	AlertDialog.Builder builder;
 
-	
-
-	
 	@Override
-        public void onCreate(Bundle savedInstanceState) {	
+    public void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.lockscreen_prefs);
 		PreferenceScreen prefSet = getPreferenceScreen();
@@ -74,22 +70,22 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		
 		// Track pad wake preference
 		mTrackpadWakeScreen = (CheckBoxPreference) prefSet.findPreference(TRACKPAD_WAKE_SCREEN);
-		mTrackpadWakeScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_WAKE_SCREEN, 0) != 0);
+		mTrackpadWakeScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_WAKE_SCREEN, 0) == 1);
 		// Volume wake preference
 		mVolumeWakeScreen = (CheckBoxPreference) prefSet.findPreference(VOLUME_WAKE_SCREEN);
-		mVolumeWakeScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN, 0) != 0);
+		mVolumeWakeScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN, 0) == 1);
 		// Track Pad unlock preference
 		mTrackpadUnlockScreen = (CheckBoxPreference) prefSet.findPreference(TRACKPAD_UNLOCK_SCREEN);
-		mTrackpadUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_UNLOCK_SCREEN, 0) != 0);
+		mTrackpadUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKPAD_UNLOCK_SCREEN, 0) == 1);
 		// Menu unlock preference
 		mMenuUnlockScreen = (CheckBoxPreference) prefSet.findPreference(MENU_UNLOCK_SCREEN);
-		mMenuUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, 0) != 0);
+		mMenuUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, 0) == 1);
 		// Shortcuts preference
 		mLockscreenShortcuts = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_SHORTCUTS);
-		mLockscreenShortcuts.setChecked (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_SHORTCUTS, 0) != 0);
+		mLockscreenShortcuts.setChecked (Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_SHORTCUTS, 0) == 1);
 		// Battery preference
 		mLockscreenAlwaysBattery = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_ALWAYS_BATTERY);
-		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) != 0);
+		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 1);
 		// Lockscreen type preference
 		mLockScreenTypeList  = (ListPreference) findPreference(LOCKSCREEN_TYPE);
 		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
@@ -98,37 +94,35 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mLockscreenTimeout = (Preference) prefSet.findPreference(CUSTOM_LOCKSCREEN_TIMEOUT);
 		mLockscreenTimeout.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-	      public boolean onPreferenceClick(Preference preference) {
+        public boolean onPreferenceClick(Preference preference) {
 
-	      LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+	        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-	      View layout = inflater.inflate(R.layout.number_picker_layout, null);
-	      final EditText edit = (EditText) layout.findViewById(R.id.timepicker_input);
-	      int seconds = Settings.System.getInt(getContentResolver(), CUSTOM_LOCKSCREEN_TIMEOUT, 5) / 1000;
+	        View layout = inflater.inflate(R.layout.number_picker_layout, null);
+	        final EditText edit = (EditText) layout.findViewById(R.id.timepicker_input);
+	        int seconds = Settings.System.getInt(getContentResolver(), CUSTOM_LOCKSCREEN_TIMEOUT, 5) / 1000;
 
-	      edit.setText(Integer.toString(seconds));
+	        edit.setText(Integer.toString(seconds));
 
-	      builder.setView(layout);
-	      builder.setMessage("Lockscreen Timeout").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	        builder.setView(layout);
+	        builder.setMessage("Lockscreen Timeout").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
 	      
 		    public void onClick(DialogInterface dialog,int id) {
-			int result = Integer.parseInt(edit.getText().toString());
-			Settings.System.putInt(getContentResolver(), CUSTOM_LOCKSCREEN_TIMEOUT,result * 1000);
+			    int result = Integer.parseInt(edit.getText().toString());
+			    Settings.System.putInt(getContentResolver(), CUSTOM_LOCKSCREEN_TIMEOUT,result * 1000);
 		    }
-	      }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    
 		    public void onClick(DialogInterface dialog,int id) {
-		    dialog.cancel();
+		        dialog.cancel();
 		    }
-	      });
-	      AlertDialog alert = builder.create();
-	      alert.show();
-	      return true;
-	      }
-
-	});
-
-	
-		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+	        });
+	        AlertDialog alert = builder.create();
+	        alert.show();
+	        return true;
+        }
+    });
+    getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
 	
 	public boolean onDialogClosed() {
@@ -155,10 +149,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 			    Settings.System.putInt(getContentResolver(), Settings.System.TRACKPAD_UNLOCK_SCREEN, value ? 1 : 0);
 		} else if (preference == mMenuUnlockScreen) {
 			    value = mMenuUnlockScreen.isChecked();
-			    Settings.System.putInt(getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, value ? 1 : 0);
-		}else if ( preference == mLockScreenTypeList){
-			// Do Nothing
-			
+			    Settings.System.putInt(getContentResolver(), Settings.System.MENU_UNLOCK_SCREEN, value ? 1 : 0);		
 		}
         return true;
     }
@@ -171,9 +162,7 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 			Settings.System.putInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
 			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HC_LOCKSCREEN)Log.d(TAG, "Concept used");
 			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
-			
-		}
-		
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");			
+		}		
 	}
 }

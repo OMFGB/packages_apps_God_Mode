@@ -138,7 +138,6 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
                         break;
                 }
             }
-
             // add to the category
             prefButtons.addPreference(cb);
         }
@@ -164,7 +163,6 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
                     PowerWidgetUtil.getCurrentButtons(this), PowerWidgetUtil.getButtonStringFromList(buttonList)));
             return true;
         }
-
         return false;
     }
 

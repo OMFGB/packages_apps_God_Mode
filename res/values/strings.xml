@@ -18,291 +18,84 @@
 */
 -->
 <resources>
-	<!-- Settings Menu  -->
-	<string name="application_settings">Application Settings</string>
-	
-	<!-- Settings Menu : Sync settings -->
-	<string name="sync_settings">Sync Settings</string>
-	<string name="auto_sync">Automatically sync</string>
-	<string name="sync_settings_category">Sync Settings</string>
-	
-	<string name="auto_sync_summary">Sync automatically in background</string>
-	
-	<string name="force_sync_on_activity">Force sync the manifest</string>
-	
-	
-	<!-- Settings Menu : Addons settings -->
-	<string name="addons_settings_category">Addons Settings</string>
-	
-	<string name="force_sync_addons_summary">Sync when starting the addons activity</string>
-	
-	
-	<!-- Settings Menu : Nightlies settings -->
-	<string name="nightlies_settings_category">Nightlies Settings</string>
-	<string name="backup_rom">Backup Rom</string>
-	<string name="wipe_cache">Wipe Cache</string>
-	<string name="wipe_data">Wipe Data</string>
-	<string name="google_app_installation">Install Google apps</string>
-	<string name="gapps_not_downloaded">Google Apps not downloaded. Not flashing Google Apps with update.</string>
-	<string name="choose_flash_options">Choose flashing options.</string>
-	<string name="force_sync_nightlies_summary">Sync when starting the nightlies activity</string>
-
-
-	<!-- GodMode: All Menus -->
-	<string name="please_wait">Please Wait...</string>
-	<string name="retreiving_data">Retrieving data</string>
-	<string name="manifest_null">"The addons manifest cannot be retrieved because the inputstream is null.\nDo you have a data connection?"</string>
-	<string name="cannot_parse_manifest">"The addons manifest cannot be parsed. Please contact the rom developers @r2doesinc, @xoomdev or @linuxmotion."</string>
-	<string name="refresh" >Refresh</string>
-	<string name="refresh_all" >Refresh all</string>
-	<string name="warning" >Warning</string>
-	<string name="sdcard_not_mounted">"Sdard is not present or mounted. The addons portion requires an sdcard to use. Please insert or mount the sdcard to use the addons portion of the app."</string>
-	<string name="clear_download_cache" >Clear download cache</string>
-
-	<!-- GodMode : MainMenu -->
-
     <string name="app_name">God Mode</string>
-	<string name="addons_and_roms">Addons and Roms</string>
 
-	<string name="settings_title">God Mode Settings</string>
-    <string name="settings_summary">Custom settings designed for OMFGB</string>
+    <!-- Battery Text Preference Screen -->
+    <string name="battery_text_options">Battery text options</string>
+    <string name="battery_level_colors">Battery level colors</string>
+    <string name="battery_level_colors_summary">Only used with single battery color</string>
+    <string name="battery_color">Battery color</string>
+    <string name="charging">Charging</string>
+    <string name="high_level">High level</string>
+    <string name="medium_level">Medium level</string>
+    <string name="low_level">Low level</string>
 
-    <string name="addons_title">T3hh4xx0r Addons</string>
-    <string name="addons_summary">Various addons availabe for your flashing needs</string>
-
-    <string name="omgb_summary">Stable and stock</string>
-    <string name="omgb_title">OMGB Builds</string>
-
-    <string name="nightlies_summary">OMFGB nightlys, remember NO SUPPORT PROVIDED</string>
-    <string name="nightlies_title">OMFGB Nightlys</string>
-
-<!-- GodMode : Addons Menu -->
-    <string name="addons_app_name">OMFGB Addons</string>
-	<string name="install_warning" >About to install package</string>
-
-	<string name="flash_warning" >About to flash package</string>
-    
-
-    <!-- Color Picker -->
-    <string name="title_color_picker">Pick a color</string>
-    <string name="msg_color_picker">Tap on center color to confirm.\nPress back to cancel</string>
-
-    <string name="app_label">God Mode</string>
-
-    <string name="device_info_title">Device info</string>
-
-    <string name="title_battery_history">Battery history</string>
-    <string name="summary_battery_history">Summary of how battery has been used</string>
-    
-    <string name="title_battery_information">Battery information</string>
-    <string name="summary_battery_information">Current battery status information</string>
-    
-    <string name="title_usage_statistics">Usage statistics</string>
-    <string name="summary_usage_statistics">Summary of application usage</string>
-    
-    <string name="general_title">General</string>
-    
-    <string name="title_window_animations">Window animations</string>
-    <string name="summary_window_animations">Speed of animations in individual windows</string>
-    <string name="dialog_title_window_animations">Select window speed</string>
-    
-    <string name="title_transition_animations">Transition animations</string>
-    <string name="summary_transition_animations">Speed of animations moving between screens</string>
-    <string name="dialog_title_transition_animations">Select transition speed</string>
-    
-    <string name="title_fancy_ime_animations">Fancy input animations</string>
-    <string name="summary_on_fancy_ime_animations">Use fancier animations for input method windows</string>
-    <string name="summary_off_fancy_ime_animations">Use normal animations for input method windows</string>
-    
-    <string name="title_haptic_feedback">Haptic feedback</string>
-    <string name="summary_on_haptic_feedback">Use haptic feedback with user interaction</string>
-    <string name="summary_off_haptic_feedback">Use haptic feedback with user interaction</string>
-    
-    <string name="title_font_size">Font size</string>
-    <string name="summary_font_size">Overall size of fonts</string>
-    <string name="dialog_title_font_size">Select font size</string>
-    
-    <string name="title_end_button">End button behavior</string>
-    <string name="summary_end_button">Select End (red) button action</string>
-    <string name="dialog_title_end_button">Select End button</string>
-    
-    <string name="applications_title">Applications</string>
-    
-    <!-- Sound & display settings screen, compatibility mode check box label -->
-    <string name="compatibility_mode_title">Compatibility Mode</string>
-    <!-- Sound & display settings screen, compatibility mode option summary text when check box is selected -->
-    <string name="compatibility_mode_summary_on">Run older apps in Compatibility mode. This require rebooting. </string>
-    <!-- Sound & display settings screen, compatibility mode option summary text when check box is clear -->
-    <string name="compatibility_mode_summary_off">Run older apps in Compatibility mode. This require rebooting. </string>
-
-    <!-- New Settings strings added for OMFGB Customization -->
+    <!-- God Mode main menu -->
     <string name="custom_settings">Customizable Settings</string>
+    <string name="settings_launcher">Launcher Settings</string>
+    <string name="settings_launcher_summary">Customize your launcher</string>
+    <string name="settings_lockscreen">Lockscreen Settings</string>
+    <string name="settings_lockscreen_summary">Customize your lockscreen</string>
+    <string name="settings_statusbar">Statusbar Settings</string>
+    <string name="settings_statusbar_summary">Customize your Statusbar</string>
+    <string name="settings_uioptions">UI Settings</string>
+    <string name="settings_uioptions_summary">Customize your UI</string>
 
-    <!-- Launcher -->
-    <string name="homescreen_elements">Home Screens</string>
-    <string name="homescreen_elements_about">Select number of home screens</string>
+    <!-- Launcher Preference Screen -->
+    <string name="use_settings_title">Enable/Disable settings</string>
+    <string name="screen_changer_title">Screen number</string>
+    <string name="screen_changer_title_summary">Set the number of screens</string>
+    <string name="number_screens_title">Change the number of screens</string>
+    <string name="homescreen_elements">Home screens</string>
+    <string name="homescreen_elements_about">Select the number of home screens</string>
     <string name="choose_num_screens">Choose the number of home screens</string>
     <string name="three_screens">Three screens</string>
     <string name="five_screens">Five screens</string>
     <string name="seven_screens">Seven screens</string>
     <string name="category_other_launcher_settings">Other Launcher Settings</string>
-    <string name="title_launcher_endless_loop">Launcher Endless Loop</string>
+    <string name="title_launcher_endless_loop">Launcher endless loop</string>
     <string name="summary_on_launcher_endless_loop">Workspace will continuously loop</string>
     <string name="summary_off_launcher_endless_loop">Workspace will not continuously loop</string>
-    <string name="title_wallpaper_loop">Wallpaper Scrolling</string>
+    <string name="title_wallpaper_loop">Wallpaper scrolling</string>
     <string name="summary_on_wallpaper_loop">Wallpaper will move as the homescreens are changed</string>
     <string name="summary_off_wallpaper_loop">Wallpaper will not move with the screens</string>
-    <string name="title_launcher_orientation">Launcher Orientation</string>
-    <string name="summary_on_launcher_orientation">Disable Launcher rotation"</string>
-    <string name="summary_off_launcher_orientation">Enable Launcher rotation"</string>
-    <string name="title_four_hotseats">Four Launcher Hotseat Buttons</string>
-    <!-- <string name="summary_on_four_hotseats">Four launcher hotseats are set.</string>
-    <string name="summary_off_four_hotseats">Two launcher hotseats are set.</string> -->
+    <string name="title_launcher_orientation">Launcher orientation</string>
+    <string name="summary_on_launcher_orientation">Enable Launcher rotation</string>
+    <string name="summary_off_launcher_orientation">Disable Launcher rotation</string>
+    <string name="title_four_hotseats">Four hotseats</string>
     <string name="summary_on_four_hotseats">Coming Soon</string>
     <string name="summary_off_four_hotseats">Coming Soon</string>
-    <string name="number_screens_title">Change the number of screens</string>
-    <string name="screen_changer_title">Screen number</string>
-    <string name="screen_changer_title_summary">Set the number of screens</string>
-    <string name="use_settings_title">Enable/Disable Settings</string>
-    <string name="mappings_title">Button Mappings</string>
-    <string name="tab_title_enable">Launcher mappings</string>
-    <string name="using_tabs_summary">Set left and right launcher tabs</string>
-    <string name="settings_launcher">Launcher Settings</string>
-    <string name="settings_launcher_summary">Customize your launcher</string>
-    <string name="select_farright_button">Select far right action button.</string>
-    <string name="title_general_use_stock_launcher">Use Stock Launcher</string>
-    <string name="summary_on_general_use_stock_launcher">Stock launcher will be used.</string>
-    <string name="summary_off_general_use_stock_launcher"> Custom Launcher will be used.</string>	
 
-    <string name="group_applications">Applications</string>
-
-    <!-- Lockscreen : MainMenu-->
+    <!-- Lockscreen Settings Preference Screen-->
     <string name="general_lockscreen_settings">General lockscreen settings</string>
-    <string name="settings_lockscreen_summary">Customize your lockscreen</string>
-    <string name="settings_lockscreen">Lockscreen Settings</string>
-
-    <!-- LockscreenSettings : Wake Settings -->
 	<string name="wake_category">Screen wake settings</string>
-
-    <!-- LockscreenSettings : Track Pad Wake -->
-    <string name="title_trackpad_wake_screen">Trackpad Wake</string>
+    <string name="title_trackpad_wake_screen">Trackpad wake</string>
     <string name="summary_on_trackpad_wake_screen">Pressing the trackpad will wake the device</string>
     <string name="summary_off_trackpad_wake_screen">Pressing the trackpad to wake the device will be disabled</string>
-
-    <!-- LockscreenSettings : Volume Wake -->
-    <string name="title_volume_wake_screen">Volume Wake</string>
+    <string name="title_volume_wake_screen">Volume wake</string>
     <string name="summary_on_volume_wake_screen">Pressing the volume buttons will wake the device</string>
-    <string name="summary_off_volume_wake_screen">Pressing volume to wake the device will be disabled</string> 
-
-    <!-- LockscreenSettings : Unlock Settings -->
+    <string name="summary_off_volume_wake_screen">Pressing volume to wake the device will be disabled</string>
     <string name="unlock_category">Screen unlock settings</string>
-
-    <!-- LockscreenSettings : Track Pad Unlock -->
     <string name="title_trackpad_unlock_screen">Trackpad unlock</string>
     <string name="summary_on_trackpad_unlock_screen">Pressing the trackpad will unlock the device</string>
     <string name="summary_off_trackpad_unlock_screen">Pressing the trackpad to unlock the device is disabled</string>
-
-    <!-- LockscreenSettings : Menu Unlock -->
     <string name="title_menu_unlock_screen">Menu unlock</string>
     <string name="summary_on_menu_unlock_screen">Pressing the menu key will unlock the device</string>
     <string name="summary_off_menu_unlock_screen">Pressing the menu key to unlock the device is disabled</string>
-
-    <!-- LockscreenSettings : Shortcuts -->
-    <string name="title_lockscreen_shortcuts">Lockscreen Shortcuts</string>
+    <string name="title_lockscreen_shortcuts">Lockscreen shortcuts</string>
     <string name="summary_on_lockscreen_shortcuts">Phone and messaging shortcuts will be shown on lockscreen</string>
     <string name="summary_off_lockscreen_shortcuts">No app shortcuts will be shown on the lockscreen</string>
-
-    <!-- LockscreenSettings : Battery Options -->
-    <string name="title_lockscreen_always_battery">Lockscreen Battery</string>
+    <string name="title_lockscreen_always_battery">Lockscreen battery</string>
     <string name="summary_on_lockscreen_always_battery">Battery percentage will always show on lockscreen</string>
     <string name="summary_off_lockscreen_always_battery">Battery percentage will only show when charging</string>
-
-    <!-- LockscreenSettings : Layout -->
-    <string name="title_use_stock_lockscreen_layout">Lockscreen Layout</string>
-    <string name="summary_on_use_stock_lockscreen_layout">Stock offset style lockscreen will be used</string>
-    <string name="summary_off_use_stock_lockscreen_layout">OMFGB style centered lockscreen will be used </string>
-					
- 				
-    <!-- LockscreenSettings : Lockscreen Selector -->
  	<string name="lockscreen_selector_elements">Select lockscreen type</string>
  	<string name="lockscreen_selector_elements_about">Select lockscreen</string>		
-
-    <!-- LockscreenSettings : orientation -->
-    <string name="title_lockscreen_orientation">Lockscreen orientation</string>
-    <string name="summary_on_lockscreen_orientation">Locked into portrait orientation</string>
-    <string name="summary_off_lockscreen_orientation">Locked into landscape orientation</string>
-    
-    <!-- LockscreenSettings : Timeout -->
-    <string name="title_lockscreen_timeout">Lockscreen Timeout</string>
+    <string name="title_lockscreen_timeout">Lockscreen timeout</string>
     <string name="summary_lockscreen_timeout">Length of time lockscreen stays up before screen turns off</string>
-	
 
-	<!-- All User Interface strings below this point -->
-	
-    
-	<!-- User interface  : MainMenu -->
-    <string name="settings_uioptions">UI Settings</string>
-    <string name="settings_uioptions_summary">Customize your UI</string>
-    <string name="misc_ui_settings_category">Misc UI Settings</string>
-    
-
-	<!-- User interface  : Screen On/Off animations -->
-    <string name="title_use_screenon_anim">Use Screen On Animation?</string>
-    <string name="summary_on_use_screenon_anim">Screen On Animation will be used</string>
-    <string name="summary_off_use_screenon_anim">Screen On Animation will not be used</string>
-    <string name="title_use_screenoff_anim">Use Screen Off Animation?</string>
-    <string name="summary_on_use_screenoff_anim">Screen Off Animation will be used</string>
-    <string name="summary_off_use_screenoff_anim">Screen Off Animation will not be used</string>
-
-
-    
-	<!-- User interface  : BatteryOption -->
-    <string name="battery_option_dialog_title">Battery</string>
-    <string name="battery_option_title">Battery type</string>
-    <string name="battery_option_summary">Choose the battery type to use (Requires reboot)</string>
-    <string name="settings_battery">Battery Ui Settings</string>
-    <string name="title_hide_battery">Hide Battery Icon</string>
-    <string name="summary_hide_battery">Action is DELAYED</string>
-    <string name="title_battery_percent">Battery Text %</string>
-    <string name="summary_battery_percent">Show Battery % as text</string>
-    <string name="title_battery_text_options">Battery Text Options</string>
-    <string name="summary_battery_text_options">Options for the Battery Text %</string>
-    
-
-	<!-- User interface  : MusicControls -->
-    <string name="music_control_settings_category">Music control settings</string>
-    <string name="title_volume_music_controls">Volume music controls</string>
-    <string name="summary_on_volume_music_controls">Long pressing volume buttons will change tracks with screen off</string>
-    <string name="summary_off_volume_music_controls">Long pressing to change tracks will not be used</string>
-    
-    <string name="title_statusbar_clock">Clock Options</string>
-    <string name="summary_statusbar_clock">Clock Style Options</string>
-    <string name="title_clock_color">Clock Color</string>
-    <string name="title_miui_battery_color">MIUI Style Battery Color</string>
-    <string name="title_hide_adb">Hide USB Debugging Notification</string>
-    <string name="title_dateclock">Expanded Statusbar Date/Time Options</string>
-    <string name="summary_dateclock">Date/Time Options for when statusbar is expanded</string>
-    <string name="title_hide_alarm">Hide Alarm Icon</string>
-    <string name="summary_hide_alarm">Hide alarm icon when alarm is set</string>
-    <string name="title_hide_signal">Hide Signal Bars</string>
-    <string name="summary_hide_signal">Action is DELAYED</string>
-    
-    
-  <!-- User interface : Overscroll -->
-    <string name="ui_overscroll_title">Overscrolling</string>
-    <string name="pref_overscroll_title">Overscroll effect</string>
-    <string name="pref_overscroll_summary">Choose how scrollable objects look when they overshoot</string>
-    <string name="pref_overscroll_weight_title">Overscrolling weight</string>
-    <string name="pref_overscroll_weight_summary">Select the weight of the scrollable objects</string>
-
-    
-    <!-- User interface : Rotation -->
-	<string name="rotation_category_title">Accelerometer rotation</string>
-	<string name="pref_rotation_90_title">90 degrees</string>
-	<string name="pref_rotation_180_title">180 degrees</string>
-	<string name="pref_rotation_270_title">270 degrees</string>
-
-    <!-- User interface : Expanded View Power Widget -->
+    <!-- Power widgets -->
+    <string name="general_title">General</string>
+    <string name="powerwidget_category_title">Expanded View Widget</string>
     <string name="title_widget_buttons">Expanded View Widget</string>
     <string name="title_expanded_widget">Notification power widget</string>
     <string name="summary_expanded_widget">Use the expanded views power widget</string>
@@ -345,13 +138,106 @@
     <string name="pref_flash_mode_title">Flash mode</string>
     <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
 
-<!-- All User Interface strings Above this point -->
+    <!-- Status Bar Preference Screen -->
+    <string name="summary_carrier_caption">Change the carrier caption</string>
+    <string name="dialog_title_carrier_caption">Enter lockscreen caption</string>
+    <string name="battery_category_title">Battery settings</string>
+    <string name="clock_category_title">Clock settings</string>
+    <string name="miscstatus_category_title">Misc status bar options</string>
+    <string name="battery_option_dialog_title">Battery</string>
+    <string name="battery_option_title">Battery type</string>
+    <string name="battery_option_summary">Choose the battery type to use (Requires reboot)</string>
+    <string name="settings_battery">Battery Ui Settings</string>
+    <string name="title_hide_battery">Hide Battery Icon</string>
+    <string name="summary_hide_battery">Action is DELAYED</string>
+    <string name="title_battery_percent">Battery Text %</string>
+    <string name="summary_battery_percent">Show Battery % as text</string>
+    <string name="title_battery_text_options">Battery Text Options</string>
+    <string name="summary_battery_text_options">Options for the Battery Text %</string>
+    <string name="title_miui_battery_color">MIUI Style Battery Color</string>
+    <string name="title_statusbar_clock">Clock Options</string>
+    <string name="summary_statusbar_clock">Clock Style Options</string>
+    <string name="title_clock_color">Clock Color</string>
+    <string name="title_hide_adb">Hide USB Debugging</string>
+    <string name="summary_on_hide_adb">The USB Debugging notification will be hidden</string>
+    <string name="summary_off_hide_adb">The USB Debugging icon will be shown</string>
+    <string name="title_dateclock">Date/Time</string>
+    <string name="summary_dateclock">Date/Time Options for when statusbar is expanded</string>
+    <string name="title_hide_alarm">Hide Alarm Icon</string>
+    <string name="summary_hide_alarm">Hide alarm icon when alarm is set</string>
+    <string name="title_hide_signal">Hide Signal Bars</string>
+    <string name="summary_hide_signal">Action is DELAYED</string>
+    <string name="title_carrier_caption">Carrier caption</string>
 
-	<!-- Addons : MainMenu-->
+    <!-- User Interface Preference Screen-->
+    <string name="ui_overscroll_category_title">Overscrolling</string>
+    <string name="rotation_category_title">Orientation settings</string>
+    <string name="miscui_category_title">Misc UI Settings</string>
+    <string name="pref_overscroll_title">Overscroll effect</string>
+    <string name="pref_overscroll_summary">Choose how scrollable objects look when they overshoot</string>
+    <string name="pref_overscroll_weight_title">Overscrolling weight</string>
+    <string name="pref_overscroll_weight_summary">Select the weight of the scrollable objects</string>
+	<string name="pref_rotation_90_title">90 degrees</string>
+	<string name="pref_rotation_180_title">180 degrees</string>
+	<string name="pref_rotation_270_title">270 degrees</string>
+    <string name="title_use_screenon_anim">Use Screen On Animation?</string>
+    <string name="summary_on_use_screenon_anim">Screen On Animation will be used</string>
+    <string name="summary_off_use_screenon_anim">Screen On Animation will not be used</string>
+    <string name="title_use_screenoff_anim">Use Screen Off Animation?</string>
+    <string name="summary_on_use_screenoff_anim">Screen Off Animation will be used</string>
+    <string name="summary_off_use_screenoff_anim">Screen Off Animation will not be used</string>
+    <string name="music_control_settings_category">Music control settings</string>
+    <string name="title_volume_music_controls">Volume music controls</string>
+    <string name="summary_on_volume_music_controls">Long pressing volume buttons will change tracks with screen off</string>
+    <string name="summary_off_volume_music_controls">Long pressing to change tracks will not be used</string>
 
-    <!-- Number Picker -->
+    <!-- Addons section main menu -->
+    <string name="addons_and_roms">Addons and Roms</string>
+    <string name="addons_title">T3hh4xx0r Addons</string>
+    <string name="addons_summary">Various addons available for your flashing needs</string>
+    <string name="nightlies_title">OMFGB Nightlies</string>
+    <string name="nightlies_summary">OMFGB Nightlies, remember NO SUPPORT PROVIDED</string>
+    <string name="settings_title">God Mode Settings</string>
+    <string name="settings_summary">Custom settings designed for OMFGB</string>
+    <string name="omgb_title">OMGB Builds</string>
+    <string name="omgb_summary">Stable and stock</string>
+
+    <!-- Settings menu-->
+    <string name="application_settings">Application Settings</string>
+    <string name="sync_settings_category">Sync Settings</string>
+    <string name="auto_sync">Automatically Sync</string>
+    <string name="auto_sync_summary">Sync automatically in background</string>
+    <string name="addons_settings_category">Addons Settings</string>
+    <string name="force_sync_on_activity">Force sync the manifest</string>
+    <string name="nightlies_settings_category">Nigtlies Settings</string>
+    <string name="force_sync_addons_summary">Sync when starting the addons activity</string>
+    <string name="force_sync_nightlies_summary">Sync when starting the nightlies activity</string>
+
+    <!-- Color picker -->
+    <string name="title_color_picker">Pick a color</string>
+    <string name="msg_color_picker">Tap on center color to confirm.\nPress back to cancel</string>
+    
+    <!-- Addons menus -->
+    <string name="addons_app_name">OMFGB Addons</string>
+    <string name="clear_download_cache">Clear Download Cache</string>
+    <string name="install_warning">About to install package</string>
+    <string name="flash_warning">About to flash package</string>
+    <string name="please_wait">Please wait....</string>
+    <string name="retreiving_data">Retreiving data</string>
+    <string name="manifest_null">The addons manifest cannot be retrieved because the inputstream is null.\nDo you have a data connection?</string>
+    <string name="cannot_parse_manifest">The addons manifest cannot be parsed. Please contact the rom developers @r2doesinc, @xoomdev, or @linuxmotion</string>
+    <string name="warning">Warning</string>
+    <string name="sdcard_not_mounted">SDCard is not present or mounted. The Addons portion requires an SDCard to use. Please insert or mount the SDCard to use the Addons portion of the app.</string>
+	<string name="backup_rom">Backup Rom</string>
+	<string name="wipe_cache">Wipe Cache</string>
+	<string name="wipe_data">Wipe Data</string>
+	<string name="google_app_installation">Install Google Apps</string>
+	<string name="gapps_not_downloaded">Google Apps not downloaded. Not flashing Google Apps with update.</string>
+	<string name="choose_flash_options">Choose flashing options.</string>
+    <string name="refresh">Refresh</string>
+    <string name="refresh_all">Refresh all</string>
     <string name="menu_preferences_label">Preferences</string>
-    <string name="menu_dialog_label">Dialog Picker</string>
+    <string name="menu_dialog_label">Dialog picker</string>
     <string name="dialog_set_number">Set</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_picker_title">Choose a number</string>

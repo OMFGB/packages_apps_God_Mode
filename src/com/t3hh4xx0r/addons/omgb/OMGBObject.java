@@ -30,18 +30,18 @@ public class OMGBObject {
 	public String getDevice() {
 		return mDevice;
 	}
-        /**
-         * @param mDate the mDate to set
-         */
-        public void setDate(String mDate) {
-                this.mDate = mDate;
-        }
-        /**
-         * @return the mDate
-         */
-        public String getDate() {
+    /**
+     * @param mDate the mDate to set
+     */
+    public void setDate(String mDate) {
+            this.mDate = mDate;
+     }
+    /**
+     * @return the mDate
+     */
+     public String getDate() {
                 return mDate;
-        }
+    }
 	/**
 	 * @param mVersion the mVersion to set
 	 */
@@ -96,6 +96,4 @@ public class OMGBObject {
 	public String getDescription() {
 		return mDescription;
 	}
-	
-	
 }

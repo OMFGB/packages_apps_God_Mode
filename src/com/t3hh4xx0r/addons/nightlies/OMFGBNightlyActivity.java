@@ -46,12 +46,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-
 import com.t3hh4xx0r.R;
 
 public class OMFGBNightlyActivity extends PreferenceActivity implements JSONParsingInterface {
 	
-
 	private boolean DBG = (false || Constants.FULL_DBG);
 	RelativeLayout mPreferenceContainer;
 	private ListView mPreferenceListView;
@@ -66,9 +64,7 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 	private static boolean mCreateBlankUIWithISerror = false;
 	private static boolean mCreateBlankUIWithManifesterror = false;
 
-
-	//private NightlyAdapter mAdapter;
-	
+	//private NightlyAdapter mAdapter;	
 	PreferenceScreen mRootPreference;
 	private final String TAG = "OMFGB External Addons App Nightly Activity";
 	NightlyReceiver mReceiver;
@@ -79,87 +75,63 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 	private final int SETTINGSMENU = CLEARCACHE + 1;
 	private final int REFRESH = SETTINGSMENU + 1;
 
-
-	 // Define the Handler that receives messages from the thread and update the progress 
-	    final Handler mHandler = new Handler() 
-	    { 
-	         public void handleMessage(Message msg) 
-	         { 
-
-	        	 switch(msg.what){
-	        	 case Constants.DOWNLOAD_COMPLETE:
-	        		 finishUIConstruction();
-	        		 mProgressDialog.dismiss();
-	    			 break;
-	        	 case Constants.CANNOT_RETREIVE_MANIFEST:
-	        		 finishEmptyUIConstruction();
-	        		 mProgressDialog.dismiss();
-	        		 // create the alert box and warn user
-	        		AlertBox(getString(R.string.warning),getString(R.string.manifest_null));
-	        		
-	        		break;
-	        	 case Constants.MANIFEST_IS_WRONG: 
-	        		 finishEmptyUIConstruction();
-	        		 mProgressDialog.dismiss();
-	        		 // create thel alert box and warn user
-	        		AlertBox(getString(R.string.warning),getString(R.string.cannot_parse_manifest));
-	        		break;
-	        		 
-	        	 
-	        	 }
-	              Log.d(TAG, "handleMessage:"+ msg.toString()); 
-	              
-	         } 
+    // Define the Handler that receives messages from the thread and update the progress 
+	final Handler mHandler = new Handler() { 
+	    public void handleMessage(Message msg) { 
+	        switch(msg.what){
+	        case Constants.DOWNLOAD_COMPLETE:
+	            finishUIConstruction();
+	            mProgressDialog.dismiss();
+	    	    break;
+	        case Constants.CANNOT_RETREIVE_MANIFEST:
+	            finishEmptyUIConstruction();
+                mProgressDialog.dismiss();
+	            // create the alert box and warn user
+	            AlertBox(getString(R.string.warning),getString(R.string.manifest_null));	
+	        	break;
+	        case Constants.MANIFEST_IS_WRONG: 
+                finishEmptyUIConstruction();
+	            mProgressDialog.dismiss();
+	            // create thel alert box and warn user
+	        	AlertBox(getString(R.string.warning),getString(R.string.cannot_parse_manifest));
+	        	break; 
+	        }
+	        Log.d(TAG, "handleMessage:"+ msg.toString()); 
+	        } 
 	    }; 
 	    
 	    
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-  
-        
-        
+        /** Called when the activity is first created. */
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
-        mPreferenceContainer = new RelativeLayout(this);
-        mPreferenceContainer.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-        
-        
-        mPreferenceListView = new ListView(this);
-        mPreferenceListView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-        mPreferenceListView.setId(android.R.id.list);
-        
-        
-        startUIConstruction();
-        
-        
+            mPreferenceContainer = new RelativeLayout(this);
+            mPreferenceContainer.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                
+            mPreferenceListView = new ListView(this);
+            mPreferenceListView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+            mPreferenceListView.setId(android.R.id.list);
 
+            startUIConstruction();
+             
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED);
+            filter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
       
-     
-      IntentFilter filter = new IntentFilter();
-      filter.addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED);
-      filter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-      
-      if(mReceiver == null){
-    	  Log.i(TAG, "Registering reciver");
+            if(mReceiver == null){
+    	        Log.i(TAG, "Registering reciver");
     	  
-    	  mReceiver = new NightlyReceiver();
-    	  registerReceiver(mReceiver, filter);
-      }
+    	        mReceiver = new NightlyReceiver();
+    	        registerReceiver(mReceiver, filter);
+            }
         
-      
+            mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this,    
+    		getString(R.string.please_wait), getString(R.string.retreiving_data), true);
+        }
 
-      mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this,    
-    		  getString(R.string.please_wait), getString(R.string.retreiving_data), true);
-      
-     
-    }
-
-	private void startUIConstruction() {
-		
-	
-        mJSONRunnable = new Runnable(){
+	    private void startUIConstruction() {
+            mJSONRunnable = new Runnable(){
 
 			@Override
 			public void run() {
@@ -167,49 +139,33 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 				mJSONUtils = new JSONUtils();
 				mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
 				mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this, false);
-			
-				
 				
 				if(OMFGBNightlyActivity.mCreateUI) {
-				Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
-				 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+				    Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
+				    mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
 				}
 				if(OMFGBNightlyActivity.mCreateBlankUIWithISerror) {
 					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
 					 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
-					}
+			    }
 				if(OMFGBNightlyActivity.mCreateBlankUIWithManifesterror) {
 					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
 					 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
-					}
-				
-				
+				}
 			}     	
         };
-        
-
         Thread Download = new Thread(mJSONRunnable);
         Download.start();
-
-        
-		
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
 		MenuInflater menuinflate = new MenuInflater(this);
 		menuinflate.inflate(R.menu.nightlies_menu, menu);
-		
-	
 		return true;
 	}	
 
-	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		
-	        
+	public boolean onOptionsItemSelected(MenuItem item) {       
 		switch (item.getItemId()) {
-
 		case R.id.clear_download_cache:
 			Downloads.deleteDir();
 			break;
@@ -220,95 +176,62 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 			launchSettingMenu();
 			break;
 		}
-
-	    	return(super.onOptionsItemSelected(item));
+	    return(super.onOptionsItemSelected(item));
 	}	
 
-	
-        private void startRefresh() {
-		       mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this, 
-		     		  getString(R.string.please_wait), getString(R.string.retreiving_data), true);
-		       
-		       mJSONRunnable = new Runnable(){
-
-					@Override
-					public void run() {
+    private void startRefresh() {
+        mProgressDialog = ProgressDialog.show(OMFGBNightlyActivity.this, 
+		     	        getString(R.string.please_wait), getString(R.string.retreiving_data), true);
+		mJSONRunnable = new Runnable(){
 					
+            @Override
+		    public void run() {	
+			    mJSONUtils = new JSONUtils();
+				mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
+				mRootPreference.removeAll();
+				mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this, true);
 						
-						mJSONUtils = new JSONUtils();
-						mJSONUtils.setJSONUtilsParsingInterface(OMFGBNightlyActivity.this); 
-						mRootPreference.removeAll();
-						mRootPreference = mJSONUtils.ParseJSON(OMFGBNightlyActivity.this, OMFGBNightlyActivity.this, true);
-					
-						
-						
-						if(OMFGBNightlyActivity.mCreateUI) {
-						Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
-						 mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
-						}
-						if(OMFGBNightlyActivity.mCreateBlankUIWithISerror) {
-							Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
-							 mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
-							}
-						if(OMFGBNightlyActivity.mCreateBlankUIWithManifesterror) {
-							Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
-							 mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
-							}
-						
-						
-					}     	
-		        };
-			Thread Download = new Thread(mJSONRunnable);
-			Download.start();
-	
-		
+			    if(OMFGBNightlyActivity.mCreateUI) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the ui construction message");
+				    mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+				}
+				if(OMFGBNightlyActivity.mCreateBlankUIWithISerror) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+					mHandler.sendEmptyMessage(Constants.CANNOT_RETREIVE_MANIFEST);
+				}
+				if(OMFGBNightlyActivity.mCreateBlankUIWithManifesterror) {
+					Log.i(TAG, "Finished retreiving nightlies, sending the blank ui construction message");
+					mHandler.sendEmptyMessage(Constants.MANIFEST_IS_WRONG);
+				}	
+			}     	
+		};
+	    Thread Download = new Thread(mJSONRunnable);
+		Download.start();		
 	}
 
-		private void launchSettingMenu() {
-        	
-        	Intent settings = new Intent(this, SettingsMenu.class);
+    private void launchSettingMenu() {	
+        Intent settings = new Intent(this, SettingsMenu.class);
         	startActivity(settings);
-		
 	}
     
-
-    public void finishEmptyUIConstruction(){
-    	
-    	 
-    	
+    public void finishEmptyUIConstruction(){	
     	// Do not bind the listview to the rootPreference
     	mPreferenceContainer.removeAllViews();
         mPreferenceContainer.addView(mPreferenceListView);
-        
-        
-      setContentView(mPreferenceContainer);
-      setPreferenceScreen(mRootPreference);
-        
-  	
-    	
-    }    
-    
-    
-    public void finishUIConstruction(){
-    	
-    	 
-    	
 
+        setContentView(mPreferenceContainer);
+        setPreferenceScreen(mRootPreference);
+    }
+
+    public void finishUIConstruction(){
         mRootPreference.bind(mPreferenceListView);
         Log.i(TAG, "mPreferenceListView: " + mPreferenceListView.getCount());
         
         mPreferenceContainer.removeAllViews();
         mPreferenceContainer.addView(mPreferenceListView);
         
-        
-      setContentView(mPreferenceContainer);
-      setPreferenceScreen(mRootPreference);
-        
-        
-    	
-    	
-    	
-    	
+        setContentView(mPreferenceContainer);
+        setPreferenceScreen(mRootPreference);
     }
     
     @Override
@@ -316,13 +239,10 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
     	super.onDestroy();
 
         Log.e(TAG, "OnDestroy Called");
-    	unregisterReceiver(mReceiver);
-    	
+    	unregisterReceiver(mReceiver);	
     }
     
-   
-    public class NightlyReceiver extends BroadcastReceiver{
-    	
+    public class NightlyReceiver extends BroadcastReceiver{	
     	boolean flash = false;
 
 		@Override
@@ -360,71 +280,50 @@ public class OMFGBNightlyActivity extends PreferenceActivity implements JSONPars
 		}
     } 
  
- protected void AlertBox(String title, String mymessage)
- {
- new AlertDialog.Builder(this)
-    .setMessage(mymessage)
-    .setTitle(title)
-    .setCancelable(false)
-    .setPositiveButton("OK",
-       new DialogInterface.OnClickListener() {
-       public void onClick(DialogInterface dialog, int whichButton){
-    	   finish();
-       }       
-       })
-       
-       
-    .show();
- 		
-	
- }
+    protected void AlertBox(String title, String mymessage) {
+        new AlertDialog.Builder(this)
+        .setMessage(mymessage)
+        .setTitle(title)
+        .setCancelable(false)
+        .setPositiveButton("OK",
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton){
+    	        finish();
+            }       
+        })
+        .show();
+    }
 
-@Override
-public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputStream is) {
+    @Override
+    public PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputStream is) {
+	    String x;
+	    JSONArray entries = null;	
+	    try{
+	        byte [] buffer = new byte[is.available()];
+	        while (is.read(buffer) != -1);
+		    String jsontext = new String(buffer);
+		    entries = new JSONArray(jsontext);
+	    }catch(IOException e){
+		    e.printStackTrace();
+	    }
+	    catch(JSONException e){
+		    e.printStackTrace();
+	    }
 	
-	String x;
-	JSONArray entries = null;
-	
-	try{
-		
-	    byte [] buffer = new byte[is.available()];
-	    while (is.read(buffer) != -1);
-		String jsontext = new String(buffer);
-		entries = new JSONArray(jsontext);
-		
-	}catch(IOException e){
-		
-		e.printStackTrace();
-	}
-	catch(JSONException e){
-		
-		e.printStackTrace();
-	}
-	
-    
-    
-    
-    
-    PreferenceCategory cat =  new PreferenceCategory(this);
-	cat.setTitle("OMFGB Nightlies");
+        PreferenceCategory cat =  new PreferenceCategory(this);
+	    cat.setTitle("OMFGB Nightlies");
 	 
-	PreferenceRoot.addPreference(cat);
-	 
-	
+	    PreferenceRoot.addPreference(cat);
+        Log.d(TAG, "Json parsing started");
 
-    Log.d(TAG, "Json parsing started");
+        x = "JSON parsed.\nThere are [" + entries.length() + "] entries.\n";
 
-    x = "JSON parsed.\nThere are [" + entries.length() + "] entries.\n";
-
-    int i;
-    Log.i(TAG, "The number of entries is: " + entries.length());
-    Log.d(TAG, "Starting preference resolver");
+        int i;
+        Log.i(TAG, "The number of entries is: " + entries.length());
+        Log.d(TAG, "Starting preference resolver");
     
-        for (i=0;i<entries.length();i++)
-        {
-
+        for (i=0;i<entries.length();i++) {
             try{
-            	
             	NightlyObject n = new NightlyObject();
             	JSONObject post = entries.getJSONObject(i);
             
@@ -436,11 +335,9 @@ public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputS
 	            n.setZipName(post.getString("name"));
 	            n.setInstallable(post.getString("installable"));
 	            try{
-	            	n.setDescription(post.getString("description"));
+	                n.setDescription(post.getString("description"));
 	            }catch(JSONException e){
-	            	n.setDescription("Older Nightly, Please select a nwer one");
-	            	
-	            	
+	            	n.setDescription("Older Nightly, Please select a nwer one");        	
 	            }
            
             
@@ -460,41 +357,31 @@ public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputS
             
             }
             catch(JSONException e){
-            	
-            	e.printStackTrace();
-            	
+            	e.printStackTrace();	
             }
-            
-
-        	}
-        
+        }
         Log.d(TAG, x);
-    
-
 		return  PreferenceRoot;
 	}
 
 	@Override
 	public PreferenceScreen unableToDownloadScript() {
-		  Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
+        Log.d(TAG, "The input stream is null. Does the user have a data connection or has the " +
 	 		"developer left CREATE_ERROR set to true");
-	 mCreateBlankUIWithISerror = true;
-	 mCreateUI = false;
-	 mCreateBlankUIWithManifesterror = false;
-	 // return a blank view to the user
-	 return getPreferenceManager().createPreferenceScreen(this);	
-	 
+	    mCreateBlankUIWithISerror = true;
+	    mCreateUI = false;
+	    mCreateBlankUIWithManifesterror = false;
+	    // return a blank view to the user
+	    return getPreferenceManager().createPreferenceScreen(this);
 	}
 	
 	@Override
 	public PreferenceScreen unableToParseScript() {
-		
 	     Log.d(TAG, "Cannot parse the JSON script correctly");
 	     mCreateBlankUIWithISerror = false;
 		 mCreateUI = false;
 		 mCreateBlankUIWithManifesterror = true;
-		   return getPreferenceManager().createPreferenceScreen(this);
-		
+		 return getPreferenceManager().createPreferenceScreen(this);
 	}
 	
 	@Override
@@ -502,40 +389,30 @@ public  PreferenceScreen ParseJSONScript(PreferenceScreen PreferenceRoot, InputS
 		mCreateBlankUIWithISerror = false;
 		mCreateUI = true;
 		mCreateBlankUIWithManifesterror = false;
-		
 		return null;
 	}
 
 	@Override
 	public InputStream DownloadJSONScript(boolean refresh) {
-
-		
         InputStream is = null;
         Log.d(TAG, "Begining json download");
         
-	      if(Downloads.checkDownloadDirectory()){
-	        	
-	        	File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
-	           	try{
-	           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
-	           		// Needed because the manager does not handle https connections
-	           		if(Constants.shouldForceNightliesSync() || 
+	    if(Downloads.checkDownloadDirectory()){	
+	        File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
+	        try{
+	            Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+	            // Needed because the manager does not handle https connections
+	           	if(Constants.shouldForceNightliesSync() || 
 	           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.getDeviceScript());
-	           		
-	           		is = new FileInputStream(updateFile);
-	           	
-	           	}
-	           	catch(FileNotFoundException e){
-	           		
-	           			e.printStackTrace();
-	           			if(true)Log.d(TAG, "Could not update app from file resource," +
+	           	    is = new FileInputStream(updateFile);
+	        }
+	        catch(FileNotFoundException e){
+	           	e.printStackTrace();
+	            if(true)Log.d(TAG, "Could not update app from file resource," +
 	           					" the file was not found. Reverting to nothing");
-	           			is = null;
-	                   	
-	           	}
-	           	
-			
+	            is = null;        	
+	        }	
 		}
         return is;
-   }
+    }
 }

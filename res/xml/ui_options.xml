@@ -1,135 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+ * Copyright 2008, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/ui_overscroll_title">
-        <ListPreference android:key="pref_overscroll_effect"
+    <PreferenceCategory
+            android:title="@string/ui_overscroll_category_title">
+        <ListPreference 
+            android:key="pref_overscroll_effect"
             android:dialogTitle="@string/pref_overscroll_title"
-            android:title="@string/pref_overscroll_title" android:summary="@string/pref_overscroll_summary"
-            android:entries="@array/pref_overscroll_effect_entries" android:entryValues="@array/pref_overscroll_effect_values" />
-        <ListPreference android:key="pref_overscroll_weight"
+            android:title="@string/pref_overscroll_title"
+            android:summary="@string/pref_overscroll_summary"
+            android:entries="@array/pref_overscroll_effect_entries"
+            android:entryValues="@array/pref_overscroll_effect_values" />
+        <ListPreference
+            android:key="pref_overscroll_weight"
             android:dialogTitle="@string/pref_overscroll_weight_title"
-            android:title="@string/pref_overscroll_weight_title" android:summary="@string/pref_overscroll_weight_summary"
-            android:entries="@array/entries_overscroll_weight" android:entryValues="@array/values_overscroll_weight" />
+            android:title="@string/pref_overscroll_weight_title"
+            android:summary="@string/pref_overscroll_weight_summary"
+            android:entries="@array/entries_overscroll_weight"
+            android:entryValues="@array/values_overscroll_weight" />
 	</PreferenceCategory>
-	
-	<!-- Rotation -->
-	<PreferenceCategory android:title="@string/rotation_category_title">
-		<CheckBoxPreference android:key="pref_rotation_90"
+
+	<PreferenceCategory
+            android:title="@string/rotation_category_title">
+		<CheckBoxPreference 
+            android:key="pref_rotation_90"
 			android:title="@string/pref_rotation_90_title" />
-		<CheckBoxPreference android:key="pref_rotation_180"
+		<CheckBoxPreference 
+            android:key="pref_rotation_180"
 			android:title="@string/pref_rotation_180_title" />
-		<CheckBoxPreference android:key="pref_rotation_270"
+		<CheckBoxPreference 
+            android:key="pref_rotation_270"
 			android:title="@string/pref_rotation_270_title" />
-	 </PreferenceCategory>
-	
-        <PreferenceCategory android:key="battery_ui_settings" android:title="Battery UI Settings">
-	      <CheckBoxPreference android:key="statusbar_hide_battery" 
-		android:title="@string/title_hide_battery" 
-		android:summary="@string/summary_hide_battery" 
-		android:disableDependentsState="true"
-		/>
-		
-	        <ListPreference 
-		android:key="battery_option" 
-		android:dialogTitle="@string/battery_option_dialog_title"
-            	android:title="@string/battery_option_title" 
-		android:summary="@string/battery_option_summary"
-            	android:entries="@array/entries_batterytypes" 
-		android:entryValues="@array/entryvalues_batterytypes" 
-		android:dependency="statusbar_hide_battery"
-		/>
-
-	    <CheckBoxPreference android:key="statusbar_battery_percent" 
-		android:title="@string/title_battery_percent"
-		android:summary="@string/summary_battery_percent" 
-		/>
-             <PreferenceScreen android:key="battery_text_options" 
-		android:title="@string/title_battery_text_options" 
-		android:summary="@string/summary_battery_text_options">
-                        <intent android:action="android.intent.action.MAIN" 
-			    android:targetPackage="com.t3hh4xx0r" 
-			    android:targetClass="com.t3hh4xx0r.god_mode.Battery" />
-                </PreferenceScreen>
-             <Preference android:key="miui_battery_color" 
-                android:title="@string/title_miui_battery_color" 
-               />
-
+	</PreferenceCategory>
+	   
+    <PreferenceCategory 
+            android:title="@string/miscui_category_title">
+	    <CheckBoxPreference
+		    android:key="electron_beam_animation_on"
+		    android:title="@string/title_use_screenon_anim"
+		    android:summaryOn="@string/summary_on_use_screenon_anim"
+		    android:summaryOff="@string/summary_off_use_screenon_anim" />
+	    <CheckBoxPreference
+		    android:key="electron_beam_animation_off"
+		    android:title="@string/title_use_screenoff_anim"
+		    android:summaryOn="@string/summary_on_use_screenoff_anim"
+		    android:summaryOff="@string/summary_off_use_screenoff_anim" />
+	    <CheckBoxPreference
+		    android:key="enable_vol_music_controls"
+		    android:title="@string/title_volume_music_controls"
+		    android:summaryOn="@string/summary_on_volume_music_controls"
+		    android:summaryOff="@string/summary_off_volume_music_controls" />
     </PreferenceCategory>
-
-    <PreferenceCategory android:key="misc_ui_settings" android:title="Misc UI Settings">
-	<CheckBoxPreference
-		android:key="electron_beam_animation_on"
-		android:title="@string/title_use_screenon_anim"
-		android:summaryOn="@string/summary_on_use_screenon_anim"
-		android:summaryOff="@string/summary_off_use_screenon_anim" 
-	/>
-	<CheckBoxPreference
-		android:key="electron_beam_animation_off"
-		android:title="@string/title_use_screenoff_anim"
-		android:summaryOn="@string/summary_on_use_screenoff_anim"
-		android:summaryOff="@string/summary_off_use_screenoff_anim" 
-	/>
-	<ListPreference android:key="statusbar_clock_opt" 
-		android:summary="@string/summary_statusbar_clock" 
-		android:title="@string/title_statusbar_clock" 
-		android:entries="@array/entries_clock" 
-		android:entryValues="@array/entryvalues_clock"
-		/>
-	<Preference android:key="statusbar_clock_color" 
-		android:title="@string/title_clock_color" 
-		/>
-	<CheckBoxPreference android:key="statusbar_hide_alarm" 
-		android:title="@string/title_hide_alarm"  
-		android:summary="@string/summary_hide_alarm" 
-		/>	
-	<CheckBoxPreference android:key="hide_adb_icon" 
-		android:title="@string/title_hide_adb" 
-		/>
-	<CheckBoxPreference android:key="hide_signal_icon" 
-		android:title="@string/title_hide_signal" 
-		android:summary="@string/summary_hide_signal" 
-		/>
-	<ListPreference android:key="statusbar_dateclock" 
-	    android:title="@string/title_dateclock"  
-	    android:summary="@string/summary_dateclock" 
-	    android:entries="@array/entries_dateclock" 
-	    android:entryValues="@array/entryvalues_dateclock" 
-	    />
-        <EditTextPreference
-                android:key="carrier_caption"
-                android:title="Lockscreen Carrier Caption"
-                android:summary="Change the lockscreen carrier caption."
-                android:dialogTitle="Enter lockscreen caption."
-                android:defaultValue="OMFG...B" 
-        />	
-
-    </PreferenceCategory>
-    <PreferenceCategory android:key="music_control_settings" android:title="@string/music_control_settings_category">
-	<CheckBoxPreference
-		android:key="enable_vol_music_controls"
-		android:title="@string/title_volume_music_controls"
-		android:summaryOn="@string/summary_on_volume_music_controls"
-		android:summaryOff="@string/summary_off_volume_music_controls"
-	/>
-   </PreferenceCategory>
-    <!-- Expanded View Power Widget -->
-    <PreferenceCategory android:title="@string/title_expanded_widget">
-                <Preference android:key="expanded_color_mask"
-                        android:title="@string/expanded_color_mask" android:summary="@string/expanded_color_mask"
-                        android:defaultValue="-1" />
-                <PreferenceScreen android:key="widget_picker"
-                        android:title="@string/title_widget_picker" android:summary="@string/summary_widget_picker">
-                        <intent android:action="android.intent.action.MAIN"
-                                android:targetPackage="com.t3hh4xx0r"
-                                android:targetClass="com.t3hh4xx0r.god_mode.PowerWidgetActivity" />
-                </PreferenceScreen>
-                <PreferenceScreen android:key="widget_order"
-                        android:title="@string/title_widget_order" android:summary="@string/summary_widget_order">
-                        <intent android:action="android.intent.action.MAIN"
-                                android:targetPackage="com.t3hh4xx0r"
-                                android:targetClass="com.t3hh4xx0r.god_mode.PowerWidgetOrderActivity" />
-                </PreferenceScreen>
-        </PreferenceCategory>
-
 </PreferenceScreen>
-

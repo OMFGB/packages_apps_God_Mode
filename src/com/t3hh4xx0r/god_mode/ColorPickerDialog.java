@@ -16,9 +16,7 @@
 
 package com.t3hh4xx0r.god_mode;
 
-
 import com.t3hh4xx0r.addons.utils.Constants;
-
 
 import android.R;
 import android.os.Bundle;
@@ -64,6 +62,9 @@ public class ColorPickerDialog extends Dialog {
         private Paint mCenterPaint;
         private final int[] mColors;
         private OnColorChangedListener mListener;
+        private boolean mTrackingCenter;
+        private boolean mHighlightCenter;
+        private static final float PI = 3.1415926f;
         
         ColorPickerView(Context c, OnColorChangedListener l, int color) {
             super(c);
@@ -83,9 +84,6 @@ public class ColorPickerDialog extends Dialog {
             mCenterPaint.setColor(color);
             mCenterPaint.setStrokeWidth(5);
         }
-        
-        private boolean mTrackingCenter;
-        private boolean mHighlightCenter;
 
         @Override 
         protected void onDraw(Canvas canvas) {
@@ -200,8 +198,6 @@ public class ColorPickerDialog extends Dialog {
             return Color.argb(Color.alpha(color), pinToByte(ir),
                               pinToByte(ig), pinToByte(ib));
         }
-        
-        private static final float PI = 3.1415926f;
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
