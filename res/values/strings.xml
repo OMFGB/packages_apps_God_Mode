@@ -139,14 +139,19 @@
     <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
 
     <!-- Status Bar Preference Screen -->
+    <string name="title_hide_clock">Hide Clock</string>
+    <string name="summary_hide_clock">Hide the clock when set</string>
+    <string name="title_hide_date">Hide Status Bar Date</string>
+    <string name="summary_hide_date">Hide the date when set</string>
     <string name="summary_carrier_caption">Change the carrier caption</string>
     <string name="dialog_title_carrier_caption">Enter lockscreen caption</string>
     <string name="battery_category_title">Battery settings</string>
     <string name="clock_category_title">Clock settings</string>
+    <string name="hide_category_title">Hide status bar icons</string>
     <string name="miscstatus_category_title">Misc status bar options</string>
     <string name="battery_option_dialog_title">Battery</string>
     <string name="battery_option_title">Battery type</string>
-    <string name="battery_option_summary">Choose the battery type to use (Requires reboot)</string>
+    <string name="battery_option_summary">Choose the battery type to use</string>
     <string name="settings_battery">Battery Ui Settings</string>
     <string name="title_hide_battery">Hide Battery Icon</string>
     <string name="summary_hide_battery">Action is DELAYED</string>
@@ -159,12 +164,11 @@
     <string name="summary_statusbar_clock">Clock Style Options</string>
     <string name="title_clock_color">Clock Color</string>
     <string name="title_hide_adb">Hide USB Debugging</string>
-    <string name="summary_on_hide_adb">The USB Debugging notification will be hidden</string>
-    <string name="summary_off_hide_adb">The USB Debugging icon will be shown</string>
+    <string name="summary_hide_adb">Hide the USB debugging icon when set</string>
     <string name="title_dateclock">Date/Time</string>
     <string name="summary_dateclock">Date/Time Options for when statusbar is expanded</string>
     <string name="title_hide_alarm">Hide Alarm Icon</string>
-    <string name="summary_hide_alarm">Hide alarm icon when alarm is set</string>
+    <string name="summary_hide_alarm">Hide the alarm icon when alarm is set</string>
     <string name="title_hide_signal">Hide Signal Bars</string>
     <string name="summary_hide_signal">Action is DELAYED</string>
     <string name="title_carrier_caption">Carrier caption</string>
@@ -201,6 +205,8 @@
     <string name="settings_summary">Custom settings designed for OMFGB</string>
     <string name="omgb_title">OMGB Builds</string>
     <string name="omgb_summary">Stable and stock</string>
+    <string name="alerts_title">Bulletin Board</string>
+    <string name="alerts_summary">Alerts from the T3hh4xx0r developers</string>
 
     <!-- Settings menu-->
     <string name="application_settings">Application Settings</string>
