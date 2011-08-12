@@ -30,6 +30,8 @@ import com.t3hh4xx0r.R;
 
 public class MainMenu extends PreferenceActivity  {
 	PreferenceCategory mAddonsCat;
+	PreferenceCategory mRomsCat;
+	PreferenceCategory mNewsCat;
 
 	private boolean DBG = (false || Constants.FULL_DBG);
 
@@ -61,16 +63,20 @@ public class MainMenu extends PreferenceActivity  {
 		}
 		addPreferencesFromResource(R.layout.main_menu);
 		mAddonsCat = (PreferenceCategory) findPreference("addons_category");
-		
-		if( !hasStorage(true)){
+		mRomsCat = (PreferenceCategory) findPreference("roms_category");
+                mNewsCat = (PreferenceCategory) findPreference("news_category");
+
+		if (!hasStorage(true)){
+                        mNewsCat.setEnabled(false);
 			mAddonsCat.setEnabled(false);
+			mRomsCat.setEnabled(false);
 			AlertBox(getString(R.string.warning),getString(R.string.sdcard_not_mounted));
-		}
-		else if(!Constants.isDeviceDetermined()){
+		} else if (!Constants.isDeviceDetermined()){
 			mAddonsCat.setEnabled(false);
-			AlertBox(getString(R.string.warning),"Device not determined. Disabling nightlies and addons.");
-		}
-		else{
+			AlertBox(getString(R.string.warning),"Device not determined. Disabling nightlies.");
+		} else {
+                        mRomsCat.setEnabled(true);
+                        mNewsCat.setEnabled(true);
 			mAddonsCat.setEnabled(true);
 		}
 	}
