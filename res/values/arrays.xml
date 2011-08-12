@@ -74,9 +74,9 @@
 
 
 <string-array name="entries_batterytypes">
-        <item>Stock w/Percentage</item>
-        <item>Stock w/o Percentage</item>
-	    <item>MIUI Bar Style (NO Reboot)</item>
+        <item>Stock w/Percentage (Reboot)</item>
+        <item>Stock w/o Percentage (Reboot)</item>
+	    <item>MIUI Bar Style</item>
     </string-array>
 
 <string-array name="entryvalues_batterytypes">
@@ -188,7 +188,6 @@
     </string-array>
     
     <string-array name="entries_dateclock" translatable="false">
-      <item>None</item>
       <item>Date only</item>
       <item>Time Only</item>
       <item>Date and Time</item>
@@ -197,19 +196,16 @@
       <item>0</item>
       <item>1</item>
       <item>2</item>
-      <item>3</item>
     </string-array>
     <string-array name="entries_clock" translatable="false">
       <item>Normal</item>
       <item>Small AM/PM</item>
       <item>No AM/PM</item>
-      <item>No Clock</item>
     </string-array>
     <string-array name="entryvalues_clock" translatable="false">
       <item>0</item>
       <item>1</item>
       <item>2</item>
-      <item>3</item>
     </string-array>
 </resources>
 

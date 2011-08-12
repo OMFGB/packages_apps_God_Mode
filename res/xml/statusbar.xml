@@ -19,13 +19,36 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            android:title="@string/battery_category_title">
-	    <CheckBoxPreference 
+	    android:title="@string/hide_category_title">
+            <CheckBoxPreference 
             android:key="statusbar_hide_battery" 
-		    android:title="@string/title_hide_battery" 
-		    android:summary="@string/summary_hide_battery" 
-		    android:disableDependentsState="true" />
-		
+                    android:title="@string/title_hide_battery" 
+                    android:summary="@string/summary_hide_battery" 
+                    android:disableDependentsState="true" />
+            <CheckBoxPreference
+            android:key="statusbar_hide_alarm" 
+                    android:title="@string/title_hide_alarm"  
+                    android:summary="@string/summary_hide_alarm" />
+            <CheckBoxPreference
+            android:key="hide_signal_icon" 
+                    android:title="@string/title_hide_signal" 
+                    android:summary="@string/summary_hide_signal" />
+            <CheckBoxPreference
+            android:key="adb_notify" 
+                    android:title="@string/title_hide_adb"
+            android:summary="@string/summary_hide_adb" />
+            <CheckBoxPreference
+            android:key="hide_clock" 
+                    android:title="@string/title_hide_clock"
+            android:summary="@string/summary_hide_clock" />
+            <CheckBoxPreference
+            android:key="hide_date" 
+                    android:title="@string/title_hide_date"
+            android:summary="@string/summary_hide_date" />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/battery_category_title">
 	    <ListPreference 
 		    android:key="battery_option" 
 		    android:dialogTitle="@string/battery_option_dialog_title"
@@ -73,19 +96,6 @@
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/miscstatus_category_title">
-	    <CheckBoxPreference
-            android:key="statusbar_hide_alarm" 
-		    android:title="@string/title_hide_alarm"  
-		    android:summary="@string/summary_hide_alarm" />	
-	    <CheckBoxPreference
-            android:key="hide_adb_icon" 
-		    android:title="@string/title_hide_adb"
-            android:summaryOn="@string/summary_on_hide_adb"
-            android:summaryOff="@string/summary_off_hide_adb" />
-	    <CheckBoxPreference
-            android:key="hide_signal_icon" 
-		    android:title="@string/title_hide_signal" 
-		    android:summary="@string/summary_hide_signal" />
 	    <ListPreference
             android:key="statusbar_dateclock" 
 	        android:title="@string/title_dateclock"  

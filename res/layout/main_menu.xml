@@ -47,6 +47,15 @@
                 android:targetPackage="com.t3hh4xx0r"
                 android:targetClass="com.t3hh4xx0r.addons.omgb.OMGBActivity" />
         </PreferenceScreen>
+        <PreferenceScreen
+            android:key="alerts"
+            android:title="@string/alerts_title" 
+            android:summary="@string/alerts_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.addons.alerts.AlertsActivity" />
+        </PreferenceScreen>
     </PreferenceCategory> 
 
     <PreferenceCategory
@@ -71,15 +80,6 @@
                 android:targetClass="com.t3hh4xx0r.god_mode.LockscreenMode" />
         </PreferenceScreen>
         <PreferenceScreen
-            android:key="statusbar"
-            android:title="@string/settings_statusbar"
-            android:summary="@string/settings_statusbar_summary">
-            <intent
-                android:action="android.intent.action.MAIN"
-                android:targetPackage="com.t3hh4xx0r"
-                android:targetClass="com.t3hh4xx0r.god_mode.StatusBar" />
-        </PreferenceScreen>
-        <PreferenceScreen
             android:key="settings_uioptions"
             android:title="@string/settings_uioptions" 
             android:summary="@string/settings_uioptions_summary">
@@ -87,6 +87,15 @@
                 android:action="android.intent.action.MAIN"
                 android:targetPackage="com.t3hh4xx0r"
                 android:targetClass="com.t3hh4xx0r.god_mode.UiOptions" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:key="statusbar"
+            android:title="@string/settings_statusbar"
+            android:summary="@string/settings_statusbar_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.god_mode.StatusBar" />
         </PreferenceScreen>
     </PreferenceCategory> 
 </PreferenceScreen>
