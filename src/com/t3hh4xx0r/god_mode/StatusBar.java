@@ -29,13 +29,16 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
     private static final String CARRIER_CAP = "carrier_caption";
     private static final String BATTERY_OPTION = "battery_option";
     private static final String STATUSBAR_HIDE_BATTERY = "statusbar_hide_battery";
-	private static final String STATUSBAR_BATTERY_PERCENT = "statusbar_battery_percent";
-	private static final String STATUSBAR_CLOCK_OPT = "statusbar_clock_opt"; 
-	private static final String HIDE_SIGNAL_ICON = "hide_signal_icon";
-	private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
-	private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
-	private static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color"; 
-	private static final String BATTERY_TEXT_OPTIONS = "battery_text_options";
+    private static final String STATUSBAR_BATTERY_PERCENT = "statusbar_battery_percent";
+    private static final String STATUSBAR_CLOCK_OPT = "statusbar_clock_opt";
+    private static final String HIDE_SIGNAL_ICON = "hide_signal_icon";
+    private static final String HIDE_DATE = "hide_date";
+    private static final String HIDE_CLOCK = "hide_clock";
+    private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
+    private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
+    private static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color"; 
+    private static final String ADB_NOTIFY = "adb_notify";
+    private static final String BATTERY_TEXT_OPTIONS = "battery_text_options";
     private static final String MIUI_BATTERY_COLOR = "miui_battery_color";
     private static final String UI_EXP_WIDGET = "expanded_widget";
     private static final String UI_EXP_WIDGET_HIDE_ONCHANGE = "expanded_hide_onchange";
@@ -46,6 +49,7 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
     private EditTextPreference mCarrierCaption;
     private ListPreference mBatteryOption;
     private CheckBoxPreference mPowerWidget;
+    private CheckBoxPreference mAdbNotify;
     private CheckBoxPreference mPowerWidgetHideOnChange;
     private Preference mPowerWidgetColor;
     private PreferenceScreen mPowerPicker;
@@ -57,6 +61,8 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 	private CheckBoxPreference mHideBattery;
 	private CheckBoxPreference mBatteryPercent;
 	private CheckBoxPreference mHideAlarm;
+        private CheckBoxPreference mHideDate;
+        private CheckBoxPreference mHideClock;
 	private ListPreference mDateClock;
 	private PreferenceScreen mBatteryTextOptions;
 	private int clockStyleVal;
@@ -70,23 +76,31 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
         PreferenceScreen prefSet = getPreferenceScreen();
 
         /* Battery type */
-        mBatteryOption = (ListPreference) prefSet.findPreference(BATTERY_OPTION);
-        batteryStyleVal = Settings.System.getInt(getContentResolver(), Settings.System.BATTERY_OPTION, 1);
-        mBatteryOption.setValue(String.valueOf(batteryStyleVal));
+        	mBatteryOption = (ListPreference) prefSet.findPreference(BATTERY_OPTION);
+        	batteryStyleVal = Settings.System.getInt(getContentResolver(), Settings.System.BATTERY_OPTION, 1);
+        	mBatteryOption.setValue(String.valueOf(batteryStyleVal));
 		mBatteryOption.setOnPreferenceChangeListener(this);
 
         /* Clock style */
-        mClockStyle = (ListPreference) prefSet.findPreference(STATUSBAR_CLOCK_OPT);
+        	mClockStyle = (ListPreference) prefSet.findPreference(STATUSBAR_CLOCK_OPT);
 		clockStyleVal = Settings.System.getInt(getContentResolver(),Settings.System.STATUSBAR_CLOCK_OPT, 0);
 		mClockStyle.setValue(String.valueOf(clockStyleVal));
 		mClockStyle.setOnPreferenceChangeListener(this);
 
+        /* Show or hide the date */
+                mHideDate = (CheckBoxPreference) prefSet.findPreference(HIDE_DATE);
+                mHideDate.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_DATE, 0) == 1);
+
+        /* Show or hide the clock */
+                mHideClock = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK);
+                mHideClock.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_CLOCK, 0) == 1);
+
         /* Show or hide signal icons */
-        mHideSignal = (CheckBoxPreference) prefSet.findPreference(HIDE_SIGNAL_ICON);
+        	mHideSignal = (CheckBoxPreference) prefSet.findPreference(HIDE_SIGNAL_ICON);
 		mHideSignal.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_SIGNAL_ICON, 0) == 1);
 
         /* Show or hide battery percentages */
-        mBatteryPercent = (CheckBoxPreference) prefSet.findPreference(STATUSBAR_BATTERY_PERCENT);
+        	mBatteryPercent = (CheckBoxPreference) prefSet.findPreference(STATUSBAR_BATTERY_PERCENT);
 		mBatteryPercent.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.STATUSBAR_BATTERY_PERCENT, 0) == 1);
 
         /* Show or hide the battery icon */
@@ -100,17 +114,21 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
         /* Setting for clock color */
 		mClockColor = (Preference) prefSet.findPreference(STATUSBAR_CLOCK_COLOR);
 
+	/* Setting for hiding USB debugging icon */
+		mAdbNotify = (CheckBoxPreference) findPreference(ADB_NOTIFY);
+	        mAdbNotify.setChecked(Settings.Secure.getInt(getContentResolver(),Settings.Secure.ADB_NOTIFY, 0) == 1);
+
         /* Setting for miui battery color */
-        mMiuiBatteryColor = (Preference) prefSet.findPreference(MIUI_BATTERY_COLOR);
-            
+        	mMiuiBatteryColor = (Preference) prefSet.findPreference(MIUI_BATTERY_COLOR);            
+
         /* StatusBar date setting */
 		mDateClock = (ListPreference) prefSet.findPreference(STATUSBAR_DATECLOCK);
-        dateStyleVal = Settings.System.getInt(getContentResolver(), Settings.System.STATUSBAR_DATECLOCK, 1);
-        mDateClock.setValue(String.valueOf(dateStyleVal));
+        	dateStyleVal = Settings.System.getInt(getContentResolver(), Settings.System.STATUSBAR_DATECLOCK, 1);
+        	mDateClock.setValue(String.valueOf(dateStyleVal));
 		mDateClock.setOnPreferenceChangeListener(this);
 
         /* Battery text setting */
-        mBatteryTextOptions = (PreferenceScreen) prefSet.findPreference(BATTERY_TEXT_OPTIONS);
+        	mBatteryTextOptions = (PreferenceScreen) prefSet.findPreference(BATTERY_TEXT_OPTIONS);
 
         /* Carrier cap setting */
 		mCarrierCaption = (EditTextPreference) prefSet.findPreference(CARRIER_CAP);
@@ -123,12 +141,13 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 		    return true;
 	    }
         });
-        updateStylePrefs(clockStyleVal);
+        updateStylePrefs();
+        checkMiuiBattery(batteryStyleVal);
 
         /* Power widget settings */
-        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
-	    mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
-	    mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
+        	mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
+		mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
+	        mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -137,6 +156,17 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
         if (preference == mHideSignal) {
              Settings.System.putInt(getContentResolver(), Settings.System.HIDE_SIGNAL_ICON, mHideSignal.isChecked() ? 1 : 0);
 	    }
+            if (preference == mHideClock) {
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_CLOCK, mHideClock.isChecked() ? 1 : 0);
+             updateStylePrefs();
+            }
+            if (preference == mHideDate) {
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_DATE, mHideDate.isChecked() ? 1 : 0);
+             updateStylePrefs();
+            }
+            if (preference == mAdbNotify) {
+		Settings.Secure.putInt(getContentResolver(), Settings.Secure.ADB_NOTIFY, mAdbNotify.isChecked() ? 0 : 1);
+            }
 	    if (preference == mBatteryPercent) {
              Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_BATTERY_PERCENT, mBatteryPercent.isChecked() ? 1 : 0);
 	    }
@@ -184,28 +214,47 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         if (preference == mBatteryOption) {
-            batteryStyleVal = Integer.valueOf((String) objValue);
+                batteryStyleVal = Integer.valueOf((String) objValue);
         	Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_OPTION, Integer.valueOf((String) objValue));
-            return true;
-        } else if (preference == mDateClock) {
-            dateStyleVal = Integer.valueOf((String) objValue);
+		checkMiuiBattery(batteryStyleVal);
+                return true;
+            } else if (preference == mDateClock) {
+                dateStyleVal = Integer.valueOf((String) objValue);
 	        Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_DATECLOCK, Integer.valueOf((String) objValue));
+                updateStylePrefs();
 	        return true;
-	    }else if (preference == mClockStyle) {
+	    } else if (preference == mClockStyle) {
 	        clockStyleVal = Integer.valueOf((String) objValue);
 	        Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_CLOCK_OPT, clockStyleVal );
-	        updateStylePrefs(clockStyleVal);
+	        updateStylePrefs();
 	        return true;
 	    }
 	    return false;
     }
 
-    private void updateStylePrefs(int mClockStyle) {
-        if(mClockStyle == 3) {
+    private void checkMiuiBattery(int mBatteryOption) {
+        if (mBatteryOption == 2) {
+                 mMiuiBatteryColor.setEnabled(true);
+        } else {
+                 mMiuiBatteryColor.setEnabled(false);
+        }
+    }
+
+    private void updateStylePrefs() {
+        if(mHideClock.isChecked()) {
             mClockColor.setEnabled(false);
-	    } else {
-	        mClockColor.setEnabled(true);
-	    }
+            mClockStyle.setEnabled(false);
+        } else {
+            mClockColor.setEnabled(true);
+            mClockStyle.setEnabled(true);
+
+            }
+
+        if(mHideDate.isChecked()) {
+            mDateClock.setEnabled(false);
+        } else {
+            mDateClock.setEnabled(true);
+	}
     }
 }
         
