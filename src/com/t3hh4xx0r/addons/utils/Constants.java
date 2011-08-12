@@ -84,7 +84,8 @@ public final class Constants {
 	 * 
 	 */
 	public static String ADDONS = "addons.js"; 
-    
+
+        public static String ALERTS = "alerts.js"; 
     /**
      * The script ised for updating the app
      */

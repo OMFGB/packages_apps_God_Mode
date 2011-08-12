@@ -15,11 +15,25 @@
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+       <PreferenceCategory
+                android:key="news_category"
+                android:title="@string/news"
+                android:id="@+id/news_category">
+        <PreferenceScreen
+            android:key="alerts"
+            android:title="@string/alerts_title" 
+            android:summary="@string/alerts_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.addons.alerts.OMFGBAlertsActivity" />
+        </PreferenceScreen>
+        </PreferenceCategory>
+
 	<PreferenceCategory
 	        android:key="addons_category"
-	        android:title="@string/addons_and_roms"
-	        android:id="@+id/addons_category">
-	
+	        android:title="@string/addons"
+	        android:id="@+id/addons_category">	
         <PreferenceScreen 
             android:key="addons"
             android:title="@string/addons_title" 
@@ -29,6 +43,12 @@
                 android:targetPackage="com.t3hh4xx0r"
                 android:targetClass="com.t3hh4xx0r.addons.OMFGBAddonsActivity" />
         </PreferenceScreen>
+	</PreferenceCategory>
+
+        <PreferenceCategory
+                android:key="roms_category"
+                android:title="@string/roms"
+                android:id="@+id/roms_category">
         <PreferenceScreen
             android:key="nightlies"
             android:title="@string/nightlies_title" 
@@ -46,15 +66,6 @@
                 android:action="android.intent.action.MAIN"
                 android:targetPackage="com.t3hh4xx0r"
                 android:targetClass="com.t3hh4xx0r.addons.omgb.OMGBActivity" />
-        </PreferenceScreen>
-        <PreferenceScreen
-            android:key="alerts"
-            android:title="@string/alerts_title" 
-            android:summary="@string/alerts_summary">
-            <intent
-                android:action="android.intent.action.MAIN"
-                android:targetPackage="com.t3hh4xx0r"
-                android:targetClass="com.t3hh4xx0r.addons.alerts.AlertsActivity" />
         </PreferenceScreen>
     </PreferenceCategory> 
 

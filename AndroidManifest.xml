@@ -100,7 +100,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".addons.alerts.AlertsActivity"
+        <activity android:name=".addons.alerts.OMFGBAlertsActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

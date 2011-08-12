@@ -196,7 +196,9 @@
     <string name="summary_off_volume_music_controls">Long pressing to change tracks will not be used</string>
 
     <!-- Addons section main menu -->
-    <string name="addons_and_roms">Addons and Roms</string>
+    <string name="addons">Addons</string>
+    <string name="roms">Roms</string>
+    <string name="news">News</string>
     <string name="addons_title">T3hh4xx0r Addons</string>
     <string name="addons_summary">Various addons available for your flashing needs</string>
     <string name="nightlies_title">OMFGB Nightlies</string>
