@@ -16,15 +16,29 @@
 <PreferenceScreen
             xmlns:android="http://schemas.android.com/apk/res/android"
 	        android:title="@string/application_settings">
-	<PreferenceCategory
-		    android:key="sync_settings_cat"
-		    android:title="@string/sync_settings_category"
-		    android:id="@+id/sync_settings">	
+        <PreferenceCategory
+            android:key="updates_settings_cat"
+            android:title="@string/auto_updates"
+            android:summary="@string/auto_updates_summary"
+            android:defaultValue="false">
         <CheckBoxPreference
             android:key="auto_update"
             android:title="@string/auto_update"
             android:summary="@string/auto_update"
             android:defaultValue="false" />
+        <ListPreference 
+	    android:key="refresh_time" 
+	    android:dialogTitle="@string/refresh_time_dialog_title"
+            android:title="@string/refresh_time_title" 
+	    android:summary="@string/refresh_time_summary"
+            android:entries="@array/entries_refresh_times" 
+	    android:entryValues="@array/entryvalues_refresh_times" 
+	    android:dependency="auto_update" />
+        </PreferenceCategory>
+	<PreferenceCategory
+	    android:key="sync_settings_cat"
+	    android:title="@string/sync_settings_category"
+	    android:id="@+id/sync_settings">	
         <CheckBoxPreference
             android:key="auto_sync"
             android:title="@string/auto_sync"
@@ -32,9 +46,9 @@
             android:defaultValue="true" />	
 	</PreferenceCategory> 
 	<PreferenceCategory
-	        android:key="addons_settings_cat"
-	        android:title="@string/addons_settings_category"
-	        android:id="@+id/addons_settings">
+            android:key="addons_settings_cat"
+            android:title="@string/addons_settings_category"
+            android:id="@+id/addons_settings">
 	    <CheckBoxPreference
             android:key="force_addons_sync"
             android:title="@string/force_sync_on_activity"
@@ -42,9 +56,9 @@
             android:defaultValue="false"/>
     </PreferenceCategory>
     <PreferenceCategory
-		    android:key="nightlies_settings_cat"
-		    android:title="@string/nightlies_settings_category"
-		    android:id="@+id/nightlies_settings">
+	    android:key="nightlies_settings_cat"
+	    android:title="@string/nightlies_settings_category"
+	    android:id="@+id/nightlies_settings">
 	    <CheckBoxPreference
             android:key="force_nightlies_sync"
             android:title="@string/force_sync_on_activity"

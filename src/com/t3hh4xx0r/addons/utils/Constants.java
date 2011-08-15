@@ -11,6 +11,15 @@ public final class Constants {
 
     public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup/";
 	
+    public static int CURRENT_MD5 = 0;
+
+    public static String LOCAL_FILE = "foo";
+
+    public static String REMOTE_FILE = "bar";
+
+    public static int IS_DIFF = 0;
+
+    public static int REFRESH_TIME = 3600;
 	/**
 	 *  Variable to turn debuging on across the app
 	 */
@@ -22,6 +31,8 @@ public final class Constants {
 	 */
 	private static File extStorageDirectory = Environment.getExternalStorageDirectory();
 	
+        public static String UPDATE_INTENT = "com.t3hh4xx0r.intent.ALERT_INTENT";
+
     /**
      * OMGB downloads directory
      */
@@ -100,6 +111,14 @@ public final class Constants {
     public static boolean AUTOMATICALLY_UPDATE = false; 
 
     public static boolean AUTOMATICALLY_SYNC = true; 
+
+    public static boolean shouldAutoUpdate(){
+
+        if(AUTOMATICALLY_UPDATE){
+                return true;
+        }
+                return false;
+    }
 
     
     public static boolean shouldAutoSync(){

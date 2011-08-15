@@ -1,23 +1,37 @@
 package com.t3hh4xx0r.addons;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+import android.util.Slog;
 
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
+import com.t3hh4xx0r.addons.utils.BroadcastReceivers;
 
+import java.util.Calendar;
 
-public class SettingsMenu extends PreferenceActivity {
+public class SettingsMenu extends PreferenceActivity implements OnPreferenceChangeListener {
+        public static String TAG = "SettingsMenu";
 
+	private PendingIntent pendingIntent;
+
+	private ListPreference mRefreshTime;
 	private CheckBoxPreference mAutoSync;
         private CheckBoxPreference mAutoUpdate;
 	private CheckBoxPreference mForceAddonsSync;
@@ -25,14 +39,16 @@ public class SettingsMenu extends PreferenceActivity {
 	private PreferenceCategory mNightlies;
 	private PreferenceCategory mAddons;
 	private PreferenceCategory mSync;
-	
+        private int refreshValue;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.layout.settings_menu);
 	
 		InitializeUI();
-		setPreferencesCheckValues();			
+		setPreferencesCheckValues();
+
 	}
 
     private void InitializeUI() {
@@ -43,6 +59,11 @@ public class SettingsMenu extends PreferenceActivity {
 	    mSync = (PreferenceCategory) findPreference("auto_sync_cat");
 	    mAddons = (PreferenceCategory) findPreference("addons_settings_cat");
             mNightlies = (PreferenceCategory) findPreference("nightlies_settings_cat");
+
+            mRefreshTime = (ListPreference) findPreference("refresh_time");
+       	    refreshValue = (Constants.REFRESH_TIME);
+       	    mRefreshTime.setValue(String.valueOf(refreshValue));
+	    mRefreshTime.setOnPreferenceChangeListener(this);
 	}
 
     private void setPreferencesCheckValues() {
@@ -69,7 +90,15 @@ public class SettingsMenu extends PreferenceActivity {
             if(value) {
                 Constants.AUTOMATICALLY_UPDATE  = true;
 		//start the update service
-            } else {
+	        Toast.makeText(SettingsMenu.this, "Start service", Toast.LENGTH_LONG).show();
+		Intent myIntent = new Intent(getBaseContext(), BroadcastReceivers.class);
+		pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+		AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.add(Calendar.SECOND, 5);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Constants.REFRESH_TIME*1000, pendingIntent);
+	    } else {
                 Constants.AUTOMATICALLY_UPDATE = false;
             }
             return true;
@@ -130,5 +159,15 @@ public class SettingsMenu extends PreferenceActivity {
 			break;
 		}
         return(super.onOptionsItemSelected(item));
+	}
+
+	public boolean onPreferenceChange(Preference preference, Object objValue) {
+           if (preference == mRefreshTime) {
+                refreshValue = Integer.valueOf((String) objValue);
+		Constants.REFRESH_TIME = Integer.valueOf((String) objValue);
+		Slog.d(TAG, "New refresh time is " + Constants.REFRESH_TIME);
+                return true;
+	   }
+	   return false;
 	}
 }

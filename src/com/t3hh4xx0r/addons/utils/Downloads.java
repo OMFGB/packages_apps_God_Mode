@@ -139,6 +139,7 @@ public class Downloads {
 			    refreshAddons();
 			    refreshNightlies();
 			    refreshOMGB();
+			    refreshAlerts();
 		    }
 	    };
 	    refreshthread.start();
@@ -334,6 +335,70 @@ public class Downloads {
 		    }	
         });
         omgb.downloadJSONFile(true);
+    }
+
+    public static void refreshAlerts(){
+
+        JSONUtils alerts = new JSONUtils();
+        alerts.setJSONUtilsParsingInterface(new JSONParsingInterface(){
+
+    		@Override
+    		public InputStream DownloadJSONScript(boolean refresh) {
+			    InputStream is = null;
+		        Log.d(TAG, "Begining json download");
+		        if(Downloads.checkDownloadDirectory()){
+			        File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.ALERTS);
+			        try{
+			            Log.i(TAG, "The update path and file is called: " + updateFile.toString());
+			            // Needed because the manager does not handle https connections
+			            if(Constants.AUTOMATICALLY_UPDATE || 
+			           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.ALERTS);
+
+			                is = new FileInputStream(updateFile);
+			           	}
+			           	catch(FileNotFoundException e) {
+			           	    e.printStackTrace();
+			           		if(true)Log.d(TAG, "Could not update app from file resource," +
+			           					" the file was not found. Reverting to nothing");
+			           		is = null;
+
+			            }
+
+
+				    }
+		            return is;
+		    }
+
+		    @Override
+		    public PreferenceScreen ParseJSONScript(
+				PreferenceScreen PreferenceRoot, InputStream is)
+				throws JSONException {
+			        // TODO Auto-generated method stub
+			        return null;
+		    }
+
+		    @Override
+		    public PreferenceScreen ParsingCompletedSuccess() {
+			    // TODO Auto-generated method stub
+			    return null;
+		    }
+
+		    @Override
+		    public PreferenceScreen unableToDownloadScript() {
+			    // TODO Auto-generated method stub
+			    return null;
+		    }
+
+		    @Override
+		    public PreferenceScreen unableToParseScript() {
+			    // TODO Auto-generated method stub
+			    return null;
+		    }
+    	
+    	
+        });
+        alerts.downloadJSONFile(true);
+
     }
 
 	/**
