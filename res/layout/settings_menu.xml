@@ -21,6 +21,11 @@
 		    android:title="@string/sync_settings_category"
 		    android:id="@+id/sync_settings">	
         <CheckBoxPreference
+            android:key="auto_update"
+            android:title="@string/auto_update"
+            android:summary="@string/auto_update"
+            android:defaultValue="false" />
+        <CheckBoxPreference
             android:key="auto_sync"
             android:title="@string/auto_sync"
             android:summary="@string/auto_sync_summary"

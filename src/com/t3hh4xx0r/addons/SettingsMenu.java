@@ -19,6 +19,7 @@ import com.t3hh4xx0r.addons.utils.Downloads;
 public class SettingsMenu extends PreferenceActivity {
 
 	private CheckBoxPreference mAutoSync;
+        private CheckBoxPreference mAutoUpdate;
 	private CheckBoxPreference mForceAddonsSync;
 	private CheckBoxPreference mForceNightliesSync;
 	private PreferenceCategory mNightlies;
@@ -35,15 +36,17 @@ public class SettingsMenu extends PreferenceActivity {
 	}
 
     private void InitializeUI() {
+            mAutoUpdate = (CheckBoxPreference) findPreference("auto_update");
 	    mAutoSync = (CheckBoxPreference) findPreference("auto_sync");
 	    mForceAddonsSync = (CheckBoxPreference) findPreference("force_addons_sync");
 	    mForceNightliesSync = (CheckBoxPreference) findPreference("force_nightlies_sync");
 	    mSync = (PreferenceCategory) findPreference("auto_sync_cat");
 	    mAddons = (PreferenceCategory) findPreference("addons_settings_cat");
-        mNightlies	= (PreferenceCategory) findPreference("nightlies_settings_cat");
+            mNightlies = (PreferenceCategory) findPreference("nightlies_settings_cat");
 	}
 
     private void setPreferencesCheckValues() {
+            mAutoUpdate.setChecked(Constants.AUTOMATICALLY_UPDATE);
 	    mAutoSync.setChecked(Constants.AUTOMATICALLY_SYNC);
 	    mForceNightliesSync.setChecked(Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC);
 	    mForceAddonsSync.setChecked(Constants.FORCE_ADDONS_ACTIVITY_SYNC);
@@ -61,43 +64,52 @@ public class SettingsMenu extends PreferenceActivity {
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
 	    boolean value;
-	     
-	    if(preference == mAutoSync){
-	    	value = mAutoSync.isChecked();	
-	    	if(!value) {
-	    		Constants.AUTOMATICALLY_SYNC = false;
-	    		mAddons.setEnabled(false);
-	    		mNightlies.setEnabled(false);
-	    		mForceAddonsSync.setChecked(false);
-	    		mForceNightliesSync.setChecked(false);	
-	    	} else {
-	    		Constants.AUTOMATICALLY_SYNC = true;
-	    		mAddons.setEnabled(true);
-	    		mNightlies.setEnabled(true);
-	    		mForceAddonsSync.setChecked(Constants.shouldForceAddonsSync());
-	    		mForceNightliesSync.setChecked(Constants.shouldForceNightliesSync());
-	    	}
-	    	return true;
+       if(preference == mAutoUpdate){
+            value = mAutoUpdate.isChecked();
+            if(value) {
+                Constants.AUTOMATICALLY_UPDATE  = true;
+		//start the update service
+            } else {
+                Constants.AUTOMATICALLY_UPDATE = false;
+            }
+            return true;
+        } 
+	if(preference == mAutoSync){
+	    value = mAutoSync.isChecked();	
+	    if(!value) {
+	        Constants.AUTOMATICALLY_SYNC = false;
+	        mAddons.setEnabled(false);
+	        mNightlies.setEnabled(false);
+	        mForceAddonsSync.setChecked(false);
+	        mForceNightliesSync.setChecked(false);	
+	    } else {
+	        Constants.AUTOMATICALLY_SYNC = true;
+	        mAddons.setEnabled(true);
+	        mNightlies.setEnabled(true);
+	        mForceAddonsSync.setChecked(Constants.shouldForceAddonsSync());
+	        mForceNightliesSync.setChecked(Constants.shouldForceNightliesSync());
 	    }
-		if(preference == mForceAddonsSync){
-			value = mForceAddonsSync.isChecked();
-			if(value) {
-				Constants.FORCE_ADDONS_ACTIVITY_SYNC = true;
-			} else {
-				Constants.FORCE_ADDONS_ACTIVITY_SYNC = false;	
-			}
-			return true;
-		}
-		if(preference == mForceNightliesSync){
-			value = mForceNightliesSync.isChecked();
-			if(value) {
-				Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC = true;
-			} else {
-				Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC = false;
-			}
-			return true;
-		}
-		return false;
+	    return true;
+        }
+        if(preference == mForceAddonsSync){
+	    value = mForceAddonsSync.isChecked();
+       	    if(value) {
+		Constants.FORCE_ADDONS_ACTIVITY_SYNC = true;
+	    } else {
+	        Constants.FORCE_ADDONS_ACTIVITY_SYNC = false;	
+	        }
+	    return true;
+	    }
+	if(preference == mForceNightliesSync){
+	    value = mForceNightliesSync.isChecked();
+            if(value) {
+	        Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC = true;
+	    } else {
+		Constants.FORCE_NIGHTLIES_ACTIVITY_SYNC = false;
+	    }
+	    return true;
+	}
+	return false;
 	}
 
     @Override

@@ -97,6 +97,8 @@ public final class Constants {
     
     public static boolean FORCE_NIGHTLIES_ACTIVITY_SYNC = false; 
 
+    public static boolean AUTOMATICALLY_UPDATE = false; 
+
     public static boolean AUTOMATICALLY_SYNC = true; 
 
     
