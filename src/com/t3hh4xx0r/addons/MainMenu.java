@@ -6,8 +6,11 @@ import com.t3hh4xx0r.addons.utils.Downloads;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -35,7 +39,7 @@ public class MainMenu extends PreferenceActivity  {
 
 	private boolean DBG = (false || Constants.FULL_DBG);
 
-    private static String TAG = "MainMenu";
+        public static String TAG = "MainMenu";
 	PreferenceScreen mNightlies;
 	
 	private final int CLEARCACHE = 0;
@@ -44,7 +48,7 @@ public class MainMenu extends PreferenceActivity  {
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		
+
 		if(Constants.FIRST_LAUNCH)determineDevice();
 		if(Constants.FIRST_LAUNCH){	
 			Runnable scripts = new Runnable(){	

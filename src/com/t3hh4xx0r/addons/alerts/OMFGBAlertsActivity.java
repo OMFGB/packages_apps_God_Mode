@@ -190,7 +190,7 @@ public class OMFGBAlertsActivity extends PreferenceActivity implements JSONParsi
 	    return(super.onOptionsItemSelected(item));
 	}	
 
-    private void startRefresh() {
+    public void startRefresh() {
         mProgressDialog = ProgressDialog.show(OMFGBAlertsActivity.this,  
 		        getString(R.string.please_wait), getString(R.string.retreiving_data), true);
 		mJSONRunnable = new Runnable(){

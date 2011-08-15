@@ -150,6 +150,9 @@
     <string name="hide_category_title">Hide status bar icons</string>
     <string name="miscstatus_category_title">Misc status bar options</string>
     <string name="battery_option_dialog_title">Battery</string>
+    <string name="refresh_time_dialog_title">Refresh every...</string>
+    <string name="refresh_time_title">Refresh Interval</string>
+    <string name="refresh_time_summary">Choose how long in between checks</string>
     <string name="battery_option_title">Battery type</string>
     <string name="battery_option_summary">Choose the battery type to use</string>
     <string name="settings_battery">Battery Ui Settings</string>
@@ -216,6 +219,8 @@
     <string name="auto_update">Check for Updates</string>
     <string name="auto_update_settings">Automatically check for updates.</string>
     <string name="auto_sync">Automatically Sync</string>
+    <string name="auto_updates">Automatically Check for Updates</string>
+    <string name="auto_updates_summary">Check for updates int he background</string>
     <string name="auto_sync_summary">Sync automatically in background</string>
     <string name="addons_settings_category">Addons Settings</string>
     <string name="force_sync_on_activity">Force sync the manifest</string>
