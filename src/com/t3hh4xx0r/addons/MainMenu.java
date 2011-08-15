@@ -72,7 +72,7 @@ public class MainMenu extends PreferenceActivity  {
 			mRomsCat.setEnabled(false);
 			AlertBox(getString(R.string.warning),getString(R.string.sdcard_not_mounted));
 		} else if (!Constants.isDeviceDetermined()){
-			mAddonsCat.setEnabled(false);
+			mRomsCat.setEnabled(false);
 			AlertBox(getString(R.string.warning),"Device not determined. Disabling nightlies.");
 		} else {
                         mRomsCat.setEnabled(true);
