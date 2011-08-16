@@ -22,7 +22,7 @@ import android.util.Slog;
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
-import com.t3hh4xx0r.addons.utils.BroadcastReceivers;
+import com.t3hh4xx0r.addons.utils.AlertsBroadcastReceivers;
 
 import java.util.Calendar;
 
@@ -89,17 +89,10 @@ public class SettingsMenu extends PreferenceActivity implements OnPreferenceChan
             value = mAutoUpdate.isChecked();
             if(value) {
                 Constants.AUTOMATICALLY_UPDATE  = true;
-		//start the update service
-	        Toast.makeText(SettingsMenu.this, "Start service", Toast.LENGTH_LONG).show();
-		Intent myIntent = new Intent(getBaseContext(), BroadcastReceivers.class);
-		pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
-		AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.add(Calendar.SECOND, 5);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Constants.REFRESH_TIME*1000, pendingIntent);
+		refreshAlertUpdateService();
 	    } else {
                 Constants.AUTOMATICALLY_UPDATE = false;
+		refreshAlertUpdateService();
             }
             return true;
         } 
@@ -169,5 +162,23 @@ public class SettingsMenu extends PreferenceActivity implements OnPreferenceChan
                 return true;
 	   }
 	   return false;
+	}
+
+	public void refreshAlertUpdateService() {
+            if (Constants.AUTOMATICALLY_UPDATE) {
+                Intent myIntent = new Intent(getBaseContext(), AlertsBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.add(Calendar.SECOND, 5);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Constants.REFRESH_TIME*1000, pendingIntent);
+    	    } else {
+                Constants.AUTOMATICALLY_UPDATE = false;
+                Intent myIntent = new Intent(getBaseContext(), AlertsBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                alarmManager.cancel(pendingIntent);
+	    }
 	}
 }

@@ -10,14 +10,13 @@ public final class Constants {
 	private static boolean DEVICEDETERMINED = false;
 
     public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup/";
-	
-    public static int CURRENT_MD5 = 0;
 
-    public static String LOCAL_FILE = "foo";
+    public static String LOCAL_MD5;
+    public static String REMOTE_MD5;	
 
-    public static String REMOTE_FILE = "bar";
+    public static String OUTPUT_MD5;
 
-    public static int IS_DIFF = 0;
+    public static String LOCAL_FILE;
 
     public static int REFRESH_TIME = 3600;
 	/**
