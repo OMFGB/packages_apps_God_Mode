@@ -23,6 +23,9 @@ import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
 import com.t3hh4xx0r.addons.utils.AlertsBroadcastReceivers;
+import com.t3hh4xx0r.addons.utils.NightliesBroadcastReceivers;
+import com.t3hh4xx0r.addons.utils.AddonsBroadcastReceivers;
+import com.t3hh4xx0r.addons.utils.OMGBBroadcastReceivers;
 
 import java.util.Calendar;
 
@@ -90,9 +93,15 @@ public class SettingsMenu extends PreferenceActivity implements OnPreferenceChan
             if(value) {
                 Constants.AUTOMATICALLY_UPDATE  = true;
 		refreshAlertUpdateService();
+		refreshNightlyUpdateService();
+                refreshAddonsUpdateService();
+                refreshOMGBUpdateService();
 	    } else {
                 Constants.AUTOMATICALLY_UPDATE = false;
 		refreshAlertUpdateService();
+		refreshNightlyUpdateService();
+                refreshAddonsUpdateService();
+                refreshOMGBUpdateService();
             }
             return true;
         } 
@@ -163,6 +172,62 @@ public class SettingsMenu extends PreferenceActivity implements OnPreferenceChan
 	   }
 	   return false;
 	}
+
+	public void refreshNightlyUpdateService() {
+            if (Constants.AUTOMATICALLY_UPDATE) {
+                Intent myIntent = new Intent(getBaseContext(), NightliesBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.add(Calendar.SECOND, 5);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Constants.REFRESH_TIME*1000, pendingIntent);
+            } else {
+                Constants.AUTOMATICALLY_UPDATE = false;
+                Intent myIntent = new Intent(getBaseContext(), NightliesBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                alarmManager.cancel(pendingIntent);
+            }
+	}
+
+        public void refreshAddonsUpdateService() {
+            if (Constants.AUTOMATICALLY_UPDATE) {
+                Intent myIntent = new Intent(getBaseContext(), AddonsBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.add(Calendar.SECOND, 5);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Constants.REFRESH_TIME*1000, pendingIntent);
+            } else {
+                Constants.AUTOMATICALLY_UPDATE = false;
+                Intent myIntent = new Intent(getBaseContext(), AddonsBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                alarmManager.cancel(pendingIntent);
+            }
+        }
+
+
+        public void refreshOMGBUpdateService() {
+            if (Constants.AUTOMATICALLY_UPDATE) {
+                Intent myIntent = new Intent(getBaseContext(), OMGBBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.add(Calendar.SECOND, 5);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), Constants.REFRESH_TIME*1000, pendingIntent);
+            } else {
+                Constants.AUTOMATICALLY_UPDATE = false;
+                Intent myIntent = new Intent(getBaseContext(), OMGBBroadcastReceivers.class);
+                pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, myIntent, 0);
+                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                alarmManager.cancel(pendingIntent);
+            }
+        }
+
 
 	public void refreshAlertUpdateService() {
             if (Constants.AUTOMATICALLY_UPDATE) {

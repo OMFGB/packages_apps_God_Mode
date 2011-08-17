@@ -113,5 +113,8 @@
             </intent-filter>
         </activity> 
       <receiver android:name=".addons.utils.AlertsBroadcastReceivers" />
+      <receiver android:name=".addons.utils.NightliesBroadcastReceivers" />
+      <receiver android:name=".addons.utils.OMGBBroadcastReceivers" />
+      <receiver android:name=".addons.utils.AddonsBroadcastReceivers" />
     </application>
 </manifest>
