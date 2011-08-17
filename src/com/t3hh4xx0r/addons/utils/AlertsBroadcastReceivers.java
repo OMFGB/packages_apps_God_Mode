@@ -3,14 +3,7 @@ package com.t3hh4xx0r.addons.utils;
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.addons.alerts.OMFGBAlertsActivity;
 
-import java.io.BufferedInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.HttpURLConnection;
@@ -34,12 +27,12 @@ public class AlertsBroadcastReceivers extends BroadcastReceiver {
 	public static String TAG = "Receivers";
 	private static String updateDirectory = "/sdcard/t3hh4xx0r/updates/";
 
-        Constants.LOCAL_FILE = "/sdcard/t3hh4xx0r/downloads/" + Constants.ALERTS;
 
 	Context mContext;
 	DownloadManager downloadManager;
 
 	public void onReceive(Context context, Intent intent) {
+           Constants.LOCAL_FILE = "/sdcard/t3hh4xx0r/downloads/" + Constants.ALERTS;
    	   Slog.d(TAG, "Received");
 	   //First lets start with the bulletin board posts
 	   downloadAlerts(context);
@@ -61,12 +54,14 @@ public class AlertsBroadcastReceivers extends BroadcastReceiver {
    }
 
    public void getAlertsValues() {
-        Constants.LOCAL_MD5 = checkMd5(Constants.LOCAL_FILE);
-	Slog.d(TAG, "Local md5: " + checkMd5(Constants.LOCAL_FILE));
+	File local = new File (Constants.LOCAL_FILE);
+        Constants.LOCAL_MD5 = checkMd5(local);
+	Slog.d(TAG, "Local md5: " + Constants.LOCAL_MD5);
 
 	Downloads.refreshAlerts();
-        Constants.REMOTE_MD5 = checkMd5(Constants.LOCAL_FILE);
-	Slog.d(TAG, "remote md5: " + checkMd5(Constants.LOCAL_FILE));
+        File remote = new File (Constants.LOCAL_FILE);
+        Constants.REMOTE_MD5 = checkMd5(remote);
+	Slog.d(TAG, "remote md5: " + Constants.REMOTE_MD5);
     }
 
     public void diffChecks(Context context) {
@@ -87,12 +82,12 @@ public class AlertsBroadcastReceivers extends BroadcastReceiver {
 		 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(ns);
 
 		 int icon = R.drawable.icon;        // icon from resources
-		 CharSequence tickerText = "T3hh4xx0r";              // ticker-text
+		 CharSequence tickerText = "God Mode";              // ticker-text
 		 long when = System.currentTimeMillis();         // notification time
-		 CharSequence contentTitle = "T3hh4xx0r Addons";  // expanded message title
-		 CharSequence contentText = "Download completed";      // expanded message text
+		 CharSequence contentTitle = "Bulletin Board";  // expanded message title
+		 CharSequence contentText = "New Bulletin Board post available.";      // expanded message text
 
-		 Intent notificationIntent = new Intent(context, AlertsBroadcastReceivers.class);
+		 Intent notificationIntent = new Intent(context, com.t3hh4xx0r.addons.alerts.OMFGBAlertsActivity.class);
 
 		 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
@@ -104,21 +99,42 @@ public class AlertsBroadcastReceivers extends BroadcastReceiver {
 		 mNotificationManager.notify(HELLO_ID, notification);
     }
 
-    public String checkMd5(String s) {
-    try {
-        // Create MD5 Hash
-        MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-        digest.update(s.getBytes());
-        byte messageDigest[] = digest.digest();
-        //Create Hex String
-        StringBuffer hexString = new StringBuffer();
-        for (int i=0; i<messageDigest.length; i++)
-            hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-        return hexString.toString();
-        
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
-    }
-    return "";
-}
+    public String checkMd5(File updatefile) {
+                MessageDigest digest;
+                try {
+                    digest = MessageDigest.getInstance("MD5");
+                } catch (NoSuchAlgorithmException e) {
+                    Slog.d(TAG, "Exception while getting Digest", e);
+                    return null;
+                }
+                InputStream is;
+                try {
+                    is = new FileInputStream(updatefile);
+                } catch (FileNotFoundException e) {
+                    Slog.d(TAG, "Exception while getting FileInputStream", e);
+                    return null;
+                }
+                byte[] buffer = new byte[8192];
+                int read;
+                try {
+                    while ((read = is.read(buffer)) > 0) {
+                        digest.update(buffer, 0, read);
+                    }
+                    byte[] md5sum = digest.digest();
+                    BigInteger bigInt = new BigInteger(1, md5sum);
+                    String output = bigInt.toString(16);
+                    //Fill to 32 chars
+                    output = String.format("%32s", output).replace(' ', '0');
+                    return output;
+                } catch (IOException e) {
+                    throw new RuntimeException(
+                            "Unable to process file for MD5", e);
+                } finally {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        Slog.d(TAG, "Exception on closing MD5 input stream", e);
+                    }
+                }
+            }
 }

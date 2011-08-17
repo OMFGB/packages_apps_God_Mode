@@ -217,6 +217,7 @@
     <string name="application_settings">Application Settings</string>
     <string name="sync_settings_category">Sync Settings</string>
     <string name="auto_update">Check for Updates</string>
+    <string name="auto_update_summary">Automatically check for updates in the background.</string>
     <string name="auto_update_settings">Automatically check for updates.</string>
     <string name="auto_sync">Automatically Sync</string>
     <string name="auto_updates">Automatically Check for Updates</string>

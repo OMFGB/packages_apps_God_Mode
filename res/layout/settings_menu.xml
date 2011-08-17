@@ -24,7 +24,7 @@
         <CheckBoxPreference
             android:key="auto_update"
             android:title="@string/auto_update"
-            android:summary="@string/auto_update"
+            android:summary="@string/auto_update_summary"
             android:defaultValue="false" />
         <ListPreference 
 	    android:key="refresh_time" 
