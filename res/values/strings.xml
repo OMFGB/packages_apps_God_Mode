@@ -139,6 +139,8 @@
     <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
 
     <!-- Status Bar Preference Screen -->
+    <string name="title_hide_wifi">Hide Wifi Signal</string>
+    <string name="summary_hide_wifi">Hide the wifi signal bars when set</string>
     <string name="title_hide_clock">Hide Clock</string>
     <string name="summary_hide_clock">Hide the clock when set</string>
     <string name="title_hide_date">Hide Status Bar Date</string>
@@ -218,7 +220,7 @@
     <string name="sync_settings_category">Sync Settings</string>
     <string name="auto_update">Check for Updates</string>
     <string name="auto_update_summary">Automatically check for updates in the background.</string>
-    <string name="auto_update_settings">Automatically check for updates.</string>
+    <string name="auto_update_settings">Automatically Update</string>
     <string name="auto_sync">Automatically Sync</string>
     <string name="auto_updates">Automatically Check for Updates</string>
     <string name="auto_updates_summary">Check for updates int he background</string>
