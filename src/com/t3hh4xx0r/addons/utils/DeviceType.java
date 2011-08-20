@@ -66,8 +66,8 @@ public class DeviceType {
     public static final String SHOWCASEMTD_SCRIPT = "showcasemtd.js";
     public static final String SHOWCASEMTD = "showcasemtd";
     
-    public static final String  MESMERIZEMTD_SCRIPT = "mesmerizedmtd.js";
-    public static final String  MESMERIZEMTD = "mesmerizedmtd";
+    public static final String  MESMERIZEMTD_SCRIPT = "mesmerizemtd.js";
+    public static final String  MESMERIZEMTD = "mesmerizemtd";
     
     @SuppressWarnings("unused")
     public static boolean deviceModelEquals(String s){
