@@ -155,9 +155,9 @@ implements OnPreferenceChangeListener {
     }
 	
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-		
         if (preference == mLockScreenTypeList) {
-		Settings.System.putInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
+                lockScreenTypeValue = Integer.valueOf((String) objValue);
+                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, Integer.valueOf((String) objValue));
 		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HC_LOCKSCREEN)Log.d(TAG, "Concept used");
 		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
 		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
