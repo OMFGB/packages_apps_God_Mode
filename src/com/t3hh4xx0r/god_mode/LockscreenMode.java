@@ -22,13 +22,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.view.View;
 
 
 public class LockscreenMode extends PreferenceActivity
-implements SharedPreferences.OnSharedPreferenceChangeListener {
+implements OnPreferenceChangeListener {
 	
 	private static String TAG = "LockscreenMode";
 	private boolean DBG = (false || Constants.FULL_DBG);
@@ -41,8 +42,8 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
 	private static final String LOCKSCREEN_TYPE = "lockscreen_type";
 	private static final String CUSTOM_LOCKSCREEN_TIMEOUT = "custom_lockscreen_timeout";
-	//private static final String LOCKSCREEN_ORIENTATION = "lockscreen_orientation";
 
+	private static int lockScreenTypeValue;
 	
 	private ListPreference mLockScreenTypeList;
 	private CheckBoxPreference mTrackpadWakeScreen;
@@ -50,7 +51,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private CheckBoxPreference mTrackpadUnlockScreen;
 	private CheckBoxPreference mMenuUnlockScreen;
 	private CheckBoxPreference mLockscreenShortcuts;
-	//private CheckBoxPreference mLockscreenOrientation;
 	private CheckBoxPreference mLockscreenAlwaysBattery;
 	private Preference mLockscreenTimeout;
 	
@@ -87,9 +87,10 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 		mLockscreenAlwaysBattery = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_ALWAYS_BATTERY);
 		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 1);
 		// Lockscreen type preference
-		mLockScreenTypeList  = (ListPreference) findPreference(LOCKSCREEN_TYPE);
-		mLockScreenTypeList.setValueIndex(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, 1)-1);
-		
+		mLockScreenTypeList = (ListPreference) findPreference(LOCKSCREEN_TYPE);
+		lockScreenTypeValue = Settings.System.getInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE, 1);
+		mLockScreenTypeList.setValue(String.valueOf(lockScreenTypeValue));
+		mLockScreenTypeList.setOnPreferenceChangeListener(this);
 		// Custom Lockscreen timeout
 		mLockscreenTimeout = (Preference) prefSet.findPreference(CUSTOM_LOCKSCREEN_TIMEOUT);
 		mLockscreenTimeout.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -122,7 +123,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	        return true;
         }
     });
-    getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }	
 	
 	public boolean onDialogClosed() {
@@ -154,15 +154,18 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
         return true;
     }
 	
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
 		
-		if(mLockScreenTypeList.getKey().equals(key)){
-			
-			Settings.System.putInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HC_LOCKSCREEN)Log.d(TAG, "Concept used");
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");			
-		}		
+        if (preference == mLockScreenTypeList) {
+                lockScreenTypeValue = Integer.valueOf((String) objValue);
+                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, Integer.valueOf((String) objValue));
+
+		Settings.System.putInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
+		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HC_LOCKSCREEN)Log.d(TAG, "Concept used");
+		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
+		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
+                return true;
 	}
+	return false;
+    }
 }
