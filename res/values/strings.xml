@@ -139,6 +139,8 @@
     <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
 
     <!-- Status Bar Preference Screen -->
+    <string name="title_hide_bluetooth">Hide Bluetooth Icon</string>
+    <string name="summary_hide_bluetooth">Hide the bluetooth icon when set</string>
     <string name="title_hide_wifi">Hide Wifi Signal</string>
     <string name="summary_hide_wifi">Hide the wifi signal bars when set</string>
     <string name="title_hide_clock">Hide Clock</string>
