@@ -43,7 +43,7 @@ implements OnPreferenceChangeListener {
 	private static final String LOCKSCREEN_TYPE = "lockscreen_type";
 	private static final String CUSTOM_LOCKSCREEN_TIMEOUT = "custom_lockscreen_timeout";
 
-	private static int lockScreenTypeValue;
+	private int lockScreenTypeValue;
 	
 	private ListPreference mLockScreenTypeList;
 	private CheckBoxPreference mTrackpadWakeScreen;
@@ -157,9 +157,6 @@ implements OnPreferenceChangeListener {
     public boolean onPreferenceChange(Preference preference, Object objValue) {
 		
         if (preference == mLockScreenTypeList) {
-                lockScreenTypeValue = Integer.valueOf((String) objValue);
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, Integer.valueOf((String) objValue));
-
 		Settings.System.putInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE,Integer.parseInt(mLockScreenTypeList.getValue()));
 		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HC_LOCKSCREEN)Log.d(TAG, "Concept used");
 		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
