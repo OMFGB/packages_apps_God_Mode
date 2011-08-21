@@ -34,6 +34,7 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
     private static final String HIDE_SIGNAL_ICON = "hide_signal_icon";
     private static final String HIDE_DATE = "hide_date";
     private static final String HIDE_CLOCK = "hide_clock";
+    private static final String HIDE_BLUETOOTH = "hide_bluetooth";
     private static final String HIDE_WIFI = "hide_wifi";
     private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
     private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
@@ -64,6 +65,7 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 	private CheckBoxPreference mHideAlarm;
         private CheckBoxPreference mHideDate;
         private CheckBoxPreference mHideWifi;
+        private CheckBoxPreference mHideBluetooth;
         private CheckBoxPreference mHideClock;
 	private ListPreference mDateClock;
 	private PreferenceScreen mBatteryTextOptions;
@@ -96,6 +98,10 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 	/* Show or hide the wifi signal bars */
 		mHideWifi = (CheckBoxPreference) prefSet.findPreference(HIDE_WIFI);
                 mHideWifi.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_WIFI, 0) == 1);
+
+        /* Show or hide the BT icon */
+                mHideBluetooth = (CheckBoxPreference) prefSet.findPreference(HIDE_BLUETOOTH);
+                mHideBluetooth.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_BLUETOOTH, 0) == 1);
 
         /* Show or hide the clock */
                 mHideClock = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK);
@@ -162,8 +168,11 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
         if (preference == mHideSignal) {
              Settings.System.putInt(getContentResolver(), Settings.System.HIDE_SIGNAL_ICON, mHideSignal.isChecked() ? 1 : 0);
 	    }
+            if (preference == mHideBluetooth) {
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_BLUETOOTH, mHideBluetooth.isChecked() ? 1 : 0);
+            }
             if (preference == mHideWifi) {
-             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_WIFI, mHideWifi.isChecked() ? 0 : 1);
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_WIFI, mHideWifi.isChecked() ? 1 : 0);
             }
             if (preference == mHideClock) {
              Settings.System.putInt(getContentResolver(), Settings.System.HIDE_CLOCK, mHideClock.isChecked() ? 0 : 1);
