@@ -36,6 +36,8 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
     private static final String HIDE_CLOCK = "hide_clock";
     private static final String HIDE_BLUETOOTH = "hide_bluetooth";
     private static final String HIDE_WIFI = "hide_wifi";
+    private static final String HIDE_DATA = "hide_data";
+    private static final String HIDE_SYNC = "hide_sync";
     private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
     private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
     private static final String STATUSBAR_CLOCK_COLOR = "statusbar_clock_color"; 
@@ -65,6 +67,8 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 	private CheckBoxPreference mHideAlarm;
         private CheckBoxPreference mHideDate;
         private CheckBoxPreference mHideWifi;
+        private CheckBoxPreference mHideData;
+        private CheckBoxPreference mHideSync;
         private CheckBoxPreference mHideBluetooth;
         private CheckBoxPreference mHideClock;
 	private ListPreference mDateClock;
@@ -98,6 +102,14 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 	/* Show or hide the wifi signal bars */
 		mHideWifi = (CheckBoxPreference) prefSet.findPreference(HIDE_WIFI);
                 mHideWifi.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_WIFI, 0) == 1);
+
+        /* Show or hide the sync icon */
+                mHideSync = (CheckBoxPreference) prefSet.findPreference(HIDE_SYNC);
+                mHideSync.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_SYNC, 0) == 1);
+
+        /* Show or hide the data icon */
+                mHideData = (CheckBoxPreference) prefSet.findPreference(HIDE_DATA);
+                mHideData.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_DATA, 0) == 1);
 
         /* Show or hide the BT icon */
                 mHideBluetooth = (CheckBoxPreference) prefSet.findPreference(HIDE_BLUETOOTH);
@@ -170,6 +182,12 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 	    }
             if (preference == mHideBluetooth) {
              Settings.System.putInt(getContentResolver(), Settings.System.HIDE_BLUETOOTH, mHideBluetooth.isChecked() ? 1 : 0);
+            }
+            if (preference == mHideSync) {
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_SYNC, mHideSync.isChecked() ? 1 : 0);
+            }
+            if (preference == mHideData) {
+             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_DATA, mHideData.isChecked() ? 1 : 0);
             }
             if (preference == mHideWifi) {
              Settings.System.putInt(getContentResolver(), Settings.System.HIDE_WIFI, mHideWifi.isChecked() ? 1 : 0);
