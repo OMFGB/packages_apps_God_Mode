@@ -40,6 +40,9 @@
     <string name="settings_statusbar_summary">Customize your Statusbar</string>
     <string name="settings_uioptions">UI Settings</string>
     <string name="settings_uioptions_summary">Customize your UI</string>
+    <string name="settings_statusbar_clock_label">Clock options</string>
+    <string name="settings_statusbar_battery_label">Battery options</string>
+    <string name="settings_statusbar_signal_label">Signal options</string>
 
     <!-- Launcher Preference Screen -->
     <string name="use_settings_title">Enable/Disable settings</string>
@@ -161,8 +164,8 @@
     <string name="refresh_time_dialog_title">Refresh every...</string>
     <string name="refresh_time_title">Refresh Interval</string>
     <string name="refresh_time_summary">Choose how long in between checks</string>
-    <string name="battery_option_title">Battery type</string>
-    <string name="battery_option_summary">Choose the battery type to use</string>
+    <string name="battery_option_title">Show icon percent</string>
+    <string name="battery_option_summary">Inside battery icon</string>
     <string name="settings_battery">Battery Ui Settings</string>
     <string name="title_hide_battery">Hide Battery Icon</string>
     <string name="summary_hide_battery">Action is DELAYED</string>

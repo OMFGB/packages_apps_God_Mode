@@ -69,6 +69,9 @@ public class DeviceType {
     public static final String  MESMERIZEMTD_SCRIPT = "mesmerizemtd.js";
     public static final String  MESMERIZEMTD = "mesmerizemtd";
     
+    public static final String  VIBRANTMTD_SCRIPT = "mesmerizemtd.js";
+    public static final String  VIBRANTMTD= "vibrantmtd";
+    
     @SuppressWarnings("unused")
     public static boolean deviceModelEquals(String s){
 

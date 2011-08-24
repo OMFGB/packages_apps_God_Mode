@@ -178,6 +178,10 @@ public class MainMenu extends PreferenceActivity  {
  				log("Setting device as " + DeviceType.MESMERIZEMTD);
                 Constants.setDeviceScript(DeviceType.MESMERIZEMTD_SCRIPT);
                 DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
+            }else  if (DeviceType.deviceDeviceEquals(DeviceType.VIBRANTMTD)) {
+                log("Setting device as " + DeviceType.VIBRANTMTD);
+                Constants.setDeviceScript(DeviceType.VIBRANTMTD_SCRIPT);
+                DeviceType.DEVICE_TYPE = DeviceType.VIBRANTMTD;
             }
         }		
 	}

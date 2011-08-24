@@ -55,6 +55,31 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        
+         <activity android:name=".god_mode.statusbar.ClockActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".god_mode.statusbar.SignalActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".god_mode.statusbar.BatteryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".god_mode.statusbar.MiscActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        
 	    <activity android:name="com.t3hh4xx0r.god_mode.Battery" android:label="@string/settings_battery">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
