@@ -29,10 +29,6 @@
                     android:title="@string/title_hide_adb"
             android:summary="@string/summary_hide_adb" />
             <CheckBoxPreference
-            android:key="hide_clock" 
-                    android:title="@string/title_hide_clock"
-            android:summary="@string/summary_hide_clock" />
-            <CheckBoxPreference
             android:key="hide_wifi" 
                     android:title="@string/title_hide_wifi"
             android:summary="@string/summary_hide_wifi" />
