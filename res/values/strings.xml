@@ -142,6 +142,10 @@
     <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
 
     <!-- Status Bar Preference Screen -->
+    <string name="title_hide_data">Hide 3g/4g Icon</string>
+    <string name="summary_hide_data">Hide the data icon when set</string>
+    <string name="title_hide_sync">Hide Sync Icon</string>
+    <string name="summary_hide_sync">Hide the sync icon when set</string>
     <string name="title_hide_bluetooth">Hide Bluetooth Icon</string>
     <string name="summary_hide_bluetooth">Hide the bluetooth icon when set</string>
     <string name="title_hide_wifi">Hide Wifi Signal</string>
