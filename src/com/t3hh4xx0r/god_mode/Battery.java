@@ -142,9 +142,9 @@ public class Battery extends PreferenceActivity
 		    return true;
 	    }else if (preference == mColor) {
             ColorPickerDialog cp = new ColorPickerDialog(this,
-                    new ColorChangedListener(this, Settings.System.BATTERY_COLOR),
+                    new ColorChangedListener(this, Settings.System.BATTERY_COLOR_STATIC),
                     Settings.System.getInt(getContentResolver(),
-                            Settings.System.BATTERY_COLOR,
+                            Settings.System.BATTERY_COLOR_STATIC,
                             getResources().getColor(com.android.internal.R.color.white))); 
 		    cp.show();
 		    return true;

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<Preference
+		android:title="Clock options"
+		android:key="clock_options_pref">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.t3hh4xx0r"
+			android:targetClass="com.t3hh4xx0r.god_mode.statusbar.ClockActivity" />
+	</Preference>
+
+	<Preference
+		android:title="Battery options"
+		android:key="battery_options_pref">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.t3hh4xx0r"
+			android:targetClass="com.t3hh4xx0r.god_mode.statusbar.BatteryActivity" />
+	</Preference>
+
+	<Preference
+		android:title="Signal options"
+		android:key="signal_options_pref">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.t3hh4xx0r"
+			android:targetClass="com.t3hh4xx0r.god_mode.statusbar.SignalActivity" />
+	</Preference>
+	
+	<Preference
+		android:title="Misc. statusbar settings"
+		android:summary="Carrier text, toggles, hide more icons, etc"
+		android:key="misc_icon_pref">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.t3hh4xx0r"
+			android:targetClass="com.t3hh4xx0r.god_mode.statusbar.MiscActivity" />
+	</Preference>
+
+</PreferenceScreen>
+	
