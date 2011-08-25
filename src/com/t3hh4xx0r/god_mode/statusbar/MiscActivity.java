@@ -23,6 +23,8 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
 
     private static final String HIDE_DATE = "hide_date";
 
+    private static final String HIDE_USB = "hide_usb";
+
     private static final String HIDE_BLUETOOTH = "hide_bluetooth";
 
     private static final String HIDE_WIFI = "hide_wifi";
@@ -61,6 +63,8 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
 
     private CheckBoxPreference mHideDate;
 
+    private CheckBoxPreference mHideUsb;
+
     private CheckBoxPreference mHideWifi;
 
     private CheckBoxPreference mHideBluetooth;
@@ -74,6 +78,11 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.statusbar_misc_tweaks);
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        /* Show or hide the usb icon */
+        mHideUsb = (CheckBoxPreference) prefSet.findPreference(HIDE_USB);
+        mHideUsb.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.HIDE_USB, 0) == 1);
 
         /* Show or hide the date */
         mHideDate = (CheckBoxPreference) prefSet.findPreference(HIDE_DATE);
@@ -132,6 +141,10 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
         if (preference == mHideBluetooth) {
             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_BLUETOOTH,
                     mHideBluetooth.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mHideUsb) {
+            Settings.System.putInt(getContentResolver(), Settings.System.HIDE_USB,
+                    mHideUsb.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mHideWifi) {
             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_WIFI,
