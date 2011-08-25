@@ -66,5 +66,9 @@
 		    android:title="@string/title_volume_music_controls"
 		    android:summaryOn="@string/summary_on_volume_music_controls"
 		    android:summaryOff="@string/summary_off_volume_music_controls" />
+		 <CheckBoxPreference
+		    android:key="notification_light"
+		    android:title="@string/title_notification_light"
+		    android:summary="@string/summary_notification_light"/>
     </PreferenceCategory>
 </PreferenceScreen>
