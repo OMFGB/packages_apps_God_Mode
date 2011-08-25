@@ -3,24 +3,14 @@ package com.t3hh4xx0r.god_mode;
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.addons.utils.Constants;
 
-import com.t3hh4xx0r.god_mode.ColorChangedListener;
-import com.t3hh4xx0r.god_mode.ColorPickerDialog;
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.EditTextPreference;
-import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.widget.Toast;
-import android.util.Log;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 
 
 public class UiOptions extends PreferenceActivity implements OnPreferenceChangeListener {
@@ -35,6 +25,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
     private static final String ROTATION_90_PREF = "pref_rotation_90";
     private static final String ROTATION_180_PREF = "pref_rotation_180";
 	private static final String ROTATION_270_PREF = "pref_rotation_270";
+	private static final String NOTIFICATION_LIGHT_PREF = "notification_light";
 		
     private CheckBoxPreference mRotation90Pref;
 	private CheckBoxPreference mRotation180Pref;
@@ -42,6 +33,7 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	private CheckBoxPreference mUseScreenOnAnim;
 	private CheckBoxPreference mUseScreenOffAnim;
 	private CheckBoxPreference mEnableVolMusicControls;
+	private CheckBoxPreference mNotificationLight;
     private ListPreference mOverscrollPref;
     private ListPreference mOverscrollWeightPref;
 
@@ -81,6 +73,11 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	    mRotation90Pref.setChecked((mode & 1) != 0);
 		mRotation180Pref.setChecked((mode & 2) != 0);
 		mRotation270Pref.setChecked((mode & 4) != 0);
+		
+		/* Led */
+		mNotificationLight = (CheckBoxPreference) prefSet.findPreference(NOTIFICATION_LIGHT_PREF);
+		boolean checked = Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_NOTIFICATION_ON, 1) == 1;
+		mNotificationLight.setChecked(checked);
     }
 	
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -105,7 +102,12 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 				if (mRotation270Pref.isChecked()) mode |= 4;
 				Settings.System.putInt(getContentResolver(),
 				Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
-        }   
+        }
+        if(preference == mNotificationLight) {
+            boolean checked = ((CheckBoxPreference) preference).isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_NOTIFICATION_ON,
+                    checked ? 1 : 0);
+        }
         return true;
     }
 
