@@ -148,8 +148,6 @@
     <string name="summary_hide_sync">Hide the sync icon when set</string>
     <string name="title_hide_bluetooth">Hide Bluetooth Icon</string>
     <string name="summary_hide_bluetooth">Hide the bluetooth icon when set</string>
-    <string name="title_hide_usb">Hide USB Icon</string>
-    <string name="summary_hide_usb">Hide USB Debugging icon when set</string>
     <string name="title_hide_wifi">Hide Wifi Signal</string>
     <string name="summary_hide_wifi">Hide the wifi signal bars when set</string>
     <string name="title_hide_clock">Hide Clock</string>
