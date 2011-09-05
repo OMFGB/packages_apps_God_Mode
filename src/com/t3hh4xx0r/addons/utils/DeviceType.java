@@ -72,6 +72,9 @@ public class DeviceType {
     public static final String  VIBRANTMTD_SCRIPT = "vibrantmtd.js";
     public static final String  VIBRANTMTD= "vibrantmtd";
     
+    public static final String  P999_SCRIPT = "p999.js";
+    public static final String  P999 = "p999";
+    
     @SuppressWarnings("unused")
     public static boolean deviceModelEquals(String s){
 
