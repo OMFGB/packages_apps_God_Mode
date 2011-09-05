@@ -182,6 +182,10 @@ public class MainMenu extends PreferenceActivity  {
                 log("Setting device as " + DeviceType.VIBRANTMTD);
                 Constants.setDeviceScript(DeviceType.VIBRANTMTD_SCRIPT);
                 DeviceType.DEVICE_TYPE = DeviceType.VIBRANTMTD;
+            }else  if (DeviceType.deviceDeviceEquals(DeviceType.P999)) {
+                log("Setting device as " + DeviceType.P999);
+                Constants.setDeviceScript(DeviceType.P999_SCRIPT);
+                DeviceType.DEVICE_TYPE = DeviceType.P999;
             }
         }		
 	}
