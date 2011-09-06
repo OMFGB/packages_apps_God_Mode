@@ -238,7 +238,7 @@
     <string name="auto_sync_summary">Sync automatically in background</string>
     <string name="addons_settings_category">Addons Settings</string>
     <string name="force_sync_on_activity">Force sync the manifest</string>
-    <string name="nightlies_settings_category">Nigtlies Settings</string>
+    <string name="nightlies_settings_category">Nightlies Settings</string>
     <string name="force_sync_addons_summary">Sync when starting the addons activity</string>
     <string name="force_sync_nightlies_summary">Sync when starting the nightlies activity</string>
 
