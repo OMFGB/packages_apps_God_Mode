@@ -54,6 +54,7 @@
 		<item>Tab</item>
 		<item>Rotary</item>
 		<item>HoneyComb concept</item>
+		<item>Honeycomb</item>
 	</string-array>
 
 	<string-array name="lockscreen_selector_types_value">
@@ -61,6 +62,7 @@
 		<item>1</item>
 		<item>2</item>
 		<item>3</item>
+		<item>4</item>
 	</string-array>
 
 	<string-array name="entries_refresh_times">
