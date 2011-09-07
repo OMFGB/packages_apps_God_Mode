@@ -140,6 +140,9 @@
     <string name="pref_ring_mode_summary">Choose how the sound button changes modes</string>
     <string name="pref_flash_mode_title">Flash mode</string>
     <string name="pref_flash_mode_summary">Choose High / Death Ray</string>
+    <string name="pref_widget_loc_title">Move to bottom</string>
+    <string name="pref_widget_loc_summaryOff">Showing power widget on top</string>
+    <string name="pref_widget_loc_summaryOn">Showing power widget on bottom</string>
 
     <!-- Status Bar Preference Screen -->
     <string name="title_hide_data">Hide 3g/4g Icon</string>
