@@ -58,5 +58,11 @@
             android:summary="@string/pref_flash_mode_summary"
             android:entries="@array/entries_flash_widget"
             android:entryValues="@array/values_flash_widget" />
+        <CheckBoxPreference
+        	android:key="pref_widget_loc"
+        	android:title="@string/pref_widget_loc_title"
+        	android:defaultValue="false"
+        	android:summaryOn="@string/pref_widget_loc_summaryOn"
+        	android:summaryOff="@string/pref_widget_loc_summaryOff" />
     </PreferenceCategory>
 </PreferenceScreen>
