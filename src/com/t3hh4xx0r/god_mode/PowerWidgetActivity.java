@@ -49,6 +49,7 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
     private static final String EXP_SCREENTIMEOUT_MODE = "pref_screentimeout_mode";
     private static final String EXP_RING_MODE = "pref_ring_mode";
     private static final String EXP_FLASH_MODE = "pref_flash_mode";
+    private static final String POWER_WIDGET_LOC = "pref_widget_loc";
 
     private HashMap<CheckBoxPreference, String> mCheckBoxPrefs = new HashMap<CheckBoxPreference, String>();
 
@@ -57,6 +58,7 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
     ListPreference mScreentimeoutMode;
     ListPreference mRingMode;
     ListPreference mFlashMode;
+    CheckBoxPreference mPowerWidgetLoc;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,20 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
         mRingMode.setOnPreferenceChangeListener(this);
         mFlashMode = (ListPreference) prefSet.findPreference(EXP_FLASH_MODE);
         mFlashMode.setOnPreferenceChangeListener(this);
+        
+        //power widget loc
+        mPowerWidgetLoc = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_LOC);
+        int currentVal = Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_VIEW_WIDGET, 1);
+        if (currentVal == 0) {
+            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
+        }
+
+        if (currentVal == 1) {
+            mPowerWidgetLoc.setChecked(false);
+        } else if (currentVal == 2) {
+            mPowerWidgetLoc.setChecked(true);
+        }
 
         PreferenceCategory prefButtons = (PreferenceCategory) prefSet.findPreference(BUTTONS_CATEGORY);
 
@@ -144,24 +160,42 @@ public class PowerWidgetActivity extends PreferenceActivity implements OnPrefere
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        // we only modify the button list if it was one of our checks that was clicked
-        boolean buttonWasModified = false;
-        ArrayList<String> buttonList = new ArrayList<String>();
-        for(Map.Entry<CheckBoxPreference, String> entry : mCheckBoxPrefs.entrySet()) {
-            if(entry.getKey().isChecked()) {
-                buttonList.add(entry.getValue());
-            }
 
-            if(preference == entry.getKey()) {
-                buttonWasModified = true;
+        if (preference == mPowerWidgetLoc) {
+            boolean checked = ((CheckBoxPreference) preference).isChecked();
+            
+            if(checked) {
+                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 2);
+                
+            } else {
+                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
             }
-        }
-
-        if(buttonWasModified) {
-            // now we do some wizardry and reset the button list
-            PowerWidgetUtil.saveCurrentButtons(this, PowerWidgetUtil.mergeInNewButtonString(
-                    PowerWidgetUtil.getCurrentButtons(this), PowerWidgetUtil.getButtonStringFromList(buttonList)));
             return true;
+        } else {
+
+            // we only modify the button list if it was one of our checks that
+            // was clicked
+            boolean buttonWasModified = false;
+            ArrayList<String> buttonList = new ArrayList<String>();
+            for (Map.Entry<CheckBoxPreference, String> entry : mCheckBoxPrefs.entrySet()) {
+                if (entry.getKey().isChecked()) {
+                    buttonList.add(entry.getValue());
+                }
+
+                if (preference == entry.getKey()) {
+                    buttonWasModified = true;
+                }
+            }
+
+            if (buttonWasModified) {
+                // now we do some wizardry and reset the button list
+                PowerWidgetUtil.saveCurrentButtons(
+                        this,
+                        PowerWidgetUtil.mergeInNewButtonString(
+                                PowerWidgetUtil.getCurrentButtons(this),
+                                PowerWidgetUtil.getButtonStringFromList(buttonList)));
+                return true;
+            }
         }
         return false;
     }
