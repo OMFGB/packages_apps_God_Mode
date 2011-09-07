@@ -158,11 +158,15 @@ implements OnPreferenceChangeListener {
         if (preference == mLockScreenTypeList) {
                 lockScreenTypeValue = Integer.valueOf((String) objValue);
                 Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, Integer.valueOf((String) objValue));
-		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HCC_LOCKSCREEN)Log.d(TAG, "Concept used");
-		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
-		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
-		if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HONEYCOMB_LOCKSCREEN)Log.d(TAG, "Honey used");
-                return true;
+        if(DBG){
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HCC_LOCKSCREEN)Log.d(TAG, "Concept used");
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HONEYCOMB_LOCKSCREEN)Log.d(TAG, "Honey used");
+			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_SENSELIKE_LOCKSCREEN)Log.d(TAG, "Sense used");
+        }
+        
+		return true;
 	}
 	return false;
     }
