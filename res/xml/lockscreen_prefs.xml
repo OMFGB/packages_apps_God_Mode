@@ -26,6 +26,9 @@
  			android:summary="@string/lockscreen_selector_elements_about"		 	  		
             android:entries="@array/lockscreen_selector_types"
 		    android:entryValues="@array/lockscreen_selector_types_value" />
+		<com.t3hh4xx0r.god_mode.widgets.ShortcutsSelectionPreference
+			android:key="lockscreen_app_selection"		
+			/>
 		<Preference 
 		    android:key="custom_lockscreen_timeout" 
 		    android:title="@string/title_lockscreen_timeout" 
