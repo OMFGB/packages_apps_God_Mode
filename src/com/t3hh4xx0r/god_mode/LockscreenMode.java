@@ -2,6 +2,8 @@ package com.t3hh4xx0r.god_mode;
 
 import com.t3hh4xx0r.R;
 import com.t3hh4xx0r.addons.utils.Constants;
+import com.t3hh4xx0r.god_mode.widgets.ShortcutsSelectionPreference;
+import com.t3hh4xx0r.god_mode.widgets.ShortcutsSelectionPreference.onSelectionListener;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.provider.Settings;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.appwidget.AppWidgetManager;
 import android.content.DialogInterface;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -29,7 +32,7 @@ import android.view.View;
 
 
 public class LockscreenMode extends PreferenceActivity
-implements OnPreferenceChangeListener {
+implements OnPreferenceChangeListener, ShortcutsSelectionPreference.onSelectionListener {
 	
 	private static String TAG = "LockscreenMode";
 	private boolean DBG = (false || Constants.FULL_DBG);
@@ -52,6 +55,7 @@ implements OnPreferenceChangeListener {
 	private CheckBoxPreference mMenuUnlockScreen;
 	private CheckBoxPreference mLockscreenShortcuts;
 	private CheckBoxPreference mLockscreenAlwaysBattery;
+	private ShortcutsSelectionPreference mShortcutsSelectionPreference;
 	private Preference mLockscreenTimeout;
 	
 	Context context;
@@ -123,6 +127,11 @@ implements OnPreferenceChangeListener {
 	        return true;
         }
     });
+		
+		
+		mShortcutsSelectionPreference = (ShortcutsSelectionPreference) prefSet.findPreference("lockscreen_app_selection");
+		mShortcutsSelectionPreference.setSelectionListener(this);
+		
     }	
 	
 	public boolean onDialogClosed() {
@@ -170,4 +179,63 @@ implements OnPreferenceChangeListener {
 	}
 	return false;
     }
+     
+    private final int REQUEST_SHORTCUT_APPLICATION = 100;
+    private int mLockscreenShortcut;
+    
+    
+    
+    
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       
+    	Log.d(TAG,"On activity result");
+
+        // The pattern used here is that a user PICKs a specific application,
+        // which, depending on the target, might need to CREATE the actual target.
+
+        // For example, the user would PICK_SHORTCUT for "Music playlist", and we
+        // launch over to the Music app to actually CREATE_SHORTCUT.
+	        if (resultCode == RESULT_OK ) {
+	        	switch(requestCode){
+	        	case REQUEST_SHORTCUT_APPLICATION:
+	        	{
+	        		
+	        		switch(mLockscreenShortcut){
+	        		
+	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_ONE:
+	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_1, data.toUri(0));
+	        			break;
+	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_TWO:
+	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_2, data.toUri(0));
+	        			break;
+	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_THREE:
+	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_3, data.toUri(0));
+	        			break;
+	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_FOUR:
+	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_4, data.toUri(0));
+	        			break;
+	        		
+	        		}
+	        		
+	        	}
+	        	// end REQUEST_SHORTCUT_APPLICATION:
+	        	
+	        }
+	    }
+    
+    }
+
+	@Override
+	public void startSelection(int selection) {
+		// TODO Auto-generated method stub
+		mLockscreenShortcut = selection;
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        Intent pickIntent = new Intent(Intent.ACTION_PICK_ACTIVITY);
+        pickIntent.putExtra(Intent.EXTRA_INTENT, mainIntent);
+        startActivityForResult(pickIntent,  REQUEST_SHORTCUT_APPLICATION);
+	}
+    
 }
