@@ -27,6 +27,10 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
 
     private static final String HIDE_WIFI = "hide_wifi";
 
+    private static final String HIDE_DATA = "hide_data";
+
+    private static final String HIDE_SYNC = "hide_sync";
+
     private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
 
     private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
@@ -63,6 +67,10 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
 
     private CheckBoxPreference mHideWifi;
 
+    private CheckBoxPreference mHideData;
+
+    private CheckBoxPreference mHideSync;
+
     private CheckBoxPreference mHideBluetooth;
 
     private ListPreference mDateClock;
@@ -84,6 +92,15 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
         mHideWifi = (CheckBoxPreference) prefSet.findPreference(HIDE_WIFI);
         mHideWifi.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.HIDE_WIFI, 0) == 1);
+
+
+        /* Show or hide the sync icon */
+                mHideSync = (CheckBoxPreference) prefSet.findPreference(HIDE_SYNC);
+                mHideSync.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_SYNC, 0) == 1);
+
+        /* Show or hide the data icon */
+                mHideData = (CheckBoxPreference) prefSet.findPreference(HIDE_DATA);
+                mHideData.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.HIDE_DATA, 0) == 1);
 
         /* Show or hide the BT icon */
         mHideBluetooth = (CheckBoxPreference) prefSet.findPreference(HIDE_BLUETOOTH);
@@ -136,6 +153,14 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
         } else if (preference == mHideWifi) {
             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_WIFI,
                     mHideWifi.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mHideSync) {
+            Settings.System.putInt(getContentResolver(), Settings.System.HIDE_SYNC, 
+		    mHideSync.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mHideData) {
+            Settings.System.putInt(getContentResolver(), Settings.System.HIDE_DATA, 
+	    	    mHideData.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mHideDate) {
             Settings.System.putInt(getContentResolver(), Settings.System.HIDE_DATE,
