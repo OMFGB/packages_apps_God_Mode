@@ -33,6 +33,14 @@
                     android:title="@string/title_hide_wifi"
             android:summary="@string/summary_hide_wifi" />
             <CheckBoxPreference
+            android:key="hide_data" 
+                    android:title="@string/title_hide_data"
+            android:summary="@string/summary_hide_data" />
+            <CheckBoxPreference
+            android:key="hide_sync" 
+                    android:title="@string/title_hide_sync"
+            android:summary="@string/summary_hide_sync" />
+            <CheckBoxPreference
             android:key="hide_bluetooth" 
                     android:title="@string/title_hide_bluetooth"
             android:summary="@string/summary_hide_bluetooth" />
