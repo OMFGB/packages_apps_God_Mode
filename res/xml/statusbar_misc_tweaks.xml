@@ -70,6 +70,12 @@
     <!-- Expanded View Power Widget -->
     <PreferenceCategory
             android:title="@string/powerwidget_category_title">
+        <CheckBoxPreference
+            android:key="pref_widget_loc"
+            android:title="@string/pref_widget_loc_title"
+            android:defaultValue="false"
+            android:summaryOn="@string/pref_widget_loc_summaryOn"
+            android:summaryOff="@string/pref_widget_loc_summaryOff" />
         <Preference 
             android:key="expanded_color_mask"
             android:title="@string/expanded_color_mask"

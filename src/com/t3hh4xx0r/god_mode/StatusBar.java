@@ -47,6 +47,10 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
 
     private static final String HIDE_WIFI = "hide_wifi";
 
+    private static final String HIDE_DATA = "hide_data";
+
+    private static final String HIDE_SYNC = "hide_sync";
+
     private static final String STATUSBAR_HIDE_ALARM = "statusbar_hide_alarm";
 
     private static final String STATUSBAR_DATECLOCK = "statusbar_dateclock";
@@ -102,6 +106,10 @@ public class StatusBar extends PreferenceActivity implements OnPreferenceChangeL
     private CheckBoxPreference mHideDate;
 
     private CheckBoxPreference mHideWifi;
+
+    private CheckBoxPreference mHideData;
+
+    private CheckBoxPreference mHideSync;
 
     private CheckBoxPreference mHideBluetooth;
 

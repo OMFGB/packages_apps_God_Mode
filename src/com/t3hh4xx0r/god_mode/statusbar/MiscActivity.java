@@ -47,6 +47,8 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
 
     private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
 
+    private static final String POWER_WIDGET_LOC = "pref_widget_loc";
+
     private EditTextPreference mCarrierCaption;
 
     private CheckBoxPreference mPowerWidget;
@@ -72,6 +74,8 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
     private CheckBoxPreference mHideSync;
 
     private CheckBoxPreference mHideBluetooth;
+
+    private CheckBoxPreference mPowerWidgetLoc;
 
     private ListPreference mDateClock;
 
@@ -143,6 +147,19 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
         mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
         mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
 
+        //power widget loc
+        mPowerWidgetLoc = (CheckBoxPreference) prefSet.findPreference(POWER_WIDGET_LOC);
+        int currentVal = Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_VIEW_WIDGET, 1);
+        if (currentVal == 0) {
+            Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
+        }
+
+        if (currentVal == 1) {
+            mPowerWidgetLoc.setChecked(false);
+        } else if (currentVal == 2) {
+            mPowerWidgetLoc.setChecked(true);
+        }
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -188,7 +205,17 @@ public class MiscActivity extends PreferenceActivity implements OnPreferenceChan
                     getResources().getColor(com.android.internal.R.color.white)));
             cp.show();
             return true;
-        }
+        } else if (preference == mPowerWidgetLoc) {
+            boolean checked = ((CheckBoxPreference) preference).isChecked();
+            
+            if(checked) {
+                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 2);
+
+            } else {
+                Settings.System.putInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET, 1);
+            }
+            return true;
+	}
         return false;
     }
 
