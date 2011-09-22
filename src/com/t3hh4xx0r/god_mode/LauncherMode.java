@@ -52,7 +52,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	CheckBoxPreference mLauncherEndlessLoop;
 	CheckBoxPreference mWallpaperLoop;
     CheckBoxPreference mLauncherOrientationPref;
-    CheckBoxPreference mFourHotseats;
 
     private ActivityManager activityManager;
 	
@@ -65,7 +64,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
     private static final String WALLPAPER_LOOP = "wallpaper_loop";
     private static final String LAUNCHER_ORIENTATION_PREF = "launcher_orientation";
-    private static final String FOUR_HOTSEATS = "four_hotseats"; 
 
     private static final String LAUNCHER = "com.android.launcher";
 
@@ -92,9 +90,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
 	    mLauncherEndlessLoop.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LAUNCHER_ENDLESS_LOOP, 1) == 1);
         mLauncherOrientationPref = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_ORIENTATION_PREF);
         mLauncherOrientationPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LAUNCHER_ORIENTATION, 0) == 1);
-	    mFourHotseats = (CheckBoxPreference) prefSet.findPreference(FOUR_HOTSEATS);
-        mFourHotseats.setChecked(Settings.System.getInt(getContentResolver(),
-			Settings.System.FOUR_HOTSEATS, 1) == 1);
 	    mScreenPreference = (ListPreference) findPreference("num_screens");	
 	    activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
 	}
@@ -113,11 +108,6 @@ implements SharedPreferences.OnSharedPreferenceChangeListener {
             Settings.System.putInt(getContentResolver(),
             Settings.System.LAUNCHER_ORIENTATION, value ? 1 : 0);
         }
-	    if (preference == mFourHotseats) {
-		    value = mFourHotseats.isChecked();
-		    Settings.System.putInt(getContentResolver(),
-			Settings.System.FOUR_HOTSEATS, value ? 1 : 0);
-	    }
 	    if (preference == mLauncherEndlessLoop) {
 		    value = mLauncherEndlessLoop.isChecked();
 		    Settings.System.putInt(getContentResolver(),

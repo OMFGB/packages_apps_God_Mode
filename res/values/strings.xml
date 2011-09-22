@@ -65,9 +65,6 @@
     <string name="title_launcher_orientation">Launcher orientation</string>
     <string name="summary_on_launcher_orientation">Enable Launcher rotation</string>
     <string name="summary_off_launcher_orientation">Disable Launcher rotation</string>
-    <string name="title_four_hotseats">Four hotseats</string>
-    <string name="summary_on_four_hotseats">Coming Soon</string>
-    <string name="summary_off_four_hotseats">Coming Soon</string>
 
     <!-- Lockscreen Settings Preference Screen-->
     <string name="general_lockscreen_settings">General lockscreen settings</string>
@@ -86,7 +83,7 @@
     <string name="summary_on_menu_unlock_screen">Pressing the menu key will unlock the device</string>
     <string name="summary_off_menu_unlock_screen">Pressing the menu key to unlock the device is disabled</string>
     <string name="title_lockscreen_shortcuts">Lockscreen shortcuts</string>
-    <string name="summary_on_lockscreen_shortcuts">Phone and messaging shortcuts will be shown on lockscreen</string>
+    <string name="summary_on_lockscreen_shortcuts">Phone and messaging shortcuts will be shown on supported layouts</string>
     <string name="summary_off_lockscreen_shortcuts">No app shortcuts will be shown on the lockscreen</string>
     <string name="title_lockscreen_always_battery">Lockscreen battery</string>
     <string name="summary_on_lockscreen_always_battery">Battery percentage will always show on lockscreen</string>
