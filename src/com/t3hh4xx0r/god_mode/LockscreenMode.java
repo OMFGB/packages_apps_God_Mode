@@ -88,7 +88,7 @@ implements OnPreferenceChangeListener {
 		mLockscreenAlwaysBattery.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_BATTERY, 0) == 1);
 		// Lockscreen type preference
 		mLockScreenTypeList = (ListPreference) findPreference(LOCKSCREEN_TYPE);
-		lockScreenTypeValue = Settings.System.getInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE, 1);
+		lockScreenTypeValue = Settings.System.getInt(getContentResolver(),Settings.System.LOCKSCREEN_TYPE, 4);
 		mLockScreenTypeList.setValue(String.valueOf(lockScreenTypeValue));
 		mLockScreenTypeList.setOnPreferenceChangeListener(this);
 		// Custom Lockscreen timeout

@@ -56,10 +56,5 @@
             android:title="@string/title_launcher_orientation"
             android:summaryOn="@string/summary_on_launcher_orientation"
             android:summaryOff="@string/summary_off_launcher_orientation" />
-	    <CheckBoxPreference
-		    android:key="four_hotseats"
-		    android:title="@string/title_four_hotseats"
-		    android:summaryOn="@string/summary_on_four_hotseats"
-            android:summaryOff="@string/summary_off_four_hotseats" />
     </PreferenceCategory>
 </PreferenceScreen>
