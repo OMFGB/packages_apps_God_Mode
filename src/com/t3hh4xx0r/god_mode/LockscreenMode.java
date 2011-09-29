@@ -205,19 +205,24 @@ implements OnPreferenceChangeListener, ShortcutsSelectionPreference.onSelectionL
 	        		switch(mLockscreenShortcut){
 	        		
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_ONE:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_1, data.toUri(0));
 	        			break;
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_TWO:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_2, data.toUri(0));
 	        			break;
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_THREE:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_3, data.toUri(0));
 	        			break;
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_FOUR:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_4, data.toUri(0));
 	        			break;
 	        		
 	        		}
+	        		mShortcutsSelectionPreference.NotifyPrefrerenceChanged();
 	        		
 	        	}
 	        	// end REQUEST_SHORTCUT_APPLICATION:
