@@ -164,19 +164,19 @@ implements OnPreferenceChangeListener, ShortcutsSelectionPreference.onSelectionL
     }
 	
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mLockScreenTypeList) {
-                lockScreenTypeValue = Integer.valueOf((String) objValue);
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, Integer.valueOf((String) objValue));
-        if(DBG){
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HCC_LOCKSCREEN)Log.d(TAG, "Concept used");
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_HONEYCOMB_LOCKSCREEN)Log.d(TAG, "Honey used");
-			if(Integer.parseInt(mLockScreenTypeList.getValue()) == Settings.System.USE_SENSELIKE_LOCKSCREEN)Log.d(TAG, "Sense used");
-        }
-        
-		return true;
-	}
+	        if (preference == mLockScreenTypeList) {
+	                lockScreenTypeValue = Integer.valueOf((String) objValue);
+	                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_TYPE, Integer.valueOf((String) objValue));
+	        if(DBG){
+				if(lockScreenTypeValue == Settings.System.USE_HCC_LOCKSCREEN)Log.d(TAG, "Concept used");
+				if(lockScreenTypeValue == Settings.System.USE_TAB_LOCKSCREEN)Log.d(TAG, "Tab used");
+				if(lockScreenTypeValue == Settings.System.USE_ROTARY_LOCKSCREEN)Log.d(TAG, "Rotary used");
+				if(lockScreenTypeValue == Settings.System.USE_HONEYCOMB_LOCKSCREEN)Log.d(TAG, "Honey used");
+				if(lockScreenTypeValue == Settings.System.USE_SENSELIKE_LOCKSCREEN)Log.d(TAG, "Sense used");
+	        }
+	        
+			return true;
+		}
 	return false;
     }
      
@@ -205,19 +205,24 @@ implements OnPreferenceChangeListener, ShortcutsSelectionPreference.onSelectionL
 	        		switch(mLockscreenShortcut){
 	        		
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_ONE:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_1, data.toUri(0));
 	        			break;
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_TWO:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_2, data.toUri(0));
 	        			break;
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_THREE:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_3, data.toUri(0));
 	        			break;
 	        		case ShortcutsSelectionPreference.onSelectionListener.SELECTION_FOUR:
+	        			Log.d(TAG,"Setting URI one to " + data.toUri(0));
 	        			Settings.System.putString(getContentResolver(), Settings.System.LOCKSCREEN_CUSTOM_APP_HONEY_4, data.toUri(0));
 	        			break;
 	        		
 	        		}
+	        		mShortcutsSelectionPreference.NotifyPrefrerenceChanged();
 	        		
 	        	}
 	        	// end REQUEST_SHORTCUT_APPLICATION:
@@ -229,7 +234,6 @@ implements OnPreferenceChangeListener, ShortcutsSelectionPreference.onSelectionL
 
 	@Override
 	public void startSelection(int selection) {
-		// TODO Auto-generated method stub
 		mLockscreenShortcut = selection;
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);

@@ -3,7 +3,7 @@ package com.t3hh4xx0r.god_mode.widgets;
 import com.t3hh4xx0r.R;
 import java.util.List;
 
-import com.android.internal.view.FastBitmapDrawable;
+import com.t3hh4xx0r.god_mode.utils.FastBitmapDrawable;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -33,8 +34,10 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 	private static String TAG = "ShortcutSelectionPrefreence";
 	
 	ImageView[] mShortcuts;
-	
 	TextView[] mShortcutName;
+
+	TextView mTitle;
+	TextView mSummary;
 		
 	onSelectionUpdateListener mOnSelectionUpdateListener;
 	onSelectionListener mOnSelectionListener;
@@ -62,6 +65,7 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 	 */
 	public ShortcutsSelectionPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		
 
 		 mShortcuts = new ImageView[4];
 		 mShortcutName = new TextView[4];
@@ -108,7 +112,10 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 	  public void onBindView(View view) {
 		  super.onBindView(view);
 		  
-			 
+			 mTitle  = (TextView) view.findViewById(R.id.title);
+			 mSummary = (TextView) view.findViewById(R.id.summary);
+			 if(mTitle != null && getTitle() != null)mTitle.setText(getTitle());
+			 if(mSummary != null && getSummary() != null)mSummary.setText(getSummary());
 				 
 				 mShortcuts[0] = (ImageView) view.findViewById(R.id.short_one_icon);
 				 mShortcuts[1] = (ImageView) view.findViewById(R.id.short_two_icon);
@@ -190,9 +197,9 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 		   int numapps = 4;
 		   Intent intent = new Intent();
 		   PackageManager pm = this.getContext().getPackageManager();
+		   mCustomApps = setDefaultIntents();
 		   
 		   
-		 
 		 for(int i = 0; i < numapps ; i++){
 				  
 					try{
@@ -259,11 +266,13 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 	  
 	  public static Intent[] setDefaultIntents(){
 	    	
-	    	Intent[] i = {new Intent(Intent.ACTION_DIAL).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+		  Intent[] i = {
+	    			new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+	    			new Intent(android.content.Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_EMAIL, new String("")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
 	    			new Intent(Intent.ACTION_DIAL).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-	    			new Intent(Intent.ACTION_DIAL).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-	    			new Intent(Intent.ACTION_DIAL).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)};
+	    			new Intent(Intent.ACTION_VIEW).putExtra("sms_body", "").putExtra(Intent.EXTRA_STREAM, "").setType("image/png").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)};
 	    	return i;
+	    	
 	    	
 	    }
 	  
@@ -308,7 +317,7 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 	
 	@Override
 	public boolean onLongClick(View v) {
-		
+		super.onClick();
 		  
 		
 		if(v.equals(mShortcuts[0])){
@@ -330,10 +339,13 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 
 			mOnSelectionListener.startSelection(onSelectionListener.SELECTION_FOUR);
 		}
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
-	
+	public void NotifyPrefrerenceChanged(){
+		
+		notifyChanged();
+	}
 
 }
