@@ -72,15 +72,6 @@
     <PreferenceCategory
             android:title="@string/app_name">
 
-        <PreferenceScreen
-            android:key="settings_launcher"
-            android:title="@string/settings_launcher" 
-            android:summary="@string/settings_launcher_summary">
-            <intent
-                android:action="android.intent.action.MAIN"
-                android:targetPackage="com.t3hh4xx0r"
-                android:targetClass="com.t3hh4xx0r.god_mode.LauncherMode" />
-        </PreferenceScreen>
         <PreferenceScreen 
             android:key="settings_lockscreen"
             android:title="@string/settings_lockscreen" 

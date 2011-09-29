@@ -32,8 +32,6 @@
 
     <!-- God Mode main menu -->
     <string name="custom_settings">Customizable Settings</string>
-    <string name="settings_launcher">Launcher Settings</string>
-    <string name="settings_launcher_summary">Customize your launcher</string>
     <string name="settings_lockscreen">Lockscreen Settings</string>
     <string name="settings_lockscreen_summary">Customize your lockscreen</string>
     <string name="settings_statusbar">Statusbar Settings</string>
@@ -43,28 +41,6 @@
     <string name="settings_statusbar_clock_label">Clock options</string>
     <string name="settings_statusbar_battery_label">Battery options</string>
     <string name="settings_statusbar_signal_label">Signal options</string>
-
-    <!-- Launcher Preference Screen -->
-    <string name="use_settings_title">Enable/Disable settings</string>
-    <string name="screen_changer_title">Screen number</string>
-    <string name="screen_changer_title_summary">Set the number of screens</string>
-    <string name="number_screens_title">Change the number of screens</string>
-    <string name="homescreen_elements">Home screens</string>
-    <string name="homescreen_elements_about">Select the number of home screens</string>
-    <string name="choose_num_screens">Choose the number of home screens</string>
-    <string name="three_screens">Three screens</string>
-    <string name="five_screens">Five screens</string>
-    <string name="seven_screens">Seven screens</string>
-    <string name="category_other_launcher_settings">Other Launcher Settings</string>
-    <string name="title_launcher_endless_loop">Launcher endless loop</string>
-    <string name="summary_on_launcher_endless_loop">Workspace will continuously loop</string>
-    <string name="summary_off_launcher_endless_loop">Workspace will not continuously loop</string>
-    <string name="title_wallpaper_loop">Wallpaper scrolling</string>
-    <string name="summary_on_wallpaper_loop">Wallpaper will move as the homescreens are changed</string>
-    <string name="summary_off_wallpaper_loop">Wallpaper will not move with the screens</string>
-    <string name="title_launcher_orientation">Launcher orientation</string>
-    <string name="summary_on_launcher_orientation">Enable Launcher rotation</string>
-    <string name="summary_off_launcher_orientation">Disable Launcher rotation</string>
 
     <!-- Lockscreen Settings Preference Screen-->
     <string name="general_lockscreen_settings">General lockscreen settings</string>
