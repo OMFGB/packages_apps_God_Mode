@@ -36,19 +36,6 @@
 		<item>9</item>
 	</string-array>
 
-	<!-- Values for the number of home screens. -->
-	<string-array name="number_of_screens">
-		<item>Three</item>
-		<item>Five</item>
-		<item>Seven</item>
-	</string-array>
-
-	<string-array name="number_of_screens_value">
-		<item>Three</item>
-		<item>Five</item>
-		<item>Seven</item>
-	</string-array>
-
 	<string-array name="lockscreen_selector_types">
 		<item>None</item>
 		<item>Tab</item>

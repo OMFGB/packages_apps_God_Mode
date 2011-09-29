@@ -45,11 +45,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".god_mode.LauncherMode" android:label="@string/settings_launcher">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />                            
-            </intent-filter>
-        </activity>
         <activity android:name=".god_mode.StatusBar" android:label="@string/settings_statusbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
