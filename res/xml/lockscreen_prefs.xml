@@ -24,13 +24,12 @@
    			android:key="lockscreen_type"					
  			android:title="@string/lockscreen_selector_elements"
  			android:summary="@string/lockscreen_selector_elements_about"		 	  		
-            android:entries="@array/lockscreen_selector_types"
-		    android:entryValues="@array/lockscreen_selector_types_value" />
+            		android:entries="@array/lockscreen_selector_types"
+		    	android:entryValues="@array/lockscreen_selector_types_value" />
 		<com.t3hh4xx0r.god_mode.widgets.ShortcutsSelectionPreference
-			android:key="lockscreen_app_selection"	
+		    android:key="lockscreen_app_selection"	
 		    android:title="Select lockscreen shortcuts" 
-		    android:summary="Selected shortcuts" 	
-			/>
+		    android:summary="Selected shortcuts" />
 		<Preference 
 		    android:key="custom_lockscreen_timeout" 
 		    android:title="@string/title_lockscreen_timeout" 

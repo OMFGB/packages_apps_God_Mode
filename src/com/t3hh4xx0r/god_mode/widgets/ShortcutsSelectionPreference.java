@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.t3hh4xx0r.god_mode.utils.FastBitmapDrawable;
 
+import android.view.MotionEvent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -24,12 +25,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ShortcutsSelectionPreference extends Preference implements OnLongClickListener {
+public class ShortcutsSelectionPreference extends Preference implements OnClickListener {
 
 	private static String TAG = "ShortcutSelectionPrefreence";
 	
@@ -66,18 +68,13 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 	public ShortcutsSelectionPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
-
 		 mShortcuts = new ImageView[4];
 		 mShortcutName = new TextView[4];
 		 mCustomAppNames = new String[4];
 		 mCustomApps = new Intent[4];
-		 
-	
-		 
+
 		 mCustomApps = setDefaultIntents();
-		
 	}
-	
 	
 	 /**
      * Creates the View to be shown for this Preference in the
@@ -102,10 +99,7 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
         return layout;
     } 
 	
-	private interface onLongClick extends OnPreferenceClickListener {
-		
-		
-		
+	private interface onClick extends OnPreferenceClickListener {
 		
 	}
 	  @Override
@@ -122,16 +116,14 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 				 mShortcuts[2] = (ImageView) view.findViewById(R.id.short_three_icon);
 				 mShortcuts[3] = (ImageView) view.findViewById(R.id.short_four_icon);
 				 for(ImageView v: mShortcuts){
-					 v.setLongClickable(true);
-					 v.setOnLongClickListener(this);
+					 v.setClickable(true);
+					 v.setOnClickListener(this);
 				 }
 				 
 				 mShortcutName[0] = (TextView) view.findViewById(R.id.short_one_text);
 				 mShortcutName[1] = (TextView) view.findViewById(R.id.short_two_text);
 				 mShortcutName[2] = (TextView) view.findViewById(R.id.short_three_text);
 				 mShortcutName[3] = (TextView) view.findViewById(R.id.short_four_text);
-				 
-				
 		  
 		  int padding = 15;
 		  
@@ -141,14 +133,11 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 		 LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		
 		 for(int i =0; i < temp.length; i++){
-			 
 			 if(mShortcuts[i] != null){
 			 Log.d(TAG, "Setting drawables"); 
 			 mShortcuts[i].setBackgroundDrawable(temp[i]);
 			 mShortcuts[i].setVisibility(View.VISIBLE);
 			 }
-			 
-			 
 		 }
 		 
 		 for(int i =0; i < temp.length; i++){
@@ -156,12 +145,8 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 			 Log.d(TAG, "Setting titles");
 			 mShortcutName[i].setText(mCustomAppNames[i]);
 			 mShortcutName[i].setVisibility(View.VISIBLE);
-			 
 		 }
-		
-		  
 	  }
-	
 	  
 	  static Drawable scaledDrawable(Drawable icon,Context context, float scale) {
 			final Resources resources=context.getResources();
@@ -198,7 +183,6 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 		   Intent intent = new Intent();
 		   PackageManager pm = this.getContext().getPackageManager();
 		   mCustomApps = setDefaultIntents();
-		   
 		   
 		 for(int i = 0; i < numapps ; i++){
 				  
@@ -315,32 +299,23 @@ public class ShortcutsSelectionPreference extends Preference implements OnLongCl
 		
 	}
 	
-	@Override
-	public boolean onLongClick(View v) {
-		super.onClick();
-		  
-		
+	public void onClick(View v) {
 		if(v.equals(mShortcuts[0])){
 			Log.d(TAG, "Selctor one clicked");
 			mOnSelectionListener.startSelection(onSelectionListener.SELECTION_ONE);
 		}
 		if(v.equals(mShortcuts[1])){
 			Log.d(TAG, "Selctor 2 clicked");
-
 			mOnSelectionListener.startSelection(onSelectionListener.SELECTION_TWO);
 		}
 		if(v.equals(mShortcuts[2])){
 			Log.d(TAG, "Selctor 3 clicked");
-
 			mOnSelectionListener.startSelection(onSelectionListener.SELECTION_THREE);
 		}
 		if(v.equals(mShortcuts[3])){
 			Log.d(TAG, "Selctor 4 clicked");
-
 			mOnSelectionListener.startSelection(onSelectionListener.SELECTION_FOUR);
 		}
-		
-		return false;
 	}
 	
 	public void NotifyPrefrerenceChanged(){
