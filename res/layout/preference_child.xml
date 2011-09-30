@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- Layout for a visually child-like Preference in a PreferenceActivity. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+	android:orientation="vertical"
+    android:paddingRight="?android:attr/scrollbarSize">
+    
+    <RelativeLayout
+		android:id="@+id/hintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="6dip"
+        android:layout_marginBottom="6dip"
+        android:layout_weight="1">
+    
+        <TextView android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal" />
+            
+        <TextView android:id="@+id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_alignLeft="@id/title"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:maxLines="2"
+            android:textColor="?android:attr/textColorSecondary" />
+
+    </RelativeLayout>
+	
+		
+    <RelativeLayout
+	 android:layout_below="@id/hintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dip"
+        android:layout_marginTop="6dip"
+        android:layout_marginBottom="6dip"
+        android:layout_weight="2">
+	    <LinearLayout
+			android:id="@+id/short_layout_1"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content">
+	        <ImageView android:id="@+id/short_one_icon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:singleLine="true"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:ellipsize="marquee"
+	            android:layout_alignLeft="@id/title"
+	            android:fadingEdge="horizontal" />
+	            
+	        <TextView android:id="@+id/short_one_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/short_one_icon"
+	            android:layout_alignLeft="@id/title"
+	            android:textAppearance="?android:attr/textAppearanceSmall"
+	            android:maxLines="3"
+	       	 	android:layout_marginLeft="5dip"
+	        	android:layout_marginRight="5dip"
+	            android:textColor="?android:attr/textColorSecondary" />
+	 	</LinearLayout>
+		<LinearLayout
+			android:id="@+id/short_layout_2"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/short_layout_1">
+			<ImageView android:id="@+id/short_two_icon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:singleLine="true"
+	            android:layout_toRightOf="@id/short_one_icon"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:ellipsize="marquee"
+	            android:fadingEdge="horizontal" />
+	            
+	        <TextView android:id="@+id/short_two_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/short_two_icon"
+	            android:textAppearance="?android:attr/textAppearanceSmall"
+	            android:maxLines="3"
+	        	android:layout_marginLeft="5dip"
+	        	android:layout_marginRight="5dip"
+	            android:textColor="?android:attr/textColorSecondary" />
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/short_layout_3"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/short_layout_2">	
+				<ImageView android:id="@+id/short_three_icon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:singleLine="true"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:ellipsize="marquee"
+	            android:fadingEdge="horizontal" />
+	            
+	        <TextView android:id="@+id/short_three_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/short_three_icon"
+	            android:textAppearance="?android:attr/textAppearanceSmall"
+	            android:maxLines="3"
+	        	android:layout_marginLeft="5dip"
+	        	android:layout_marginRight="5dip"
+	            android:textColor="?android:attr/textColorSecondary" />
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/short_layout_4"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/short_layout_3">
+			<ImageView android:id="@+id/short_four_icon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:singleLine="true"
+				
+	            android:layout_toRightOf="@id/short_three_icon"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:ellipsize="marquee"
+	            android:fadingEdge="horizontal" />
+	            
+	        <TextView android:id="@+id/short_four_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/short_four_icon"
+	            android:textAppearance="?android:attr/textAppearanceSmall"
+	            android:maxLines="3"
+	        	android:layout_marginLeft="5dip"
+	        	android:layout_marginRight="5dip"
+	            android:textColor="?android:attr/textColorSecondary" />
+		</LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

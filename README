@@ -1,0 +1,20 @@
+# ######################################################################### #
+# 			       **God Mode**				    #
+# 									    #
+# Direct Contributors - Xoomdev, R2DoesInc, Linuxmotion, Romanbb, Sbrissen  #
+# ######################################################################### #
+
+Provides access to customization features and the package update utility.
+The update utility work with clockworkmod.
+
+
+Todo List that must be worked on immediately
+1 - Remove as many calls to a reference Context as possible
+2 - Handle the orientation change when downloading a rom or package.
+3 - Remove the many references to Context in the OnNightlyPreferenceClickListener, instead use the supplied Preference to retreive a context to the activity
+4 - Handle all fileDownloading in a service so that the Context to the Activity is not leaked. 
+
+Todo list the is not needed immediately but would be useful
+1 - Rearrange the initial app downloading to avoide unnessery memory allocation
+2 - Handle refreshing the manifest in a more diligent way
+ 
