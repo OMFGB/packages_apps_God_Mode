@@ -19,6 +19,9 @@ public class DeviceType {
     /*
      * HTC phones below this point
      */
+    public static final String INCREDIBLE = "ace";
+    public static final String INCREDIBLE_SCRIPT = "ace.js";
+
     public static final String INCREDIBLE = "inc";
     public static final String INCREDIBLE_SCRIPT = "inc.js";
 
