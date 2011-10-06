@@ -1,6 +1,8 @@
 package com.t3hh4xx0r.addons;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLConnection;
 
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
@@ -9,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -20,11 +23,13 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 
 	private boolean DBG = (false || Constants.FULL_DBG);
 	private final String TAG = "OnNightlyPreferenceClick";
+	private long mDManDLID;
 	AddonsObject mAddons;
 	int mPosition;
 	Context mContext;
 	private String externalStorageDir = "/mnt/sdcard/t3hh4xx0r/downloads";
 	private String DOWNLOAD_DIR = externalStorageDir+ "/";
+	private boolean mDownloading = false;
 	
 	public OnAddonsPreferenceClickListener(AddonsObject o, int position, Context context) {
 		mAddons = o;
@@ -38,7 +43,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
  		Log.d(TAG, v.getTitle().toString()  );
 
  		File check =  new File(externalStorageDir+ "/" + mAddons.getZipName());
- 		if(!check.exists()) {	
+ 		if(!check.exists() && !mAddons.getIsMarketApp()) {	// Not a market app and not downloading
  			DownloadManager dman = (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
  		    File f = new File(externalStorageDir);
  		    if(!f.exists()) {
@@ -52,17 +57,37 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
  		    req.setShowRunningNotification(true);
  		    req.setVisibleInDownloadsUi(true);
  		    req.setDestinationUri(Uri.fromFile(f));	
- 		    dman.enqueue(req);
+ 		    mDManDLID = dman.enqueue(req);
+ 		    mDownloading  = true;
+ 		    return true;
  		}
- 		else{	
+ 		else if(mDownloading && !mAddons.getIsMarketApp()){ // Not a market app and downloading
+ 			URL url = new URL(mAddons.getURL());
+			URLConnection conexion = url.openConnection();
+			conexion.connect();
+			if(DBG )Log.d(TAG,"Connection complete");
+			int lenghtOfFile = conexion.getContentLength();
+			
+			if(check.length() == lenghtOfFile){
+				
+				if(Boolean.parseBoolean(mAddons.getInstallable()))FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.install_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+				else FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.flash_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+				mDownloading = false;
+			}
+			
+			return true;
+ 		}
+ 		else if(mAddons.getIsMarketApp()){	// Market app, let the market resolve this
  			check = null;
- 			if(Boolean.parseBoolean(mAddons.getInstallable()))
- 				FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.install_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
- 			else
- 				FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.flash_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+
+ 			// If it is a market app create a broadcast that launches the 
+ 			// market. The string should already be a URL
+ 			// prefixed with market://
+ 			mContext.sendBroadcast(new Intent(mAddons.getURL()));
+ 			return true;
+ 			
  		}
 		// mNightly.get
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
