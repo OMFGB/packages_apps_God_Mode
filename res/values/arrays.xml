@@ -136,6 +136,8 @@
 		name="entries_network_widget"
 		translatable="false">
 		<item>2G/3G+2G</item>
+		<item>2G/3G Only</item>
+		<item>2G/3G Only/3G+2G</item>
 	</string-array>
 
 	<string-array
