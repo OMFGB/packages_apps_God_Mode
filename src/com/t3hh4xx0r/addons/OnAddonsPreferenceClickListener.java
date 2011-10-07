@@ -1,18 +1,24 @@
 package com.t3hh4xx0r.addons;
 
 import java.io.File;
-
+import java.net.URL;
+import java.net.URLConnection;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import com.t3hh4xx0r.addons.utils.Constants;
 import com.t3hh4xx0r.addons.utils.Downloads;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
+
+
 
 import com.t3hh4xx0r.R;
 
@@ -54,15 +60,55 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
  		    req.setDestinationUri(Uri.fromFile(f));	
  		    dman.enqueue(req);
  		}
- 		else{	
- 			check = null;
- 			if(Boolean.parseBoolean(mAddons.getInstallable()))
- 				FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.install_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
- 			else
- 				FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.flash_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+ 		else if(!mAddons.getIsMarketApp()){ // Not a market app and downloading	
+			URL url;
+			URLConnection conexion;
+			int lenghtOfFile = 0;
+
+			try{
+ 				url = new URL(mAddons.getURL());
+				conexion = url.openConnection();
+				conexion.connect();
+				if(DBG )Log.d(TAG,"Connection complete");
+				lenghtOfFile = conexion.getContentLength();
+			}
+			catch(MalformedURLException e){
+				e.printStackTrace();
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+			if(lenghtOfFile != 0 && check.length() == lenghtOfFile){
+				
+				if(Boolean.parseBoolean(mAddons.getInstallable()))FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.install_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+				else FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.flash_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+				mDownloading = false;
+			}
+			
+			return true;
  		}
-		// mNightly.get
-		// TODO Auto-generated method stub
+ 		else if(mAddons.getIsMarketApp()){	// Market app, let the market resolve this
+ 			check = null;
+			Log.d(TAG, "Is a market app - Launching market");
+ 			// If it is a market app create a broadcast that launches the 
+ 			// market. The string should already be a URL
+ 			// prefixed with market://
+			Log.d(TAG, mAddons.getURL() );
+			Intent marketApp = new Intent(Intent.ACTION_VIEW, Uri.parse(mAddons.getURL()));
+			marketApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+ 			try{
+				mContext.startActivity(marketApp);
+			}catch(ActivityNotFoundException e){
+				e.printStackTrace();
+				Log.d(TAG, "Maybe the market is not installed");
+				noMarketAlertBox(mAddons.getName(), "Maybe you haven't installed the market");
+			}
+
+ 			return true;
+ 			
+ 		}
+		
+		Log.d(TAG, "Could not resolve what to do");
 		return false;
 	}
 	
@@ -101,6 +147,18 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 	       	    Log.d(TAG, "User did not approve flashing.");
 	        }
 	    })    
+	    .show();
+    }
+
+	protected void noMarketAlertBox(String title, String mymessage) {
+	   new AlertDialog.Builder(mContext)
+	      .setMessage(mymessage)
+	      .setTitle(title)
+	      .setCancelable(false)
+	      .setPositiveButton("OK",
+	      new DialogInterface.OnClickListener() {
+	         public void onClick(DialogInterface dialog, int whichButton) {}
+		}) 
 	    .show();
     }
 
