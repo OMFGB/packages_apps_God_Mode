@@ -10,6 +10,7 @@ public class AddonsObject {
 	private String mDescription;
 	private String mCategory;
 	private String mDensity;
+	private boolean mIsMarketApp;
 	
 	public void setURL(String mURL) {
 		this.mURL = mURL;
@@ -58,6 +59,12 @@ public class AddonsObject {
 	}
 	public String getDensity() {
 		return mDensity;
+	}
+	public void setMarketApp(boolean mIsMarketApp) {
+		this.mIsMarketApp = mIsMarketApp;
+	}
+	public boolean getIsMarketApp() {
+		return mIsMarketApp;
 	}
 
 }

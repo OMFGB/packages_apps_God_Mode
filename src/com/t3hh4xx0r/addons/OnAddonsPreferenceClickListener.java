@@ -13,6 +13,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -26,11 +27,13 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 
 	private boolean DBG = (false || Constants.FULL_DBG);
 	private final String TAG = "OnNightlyPreferenceClick";
+	private long mDManDLID;
 	AddonsObject mAddons;
 	int mPosition;
 	Context mContext;
 	private String externalStorageDir = "/mnt/sdcard/t3hh4xx0r/downloads";
 	private String DOWNLOAD_DIR = externalStorageDir+ "/";
+	private boolean mDownloading = false;
 	
 	public OnAddonsPreferenceClickListener(AddonsObject o, int position, Context context) {
 		mAddons = o;
@@ -44,7 +47,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
  		Log.d(TAG, v.getTitle().toString()  );
 
  		File check =  new File(externalStorageDir+ "/" + mAddons.getZipName());
- 		if(!check.exists()) {	
+ 		if(!check.exists() && !mAddons.getIsMarketApp()) {	// Not a market app and not downloading
  			DownloadManager dman = (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
  		    File f = new File(externalStorageDir);
  		    if(!f.exists()) {
@@ -58,7 +61,9 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
  		    req.setShowRunningNotification(true);
  		    req.setVisibleInDownloadsUi(true);
  		    req.setDestinationUri(Uri.fromFile(f));	
- 		    dman.enqueue(req);
+ 		    mDManDLID = dman.enqueue(req);
+ 		    mDownloading  = true;
+ 		    return true;
  		}
  		else if(!mAddons.getIsMarketApp()){ // Not a market app and downloading	
 			URL url;

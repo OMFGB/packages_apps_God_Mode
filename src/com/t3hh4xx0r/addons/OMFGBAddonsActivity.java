@@ -353,14 +353,23 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 		   	        try {
 		   	            n.setZipName(post.getString("zipname"));
 		   	        } catch(JSONException e) {
-		   	            e.printStackTrace();
 		   	            n.setZipName("Addon Name");
 		   	        }
-		   	        n.setInstallable(post.getString("installable"));
+		   	        try{
+		   	        	n.setInstallable(post.getString("installable"));
+		   	        } catch(JSONException e) {
+		   	        	n.setInstallable("false");
+		   	        }
 		   	        try{
 		   	            n.setDescription(post.getString("description"));
 		   	        } catch(JSONException e) {
 		   	            n.setDescription("Addon Description");	
+		   	        }
+		   	        try{
+		   	        	n.setMarketApp(post.getBoolean("market"));
+		   	        } catch(JSONException e){
+		   	        	// This will be most entries
+		   	        	n.setMarketApp(false);
 		   	        }
        
 	   	            if(DBG)Log.d(TAG, "Finished setting addons object");
@@ -480,8 +489,8 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 	        try{
 	            Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	            // Needed because the manager does not handle https connections
-	            if(Constants.shouldForceAddonsSync() || 
-	           				Constants.FIRST_LAUNCH || refresh)DownloadFile.updateAppManifest(Constants.ADDONS);
+	            if(Constants.shouldForceAddonsSync() || Constants.FIRST_LAUNCH || refresh)
+	            	DownloadFile.updateAppManifest(Constants.ADDONS);
 	           		is = new FileInputStream(updateFile);
 	           	}
 	           	catch(FileNotFoundException e){
