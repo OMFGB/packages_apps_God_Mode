@@ -14,6 +14,8 @@ import org.json.JSONException;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils;
 import com.t3hh4xx0r.addons.web.JSON.JSONUtils.JSONParsingInterface;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -51,63 +53,49 @@ public class Downloads {
         cmdThread.start();
     }
 
-    public static void flashPackage(String outputzip, final boolean backuprom, final  boolean wipedata, final boolean wipecache, final boolean installgoogle) {
+    public static void prepareFlash(Context context) {
 
-	    final boolean mBackupRom = backuprom;
-	    final boolean mWipeCache = wipecache;
-	    final boolean mWipeData = wipedata;
-	    final boolean mInstallGoogle = installgoogle;
+	    cwmWarningAlertBox("We Apologize", 
+            "Due to limitations of CWM 5+, in app flashing is no longer available." + 
+            "\nPress OK to reboot to recovery and manually continue flashing.", context);
+    }
 
-	    final String OUTPUT_NAME = outputzip;
-	    Log.d(TAG,OUTPUT_NAME);
-	
-	    Thread cmdThread = new Thread(){
-		    @Override
-		    public void run() {
-			    Log.i(TAG, "Packaging flashing thread started");
-                File updateDirectory = new File ("/cache/recovery/");
-                    if (!updateDirectory.isDirectory()) {
-                        Log.i(TAG,"Creating cache dir");    
-                    	updateDirectory.mkdir();
-                    }
-			        try {
-				        Thread.sleep(1000);
-			        } catch(InterruptedException e) { 
-			}
-			final Runtime run = Runtime.getRuntime();
-			DataOutputStream out = null;
-			Process p = null;
-			try {
-            	Log.i(TAG,"About to flash package");
-        		Log.i(TAG, "Executing su");
-                p = run.exec("su");
-				out = new DataOutputStream(p.getOutputStream());
-				if (mBackupRom) {
-				    out.writeBytes("busybox echo 'backup_rom(\"" + Constants.BACKUP_DIR +"omfgb_" + DATE +"\");'  >> " + Constants.CWR_EXTENDED_CMD + "\n");				
-				}
-				if (mWipeCache) {
-				    out.writeBytes("busybox echo 'format(\"/cache\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
-				}
-				if (mWipeData) {
-                                    out.writeBytes("busybox echo 'format(\"/cache\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
-                                    out.writeBytes("busybox echo 'format(\"/data\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
-				}
-				// Install the rom
-				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + OUTPUT_NAME +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
-				// Install google apps
-				if (mInstallGoogle) {
-				out.writeBytes("busybox echo 'install_zip(\"" + Constants.CWR_FLASH_DIR + "GAPPS.zip" +"\");' >> " + Constants.CWR_EXTENDED_CMD + "\n");
-				}
-                                out.writeBytes("reboot recovery\n");
-				out.flush();
-			    } catch (IOException e) {
-				    e.printStackTrace();
-				    return;
-			    }
-	
-		    }
-	    };
-	    cmdThread.start();
+    protected static void cwmWarningAlertBox(String title, String mymessage, Context context) {
+       new AlertDialog.Builder(context)
+          .setMessage(mymessage)
+          .setTitle(title)
+          .setCancelable(false)
+          .setPositiveButton("OK",
+          new DialogInterface.OnClickListener() {
+             public void onClick(DialogInterface dialog, int whichButton) {
+    	        Thread cmdThread = new Thread(){
+                   @Override
+                   public void run() {
+   		       final Runtime run = Runtime.getRuntime();
+		       DataOutputStream out = null;
+  		       Process p = null;
+		       try {
+        	           Log.i(TAG, "Executing su");
+                           p = run.exec("su");
+		           out = new DataOutputStream(p.getOutputStream());
+                           out.writeBytes("reboot recovery\n");
+		           out.flush();
+	               } catch (IOException e) {
+		           e.printStackTrace();
+		           return;
+	               }
+	            }
+	        };
+	        cmdThread.start();
+             }
+           })
+           .setNegativeButton("Cancel", 
+           new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int whichButton) {
+                // Do nothing
+              }
+           })
+       .show();
     }
 
     public static void deleteDir() {
