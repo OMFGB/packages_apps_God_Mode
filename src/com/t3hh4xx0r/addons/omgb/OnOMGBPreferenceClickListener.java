@@ -104,7 +104,7 @@ public class OnOMGBPreferenceClickListener implements OnPreferenceClickListener 
 		  						   Downloads.installPackage(OUTPUT_NAME, mContext );
 		  						} else {
 		  							log("About to flash package");
-		  							Downloads.flashPackage(OUTPUT_NAME, checked[0], checked[1], checked[2], checked[3]);
+		  							Downloads.prepareFlash(mContext);
 		  						    
 		  						}
 	            			} 
