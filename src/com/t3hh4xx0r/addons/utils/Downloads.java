@@ -29,6 +29,7 @@ public class Downloads {
     public static String DATE = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
     public static boolean DBG = (false || Constants.FULL_DBG);
     public static String PREF_LOCATION;
+    private static String updateFilePath;
 
     private static String TAG = "Downloads";
 
@@ -124,11 +125,16 @@ public class Downloads {
 	    Thread refreshthread = new Thread(){
 		    @Override
             public void run() {
-			    refreshAddons();
-			    refreshNightlies();
-			    refreshOMGB();
-			    refreshAlerts();
-		    }
+		if (!Constants.isDeviceDetermined()) {
+                   updateFilePath = (Constants.DOWNLOAD_DIR + "/fascinatemtd");
+		} else {
+                   updateFilePath = (Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
+		}
+		   refreshAddons();
+		   refreshNightlies();
+		   refreshOMGB();
+		   refreshAlerts();
+		}
 	    };
 	    refreshthread.start();
     }
@@ -208,7 +214,7 @@ public class Downloads {
 	        Log.d(TAG, "Begining json download");
 		    
             if(Downloads.checkDownloadDirectory()){
-                File updateFile = new File(Constants.DOWNLOAD_DIR + Constants.getDeviceScript());
+                   File updateFile = new File(updateFilePath);
 		        try{
 		            Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 		            // Needed because the manager does not handle https connections
@@ -271,8 +277,8 @@ public class Downloads {
 	            InputStream is = null;
 	            Log.d(TAG, "Begining json download");
 
-		        if(Downloads.checkOMGBDownloadDirectory()){
-                    File updateFile = new File(Constants.OMGB_DOWNLOAD_DIR + Constants.getDeviceScript());
+		    if(Downloads.checkOMGBDownloadDirectory()){
+                        File updateFile = new File(updateFilePath);
 		           	try{
 		           		Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 		           		// Needed because the manager does not handle https connections

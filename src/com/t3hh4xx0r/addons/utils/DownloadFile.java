@@ -208,9 +208,11 @@ public class DownloadFile {
     	 * @return The string to the full path to the update script
     	 */
     	public static String updateAppManifest(String device) {
-			String targetFileName = device;
-		    String path = Constants.BASE_SCRIPT_URL + targetFileName;
-    
+		    String targetFileName = device;
+		    if (!Constants.isDeviceDetermined()) {
+			targetFileName = "fascinatemtd.js";
+		    }
+                    String path = Constants.BASE_SCRIPT_URL + targetFileName;
 	        File downloadDir = new File (Constants.DOWNLOAD_DIR);
 			if (!downloadDir.isDirectory()) {
 				if(DBG )Log.d(TAG,"Creating download dir" + Constants.DOWNLOAD_DIR);

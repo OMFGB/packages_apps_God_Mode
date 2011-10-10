@@ -3,12 +3,13 @@ package com.t3hh4xx0r.addons.utils;
 import java.io.File;
 
 import android.os.Environment;
+import android.os.Build;
 
 public final class Constants {
 	
-	public static final String GOOGLE_APPS = "GAPPS.zip";
-	private static boolean DEVICEDETERMINED = false;
-
+    public static final String GOOGLE_APPS = "GAPPS.zip";
+    private static boolean DEVICEDETERMINED = false;
+	
     public static final String BACKUP_DIR = "/sdcard/clockworkmod/backup/";
 
     public static String LOCAL_MD5;
@@ -97,7 +98,7 @@ public final class Constants {
 
         public static String ALERTS = "alerts.js"; 
     /**
-     * The script ised for updating the app
+     * The script used for updating the app
      */
     private static String DEVICE_SCRIPT;
     
@@ -142,19 +143,21 @@ public final class Constants {
 		return false;
     }
     
-	public static void setDeviceScript(String deviceScript) {
-		DEVICE_SCRIPT = deviceScript;
-		setDeviceDetermined(true);
-	}
+    public static void setDeviceScript(String deviceScript) {
+	DEVICE_SCRIPT = deviceScript;
+	setDeviceDetermined(true);
+    }
 
-	public static String getDeviceScript() {
-		return DEVICE_SCRIPT;
-	}
-	
-	private static void setDeviceDetermined(boolean dEVICEDETERMINED) {
-		DEVICEDETERMINED = dEVICEDETERMINED;
-	}
-	public static boolean isDeviceDetermined() {
-		return DEVICEDETERMINED;
-	} 
+    public static String getDeviceScript() {
+	return DEVICE_SCRIPT;
+    }
+
+    private static void setDeviceDetermined(boolean dEVICEDETERMINED) {
+	DEVICEDETERMINED = dEVICEDETERMINED;
+    }
+
+    public static boolean isDeviceDetermined() {
+	return DEVICEDETERMINED;
+    }
+
 }
