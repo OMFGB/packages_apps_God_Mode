@@ -209,7 +209,7 @@ public class MainMenu extends PreferenceActivity  {
                 		log("Setting device as " + DeviceType.P999);
                 		Constants.setDeviceScript(DeviceType.P999_SCRIPT);
                 		DeviceType.DEVICE_TYPE = DeviceType.P999;
-                        }else  if (DeviceType.deviceDeviceEquals(DeviceType.P999)) {
+                        }else  if (DeviceType.deviceDeviceEquals(DeviceType.ACE)) {
                                 log("Setting device as " + DeviceType.ACE);
                                 Constants.setDeviceScript(DeviceType.ACE_SCRIPT);
                                 DeviceType.DEVICE_TYPE = DeviceType.ACE;
