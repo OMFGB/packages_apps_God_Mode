@@ -36,6 +36,7 @@ public class MainMenu extends PreferenceActivity  {
 	PreferenceCategory mAddonsCat;
 	PreferenceCategory mRomsCat;
 	PreferenceCategory mNewsCat;
+        PreferenceCategory mSettingsCat;
 
 	private boolean DBG = (false || Constants.FULL_DBG);
 
@@ -57,7 +58,6 @@ public class MainMenu extends PreferenceActivity  {
 					// TODO Auto-generated method stub
 					JSONUtils u = new JSONUtils();
 					Downloads.refreshAddonsAndNightlies();
-					Constants.FIRST_LAUNCH = false;
 				}
 				
 			};
@@ -69,20 +69,43 @@ public class MainMenu extends PreferenceActivity  {
 		mAddonsCat = (PreferenceCategory) findPreference("addons_category");
 		mRomsCat = (PreferenceCategory) findPreference("roms_category");
                 mNewsCat = (PreferenceCategory) findPreference("news_category");
+                mSettingsCat = (PreferenceCategory) findPreference("settings_category");
+
+                mRomsCat.setEnabled(true);
+                mNewsCat.setEnabled(true);
+                mAddonsCat.setEnabled(true);
+                mSettingsCat.setEnabled(true);
 
 		if (!hasStorage(true)){
                         mNewsCat.setEnabled(false);
 			mAddonsCat.setEnabled(false);
 			mRomsCat.setEnabled(false);
-			AlertBox(getString(R.string.warning),getString(R.string.sdcard_not_mounted));
-		} else if (!Constants.isDeviceDetermined()){
-			mRomsCat.setEnabled(false);
-			AlertBox(getString(R.string.warning),"Device not determined. Disabling nightlies.");
-		} else {
-                        mRomsCat.setEnabled(true);
-                        mNewsCat.setEnabled(true);
-			mAddonsCat.setEnabled(true);
+                        if(Constants.FIRST_LAUNCH) {
+			   AlertBox(getString(R.string.warning),getString(R.string.sdcard_not_mounted));
+			}
 		}
+
+		if (!Constants.isDeviceDetermined()){
+			mRomsCat.setEnabled(false);
+			if(Constants.FIRST_LAUNCH) {
+   			   AlertBox(getString(R.string.warning),"Device not supported. Disabling roms.");
+			}
+		}
+
+                if(!Build.USER.equals("r2doesinc")) {
+                        if(Constants.FIRST_LAUNCH) {
+                           AlertBox(getString(R.string.warning),"This build was not compiled by the bot." +
+		 	   " This is not an official build, please do not submit bug reports.");
+                        }
+                }
+
+	        if(!Build.ROMVER.equals("OMFGB")) {
+			mSettingsCat.setEnabled(false);
+                        if(Constants.FIRST_LAUNCH) {
+                           AlertBox(getString(R.string.warning),"Rom not supported. Disabling settings.");
+			}
+		}
+                if(Constants.FIRST_LAUNCH)Constants.FIRST_LAUNCH = false;
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,7 +159,7 @@ public class MainMenu extends PreferenceActivity  {
 		if(Constants.getDeviceScript() == null || !Constants.getDeviceScript().equals("")){
 		    if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE)) {
 				log("Setting device as " + DeviceType.INCREDIBLE);
-			    Constants.setDeviceScript(DeviceType.INCREDIBLE_SCRIPT);
+			        Constants.setDeviceScript(DeviceType.INCREDIBLE_SCRIPT);
 			   	DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE;     	
 			}else  if (DeviceType.deviceDeviceEquals(DeviceType.ERIS)) {
 				log("Setting device as " + DeviceType.ERIS);
@@ -144,9 +167,9 @@ public class MainMenu extends PreferenceActivity  {
 			   	DeviceType.DEVICE_TYPE = DeviceType.ERIS;  	
 			}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHADOW)) {
 				log("Setting device as " + DeviceType.SHADOW);
-                Constants.setDeviceScript(DeviceType.SHADOW_SCRIPT);
-                DeviceType.DEVICE_TYPE = DeviceType.SHADOW;
-		    }else  if (DeviceType.deviceDeviceEquals(DeviceType.DROID)) {
+                                Constants.setDeviceScript(DeviceType.SHADOW_SCRIPT);
+                                DeviceType.DEVICE_TYPE = DeviceType.SHADOW;
+		        }else  if (DeviceType.deviceDeviceEquals(DeviceType.DROID)) {
 				log("Setting device as " + DeviceType.DROID);
 			   	Constants.setDeviceScript(DeviceType.DROID_SCRIPT);
 			   	DeviceType.DEVICE_TYPE = DeviceType.DROID;	
@@ -164,29 +187,33 @@ public class MainMenu extends PreferenceActivity  {
 			   	DeviceType.DEVICE_TYPE = DeviceType.THUNDERBOLT;      	
 			}else  if (DeviceType.deviceDeviceEquals(DeviceType.INCREDIBLE2)) {
 				log("Setting device as " + DeviceType.INCREDIBLE2);
-                Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
-                DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
+                		Constants.setDeviceScript(DeviceType.INCREDIBLE2_SCRIPT);
+                		DeviceType.DEVICE_TYPE = DeviceType.INCREDIBLE2;
 			}else  if (DeviceType.deviceDeviceEquals(DeviceType.FASCINATEMTD)) {
 				log("Setting device as " + DeviceType.FASCINATEMTD);
 				Constants.setDeviceScript(DeviceType.FASCINATEMTD_SCRIPT);
 				DeviceType.DEVICE_TYPE = DeviceType.FASCINATEMTD;
 			}else  if (DeviceType.deviceDeviceEquals(DeviceType.SHOWCASEMTD)) {	 
 				log("Setting device as " + DeviceType.SHOWCASEMTD);
-                Constants.setDeviceScript(DeviceType.SHOWCASEMTD_SCRIPT);
-                DeviceType.DEVICE_TYPE = DeviceType.SHOWCASEMTD;
-            }else  if (DeviceType.deviceDeviceEquals(DeviceType.MESMERIZEMTD)) {
+                		Constants.setDeviceScript(DeviceType.SHOWCASEMTD_SCRIPT);
+                		DeviceType.DEVICE_TYPE = DeviceType.SHOWCASEMTD;
+            		}else  if (DeviceType.deviceDeviceEquals(DeviceType.MESMERIZEMTD)) {
  				log("Setting device as " + DeviceType.MESMERIZEMTD);
-                Constants.setDeviceScript(DeviceType.MESMERIZEMTD_SCRIPT);
-                DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
-            }else  if (DeviceType.deviceDeviceEquals(DeviceType.VIBRANTMTD)) {
-                log("Setting device as " + DeviceType.VIBRANTMTD);
-                Constants.setDeviceScript(DeviceType.VIBRANTMTD_SCRIPT);
-                DeviceType.DEVICE_TYPE = DeviceType.VIBRANTMTD;
-            }else  if (DeviceType.deviceDeviceEquals(DeviceType.P999)) {
-                log("Setting device as " + DeviceType.P999);
-                Constants.setDeviceScript(DeviceType.P999_SCRIPT);
-                DeviceType.DEVICE_TYPE = DeviceType.P999;
-            }
+                		Constants.setDeviceScript(DeviceType.MESMERIZEMTD_SCRIPT);
+                		DeviceType.DEVICE_TYPE = DeviceType.MESMERIZEMTD;
+            		}else  if (DeviceType.deviceDeviceEquals(DeviceType.VIBRANTMTD)) {
+                	  	log("Setting device as " + DeviceType.VIBRANTMTD);
+                		Constants.setDeviceScript(DeviceType.VIBRANTMTD_SCRIPT);
+                		DeviceType.DEVICE_TYPE = DeviceType.VIBRANTMTD;
+            		}else  if (DeviceType.deviceDeviceEquals(DeviceType.P999)) {
+                		log("Setting device as " + DeviceType.P999);
+                		Constants.setDeviceScript(DeviceType.P999_SCRIPT);
+                		DeviceType.DEVICE_TYPE = DeviceType.P999;
+                        }else  if (DeviceType.deviceDeviceEquals(DeviceType.P999)) {
+                                log("Setting device as " + DeviceType.ACE);
+                                Constants.setDeviceScript(DeviceType.ACE_SCRIPT);
+                                DeviceType.DEVICE_TYPE = DeviceType.ACE;
+                        }
         }		
 	}
 	

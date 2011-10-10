@@ -286,7 +286,11 @@ public class OMFGBAlertsActivity extends PreferenceActivity implements JSONParsi
 	   	        	AlertsObject n = new AlertsObject();
 	                JSONObject post = entries.getJSONObject(i);  	               
 	   	                n.setCategory(post.getString("category"));
-		   	        n.setDevice(post.getString("device"));
+				try {
+		   	            n.setDevice(post.getString("device"));
+				} catch (Exception e) {
+				    n.setDevice("all");
+				}
 		                n.setName(post.getString("name"));
 		   	        try{
 		   	            n.setDescription(post.getString("description"));
@@ -312,8 +316,7 @@ public class OMFGBAlertsActivity extends PreferenceActivity implements JSONParsi
 	   	                 * density  set the category
 	   	                 * 
 	   	                 */
-	   	                
-	   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
+	   	                if ((Constants.isDeviceDetermined() && DeviceType.DEVICE_TYPE.equals(n.getDevice())) || n.getDevice().equals("all")) {
 	   	                	// Debug
 	   	                	if(DBG){
 	   	                	    Log.i(TAG, "Adding screen now");
@@ -322,7 +325,7 @@ public class OMFGBAlertsActivity extends PreferenceActivity implements JSONParsi
 			   	                if(n.getCategory().equals("r2doesinc"))r2doesinccat.addPreference(inscreen);
 			   	                if(n.getCategory().equals("linuxmotion"))linuxmotioncat.addPreference(inscreen);
 			   	                if(n.getCategory().equals("xoomdev"))xoomdevcat.addPreference(inscreen);
-	   	            }
+			    }
                     }
 	   	            if(r2doesinccat.getPreferenceCount() == 0){
 		           	    PreferenceRoot.removePreference(r2doesinccat);
@@ -396,15 +399,12 @@ public class OMFGBAlertsActivity extends PreferenceActivity implements JSONParsi
 	            Log.i(TAG, "The update path and file is called: " + updateFile.toString());
 	            // Needed because the manager does not handle https connections
  	            DownloadFile.updateAppManifest(Constants.ALERTS);
-	           		is = new FileInputStream(updateFile);
-	           	}
-	           	catch(FileNotFoundException e){
-	           			e.printStackTrace();
-	           			if(true)Log.d(TAG, "Could not update app from file resource," +
-	           					" the file was not found. Reverting to nothing");
-	           			is = null;     	
-	           	}
-		}
+	            is = new FileInputStream(updateFile);
+	        } catch (FileNotFoundException e) {
+	       	    e.printStackTrace();
+                    is = null;
+ 	        }
+	    }
         return is;
    }
 }

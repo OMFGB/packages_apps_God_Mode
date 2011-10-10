@@ -70,6 +70,8 @@
     </PreferenceCategory> 
 
     <PreferenceCategory
+            android:key="settings_category"
+            android:id="@+id/settings_category"
             android:title="@string/app_name">
 
         <PreferenceScreen 
