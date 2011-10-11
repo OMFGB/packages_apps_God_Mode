@@ -101,6 +101,15 @@
                 android:targetPackage="com.t3hh4xx0r"
                 android:targetClass="com.t3hh4xx0r.god_mode.StatusBar" />
         </PreferenceScreen>
+        <PreferenceScreen 
+            android:key="settings_systemoptions"
+            android:title="@string/settings_systemoptions" 
+            android:summary="@string/settings_systemoptions_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.t3hh4xx0r"
+                android:targetClass="com.t3hh4xx0r.god_mode.SystemOptionsActivity" />
+        </PreferenceScreen>
     </PreferenceCategory> 
 </PreferenceScreen>
 

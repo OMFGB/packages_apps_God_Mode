@@ -271,5 +271,14 @@
 		<item>2</item>
 		<item>0</item>
 	</string-array>
+
+	<string-array name="entries_gps_source">
+		<item>Use Internal GPS</item>
+	</string-array>
+
+	<string-array
+		name="values_gps_source" translatable="false">
+		<item>0</item>
+	</string-array>
 </resources>
 

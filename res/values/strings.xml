@@ -31,16 +31,18 @@
     <string name="low_level">Low level</string>
 
     <!-- God Mode main menu -->
-    <string name="custom_settings">Customizable Settings</string>
-    <string name="settings_lockscreen">Lockscreen Settings</string>
+    <string name="custom_settings">Customizable settings</string>
+    <string name="settings_lockscreen">Lockscreen settings</string>
     <string name="settings_lockscreen_summary">Customize your lockscreen</string>
-    <string name="settings_statusbar">Statusbar Settings</string>
-    <string name="settings_statusbar_summary">Customize your Statusbar</string>
-    <string name="settings_uioptions">UI Settings</string>
+    <string name="settings_statusbar">Statusbar settings</string>
+    <string name="settings_statusbar_summary">Customize your statusbar</string>
+    <string name="settings_uioptions">UI settings</string>
     <string name="settings_uioptions_summary">Customize your UI</string>
     <string name="settings_statusbar_clock_label">Clock options</string>
     <string name="settings_statusbar_battery_label">Battery options</string>
     <string name="settings_statusbar_signal_label">Signal options</string>
+     <string name="settings_systemoptions">System settings</string>
+    <string name="settings_systemoptions_summary">Misc system settings</string>
 
     <!-- Lockscreen Settings Preference Screen-->
     <string name="general_lockscreen_settings">General lockscreen settings</string>
@@ -246,4 +248,11 @@
     <string name="dialog_set_number">Set</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_picker_title">Choose a number</string>
+
+	<!-- GPS Source selection -->
+	<string name="pref_gps_source_title">GPS Source</string>
+	<string name="pref_gps_source_summary">Use external bluetooth gps mouse instead of internal as location provider.</string>
+	<string name="pref_gps_source_notification_title">Alert</string>
+	<string name="pref_gps_source_notification">GPS source has been switched! GPS will be disabled.	Please re-enable before use!</string>
+    
 </resources>
