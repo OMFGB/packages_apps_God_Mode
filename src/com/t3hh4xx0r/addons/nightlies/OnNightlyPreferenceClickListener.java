@@ -106,7 +106,7 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 		  						   Downloads.installPackage(OUTPUT_NAME, mContext );
 		  						} else {
 		  							log("About to flash package");
-		  							Downloads.flashPackage(OUTPUT_NAME, checked[0], checked[1], checked[2], checked[3]);
+		  							Downloads.prepareFlash(mContext);
 		  						}
 	            			} 
 	            	   }
@@ -118,7 +118,6 @@ public class OnNightlyPreferenceClickListener implements OnPreferenceClickListen
 	         public void onClick(DialogInterface dialog, int whichButton){
 	        	 // Do nothing
 	        	 log("User did not approve flashing.");
-	        	 log( "Backup: "+ checked[0]+ " WipeData: "+ checked[1] + " WipeCache: "+ checked[2] +" InstallGoogle: "+ checked[3]);
 	         }
 	     })    
 	     .show();

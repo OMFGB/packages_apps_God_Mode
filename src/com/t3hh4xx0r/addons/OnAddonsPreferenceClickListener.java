@@ -48,7 +48,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 
  		File check =  new File(externalStorageDir+ "/" + mAddons.getZipName());
  		if(!check.exists() && !mAddons.getIsMarketApp()) {	// Not a market app and not downloading
- 			DownloadManager dman = (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
+ 		    DownloadManager dman = (DownloadManager) mContext.getSystemService(mContext.DOWNLOAD_SERVICE);
  		    File f = new File(externalStorageDir);
  		    if(!f.exists()) {
  			    f.mkdirs();
@@ -126,22 +126,18 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 	      .setPositiveButton("OK",
 	      new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int whichButton) {
-	        	 Thread FlashThread = new Thread(){
-	            		
-	            		@Override
-	            	    public void	run() {
-	            			File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
-	            			
-	            			if(f.exists()) {
-		  				  		log( "User approved flashing, begining flash. Installable = " + String.valueOf(Installable));
-		  				  		log( "File location is: "+ f.toString());
-		  						if (Installable) {
-		  						   Downloads.installPackage(OUTPUT_NAME, mContext);
-		  						} else {
-		  					       Downloads.flashPackage(OUTPUT_NAME, false, false, false, false);
-		  						}
-	            			} 
-	            	  }
+	             Thread FlashThread = new Thread(){
+	         	@Override
+	            	public void run() {
+	            	    File f = new File (DOWNLOAD_DIR + OUTPUT_NAME);
+	           		if(f.exists()) {
+		  		   if (Installable) {
+		  			Downloads.installPackage(OUTPUT_NAME, mContext);
+		  		   } else {
+					Downloads.prepareFlash(mContext);
+	       			   } 
+	            	        }
+			}
 	            };
 	            FlashThread.run();
 	        }
@@ -154,7 +150,6 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 	    })    
 	    .show();
     }
-
 	protected void noMarketAlertBox(String title, String mymessage) {
 	   new AlertDialog.Builder(mContext)
 	      .setMessage(mymessage)

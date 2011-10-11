@@ -133,8 +133,8 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 			mRootPreference = mJSONUtils.ParseJSON(OMFGBAddonsActivity.this, OMFGBAddonsActivity.this, false);
 
 			if(OMFGBAddonsActivity.mCreateUI) {
-				Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
-                mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
+			    Log.i(TAG, "Finished retreiving addons, sending the ui construction message");
+                                mHandler.sendEmptyMessage(Constants.DOWNLOAD_COMPLETE);
 			}
 			if(OMFGBAddonsActivity.mCreateBlankUIWithISerror) {
 			    Log.i(TAG, "Finished retreiving addons, sending the blank ui construction message");
@@ -313,7 +313,7 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 	   	PreferenceRoot.addPreference(googlecat);
 	   	PreferenceRoot.addPreference(applicationcat);
 	   	PreferenceRoot.addPreference(kernelcat);
-   	    PreferenceRoot.addPreference(themecat);
+       	        PreferenceRoot.addPreference(themecat);
 	              
         try {
 	        String x = "";          
@@ -391,7 +391,7 @@ public class OMFGBAddonsActivity extends PreferenceActivity implements JSONParsi
 	   	                 * 
 	   	                 */
 	   	                
-	   	                if(DeviceType.DEVICE_TYPE.equals(n.getDevice()) || n.getDevice().equals("all")){
+	   	                if((Constants.isDeviceDetermined() && DeviceType.DEVICE_TYPE.equals(n.getDevice())) || n.getDevice().equals("all")){
 	   	                	// Debug
 	   	                	if(DBG){
 	   	                	    Log.i(TAG, "Adding screen now");
