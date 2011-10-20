@@ -84,9 +84,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 				e.printStackTrace();
 			}
 			if(lenghtOfFile != 0 && check.length() == lenghtOfFile){
-				
-				if(Boolean.parseBoolean(mAddons.getInstallable()))FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.install_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
-				else FlashInstallIAlertBox(mContext.getString(R.string.warning), mContext.getString(R.string.flash_warning), Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
+				checkInstallable(Boolean.parseBoolean(mAddons.getInstallable()), mAddons.getZipName());
 				mDownloading = false;
 			}
 			
@@ -118,14 +116,7 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 	}
 	
 	
-	protected void FlashInstallIAlertBox(String title, String mymessage, final boolean Installable, final String OUTPUT_NAME) {
-	   new AlertDialog.Builder(mContext)
-	      .setMessage(mymessage)
-	      .setTitle(title)
-	      .setCancelable(false)
-	      .setPositiveButton("OK",
-	      new DialogInterface.OnClickListener() {
-	         public void onClick(DialogInterface dialog, int whichButton) {
+	protected void checkInstallable(final boolean Installable, final String OUTPUT_NAME) {
 	             Thread FlashThread = new Thread(){
 	         	@Override
 	            	public void run() {
@@ -140,16 +131,8 @@ public class OnAddonsPreferenceClickListener implements OnPreferenceClickListene
 			}
 	            };
 	            FlashThread.run();
-	        }
-	    })
-	    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int whichButton) {
-	        	// Do nothing
-	       	    Log.d(TAG, "User did not approve flashing.");
-	        }
-	    })    
-	    .show();
-    }
+        }
+
 	protected void noMarketAlertBox(String title, String mymessage) {
 	   new AlertDialog.Builder(mContext)
 	      .setMessage(mymessage)
