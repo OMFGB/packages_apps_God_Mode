@@ -39,7 +39,6 @@
 	<string-array name="lockscreen_selector_types">
 		<item>None</item>
 		<item>Tab</item>
-		<item>Rotary</item>
 		<item>HoneyComb concept</item>
 		<item>Honeycomb</item>
 		<item>Sense 3.0</item>
@@ -48,7 +47,6 @@
 	<string-array name="lockscreen_selector_types_value">
 		<item>0</item>
 		<item>1</item>
-		<item>2</item>
 		<item>3</item>
 		<item>4</item>
 		<item>5</item>

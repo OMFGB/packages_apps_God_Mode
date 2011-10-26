@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
+import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -99,12 +100,20 @@ public class MainMenu extends PreferenceActivity  {
                         }
                 }
 
-	        if(!Build.ROMVER.equals("OMFGB")) {
-			mSettingsCat.setEnabled(false);
+		try {
+  	            if(!SystemProperties.get("ro.build.romversion").equals("OMFGB")) {
+			    mSettingsCat.setEnabled(false);
+                            if(Constants.FIRST_LAUNCH) {
+                               AlertBox(getString(R.string.warning),"Rom not supported. Disabling settings.");
+			    }
+		    }
+		} catch (Exception e) {
+                    mSettingsCat.setEnabled(false);
                         if(Constants.FIRST_LAUNCH) {
-                           AlertBox(getString(R.string.warning),"Rom not supported. Disabling settings.");
-			}
+                            AlertBox(getString(R.string.warning),"Rom not supported. Disabling settings.");
+                        }
 		}
+
                 if(Constants.FIRST_LAUNCH)Constants.FIRST_LAUNCH = false;
 	}
 	
